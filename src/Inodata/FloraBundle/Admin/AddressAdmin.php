@@ -7,6 +7,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+
 class AddressAdmin extends Admin
 {
 	/**
@@ -20,7 +23,7 @@ class AddressAdmin extends Admin
 			->add('street')
 			->add('noInt')
 			->add('noExt')
-			->add('stateId')
+			->add('stateId', 'inodata_mx_states_type')
 			->add('city')
 			->add('postalCode')
 			->add('neighborhood')

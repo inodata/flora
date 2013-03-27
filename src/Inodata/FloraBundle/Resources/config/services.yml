@@ -7,6 +7,10 @@ parameters:
 #        arguments: [@service_id, "plain_value", %parameter%]
 
 services:
+    inodata_mx_states_type:
+        class: Inodata\FloraBundle\Form\Type\MxStatesType
+        tags:
+            - { name: form.type }
     admin.customer:
         class: Inodata\FloraBundle\Admin\CustomerAdmin
         tags:
