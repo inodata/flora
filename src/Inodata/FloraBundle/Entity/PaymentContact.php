@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoPartner
+ * PaymentContact
  *
- * @ORM\Table(name="ino_partner")
+ * @ORM\Table(name="ino_payment_contact")
  * @ORM\Entity
  */
-class InoPartner
+class PaymentContact
 {
     /**
      * @var integer
@@ -24,14 +24,14 @@ class InoPartner
     /**
      * @var string
      *
-     * @ORM\Column(name="key", type="string", length=45, nullable=true)
+     * @ORM\Column(name="employee_number", type="string", length=45, nullable=true)
      */
-    private $key;
+    private $employeeNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="name", type="string", length=45, nullable=true)
      */
     private $name;
 
@@ -50,14 +50,21 @@ class InoPartner
     private $email;
 
     /**
-     * @var \InoAddress
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="InoAddress")
+     * @ORM\Column(name="department", type="string", length=45, nullable=true)
+     */
+    private $department;
+
+    /**
+     * @var \Customer
+     *
+     * @ORM\ManyToOne(targetEntity="Customer")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      * })
      */
-    private $address;
+    private $customer;
 
 
 
@@ -72,33 +79,33 @@ class InoPartner
     }
 
     /**
-     * Set key
+     * Set employeeNumber
      *
-     * @param string $key
-     * @return InoPartner
+     * @param string $employeeNumber
+     * @return PaymentContact
      */
-    public function setKey($key)
+    public function setEmployeeNumber($employeeNumber)
     {
-        $this->key = $key;
+        $this->employeeNumber = $employeeNumber;
     
         return $this;
     }
 
     /**
-     * Get key
+     * Get employeeNumber
      *
      * @return string 
      */
-    public function getKey()
+    public function getEmployeeNumber()
     {
-        return $this->key;
+        return $this->employeeNumber;
     }
 
     /**
      * Set name
      *
      * @param string $name
-     * @return InoPartner
+     * @return PaymentContact
      */
     public function setName($name)
     {
@@ -121,7 +128,7 @@ class InoPartner
      * Set phone
      *
      * @param string $phone
-     * @return InoPartner
+     * @return PaymentContact
      */
     public function setPhone($phone)
     {
@@ -144,7 +151,7 @@ class InoPartner
      * Set email
      *
      * @param string $email
-     * @return InoPartner
+     * @return PaymentContact
      */
     public function setEmail($email)
     {
@@ -164,25 +171,48 @@ class InoPartner
     }
 
     /**
-     * Set address
+     * Set department
      *
-     * @param \Inodata\FloraBundle\Entity\InoAddress $address
-     * @return InoPartner
+     * @param string $department
+     * @return PaymentContact
      */
-    public function setAddress(\Inodata\FloraBundle\Entity\InoAddress $address = null)
+    public function setDepartment($department)
     {
-        $this->address = $address;
+        $this->department = $department;
     
         return $this;
     }
 
     /**
-     * Get address
+     * Get department
      *
-     * @return \Inodata\FloraBundle\Entity\InoAddress 
+     * @return string 
      */
-    public function getAddress()
+    public function getDepartment()
     {
-        return $this->address;
+        return $this->department;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Inodata\FloraBundle\Entity\Customer $customer
+     * @return PaymentContact
+     */
+    public function setCustomer(\Inodata\FloraBundle\Entity\InoCustomer $customer = null)
+    {
+        $this->customer = $customer;
+    
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Inodata\FloraBundle\Entity\Customer 
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
     }
 }

@@ -1,7 +1,19 @@
 parameters:
 #    inodata_flora.example.class: Inodata\FloraBundle\Example
 
-services:
+#services:
 #    inodata_flora.example:
 #        class: %inodata_flora.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+services:
+    admin.address:
+        class: Inodata\FloraBundle\Admin\AddressAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Direcciones }
+        arguments: [ null, Inodata\FloraBundle\Entity\Address, SonataAdminBundle:CRUD ]
+    admin.customer:
+        class: Inodata\FloraBundle\Admin\CustomerAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Clientes }
+        arguments: [ null, Inodata\FloraBundle\Entity\Customer, SonataAdminBundle:CRUD ]

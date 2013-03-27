@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoAddress
+ * Address
  *
  * @ORM\Table(name="ino_address")
  * @ORM\Entity
  */
-class InoAddress
+class Address
 {
     /**
      * @var integer
@@ -45,7 +45,7 @@ class InoAddress
     /**
      * @var integer
      *
-     * @ORM\Column(name="state_id", type="integer", nullable=true)
+     * @ORM\Column(name="state", type="string", length=45, nullable=true)
      */
     private $stateId;
 
@@ -70,7 +70,13 @@ class InoAddress
      */
     private $neighborhood;
 
-
+    /**
+    *@return string
+    */
+    public function __toString()
+    {
+        return $this->street.' '.$this->noExt;
+    }
 
     /**
      * Get id

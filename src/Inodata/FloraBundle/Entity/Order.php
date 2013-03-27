@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoOrder
+ * Order
  *
  * @ORM\Table(name="ino_order")
  * @ORM\Entity
  */
-class InoOrder
+class Order
 {
     /**
      * @var integer
@@ -104,7 +104,7 @@ class InoOrder
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="InoProduct", inversedBy="order")
+     * @ORM\ManyToMany(targetEntity="Product", inversedBy="order")
      * @ORM\JoinTable(name="ino_order_product",
      *   joinColumns={
      *     @ORM\JoinColumn(name="order_id", referencedColumnName="id")
@@ -117,9 +117,9 @@ class InoOrder
     private $products;
 
     /**
-     * @var \InoAddress
+     * @var \Address
      *
-     * @ORM\ManyToOne(targetEntity="InoAddress")
+     * @ORM\ManyToOne(targetEntity="Address")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="shipping_address_id", referencedColumnName="id")
      * })
@@ -127,9 +127,9 @@ class InoOrder
     private $shippingAddress;
 
     /**
-     * @var \InoCustomer
+     * @var \Customer
      *
-     * @ORM\ManyToOne(targetEntity="InoCustomer")
+     * @ORM\ManyToOne(targetEntity="Customer")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      * })
@@ -137,9 +137,9 @@ class InoOrder
     private $customer;
 
     /**
-     * @var \InoEmployee
+     * @var \Employee
      *
-     * @ORM\ManyToOne(targetEntity="InoEmployee")
+     * @ORM\ManyToOne(targetEntity="Employee")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="messenger_id", referencedColumnName="id")
      * })
@@ -147,9 +147,9 @@ class InoOrder
     private $messenger;
 
     /**
-     * @var \InoEmployee
+     * @var \Employee
      *
-     * @ORM\ManyToOne(targetEntity="InoEmployee")
+     * @ORM\ManyToOne(targetEntity="Employee")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="collector_id", referencedColumnName="id")
      * })
@@ -157,9 +157,9 @@ class InoOrder
     private $collector;
 
     /**
-     * @var \InoPaymentContact
+     * @var \PaymentContact
      *
-     * @ORM\ManyToOne(targetEntity="InoPaymentContact")
+     * @ORM\ManyToOne(targetEntity="PaymentContact")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="payment_contact_id", referencedColumnName="id")
      * })
@@ -168,7 +168,7 @@ class InoOrder
 
     /**
     * @var string
-    * @ORM\Column(type="string", columnDefinition="ENUM('open', 'intransit', 'delivered','partiallypayment','closed')") 
+    * @ORM\Column(type="string", columnDefinition="ENUM('open','intransit','delivered','partiallypayment','closed')") 
     */
     private $status;
 

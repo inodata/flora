@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoProductLog
+ * ProductLog
  *
  * @ORM\Table(name="ino_product_log")
  * @ORM\Entity
  */
-class InoProductLog
+class ProductLog
 {
     /**
      * @var integer
@@ -53,9 +53,9 @@ class InoProductLog
     private $date;
 
     /**
-     * @var \InoProduct
+     * @var \Product
      *
-     * @ORM\ManyToOne(targetEntity="InoProduct")
+     * @ORM\ManyToOne(targetEntity="Product")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * })

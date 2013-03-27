@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoCustomer
+ * Customer
  *
  * @ORM\Table(name="ino_customer")
  * @ORM\Entity
  */
-class InoCustomer
+class Customer
 {
     /**
      * @var integer
@@ -52,7 +52,7 @@ class InoCustomer
     /**
      * @var \InoAddress
      *
-     * @ORM\ManyToOne(targetEntity="InoAddress")
+     * @ORM\ManyToOne(targetEntity="Address")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fiscal_address_id", referencedColumnName="id")
      * })
@@ -62,7 +62,7 @@ class InoCustomer
     /**
      * @var \InoAddress
      *
-     * @ORM\ManyToOne(targetEntity="InoAddress")
+     * @ORM\ManyToOne(targetEntity="Address")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="payment_address_id", referencedColumnName="id")
      * })
@@ -176,10 +176,10 @@ class InoCustomer
     /**
      * Set fiscalAddress
      *
-     * @param \Inodata\FloraBundle\Entity\InoAddress $fiscalAddress
-     * @return InoCustomer
+     * @param \Inodata\FloraBundle\Entity\Address $fiscalAddress
+     * @return Customer
      */
-    public function setFiscalAddress(\Inodata\FloraBundle\Entity\InoAddress $fiscalAddress = null)
+    public function setFiscalAddress(\Inodata\FloraBundle\Entity\Address $fiscalAddress = null)
     {
         $this->fiscalAddress = $fiscalAddress;
     
@@ -189,7 +189,7 @@ class InoCustomer
     /**
      * Get fiscalAddress
      *
-     * @return \Inodata\FloraBundle\Entity\InoAddress 
+     * @return \Inodata\FloraBundle\Entity\Address 
      */
     public function getFiscalAddress()
     {
@@ -199,10 +199,10 @@ class InoCustomer
     /**
      * Set paymentAddress
      *
-     * @param \Inodata\FloraBundle\Entity\InoAddress $paymentAddress
-     * @return InoCustomer
+     * @param \Inodata\FloraBundle\Entity\Address $paymentAddress
+     * @return Customer
      */
-    public function setPaymentAddress(\Inodata\FloraBundle\Entity\InoAddress $paymentAddress = null)
+    public function setPaymentAddress(\Inodata\FloraBundle\Entity\Address $paymentAddress = null)
     {
         $this->paymentAddress = $paymentAddress;
     

@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoMessage
+ * Message
  *
  * @ORM\Table(name="ino_message")
  * @ORM\Entity
  */
-class InoMessage
+class Message
 {
     /**
      * @var integer
@@ -29,9 +29,9 @@ class InoMessage
     private $message;
 
     /**
-     * @var \InoCategory
+     * @var \Category
      *
-     * @ORM\ManyToOne(targetEntity="InoCategory")
+     * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })

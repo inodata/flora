@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoPayment
+ * Payment
  *
  * @ORM\Table(name="ino_payment")
  * @ORM\Entity
  */
-class InoPayment
+class Payment
 {
     /**
      * @var integer
@@ -43,9 +43,9 @@ class InoPayment
     private $updatedAt;
 
     /**
-     * @var \InoOrder
+     * @var \Order
      *
-     * @ORM\ManyToOne(targetEntity="InoOrder")
+     * @ORM\ManyToOne(targetEntity="Order")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      * })

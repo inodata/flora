@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoCategory
+ * Category
  *
  * @ORM\Table(name="ino_category")
  * @ORM\Entity
  */
-class InoCategory
+class Category
 {
     /**
      * @var integer
@@ -31,7 +31,7 @@ class InoCategory
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="InoProduct", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="category")
      */
     private $product;
 
@@ -80,10 +80,10 @@ class InoCategory
     /**
      * Add product
      *
-     * @param \Inodata\FloraBundle\Entity\InoProduct $product
-     * @return InoCategory
+     * @param \Inodata\FloraBundle\Entity\Product $product
+     * @return Category
      */
-    public function addProduct(\Inodata\FloraBundle\Entity\InoProduct $product)
+    public function addProduct(\Inodata\FloraBundle\Entity\Product $product)
     {
         $this->product[] = $product;
     
@@ -93,9 +93,9 @@ class InoCategory
     /**
      * Remove product
      *
-     * @param \Inodata\FloraBundle\Entity\InoProduct $product
+     * @param \Inodata\FloraBundle\Entity\Product $product
      */
-    public function removeProduct(\Inodata\FloraBundle\Entity\InoProduct $product)
+    public function removeProduct(\Inodata\FloraBundle\Entity\Product $product)
     {
         $this->product->removeElement($product);
     }

@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoProduct
+ * Product
  *
  * @ORM\Table(name="ino_product")
  * @ORM\Entity
  */
-class InoProduct
+class Product
 {
     /**
      * @var integer
@@ -52,14 +52,14 @@ class InoProduct
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="InoOrder", mappedBy="product")
+     * @ORM\ManyToMany(targetEntity="Order", mappedBy="product")
      */
     private $order;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="InoCategory", inversedBy="product")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="product")
      * @ORM\JoinTable(name="ino_product_category",
      *   joinColumns={
      *     @ORM\JoinColumn(name="product_id", referencedColumnName="id")
@@ -164,7 +164,7 @@ class InoProduct
      * Set stock
      *
      * @param integer $stock
-     * @return InoProduct
+     * @return Product
      */
     public function setStock($stock)
     {
@@ -186,10 +186,10 @@ class InoProduct
     /**
      * Add order
      *
-     * @param \Inodata\FloraBundle\Entity\InoOrder $order
-     * @return InoProduct
+     * @param \Inodata\FloraBundle\Entity\Order $order
+     * @return Product
      */
-    public function addOrder(\Inodata\FloraBundle\Entity\InoOrder $order)
+    public function addOrder(\Inodata\FloraBundle\Entity\Order $order)
     {
         $this->order[] = $order;
     
@@ -201,7 +201,7 @@ class InoProduct
      *
      * @param \Inodata\FloraBundle\Entity\InoOrder $order
      */
-    public function removeOrder(\Inodata\FloraBundle\Entity\InoOrder $order)
+    public function removeOrder(\Inodata\FloraBundle\Entity\Order $order)
     {
         $this->order->removeElement($order);
     }
@@ -219,10 +219,10 @@ class InoProduct
     /**
      * Add category
      *
-     * @param \Inodata\FloraBundle\Entity\InoCategory $category
-     * @return InoProduct
+     * @param \Inodata\FloraBundle\Entity\Category $category
+     * @return Product
      */
-    public function addCategory(\Inodata\FloraBundle\Entity\InoCategory $category)
+    public function addCategory(\Inodata\FloraBundle\Entity\Category $category)
     {
         $this->categories[] = $category;
     

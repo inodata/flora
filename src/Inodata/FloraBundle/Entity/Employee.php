@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoEmployee
+ * Employee
  *
  * @ORM\Table(name="ino_employee")
  * @ORM\Entity
  */
-class InoEmployee
+class Employee
 {
     /**
      * @var integer

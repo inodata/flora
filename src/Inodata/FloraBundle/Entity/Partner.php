@@ -5,12 +5,12 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InoPaymentContact
+ * Partner
  *
- * @ORM\Table(name="ino_payment_contact")
+ * @ORM\Table(name="ino_partner")
  * @ORM\Entity
  */
-class InoPaymentContact
+class Partner
 {
     /**
      * @var integer
@@ -24,14 +24,14 @@ class InoPaymentContact
     /**
      * @var string
      *
-     * @ORM\Column(name="employee_number", type="string", length=45, nullable=true)
+     * @ORM\Column(name="key", type="string", length=45, nullable=true)
      */
-    private $employeeNumber;
+    private $key;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
     private $name;
 
@@ -50,21 +50,14 @@ class InoPaymentContact
     private $email;
 
     /**
-     * @var string
+     * @var \Address
      *
-     * @ORM\Column(name="department", type="string", length=45, nullable=true)
-     */
-    private $department;
-
-    /**
-     * @var \InoCustomer
-     *
-     * @ORM\ManyToOne(targetEntity="InoCustomer")
+     * @ORM\ManyToOne(targetEntity="Address")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="address_id", referencedColumnName="id")
      * })
      */
-    private $customer;
+    private $address;
 
 
 
@@ -79,33 +72,33 @@ class InoPaymentContact
     }
 
     /**
-     * Set employeeNumber
+     * Set key
      *
-     * @param string $employeeNumber
-     * @return InoPaymentContact
+     * @param string $key
+     * @return InoPartner
      */
-    public function setEmployeeNumber($employeeNumber)
+    public function setKey($key)
     {
-        $this->employeeNumber = $employeeNumber;
+        $this->key = $key;
     
         return $this;
     }
 
     /**
-     * Get employeeNumber
+     * Get key
      *
      * @return string 
      */
-    public function getEmployeeNumber()
+    public function getKey()
     {
-        return $this->employeeNumber;
+        return $this->key;
     }
 
     /**
      * Set name
      *
      * @param string $name
-     * @return InoPaymentContact
+     * @return InoPartner
      */
     public function setName($name)
     {
@@ -128,7 +121,7 @@ class InoPaymentContact
      * Set phone
      *
      * @param string $phone
-     * @return InoPaymentContact
+     * @return InoPartner
      */
     public function setPhone($phone)
     {
@@ -151,7 +144,7 @@ class InoPaymentContact
      * Set email
      *
      * @param string $email
-     * @return InoPaymentContact
+     * @return InoPartner
      */
     public function setEmail($email)
     {
@@ -171,48 +164,25 @@ class InoPaymentContact
     }
 
     /**
-     * Set department
+     * Set address
      *
-     * @param string $department
-     * @return InoPaymentContact
+     * @param \Inodata\FloraBundle\Entity\InoAddress $address
+     * @return InoPartner
      */
-    public function setDepartment($department)
+    public function setAddress(\Inodata\FloraBundle\Entity\InoAddress $address = null)
     {
-        $this->department = $department;
+        $this->address = $address;
     
         return $this;
     }
 
     /**
-     * Get department
+     * Get address
      *
-     * @return string 
+     * @return \Inodata\FloraBundle\Entity\InoAddress 
      */
-    public function getDepartment()
+    public function getAddress()
     {
-        return $this->department;
-    }
-
-    /**
-     * Set customer
-     *
-     * @param \Inodata\FloraBundle\Entity\InoCustomer $customer
-     * @return InoPaymentContact
-     */
-    public function setCustomer(\Inodata\FloraBundle\Entity\InoCustomer $customer = null)
-    {
-        $this->customer = $customer;
-    
-        return $this;
-    }
-
-    /**
-     * Get customer
-     *
-     * @return \Inodata\FloraBundle\Entity\InoCustomer 
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
+        return $this->address;
     }
 }
