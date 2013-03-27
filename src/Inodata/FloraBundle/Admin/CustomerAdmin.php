@@ -11,6 +11,25 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class CustomerAdmin extends Admin
 {
 	/**
+	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
+	 * 
+	 * @return void
+	 */
+	protected function configureFormFields(FormMapper $formMapper)
+	{
+		$formMapper
+			->add('companyName')
+			->add('businessName')
+			->add('rfc')
+			->add('discount')
+			->with('Direcciones', array('collapsed' => false))
+				->add('fiscalAddress', 'sonata_type_model')
+				->add('paymentAddress', 'sonata_type_model')
+			->end();
+		;
+	}
+
+	/**
 	 * @param Sonata\AdminBundle\Show\ShowMapper $showMapper
 	 * 
 	 * @return void
@@ -24,23 +43,6 @@ class CustomerAdmin extends Admin
 			->add('discount')
 			->add('fiscal_address')
 			->add('payment_address')
-		;
-	}
-	
-	/**
-	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
-	 * 
-	 * @return void
-	 */
-	protected function configureFormFields(FormMapper $formMapper)
-	{
-		$formMapper
-			->add('companyName')
-			->add('businessName')
-			->add('rfc')
-			->add('discount')
-			->add('fiscalAddress', 'sonata_type_model')
-			->add('paymentAddress', 'sonata_type_model')
 		;
 	}
 	
