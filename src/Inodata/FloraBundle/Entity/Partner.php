@@ -24,9 +24,9 @@ class Partner
     /**
      * @var string
      *
-     * @ORM\Column(name="key", type="string", length=45, nullable=true)
+     * @ORM\Column(name="code", type="string", length=45, nullable=true)
      */
-    private $key;
+    private $code;
 
     /**
      * @var string
@@ -50,11 +50,11 @@ class Partner
     private $email;
 
     /**
-     * @var \Address
+     * @var \InoAddress
      *
      * @ORM\ManyToOne(targetEntity="Address")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="address", referencedColumnName="id")
      * })
      */
     private $address;
@@ -70,35 +70,35 @@ class Partner
     {
         return $this->id;
     }
-
-    /**
-     * Set key
-     *
-     * @param string $key
-     * @return InoPartner
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
     
-        return $this;
-    }
-
     /**
-     * Get key
+     * Set code
      *
-     * @return string 
+     * @param string $code
+     * @return Partner
      */
-    public function getKey()
+    public function setCode($code)
     {
-        return $this->key;
+    	$this->code = $code;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+    	return $this->code;
     }
 
     /**
      * Set name
      *
      * @param string $name
-     * @return InoPartner
+     * @return Partner
      */
     public function setName($name)
     {
@@ -121,7 +121,7 @@ class Partner
      * Set phone
      *
      * @param string $phone
-     * @return InoPartner
+     * @return Partner
      */
     public function setPhone($phone)
     {
@@ -144,7 +144,7 @@ class Partner
      * Set email
      *
      * @param string $email
-     * @return InoPartner
+     * @return Partner
      */
     public function setEmail($email)
     {
@@ -166,10 +166,10 @@ class Partner
     /**
      * Set address
      *
-     * @param \Inodata\FloraBundle\Entity\InoAddress $address
-     * @return InoPartner
+     * @param \Inodata\FloraBundle\Entity\Address $address
+     * @return Partner
      */
-    public function setAddress(\Inodata\FloraBundle\Entity\InoAddress $address = null)
+    public function setAddress(\Inodata\FloraBundle\Entity\Address $address = null)
     {
         $this->address = $address;
     
@@ -179,7 +179,7 @@ class Partner
     /**
      * Get address
      *
-     * @return \Inodata\FloraBundle\Entity\InoAddress 
+     * @return \Inodata\FloraBundle\Entity\Address 
      */
     public function getAddress()
     {

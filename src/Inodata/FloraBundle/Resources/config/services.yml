@@ -11,6 +11,10 @@ services:
         class: Inodata\FloraBundle\Form\Type\MxStatesType
         tags:
             - { name: form.type }
+    inodata_emp_positions_type:
+        class: Inodata\FloraBundle\Form\Type\EmpPositionsType
+        tags:
+            - { name: form.type }
     admin.customer:
         class: Inodata\FloraBundle\Admin\CustomerAdmin
         tags:
@@ -21,3 +25,14 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Dirección }
         arguments: [ null, Inodata\FloraBundle\Entity\Address, SonataAdminBundle:CRUD ]
+    admin.partner:
+        class: Inodata\FloraBundle\Admin\PartnerAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Proveedores }
+        arguments: [ null, Inodata\FloraBundle\Entity\Partner, SonataAdminBundle:CRUD ]
+    admin.employee:
+        class: Inodata\FloraBundle\Admin\EmployeeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Employee }
+        arguments: [ null, Inodata\FloraBundle\Entity\Employee, SonataAdminBundle:CRUD ]
+    

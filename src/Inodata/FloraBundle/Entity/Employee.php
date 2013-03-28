@@ -24,9 +24,9 @@ class Employee
     /**
      * @var string
      *
-     * @ORM\Column(name="key", type="string", length=45, nullable=true)
+     * @ORM\Column(name="code", type="string", length=45, nullable=true)
      */
-    private $key;
+    private $code;
 
     /**
      * @var string
@@ -48,6 +48,12 @@ class Employee
      * @ORM\Column(name="phone", type="string", length=15, nullable=true)
      */
     private $phone;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", columnDefinition="ENUM('Messenger','Collector')")
+     */
+    private $job_position;
 
 
 
@@ -59,29 +65,6 @@ class Employee
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set key
-     *
-     * @param string $key
-     * @return InoEmployee
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
-    
-        return $this;
-    }
-
-    /**
-     * Get key
-     *
-     * @return string 
-     */
-    public function getKey()
-    {
-        return $this->key;
     }
 
     /**
@@ -151,5 +134,51 @@ class Employee
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Employee
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set job_position
+     *
+     * @param string $jobPosition
+     * @return Employee
+     */
+    public function setJobPosition($jobPosition)
+    {
+        $this->job_position = $jobPosition;
+    
+        return $this;
+    }
+
+    /**
+     * Get job_position
+     *
+     * @return string 
+     */
+    public function getJobPosition()
+    {
+        return $this->job_position;
     }
 }
