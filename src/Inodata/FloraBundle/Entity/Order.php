@@ -180,6 +180,18 @@ class Order
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    /**
+    *@return string
+    */
+    public function __toString()
+    {
+        $orderId = $this->id;
+        if(empty($this->id))
+        {
+            $orderId = "";
+        }
+        return $orderId;
+    }
 
     /**
      * Get id
@@ -195,7 +207,7 @@ class Order
      * Set deliveryDate
      *
      * @param \DateTime $deliveryDate
-     * @return InoOrder
+     * @return Order
      */
     public function setDeliveryDate($deliveryDate)
     {
@@ -218,7 +230,7 @@ class Order
      * Set invoiceNumber
      *
      * @param string $invoiceNumber
-     * @return InoOrder
+     * @return Order
      */
     public function setInvoiceNumber($invoiceNumber)
     {
@@ -241,7 +253,7 @@ class Order
      * Set isExternal
      *
      * @param boolean $isExternal
-     * @return InoOrder
+     * @return Order
      */
     public function setIsExternal($isExternal)
     {
@@ -264,7 +276,7 @@ class Order
      * Set shipping
      *
      * @param float $shipping
-     * @return InoOrder
+     * @return Order
      */
     public function setShipping($shipping)
     {
@@ -287,7 +299,7 @@ class Order
      * Set discount
      *
      * @param float $discount
-     * @return InoOrder
+     * @return Order
      */
     public function setDiscount($discount)
     {
@@ -310,7 +322,7 @@ class Order
      * Set creator
      *
      * @param \Application\Sonata\UserBundle\Entity\User $creator
-     * @return InoOrder
+     * @return Order
      */
     public function setCreator(\Application\Sonata\UserBundle\Entity\User $creator )
     {
@@ -333,7 +345,7 @@ class Order
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return InoOrder
+     * @return Order
      */
     public function setCreatedAt($createdAt)
     {
@@ -356,7 +368,7 @@ class Order
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     * @return InoOrder
+     * @return Order
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -379,7 +391,7 @@ class Order
      * Set from
      *
      * @param string $from
-     * @return InoOrder
+     * @return Order
      */
     public function setFrom($from)
     {
@@ -402,7 +414,7 @@ class Order
      * Set to
      *
      * @param string $to
-     * @return InoOrder
+     * @return Order
      */
     public function setTo($to)
     {
@@ -425,7 +437,7 @@ class Order
      * Set message
      *
      * @param string $message
-     * @return InoOrder
+     * @return Order
      */
     public function setMessage($message)
     {
@@ -447,10 +459,10 @@ class Order
     /**
      * Add product
      *
-     * @param \Inodata\FloraBundle\Entity\InoProduct $product
-     * @return InoOrder
+     * @param \Inodata\FloraBundle\Entity\Product $product
+     * @return Order
      */
-    public function addProduct(\Inodata\FloraBundle\Entity\InoProduct $product)
+    public function addProduct(\Inodata\FloraBundle\Entity\Product $product)
     {
         $this->product[] = $product;
     
@@ -462,7 +474,7 @@ class Order
      *
      * @param \Inodata\FloraBundle\Entity\InoProduct $product
      */
-    public function removeProduct(\Inodata\FloraBundle\Entity\InoProduct $product)
+    public function removeProduct(\Inodata\FloraBundle\Entity\Product $product)
     {
         $this->product->removeElement($product);
     }
@@ -480,10 +492,10 @@ class Order
     /**
      * Set shippingAddress
      *
-     * @param \Inodata\FloraBundle\Entity\InoAddress $shippingAddress
-     * @return InoOrder
+     * @param \Inodata\FloraBundle\Entity\Address $shippingAddress
+     * @return Order
      */
-    public function setShippingAddress(\Inodata\FloraBundle\Entity\InoAddress $shippingAddress = null)
+    public function setShippingAddress(\Inodata\FloraBundle\Entity\Address $shippingAddress = null)
     {
         $this->shippingAddress = $shippingAddress;
     
@@ -493,7 +505,7 @@ class Order
     /**
      * Get shippingAddress
      *
-     * @return \Inodata\FloraBundle\Entity\InoAddress 
+     * @return \Inodata\FloraBundle\Entity\Address 
      */
     public function getShippingAddress()
     {
@@ -503,10 +515,10 @@ class Order
     /**
      * Set customer
      *
-     * @param \Inodata\FloraBundle\Entity\InoCustomer $customer
-     * @return InoOrder
+     * @param \Inodata\FloraBundle\Entity\Customer $customer
+     * @return Order
      */
-    public function setCustomer(\Inodata\FloraBundle\Entity\InoCustomer $customer = null)
+    public function setCustomer(\Inodata\FloraBundle\Entity\Customer $customer = null)
     {
         $this->customer = $customer;
     
@@ -516,7 +528,7 @@ class Order
     /**
      * Get customer
      *
-     * @return \Inodata\FloraBundle\Entity\InoCustomer 
+     * @return \Inodata\FloraBundle\Entity\Customer 
      */
     public function getCustomer()
     {
@@ -526,10 +538,10 @@ class Order
     /**
      * Set messenger
      *
-     * @param \Inodata\FloraBundle\Entity\InoEmployee $messenger
-     * @return InoOrder
+     * @param \Inodata\FloraBundle\Entity\Employee $messenger
+     * @return Order
      */
-    public function setMessenger(\Inodata\FloraBundle\Entity\InoEmployee $messenger = null)
+    public function setMessenger(\Inodata\FloraBundle\Entity\Employee $messenger = null)
     {
         $this->messenger = $messenger;
     
@@ -539,7 +551,7 @@ class Order
     /**
      * Get messenger
      *
-     * @return \Inodata\FloraBundle\Entity\InoEmployee 
+     * @return \Inodata\FloraBundle\Entity\Employee 
      */
     public function getMessenger()
     {
@@ -549,10 +561,10 @@ class Order
     /**
      * Set collector
      *
-     * @param \Inodata\FloraBundle\Entity\InoEmployee $collector
-     * @return InoOrder
+     * @param \Inodata\FloraBundle\Entity\Employee $collector
+     * @return Order
      */
-    public function setCollector(\Inodata\FloraBundle\Entity\InoEmployee $collector = null)
+    public function setCollector(\Inodata\FloraBundle\Entity\Employee $collector = null)
     {
         $this->collector = $collector;
     
@@ -562,7 +574,7 @@ class Order
     /**
      * Get collector
      *
-     * @return \Inodata\FloraBundle\Entity\InoEmployee 
+     * @return \Inodata\FloraBundle\Entity\Employee 
      */
     public function getCollector()
     {
@@ -572,10 +584,10 @@ class Order
     /**
      * Set paymentContact
      *
-     * @param \Inodata\FloraBundle\Entity\InoPaymentContact $paymentContact
-     * @return InoOrder
+     * @param \Inodata\FloraBundle\Entity\PaymentContact $paymentContact
+     * @return Order
      */
-    public function setPaymentContact(\Inodata\FloraBundle\Entity\InoPaymentContact $paymentContact = null)
+    public function setPaymentContact(\Inodata\FloraBundle\Entity\PaymentContact $paymentContact = null)
     {
         $this->paymentContact = $paymentContact;
     
@@ -585,7 +597,7 @@ class Order
     /**
      * Get paymentContact
      *
-     * @return \Inodata\FloraBundle\Entity\InoPaymentContact 
+     * @return \Inodata\FloraBundle\Entity\PaymentContact 
      */
     public function getPaymentContact()
     {
@@ -596,7 +608,7 @@ class Order
      * Set status
      *
      * @param string $status
-     * @return InoOrder
+     * @return Order
      */
     public function setStatus($status)
     {

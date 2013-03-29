@@ -19,6 +19,11 @@ services:
         class: Inodata\FloraBundle\Form\Type\EmpPositionsType
         tags:
             - { name: form.type }
+    admin.order:
+        class: Inodata\FloraBundle\Admin\OrderAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Pedidos }
+        arguments: [ null, Inodata\FloraBundle\Entity\Order, SonataAdminBundle:CRUD ]
     admin.category:
         class: Inodata\FloraBundle\Admin\CategoryAdmin
         tags:

@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
-class PaymentContactAdmin extends Admin
+class OrderAdmin extends Admin
 {
 	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
@@ -17,12 +17,23 @@ class PaymentContactAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('customer', 'sonata_type_model')
-			->add('name')
-			->add('department')
-			->add('employeeNumber')
-			->add('phone')
-			->add('email')
+			->with('Buscar cliente')
+				->add('customer', 'sonata_type_model')
+			->end()
+			->with('Tarjeta')
+				->add('from')
+				->add('to')
+				->add('message')
+			->end()
+			->with('Datos de entrega')
+				->add('delivery_date', 'date')
+				->add('paymentContact', 'sonata_type_model')
+				->add('to')
+				->add('shippingAddress', 'inodata_address_form')
+			->end()
+			->with('Lista de productos')
+				->add('products')
+			->end()
 		;
 	}
 	
@@ -35,12 +46,6 @@ class PaymentContactAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id')
-			->add('employee_number')
-			->add('name')
-			->add('phone')
-			->add('email')
-			->add('department')
-			->add('customer')
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'view' => array(),
@@ -58,11 +63,7 @@ class PaymentContactAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('employeeNumber')
-			->add('customer')
-			->add('name')
-			->add('email')
-			->add('department')
+			->add('id')
 		;		
 	}
 	
