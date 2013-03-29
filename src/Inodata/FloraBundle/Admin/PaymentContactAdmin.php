@@ -7,9 +7,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
-use Symfony\Component\Form\AbstractType;
-
-class AddressAdmin extends Admin
+class PaymentContactAdmin extends Admin
 {
 	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
@@ -19,13 +17,12 @@ class AddressAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('street')
-			->add('noInt')
-			->add('noExt')
-			->add('neighborhood')
-			->add('state', 'inodata_mx_states_type')
-			->add('city')
-			->add('postalCode')			
+			->add('customer', 'sonata_type_model')
+			->add('department')
+			->add('employeeNumber')
+			->add('name')
+			->add('phone')
+			->add('email')
 		;
 	}
 	
@@ -38,13 +35,12 @@ class AddressAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id')
-			->add('street')
-			->add('no_int')
-			->add('no_ext')
-			->add('state')
-			->add('city')
-			->add('postal_code')
-			->add('neighborhood')
+			->add('employee_number')
+			->add('name')
+			->add('phone')
+			->add('email')
+			->add('department')
+			->add('customer')
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'view' => array(),
@@ -58,14 +54,15 @@ class AddressAdmin extends Admin
 	 * @param Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
 	 * 
 	 * @return void
-	 */
-	
+	 */	
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('postalCode')
-			->add('state')
-			->add('city')
+			->add('employeeNumber')
+			->add('customer')
+			->add('name')
+			->add('email')
+			->add('department')
 		;		
 	}
 	

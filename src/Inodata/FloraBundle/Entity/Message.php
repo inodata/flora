@@ -38,7 +38,18 @@ class Message
      */
     private $category;
 
-
+    /**
+    *@return string
+    */
+    public function __toString()
+    {
+        $message = $this->message;
+        if(empty($this->message))
+        {
+            $message = "";
+        }
+        return $message;
+    }
 
     /**
      * Get id
@@ -54,7 +65,7 @@ class Message
      * Set message
      *
      * @param string $message
-     * @return InoMessage
+     * @return Message
      */
     public function setMessage($message)
     {
@@ -76,10 +87,10 @@ class Message
     /**
      * Set category
      *
-     * @param \Inodata\FloraBundle\Entity\InoCategory $category
-     * @return InoMessage
+     * @param \Inodata\FloraBundle\Entity\Category $category
+     * @return Message
      */
-    public function setCategory(\Inodata\FloraBundle\Entity\InoCategory $category = null)
+    public function setCategory(\Inodata\FloraBundle\Entity\Category $category = null)
     {
         $this->category = $category;
     
@@ -89,7 +100,7 @@ class Message
     /**
      * Get category
      *
-     * @return \Inodata\FloraBundle\Entity\InoCategory 
+     * @return \Inodata\FloraBundle\Entity\Category 
      */
     public function getCategory()
     {

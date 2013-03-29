@@ -66,7 +66,18 @@ class PaymentContact
      */
     private $customer;
 
-
+    /**
+    *@return string
+    */
+    public function __toString()
+    {
+        $name = $this->name;
+        if(empty($this->name))
+        {
+            $name = '';
+        }        
+        return $name;
+    }
 
     /**
      * Get id
