@@ -51,11 +51,21 @@ class Employee
     
     /**
      * @var string
-     * @ORM\Column(type="string", columnDefinition="ENUM('Messenger','Collector')")
+     * @ORM\Column(name="job_position", type="string", columnDefinition="ENUM('Messenger','Collector')")
      */
-    private $job_position;
-
-
+    private $jobPosition;
+    
+    /**
+    *@return string
+    */
+    public function __toString()
+    {
+    	if(!$this->id){
+    		return 'New';
+    	}
+        
+    	return $this->name.' '.$this->lastname.' ('.$this->code.')';
+    }
 
     /**
      * Get id
@@ -160,25 +170,25 @@ class Employee
     }
 
     /**
-     * Set job_position
+     * Set jobPosition
      *
      * @param string $jobPosition
      * @return Employee
      */
     public function setJobPosition($jobPosition)
     {
-        $this->job_position = $jobPosition;
+        $this->jobPosition = $jobPosition;
     
         return $this;
     }
 
     /**
-     * Get job_position
+     * Get jobPosition
      *
      * @return string 
      */
     public function getJobPosition()
     {
-        return $this->job_position;
+        return $this->jobPosition;
     }
 }

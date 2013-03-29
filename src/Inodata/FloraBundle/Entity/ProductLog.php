@@ -61,8 +61,18 @@ class ProductLog
      * })
      */
     private $product;
-
-
+    
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+    	if(!$this->id){
+    		return "New";
+    	}
+    	
+    	return ' '.$this->product;
+    }
 
     /**
      * Get id
@@ -78,7 +88,7 @@ class ProductLog
      * Set stock
      *
      * @param integer $stock
-     * @return InoProductLog
+     * @return ProductLog
      */
     public function setStock($stock)
     {
@@ -101,7 +111,7 @@ class ProductLog
      * Set comment
      *
      * @param string $comment
-     * @return InoProductLog
+     * @return ProductLog
      */
     public function setComment($comment)
     {
@@ -124,7 +134,7 @@ class ProductLog
      * Set userId
      *
      * @param integer $userId
-     * @return InoProductLog
+     * @return ProductLog
      */
     public function setUserId($userId)
     {
@@ -147,7 +157,7 @@ class ProductLog
      * Set date
      *
      * @param \DateTime $date
-     * @return InoProductLog
+     * @return ProductLog
      */
     public function setDate($date)
     {
@@ -169,10 +179,10 @@ class ProductLog
     /**
      * Set product
      *
-     * @param \Inodata\FloraBundle\Entity\InoProduct $product
-     * @return InoProductLog
+     * @param \Inodata\FloraBundle\Entity\Product $product
+     * @return ProductLog
      */
-    public function setProduct(\Inodata\FloraBundle\Entity\InoProduct $product = null)
+    public function setProduct(\Inodata\FloraBundle\Entity\Product $product = null)
     {
         $this->product = $product;
     
@@ -182,7 +192,7 @@ class ProductLog
     /**
      * Get product
      *
-     * @return \Inodata\FloraBundle\Entity\InoProduct 
+     * @return \Inodata\FloraBundle\Entity\Product 
      */
     public function getProduct()
     {
@@ -193,7 +203,7 @@ class ProductLog
      * Set creator
      *
      * @param \Application\Sonata\UserBundle\Entity\User $creator
-     * @return InoProductLog
+     * @return ProductLog
      */
     public function setCreator(\Application\Sonata\UserBundle\Entity\User $creator = null)
     {

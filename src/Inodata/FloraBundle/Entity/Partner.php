@@ -58,8 +58,18 @@ class Partner
      * })
      */
     private $address;
-
-
+    
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+    	if(!$this->id){
+    		return "New";
+    	}
+    	
+    	return $this->name.' ('.$this->code.')';
+    }
 
     /**
      * Get id

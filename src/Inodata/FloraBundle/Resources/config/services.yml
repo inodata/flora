@@ -33,6 +33,16 @@ services:
     admin.employee:
         class: Inodata\FloraBundle\Admin\EmployeeAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Employee }
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Empleados }
         arguments: [ null, Inodata\FloraBundle\Entity\Employee, SonataAdminBundle:CRUD ]
+    admin.product:
+        class: Inodata\FloraBundle\Admin\ProductAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Productos }
+        arguments: [ null, Inodata\FloraBundle\Entity\Product, SonataAdminBundle:CRUD ]
+    admin.product_log:
+        class: Inodata\FloraBundle\Admin\ProductLogAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Control de inventario}
+        arguments: [ null, Inodata\FloraBundle\Entity\ProductLog, SonataAdminBundle:CRUD ]
     

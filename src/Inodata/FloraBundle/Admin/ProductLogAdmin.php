@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class EmployeeAdmin extends Admin
+class ProductLogAdmin extends Admin
 {
 	/**
 	 * @param Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -17,12 +17,12 @@ class EmployeeAdmin extends Admin
 	protected function configureShowField(ShowMapper $showMapper)
 	{
 		$showMapper
-			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position')
-			;
+			->add('product', 'sonata_type_model')
+			->add('stock')
+			->add('comment')
+			->add('creator')
+			->add('date', 'datetime')
+		;
 	}
 	
 	/**
@@ -33,12 +33,12 @@ class EmployeeAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position', 'inodata_emp_positions_type')
-			;
+			->add('product', 'sonata_type_model')
+			->add('stock')
+			->add('comment')
+			->add('creator')
+			->add('date', 'datetime')
+		;
 	}
 	
 	/**
@@ -49,18 +49,17 @@ class EmployeeAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position')
+			->add('product', 'sonata_type_model')
+			->add('stock')
+			->add('creator')
+			->add('date', 'date')
 			->add('_action', 'actions', array(
 				'actions' => array(
 						'view' => array(),
 						'edit' => array(),
 						'delete' => array(),
 				)
-			));
+		));
 	}
 	
 	/**
@@ -71,14 +70,9 @@ class EmployeeAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('name')
-			->add('lastname')
-			->add('jobPosition', 'doctrine_orm_choice', array('label' => 'Job Position',
-                    'field_options' => array(
-                        'required' => false,
-                        'choices' => array("Messenger" => "Messenger", "Collector" => "Collector")
-                    ),
-                    'field_type' => 'choice'
-                ));
+			->add('product')
+			->add('creator')
+			->add('date', 'doctrine_orm_datetime_range', array('input_type' => 'timestamp'))
+		;
 	}
 }

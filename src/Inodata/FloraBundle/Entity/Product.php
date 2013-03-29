@@ -24,9 +24,9 @@ class Product
     /**
      * @var integer
      *
-     * @ORM\Column(name="key", type="integer", nullable=false)
+     * @ORM\Column(name="code", type="integer", nullable=false)
      */
-    private $key;
+    private $code;
 
     /**
      * @var string
@@ -70,6 +70,18 @@ class Product
      * )
      */
     private $categories;
+    
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+    	if(!$this->id){
+    		return "New";
+    	}
+    	
+    	return $this->description.' ('.$this->code.')';
+    }
 
     /**
      * Constructor
@@ -92,33 +104,10 @@ class Product
     }
 
     /**
-     * Set key
-     *
-     * @param integer $key
-     * @return InoProduct
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
-    
-        return $this;
-    }
-
-    /**
-     * Get key
-     *
-     * @return integer 
-     */
-    public function getKey()
-    {
-        return $this->key;
-    }
-
-    /**
      * Set description
      *
      * @param string $description
-     * @return InoProduct
+     * @return Product
      */
     public function setDescription($description)
     {
@@ -141,7 +130,7 @@ class Product
      * Set price
      *
      * @param float $price
-     * @return InoProduct
+     * @return Product
      */
     public function setPrice($price)
     {
@@ -199,7 +188,7 @@ class Product
     /**
      * Remove order
      *
-     * @param \Inodata\FloraBundle\Entity\InoOrder $order
+     * @param \Inodata\FloraBundle\Entity\Order $order
      */
     public function removeOrder(\Inodata\FloraBundle\Entity\Order $order)
     {
@@ -232,9 +221,9 @@ class Product
     /**
      * Remove category
      *
-     * @param \Inodata\FloraBundle\Entity\InoCategory $category
+     * @param \Inodata\FloraBundle\Entity\Category $category
      */
-    public function removeCategory(\Inodata\FloraBundle\Entity\InoCategory $category)
+    public function removeCategory(\Inodata\FloraBundle\Entity\Category $category)
     {
         $this->categories->removeElement($category);
     }
@@ -252,10 +241,10 @@ class Product
     /**
      * Add categories
      *
-     * @param \Inodata\FloraBundle\Entity\InoCategory $categories
-     * @return InoProduct
+     * @param \Inodata\FloraBundle\Entity\Category $categories
+     * @return Product
      */
-    public function addCategorie(\Inodata\FloraBundle\Entity\InoCategory $categories)
+    public function addCategorie(\Inodata\FloraBundle\Entity\Category $categories)
     {
         $this->categories[] = $categories;
     
@@ -265,10 +254,33 @@ class Product
     /**
      * Remove categories
      *
-     * @param \Inodata\FloraBundle\Entity\InoCategory $categories
+     * @param \Inodata\FloraBundle\Entity\Category $categories
      */
-    public function removeCategorie(\Inodata\FloraBundle\Entity\InoCategory $categories)
+    public function removeCategorie(\Inodata\FloraBundle\Entity\Category $categories)
     {
         $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Set code
+     *
+     * @param integer $code
+     * @return Product
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return integer 
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 }

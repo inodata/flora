@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class EmployeeAdmin extends Admin
+class ProductAdmin extends Admin
 {
 	/**
 	 * @param Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -18,11 +18,10 @@ class EmployeeAdmin extends Admin
 	{
 		$showMapper
 			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position')
-			;
+			->add('description')
+			->add('price')
+			->add('stock', 'integer')
+		;
 	}
 	
 	/**
@@ -34,11 +33,10 @@ class EmployeeAdmin extends Admin
 	{
 		$formMapper
 			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position', 'inodata_emp_positions_type')
-			;
+			->add('description')
+			->add('price')
+			->add('stock')
+		;
 	}
 	
 	/**
@@ -49,18 +47,17 @@ class EmployeeAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position')
-			->add('_action', 'actions', array(
+		->add('code')
+		->add('description')
+		->add('price')
+		->add('stock')
+		->add('_action', 'actions', array(
 				'actions' => array(
 						'view' => array(),
 						'edit' => array(),
 						'delete' => array(),
 				)
-			));
+		));
 	}
 	
 	/**
@@ -71,14 +68,9 @@ class EmployeeAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('name')
-			->add('lastname')
-			->add('jobPosition', 'doctrine_orm_choice', array('label' => 'Job Position',
-                    'field_options' => array(
-                        'required' => false,
-                        'choices' => array("Messenger" => "Messenger", "Collector" => "Collector")
-                    ),
-                    'field_type' => 'choice'
-                ));
+			->add('code')
+			->add('description')
+			->add('stock')
+			;
 	}
 }
