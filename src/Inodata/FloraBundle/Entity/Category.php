@@ -43,6 +43,18 @@ class Category
         $this->product = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    /**
+    *@return string
+    */
+    public function __toString()
+    {
+        $description = $this->description;
+        if(empty($this->description))
+        {
+            $description = "";
+        }
+        return $description;
+    }
 
     /**
      * Get id
@@ -58,7 +70,7 @@ class Category
      * Set description
      *
      * @param string $description
-     * @return InoCategory
+     * @return Category
      */
     public function setDescription($description)
     {

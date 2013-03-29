@@ -19,6 +19,16 @@ services:
         class: Inodata\FloraBundle\Form\Type\EmpPositionsType
         tags:
             - { name: form.type }
+    admin.category:
+        class: Inodata\FloraBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Categorías }
+        arguments: [ null, Inodata\FloraBundle\Entity\Category, SonataAdminBundle:CRUD ]
+    admin.message:
+        class: Inodata\FloraBundle\Admin\MessageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Mensajes }
+        arguments: [ null, Inodata\FloraBundle\Entity\Message, SonataAdminBundle:CRUD ]
     admin.paymentcontact:
         class: Inodata\FloraBundle\Admin\PaymentContactAdmin
         tags:
