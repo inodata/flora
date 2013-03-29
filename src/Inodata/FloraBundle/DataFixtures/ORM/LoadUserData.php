@@ -1,13 +1,14 @@
 <?php
 namespace Inodata\FloraBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Application\Sonata\UserBundle\Entity\User;
 
-class LoadUserData implements FixtureInterface, ContainerAwareInterface
+class LoadUserData extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
     /**
      * @var ContainerInterface
@@ -41,5 +42,14 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
 
         $manager->persist($user);
         $manager->flush();
+        $this->addReference('admin_user', $user);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+     public function getOrder()
+     {
+        return 1;
+     }   
 }

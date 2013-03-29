@@ -43,11 +43,11 @@ class Address
     private $noExt;
 
     /**
-     * @var integer
+     * @var string
      *
      * @ORM\Column(name="state", type="string", length=45, nullable=true)
      */
-    private $stateId;
+    private $state;
 
     /**
      * @var string
@@ -75,7 +75,14 @@ class Address
     */
     public function __toString()
     {
-        return $this->street.' '.$this->noExt;
+        $address = $this->street.' '.$this->noExt;
+        if(!empty($this->noInt))
+        {
+            $address .= ' Int. '.$this->noInt;
+        }
+        $address .= "\n".$this->neighborhood;
+        $address .= "\n".$this->city.', '.$this->state.', '.$this->postalCode;
+        return $address;
     }
 
     /**
@@ -158,26 +165,26 @@ class Address
     }
 
     /**
-     * Set stateId
+     * Set state
      *
-     * @param integer $stateId
+     * @param integer $state
      * @return InoAddress
      */
-    public function setStateId($stateId)
+    public function setState($state)
     {
-        $this->stateId = $stateId;
+        $this->state = $state;
     
         return $this;
     }
 
     /**
-     * Get stateId
+     * Get state
      *
      * @return integer 
      */
-    public function getStateId()
+    public function getState()
     {
-        return $this->stateId;
+        return $this->state;
     }
 
     /**

@@ -23,8 +23,8 @@ class CustomerAdmin extends Admin
 			->add('rfc')
 			->add('discount')
 			->with('Direcciones', array('collapsed' => false))
-				->add('fiscalAddress', 'sonata_type_model')
-				->add('paymentAddress', 'sonata_type_model')
+				->add('fiscalAddress', 'inodata_address_form')
+				->add('paymentAddress', 'inodata_address_form')
 			->end();
 		;
 	}
@@ -38,7 +38,7 @@ class CustomerAdmin extends Admin
 	{
 		$showMapper
 			->add('company_name')
-			->add('bussiness_name')
+			->add('business_name')
 			->add('rfc')
 			->add('discount')
 			->add('fiscal_address')
