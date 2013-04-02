@@ -1,1 +1,25 @@
-Hello {{ name }}!
+<head>
+	{% block stylesheets %}
+	
+	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+	{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' %}
+		<script type="text/javascript" src="{{ asset_url }}" ></script>
+		
+	{% endjavascripts %}
+{% endblock %}
+    <script>
+        $(document).ready(function() { $("#e1").select2(); alert("balblas");});
+    </script>
+</head>
+<body>
+    <select id="e1">
+        <option value="AL">Alabama</option>
+        
+        <option value="WY">Wyoming</option>
+    </select>
+</body>

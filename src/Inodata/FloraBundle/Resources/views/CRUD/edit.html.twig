@@ -1,0 +1,18 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}	
+	{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
+				   '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
+	%}
+		<script type="text/javascript" src="{{ asset_url }}" ></script>
+	{% endjavascripts %}
+	<script>
+        $(document).ready(function() { $(".inodata_customer").select2(); });
+    </script>
+{% endblock %}

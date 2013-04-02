@@ -18,7 +18,12 @@ class OrderAdmin extends Admin
 	{
 		$formMapper
 			->with('Buscar cliente')
-				->add('customer', 'sonata_type_model')
+				->add('customer', 'genemu_jqueryselect2_entity', array(
+					'class' => 'Inodata\FloraBundle\Entity\Customer',
+					'property' => 'rfc', 'attr' => array(
+						'class' => 'inodata_customer span5'
+					)
+				))
 			->end()
 			->with('Tarjeta')
 				->add('from')
@@ -66,5 +71,16 @@ class OrderAdmin extends Admin
 			->add('id')
 		;		
 	}
-	
+
+	public function getTemplate($name)
+	{
+		switch ($name) {
+	        case 'edit':
+	            	return 'InodataFloraBundle:CRUD:edit.html.twig';
+	            break;
+	        default:
+	            	return parent::getTemplate($name);
+	            break;
+		}
+	}
 } 

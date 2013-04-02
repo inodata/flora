@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Inodata\FloraBundle\InodataFloraBundle(),
         );
 
