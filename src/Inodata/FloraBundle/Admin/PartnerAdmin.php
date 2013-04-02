@@ -38,7 +38,7 @@ class PartnerAdmin extends Admin
 			->add('phone')
 			->add('email')
 			->with('Dirección', array('collapsed'=>false))
-				->add('address', 'sonata_type_model')
+				->add('address', 'inodata_address_form')
 			->end()
 			;
 	}
