@@ -3,6 +3,7 @@
 namespace Inodata\FloraBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -17,10 +18,9 @@ class OrderAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->with('Buscar cliente')
+			->with('Cliente')
 				->add('customer', 'genemu_jqueryselect2_entity', array(
 					'class' => 'Inodata\FloraBundle\Entity\Customer',
-					'property' => 'rfc', 
 					'attr' => array(
 						'class' => 'inodata_customer span5',
 						'placeholder' => 'Selecciona un cliente'
@@ -33,13 +33,13 @@ class OrderAdmin extends Admin
 				->add('to')
 				->add('message')
 			->end()
-			->with('Datos de entrega')
+			->with('Entrega')
 				->add('delivery_date', 'date')
 				->add('paymentContact', 'sonata_type_model')
 				->add('to')
 				->add('shippingAddress', 'inodata_address_form')
 			->end()
-			->with('Lista de productos')
+			->with('Productos')
 				->add('products')
 			->end()
 		;
