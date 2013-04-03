@@ -26,6 +26,66 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion1', $address);
+        
+        $address = new Address();
+        $address->setStreet('Lazaro Cardenas');
+        $address->setNoInt('A');
+        $address->setNoExt('1234');
+        $address->setNeighborhood('Centro');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion2', $address);
+        
+        $address = new Address();
+        $address->setStreet('Av. Revolución');
+        $address->setNoInt('A');
+        $address->setNoExt('4562');
+        $address->setNeighborhood('Col. Altavista');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion3', $address);
+        
+        $address = new Address();
+        $address->setStreet('Av. Del Estado');
+        $address->setNoInt('123');
+        $address->setNoExt('4325');
+        $address->setNeighborhood('Centro');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion4', $address);
+        
+        $address = new Address();
+        $address->setStreet('Lazaro Cardenas');
+        $address->setNoInt('A');
+        $address->setNoExt('1234');
+        $address->setNeighborhood('Centro');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion5', $address);
+        
+        $address = new Address();
+        $address->setStreet('Lazaro Cardenas');
+        $address->setNoInt('A');
+        $address->setNoExt('1234');
+        $address->setNeighborhood('Centro');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion6', $address);
     }
 
     /**

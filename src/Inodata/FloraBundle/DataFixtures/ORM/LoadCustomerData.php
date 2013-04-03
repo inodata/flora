@@ -20,12 +20,25 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setCompanyName('Industrias Patito Incorporated');
         $customer->setDiscount(.05);
         $customer->setFiscalAddress($this->getReference('direccion1'));
-        $customer->setPaymentAddress($this->getReference('direccion1'));
+        $customer->setPaymentAddress($this->getReference('direccion2'));
 
         $manager->persist($customer);
         $manager->flush();
 
         $this->addReference('patito_sa', $customer);
+        
+        $customer = new Customer();
+        $customer->setRfc('MAH128345GH2');
+        $customer->setBusinessName('Super Colchones SA de CV');
+        $customer->setCompanyName('Super Colchones');
+        $customer->setDiscount(.05);
+        $customer->setFiscalAddress($this->getReference('direccion3'));
+        $customer->setPaymentAddress($this->getReference('direccion4'));
+        
+        $manager->persist($customer);
+        $manager->flush();
+        
+        $this->addReference('customer2', $customer);
     }
 
     /**
