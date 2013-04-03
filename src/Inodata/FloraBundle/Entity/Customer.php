@@ -52,9 +52,9 @@ class Customer
     /**
      * @var \Address
      *
-     * @ORM\OneToOne(targetEntity="Address", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fiscal_address_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="fiscal_address_id", referencedColumnName="id", onDelete="CASCADE")
      * })
      */
     private $fiscalAddress;
@@ -62,9 +62,9 @@ class Customer
     /**
      * @var \Address
      *
-     * @ORM\OneToOne(targetEntity="Address", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="payment_address_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="payment_address_id", referencedColumnName="id", onDelete="CASCADE")
      * })
      */
     private $paymentAddress;

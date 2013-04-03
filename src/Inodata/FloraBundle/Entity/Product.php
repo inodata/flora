@@ -59,7 +59,7 @@ class Product
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="product")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="product", cascade={"persist"})
      * @ORM\JoinTable(name="ino_product_category",
      *   joinColumns={
      *     @ORM\JoinColumn(name="product_id", referencedColumnName="id")
@@ -205,6 +205,8 @@ class Product
         return $this->order;
     }
 
+
+
     /**
      * Add category
      *
@@ -244,7 +246,7 @@ class Product
      * @param \Inodata\FloraBundle\Entity\Category $categories
      * @return Product
      */
-    public function addCategorie(\Inodata\FloraBundle\Entity\Category $categories)
+    public function addCategories(\Inodata\FloraBundle\Entity\Category $categories)
     {
         $this->categories[] = $categories;
     
