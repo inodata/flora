@@ -13,6 +13,9 @@
 		<script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
 	<script>
-        $(document).ready(function() { $(".inodata_customer").select2(); });
+        $(document).ready(function() { $(".inodata_customer").select2({ 
+        	placeholder: "Selecciona un cliente",
+        	allowClear: true });
+        });
     </script>
 {% endblock %}

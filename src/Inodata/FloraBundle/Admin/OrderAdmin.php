@@ -20,10 +20,13 @@ class OrderAdmin extends Admin
 			->with('Buscar cliente')
 				->add('customer', 'genemu_jqueryselect2_entity', array(
 					'class' => 'Inodata\FloraBundle\Entity\Customer',
-					'property' => 'rfc', 'attr' => array(
-						'class' => 'inodata_customer span5'
+					'property' => 'rfc', 
+					'attr' => array(
+						'class' => 'inodata_customer span5',
+						'placeholder' => 'Selecciona un cliente'
+						)
 					)
-				))
+				)
 			->end()
 			->with('Tarjeta')
 				->add('from')
@@ -57,7 +60,8 @@ class OrderAdmin extends Admin
 					'edit' => array(),
 					'delete' => array(),
 				)
-			));
+			)
+		);
 	}
 	
 	/**
