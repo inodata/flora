@@ -50,11 +50,11 @@ class Partner
     private $email;
 
     /**
-     * @var \InoAddress
+     * @var \Address
      *
-     * @ORM\ManyToOne(targetEntity="Address")
+     * @ORM\OneToOne(targetEntity="Address", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="address", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="address", referencedColumnName="id"),
      * })
      */
     private $address;

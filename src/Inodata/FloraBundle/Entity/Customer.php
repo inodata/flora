@@ -50,21 +50,21 @@ class Customer
     private $discount;
 
     /**
-     * @var \InoAddress
+     * @var \Address
      *
-     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Address", cascade={"persist", "remove"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fiscal_address_id", referencedColumnName="id", onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="fiscal_address_id", referencedColumnName="id")
      * })
      */
     private $fiscalAddress;
 
     /**
-     * @var \InoAddress
+     * @var \Address
      *
-     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Address", cascade={"persist", "remove"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="payment_address_id", referencedColumnName="id", onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="payment_address_id", referencedColumnName="id")
      * })
      */
     private $paymentAddress;
