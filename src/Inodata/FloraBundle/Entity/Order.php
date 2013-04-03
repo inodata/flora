@@ -3,6 +3,7 @@
 namespace Inodata\FloraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+//use Doctrine\ORM\EntityRepository;
 
 /**
  * Order
@@ -192,6 +193,8 @@ class Order
         }
         return $orderId;
     }
+
+    
 
     /**
      * Get id
