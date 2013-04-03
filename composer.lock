@@ -298,7 +298,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -1655,12 +1655,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "325508ca99e45428db20828985857a5f6eb8f911"
+                "reference": "d271b25c9c7c6448967553da80f81d324c3c7fa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/325508ca99e45428db20828985857a5f6eb8f911",
-                "reference": "325508ca99e45428db20828985857a5f6eb8f911",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/d271b25c9c7c6448967553da80f81d324c3c7fa9",
+                "reference": "d271b25c9c7c6448967553da80f81d324c3c7fa9",
                 "shasum": ""
             },
             "require": {
@@ -1721,7 +1721,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-03-27 18:08:43"
+            "time": "2013-04-02 08:51:06"
         },
         {
             "name": "sonata-project/block-bundle",
