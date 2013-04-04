@@ -64,15 +64,25 @@
                         </div>
                     </fieldset>
                     {% block products_table %}
-                        {% set batchactions = admin.batchactions %}
-                        
                             <table class="table table-bordered table-striped">
                                 {% block table_header %}
                                     <thead>
                                         <tr class="sonata-ba-list-field-header">
                                             {% spaceless %}
                                                 <th class="sonata-ba-list-field-header-text" >
-                                                    Hello1
+                                                    Cantidad
+                                                </th>
+                                                <th class="sonata-ba-list-field-header-text" >
+                                                    Clave
+                                                </th>
+                                                <th class="sonata-ba-list-field-header-text" >
+                                                    Descripción
+                                                </th>
+                                                <th class="sonata-ba-list-field-header-text" >
+                                                    Precio
+                                                </th>
+                                                <th class="sonata-ba-list-field-header-text" >
+                                                    Acciones
                                                 </th>
                                             {% endspaceless %}
                                         </tr>
@@ -83,16 +93,30 @@
                                     <tbody>
                                         <tr>
                                             <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
-                                                Industrias Patito Incorporated
-                                            </td>                        
+                                                sdf
+                                            </td>
+                                            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                                00234
+                                            </td>
+                                            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                                Flores bonitas
+                                            </td>
+                                            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                                4005
+                                            </td>
+                                            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                                <a href="#" class="btn delete_link" title="Borrar">
+                                                    <i class="icon-remove"></i>Borrar
+                                                </a>
+                                            </td>                      
                                         </tr>
                                     </tbody>
                                 {% endblock %}
 
                                 {% block table_footer %}
                                     <tr>
-                                        <th colspan="">
-                                            <td></td>    
+                                        <th colspan="5">
+                                                
                                         </th>
                                     </tr>                
                                 {% endblock %}
