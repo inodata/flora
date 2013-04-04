@@ -25,11 +25,30 @@
         		allowClear: true
             });
 
-            $(".inodata_product").change(function(){});
+            $(".inodata_product").change(function(){
+                url = $('#add_product_url').val();
+                url = url.replace("%20", $(this).val())
+                
+                $.get(url, function(product){
+                    if($("#no_products").length>0){
+                      $("#no_products").css('display', 'none'); 
+                    }
+                    $(".table tbody").append(product);
+                });
+            });
+
+            $(".delete_link").live('click', function(){
+                $(this).closest("tr").remove();
+                if($(".product").length==0){
+                	$("#no_products").css('display', 'table-row'); 
+                }
+            });
         });
     </script>
 {% endblock %}
+
 {% block sonata_fieldsets %}
+  <input type="hidden" id="add_product_url" value="{{ path('inodata_flora_order_product', {'id' : ' '}) }}" />
     <div class="tab-content">
         {% for name, form_group in admin.formgroups %}
             {% if name != 'Productos' %}

@@ -3,5 +3,5 @@ inodata_flora_homepage:
     defaults: { _controller: InodataFloraBundle:Default:index }
     
 inodata_flora_order_product:
-    pattern: /admin/inodata/flora/order/product
+    pattern: /admin/inodata/flora/order/product/{id}
     defaults: {_controller: InodataFloraBundle:Order:product}
