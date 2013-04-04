@@ -1,3 +1,7 @@
 inodata_flora_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: InodataFloraBundle:Default:index }
+    
+inodata_flora_order_product:
+    pattern: /admin/inodata/flora/order/product
+    defaults: {_controller: InodataFloraBundle:Order:product}

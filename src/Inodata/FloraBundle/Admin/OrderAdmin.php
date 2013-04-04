@@ -40,7 +40,11 @@ class OrderAdmin extends Admin
 				->add('shippingAddress', 'inodata_address_form')
 			->end()
 			->with('Productos')
-				->add('products')
+				->add('productos', 'genemu_jqueryselect2_entity', array(
+					'class' => 'Inodata\FloraBundle\Entity\Product',
+					'mapped' => false,
+					'empty_value' => '',
+					'attr' => array('class'=>'inodata_product span5')))
 			->end()
 		;
 	}
@@ -80,7 +84,7 @@ class OrderAdmin extends Admin
 	{
 		switch ($name) {
 	        case 'edit':
-	            	return 'InodataFloraBundle:CRUD:edit.html.twig';
+	            	return 'InodataFloraBundle:Order:edit.html.twig';
 	            break;
 	        default:
 	            	return parent::getTemplate($name);

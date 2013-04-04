@@ -11,6 +11,10 @@ services:
         class: Inodata\FloraBundle\Form\Type\AddressType
         tags:
             - { name: form.type }
+    inodata_order_products_form:
+        class: Inodata\FloraBundle\Form\Type\OrderProductsType
+        tags:
+            - { name: form.type }
     inodata_mx_states_type:
         class: Inodata\FloraBundle\Form\Type\MxStatesType
         tags:

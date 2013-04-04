@@ -84,14 +84,14 @@ class Order
     /**
      * @var string
      *
-     * @ORM\Column(name="from", type="string", length=255, nullable=true)
+     * @ORM\Column(name="from_person", type="string", length=255, nullable=true)
      */
     private $from;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="to", type="string", length=255, nullable=true)
+     * @ORM\Column(name="to_person", type="string", length=255, nullable=true)
      */
     private $to;
 
@@ -120,9 +120,9 @@ class Order
     /**
      * @var \Address
      *
-     * @ORM\ManyToOne(targetEntity="Address")
+     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="shipping_address_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="shipping_address_id", referencedColumnName="id", onDelete="CASCADE")
      * })
      */
     private $shippingAddress;
@@ -191,7 +191,8 @@ class Order
         {
             $orderId = "";
         }
-        return $orderId;
+        
+        return ''.$orderId;
     }
 
     
@@ -475,7 +476,7 @@ class Order
     /**
      * Remove Product
      *
-     * @param \Inodata\FloraBundle\Entity\InoProduct $product
+     * @param \Inodata\FloraBundle\Entity\Product $product
      */
     public function removeProduct(\Inodata\FloraBundle\Entity\Product $product)
     {

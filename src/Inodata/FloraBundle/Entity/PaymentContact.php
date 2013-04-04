@@ -210,7 +210,7 @@ class PaymentContact
      * @param \Inodata\FloraBundle\Entity\Customer $customer
      * @return PaymentContact
      */
-    public function setCustomer(\Inodata\FloraBundle\Entity\InoCustomer $customer = null)
+    public function setCustomer(\Inodata\FloraBundle\Entity\Customer $customer = null)
     {
         $this->customer = $customer;
     

@@ -285,4 +285,17 @@ class Product
     {
         return $this->code;
     }
+
+    /**
+     * Add categories
+     *
+     * @param \Inodata\FloraBundle\Entity\Category $categories
+     * @return Product
+     */
+    public function addCategorie(\Inodata\FloraBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
 }
