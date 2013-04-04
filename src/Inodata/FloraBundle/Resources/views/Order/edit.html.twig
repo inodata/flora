@@ -1,4 +1,4 @@
-{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css' %}
@@ -29,4 +29,82 @@
         });
     </script>
 {% endblock %}
+{% block sonata_fieldsets %}
+    <div class="tab-content">
+        {% for name, form_group in admin.formgroups %}
+            {% if name != 'Productos' %}
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ name }}">
+                    <fieldset>
+                        <div class="sonata-ba-collapsed-fields">
+                            {% if form_group.description != false %}
+                                <p>{{ form_group.description|raw }}</p>
+                            {% endif %}
 
+                            {% for field_name in form_group.fields %}
+                                {% if admin.formfielddescriptions[field_name] is defined %}
+                                    {{ form_row(form[field_name])}}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                </div>
+            {% else %}
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ name }}">
+                    <fieldset>
+                        <div class="sonata-ba-collapsed-fields">
+                            {% if form_group.description != false %}
+                                <p>{{ form_group.description|raw }}</p>
+                            {% endif %}
+
+                            {% for field_name in form_group.fields %}
+                                {% if admin.formfielddescriptions[field_name] is defined %}
+                                    {{ form_row(form[field_name])}}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                    {% block products_table %}
+                        {% set batchactions = admin.batchactions %}
+                        
+                            <table class="table table-bordered table-striped">
+                                {% block table_header %}
+                                    <thead>
+                                        <tr class="sonata-ba-list-field-header">
+                                            {% spaceless %}
+                                                <th class="sonata-ba-list-field-header-text" >
+                                                    Hello1
+                                                </th>
+                                            {% endspaceless %}
+                                        </tr>
+                                    </thead>
+                                {% endblock %}
+
+                                {% block table_body %}
+                                    <tbody>
+                                        <tr>
+                                            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                                Industrias Patito Incorporated
+                                            </td>                        
+                                        </tr>
+                                    </tbody>
+                                {% endblock %}
+
+                                {% block table_footer %}
+                                    <tr>
+                                        <th colspan="">
+                                            <td></td>    
+                                        </th>
+                                    </tr>                
+                                {% endblock %}
+                            </table>
+                        
+                            <p class="notice">
+                                {{ 'no_result'|trans({}, 'SonataAdminBundle') }}
+                            </p>
+                       
+                    {% endblock %}
+                </div>                
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
