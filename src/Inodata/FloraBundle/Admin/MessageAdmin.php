@@ -10,6 +10,13 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 class MessageAdmin extends Admin
 {
 	/**
+     * @var Pool
+     */
+    protected $formatterPool;
+
+    protected $commentManager;
+
+	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
 	 * 
 	 * @return void
@@ -17,11 +24,12 @@ class MessageAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('category', 'sonata_type_model')
-			->add('message')
+			->add('category', 'sonata_type_model')			
+            ->add('message', 'ckeditor', array('config_name' => 'inodata_editor'))
+            //->add('message2', 'ckeditor', array('mapped' => false))
 		;
 	}
-	
+
 	/**
 	 * @param Sonata\AdminBundle\Datagrid\ListMapper $listMapper
 	 * 

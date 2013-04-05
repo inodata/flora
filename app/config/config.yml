@@ -122,6 +122,12 @@ sonata_block:
     #sonata.admin_doctrine_orm.block.audit:
     #    contexts: [ admin ]
 
+ivory_ck_editor:
+    configs:
+        inodata_editor:
+            toolbar: [ [ "Bold", "Italic", "Underline" ] ]
+            language: "es"
+
 knp_menu:
     twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
         template: knp_menu.html.twig

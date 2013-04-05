@@ -29,6 +29,7 @@
         "sonata-project/admin-bundle": "dev-master",
         "sonata-project/doctrine-orm-admin-bundle": "2.2.*@dev",
         "sonata-project/user-bundle": "dev-master",
+        "egeloen/ckeditor-bundle": "2.*",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "genemu/form-bundle": "2.1.*"
     },

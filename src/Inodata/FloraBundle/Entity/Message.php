@@ -24,7 +24,7 @@ class Message
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="text", nullable=true)
+     * @ORM\Column(name="message", type="text", nullable=false)
      */
     private $message;
 
@@ -43,12 +43,7 @@ class Message
     */
     public function __toString()
     {
-        $message = $this->message;
-        if(empty($this->message))
-        {
-            $message = "";
-        }
-        return $message;
+        return strip_tags($this->message);
     }
 
     /**
