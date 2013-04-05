@@ -52,7 +52,7 @@ class Product
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Order", mappedBy="product")
+     * @ORM\ManyToMany(targetEntity="Order", mappedBy="products")
      */
     private $order;
 
@@ -173,41 +173,6 @@ class Product
     }
 
     /**
-     * Add order
-     *
-     * @param \Inodata\FloraBundle\Entity\Order $order
-     * @return Product
-     */
-    public function addOrder(\Inodata\FloraBundle\Entity\Order $order)
-    {
-        $this->order[] = $order;
-    
-        return $this;
-    }
-
-    /**
-     * Remove order
-     *
-     * @param \Inodata\FloraBundle\Entity\Order $order
-     */
-    public function removeOrder(\Inodata\FloraBundle\Entity\Order $order)
-    {
-        $this->order->removeElement($order);
-    }
-
-    /**
-     * Get order
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getOrder()
-    {
-        return $this->order;
-    }
-
-
-
-    /**
      * Add category
      *
      * @param \Inodata\FloraBundle\Entity\Category $category
@@ -297,5 +262,38 @@ class Product
         $this->categories[] = $categories;
     
         return $this;
+    }
+
+    /**
+     * Add order
+     *
+     * @param \Inodata\FloraBundle\Entity\Order $order
+     * @return Product
+     */
+    public function addOrder(\Inodata\FloraBundle\Entity\Order $order)
+    {
+        $this->order[] = $order;
+    
+        return $this;
+    }
+
+    /**
+     * Remove order
+     *
+     * @param \Inodata\FloraBundle\Entity\Order $order
+     */
+    public function removeOrder(\Inodata\FloraBundle\Entity\Order $order)
+    {
+        $this->order->removeElement($order);
+    }
+
+    /**
+     * Get order
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }

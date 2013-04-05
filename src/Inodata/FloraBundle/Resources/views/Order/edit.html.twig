@@ -25,6 +25,7 @@
         		allowClear: true
             });
 
+            //Select a product from list and insert to datagrid
             $(".inodata_product").change(function(){
                 url = $('#add_product_url').val();
                 url = url.replace("%20", $(this).val())
@@ -34,15 +35,21 @@
                       $("#no_products").css('display', 'none'); 
                     }
                     $(".table tbody").append(product);
+
+                    //Clear select
+                    $(".inodata_product").select2('val', '');
                 });
             });
 
+            //Delete product from list
             $(".delete_link").live('click', function(){
                 $(this).closest("tr").remove();
                 if($(".product").length==0){
                 	$("#no_products").css('display', 'table-row'); 
                 }
             });
+
+            $(".products-to-buy option".remove();
         });
     </script>
 {% endblock %}

@@ -43,8 +43,13 @@ class OrderAdmin extends Admin
 				->add('productos', 'genemu_jqueryselect2_entity', array(
 					'class' => 'Inodata\FloraBundle\Entity\Product',
 					'mapped' => false,
+					'required' => false,
 					'empty_value' => '',
 					'attr' => array('class'=>'inodata_product span5')))
+				/*->add('products', null, array(
+						'attr' => array('class' => 'products-to-buy span5')
+					)
+				)*/
 			->end()
 		;
 	}
