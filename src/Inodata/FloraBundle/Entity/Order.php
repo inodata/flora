@@ -160,9 +160,9 @@ class Order
     /**
      * @var \PaymentContact
      *
-     * @ORM\ManyToOne(targetEntity="PaymentContact")
+     * @ORM\ManyToOne(targetEntity="PaymentContact", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="payment_contact_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="payment_contact_id", referencedColumnName="id", onDelete="CASCADE")
      * })
      */
     private $paymentContact;
