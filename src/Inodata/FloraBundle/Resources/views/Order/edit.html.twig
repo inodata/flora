@@ -16,12 +16,15 @@
         $(document).ready(function() { 
 
             $(".inodata_customer").select2({ 
-        		placeholder: "Selecciona un cliente",
         		allowClear: true
         	});
 
+            $(".inodata_payment_contact").select2({ 
+                allowClear: true
+            });
+
         	$(".inodata_product").select2({
-        		placeholder: "Selecciona un producto",
+                placeholder: "Selecciona un producto",
         		allowClear: true
             });
 

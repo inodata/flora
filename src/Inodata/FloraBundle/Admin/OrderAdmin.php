@@ -27,6 +27,7 @@ class OrderAdmin extends Admin
 						)
 					)
 				)
+				->add('paymentContact', 'inodata_payment_contact_form')
 			->end()
 			->with('Tarjeta')
 				->add('from')
@@ -35,7 +36,7 @@ class OrderAdmin extends Admin
 			->end()
 			->with('Entrega')
 				->add('delivery_date', 'date')
-				->add('paymentContact', 'sonata_type_model')
+				
 				->add('to')
 				->add('shippingAddress', 'inodata_address_form')
 			->end()

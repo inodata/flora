@@ -7,6 +7,10 @@ parameters:
 #        arguments: [@service_id, "plain_value", %parameter%]
 
 services:
+    inodata_payment_contact_form:
+        class: Inodata\FloraBundle\Form\Type\PaymentContactType
+        tags:
+            - { name: form.type }
     inodata_address_form:
         class: Inodata\FloraBundle\Form\Type\AddressType
         tags:
