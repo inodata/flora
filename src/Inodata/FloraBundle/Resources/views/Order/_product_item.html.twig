@@ -1,3 +1,4 @@
+{% for product in products %}
 <tr id="{{ product.id }}" class="product">
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
 		<input type="text" class="cant" value="1" style="width: 25px; text-align: center;"/>
@@ -17,3 +18,4 @@
 		</a>
 	</td>
 </tr>
+{% endfor %}

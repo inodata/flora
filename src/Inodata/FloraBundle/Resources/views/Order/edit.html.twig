@@ -28,7 +28,8 @@
             //Select a product from list and insert to datagrid
             $(".inodata_product").change(function(){
                 url = $('#add_product_url').val();
-                url = url.replace("%20", $(this).val())
+                id = $(this).val();
+                url = url.replace("%20", id);
                 
                 $.get(url, function(product){
                     if($("#no_products").length>0){
@@ -38,24 +39,42 @@
 
                     //Clear select
                     $(".inodata_product").select2('val', '');
+
+                    //Add product to select
+                    $(".products-to-buy").append('<option class="product-'+id+'" selected="selected" value="'+id+'">product</option>');
                 });
             });
 
             //Delete product from list
             $(".delete_link").live('click', function(){
+                var id = $(this).closest("tr").attr('id');
+                
+				//Remove from list
                 $(this).closest("tr").remove();
+                //Remove from select
+                $(".products-to-buy .product-"+id).remove();
+                
                 if($(".product").length==0){
                 	$("#no_products").css('display', 'table-row'); 
                 }
             });
 
-            //$(".products-to-buy option".remove();
+            var url = $("#add_products_url").val();
+            id = $(".order-id").val();
+            url = url.replace("%20", id);
+            
+            $.get(url, function(data){
+            	$(".table tbody").append(data.listFields);
+            }, 'json');
+
+            
         });
     </script>
 {% endblock %}
 
 {% block sonata_fieldsets %}
   <input type="hidden" id="add_product_url" value="{{ path('inodata_flora_order_product', {'id' : ' '}) }}" />
+  <input type="hidden" id="add_products_url" value="{{ path('inodata_flora_order_products', {'id' : ' '}) }}" />
     <div class="tab-content">
         {% for name, form_group in admin.formgroups %}
             {% if name != 'Productos' %}
