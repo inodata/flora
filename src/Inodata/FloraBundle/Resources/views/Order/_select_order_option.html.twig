@@ -1,0 +1,7 @@
+{% if id is defined %}
+	<option value="{{id}}" class="product-{{id}}" selected="selected">Producto-{{ id }}</option>
+{% else %}
+	{% for product in products %}
+		<option value="{{product.productId}}" class="product-{{product.productId}}" selected="selected">Producto-{{ product.productId }}</option>
+	{% endfor %}
+{% endif %}

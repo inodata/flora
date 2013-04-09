@@ -4,4 +4,8 @@ inodata_flora_homepage:
 
 inodata_flora_order_product:
     pattern: /admin/inodata/flora/order/product/{id}
-    defaults: {_controller: InodataFloraBundle:Order:product}
+    defaults: {_controller: InodataFloraBundle:OrderAdmin:product}
+    
+inodata_flora_order_products:
+    pattern: /admin/inodata/flora/order/{id}/products
+    defaults: {_controller: InodataFloraBundle:OrderAdmin:orderProducts}
