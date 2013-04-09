@@ -32,11 +32,10 @@ class OrderAdmin extends Admin
 			->with('Tarjeta')
 				->add('from')
 				->add('to')
-				->add('message')
+				->add('message', 'ckeditor', array('config_name' => 'inodata_editor'))
 			->end()
 			->with('Entrega')
-				->add('delivery_date', 'date')
-				
+				->add('delivery_date', 'date')				
 				->add('to')
 				->add('shippingAddress', 'inodata_address_form')
 			->end()
