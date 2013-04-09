@@ -4,6 +4,11 @@
 	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
+	<style>
+		div.list-products-content{ width:100%;}
+		div.list-products-content .table-1 {float:left; width:80%;}
+		div.list-products-content .table-2 { float:right; width: 20%;}
+	</style>
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}	
@@ -40,7 +45,7 @@
                     
                     if($('#'+data.id).length==0){
                     	//Add new new row if product doesn't exist
-                        $(".table tbody").append(data.listField);
+                        $(".list-products tbody").append(data.listField);
                     }else{
                         //Update total if exist
                         var cant = parseInt($('#'+data.id+" input").val());
@@ -78,7 +83,7 @@
             	url = url.replace("%20", id);
                 
                 $.get(url, function(data){
-                	$(".table tbody").append(data.listFields);
+                	$(".list-products tbody").append(data.listFields);
                 	$(".products-to-buy").append(data.selectOptions);
                 	hideEmptyNotification();
                 }, 'json');
@@ -100,16 +105,16 @@
 
             //Update product list and select-option when total is change
             
-            /*$('.product-total').live('keydown', function(event){
+            $('.product-total').live('keydown', function(event){
                 if(event.which==13){
-                    if($(this).val().match('^(1|[1-9][1-9]*)$')){
+                    if($(this).val().match('^(0|[0-9][0-9]*)$')){
                     	var id = $(this).closest('tr').attr('id');
                         var cant = parseInt($(this).val());
 
                         var nOptions = $("."+id).length;
                         while(nOptions != cant){
                             if(nOptions<cant){
-                            	var option = $("."+id).last();
+                            	var option = $("."+id).last().clone();
                             	$(".products-to-buy").append(option);
                             }else{
                             	$("."+id).last().remove();
@@ -117,13 +122,15 @@
 
                             nOptions = $("."+id).length;
                         }
+
+                        //Realizar calculos monetarios
                     }else{
                         alert('Cantidad invalida');
                     }
                                        
                     return false;
                 }
-            });*/
+            });
 
         });
     </script>
@@ -166,7 +173,9 @@
                         </div>
                     </fieldset>
                     {% block products_table %}
-                            <table class="table table-bordered table-striped">
+                    	<div class="list-products-content">
+                    		<div class="table-1">
+                            <table class="table table-bordered table-striped list-products">
                                 {% block table_header %}
                                     <thead>
                                         <tr class="sonata-ba-list-field-header">
@@ -204,15 +213,39 @@
                                 {% endblock %}
 
                                 {% block table_footer %}
-                                    <tfoot>
-                                        <tr>
-                                            <th colspan="5">
-                                                 Totales   
-                                            </th>
-                                        </tr>  
-                                    </tfoot>              
+                                                 
                                 {% endblock %}
                             </table>
+                            </div>
+                            <div class="table-2">
+                            <table class="table table-bordered pay-table">
+                            	<thead>
+                            		<tr><th colspan="2">Totales</th></tr>
+                            	</thead>
+                            	<tbody>
+                            		<tr><td>Subtotal:</td><td><span>$1,200</span></td></tr>
+                            		<tr>
+                            			<td>Envío:</td>
+                            			<td>$ <input type="number" class="order-shipping" value="65.00" style="width: 70%;"/></td>
+                            		</tr>
+                            		<tr>
+                            			<td>Descuento:</td>
+                            			<td>$ <input type="number" class="order-discount" value="50.00" style="width: 70%;"/></td>
+                            		</tr>
+                            		<tr style="border-bottom: 1px solid #000;">
+                            			<td>IVA(16%):</td>
+                            			<td><span class="order-iva">$143.56</span></td>
+                            		</tr>
+                            	</tbody>
+                            	<tfoot>
+                            		<tr>
+                            			<th>Total:</th>
+                            			<th><span class="order-total">$1,700</span></th>
+                            		</tr>
+                            	</tfoot>
+                            </table>
+                            </div>
+                    	</div>
                     {% endblock %}
                 </div>                
             {% endif %}
