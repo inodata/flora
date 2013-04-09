@@ -206,6 +206,16 @@ class Order
     {
         return $this->id;
     }
+    
+    /**
+     * Function only for resolve a problem with edit
+     *
+     * @return Order
+     */
+    public function setId()
+    {
+    	return $this;
+    }
 
     /**
      * Set deliveryDate

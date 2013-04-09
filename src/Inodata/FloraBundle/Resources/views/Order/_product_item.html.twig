@@ -1,7 +1,6 @@
-{% for product in products %}
-<tr id="{{ product.id }}" class="product">
+<tr id="product-{{ product.id }}" class="product">
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
-		<input type="text" class="cant" value="1" style="width: 25px; text-align: center;"/>
+		<input type="text" class="product-total" value="{{total}}" style="width: 25px; text-align: center;"/>
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
 		{{ product.code }}
@@ -18,4 +17,3 @@
 		</a>
 	</td>
 </tr>
-{% endfor %}

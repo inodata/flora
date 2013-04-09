@@ -28,49 +28,103 @@
         		allowClear: true
             });
 
-            //Select a product from list and insert to datagrid
+            //-- Select a product and insert to select-options and list  --//
             $(".inodata_product").change(function(){
                 url = $('#add_product_url').val();
                 id = $(this).val();
                 url = url.replace("%20", id);
                 
-                $.get(url, function(product){
-                    if($("#no_products").length>0){
-                      $("#no_products").css('display', 'none'); 
+                $.get(url, function(data){
+
+                    hideEmptyNotification();
+                    
+                    if($('#'+data.id).length==0){
+                    	//Add new new row if product doesn't exist
+                        $(".table tbody").append(data.listField);
+                    }else{
+                        //Update total if exist
+                        var cant = parseInt($('#'+data.id+" input").val());
+                    	$('#'+data.id+" input").val(cant+1);
                     }
-                    $(".table tbody").append(product);
+                    
+                    //Add select option with product selected
+                    $(".products-to-buy").append(data.selectOption);
 
                     //Clear select
                     $(".inodata_product").select2('val', '');
-
-                    //Add product to select
-                    $(".products-to-buy").append('<option class="product-'+id+'" selected="selected" value="'+id+'">product</option>');
-                });
+                }, 'json');
             });
+            //--------------------------------------------------------------//
 
-            //Delete product from list
+            //-----Delete product from list and select options ----//
             $(".delete_link").live('click', function(){
                 var id = $(this).closest("tr").attr('id');
                 
 				//Remove from list
                 $(this).closest("tr").remove();
                 //Remove from select
-                $(".products-to-buy .product-"+id).remove();
+                $(".products-to-buy ."+id).remove();
                 
-                if($(".product").length==0){
+                showEmptyNotification();
+            });
+            //-----------------------------------------------------//
+            
+            //----------Load initial data for edit order ----------//
+            var id = $(".order-id").val();
+            $(".products-to-buy option").remove();
+            
+            if(id!=''){
+            	var url = $("#add_products_url").val();
+            	url = url.replace("%20", id);
+                
+                $.get(url, function(data){
+                	$(".table tbody").append(data.listFields);
+                	$(".products-to-buy").append(data.selectOptions);
+                	hideEmptyNotification();
+                }, 'json');
+            }
+			//----------------------------------------//
+            
+
+            function showEmptyNotification(){
+            	if($(".product").length==0){
                 	$("#no_products").css('display', 'table-row'); 
                 }
-            });
+            }
 
-            var url = $("#add_products_url").val();
-            id = $(".order-id").val();
-            url = url.replace("%20", id);
-            
-            $.get(url, function(data){
-            	$(".table tbody").append(data.listFields);
-            }, 'json');
+            function hideEmptyNotification(){
+            	if($("#no_products").length>0){
+                    $("#no_products").css('display', 'none'); 
+                }
+            }
 
+            //Update product list and select-option when total is change
             
+            /*$('.product-total').live('keydown', function(event){
+                if(event.which==13){
+                    if($(this).val().match('^(1|[1-9][1-9]*)$')){
+                    	var id = $(this).closest('tr').attr('id');
+                        var cant = parseInt($(this).val());
+
+                        var nOptions = $("."+id).length;
+                        while(nOptions != cant){
+                            if(nOptions<cant){
+                            	var option = $("."+id).last();
+                            	$(".products-to-buy").append(option);
+                            }else{
+                            	$("."+id).last().remove();
+                            }
+
+                            nOptions = $("."+id).length;
+                        }
+                    }else{
+                        alert('Cantidad invalida');
+                    }
+                                       
+                    return false;
+                }
+            });*/
+
         });
     </script>
 {% endblock %}

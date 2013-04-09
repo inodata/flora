@@ -18,9 +18,13 @@ class OrderAdminController extends Controller
 			->getRepository('InodataFloraBundle:Product')
 			->find($id);
 		
-		$content = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig', array('products' => array($product)));
+		$listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig', 
+				array('product' => $product, 'total' => 1));
+		$selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', 
+				array('id' => $product->getId()));
+		$response = array('listField' => $listField, 'selectOption' => $selectOption, 'id' => 'product-'.$id);
 		
-		return new Response($content);
+		return new Response(json_encode($response));
 	}
 	
 	/**
@@ -30,24 +34,33 @@ class OrderAdminController extends Controller
 	 */
 	public function orderProductsAction($id = null)
 	{
-		$products = array();
-		
 		if($id){
 			$order = $this->getDoctrine()
 				->getRepository('InodataFloraBundle:OrderProduct')
 				->findByOrderId($id);
 			
+			$productIds = array();
 			foreach ($order as $product){
-				$products[] = $this->getDoctrine()
-					->getRepository('InodataFloraBundle:Product')
-					->find($product->getProductId());
+				if(isset($productIds[$product->getProductId()])){
+					$productIds[$product->getProductId()]+=1;
+				}else{
+					$productIds[$product->getProductId()]=1;
+				}
+			}
+			
+			$listFields="";
+			foreach ($productIds as $productId=>$cant){
+				$product = $this->getDoctrine()
+				->getRepository('InodataFloraBundle:Product')
+				->find($productId);
+				
+				$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig', 
+						array('product' => $product, 'total'=>$cant));
 			}
 		}
 		
-		$listFields = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig', array('products' => $products));
-		$selectOptions = null;
-		
-		$response = array("listFields"=>$listFields, "selecOptions"=>$selectOptions);
+		$selectOptions = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', array('products' => $order));
+		$response = array("listFields"=>$listFields, "selectOptions"=>$selectOptions);
 		
 		return new Response(json_encode($response));
 	}
