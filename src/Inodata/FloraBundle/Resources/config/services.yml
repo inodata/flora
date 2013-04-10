@@ -31,7 +31,7 @@ services:
         class: Inodata\FloraBundle\Admin\OrderAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Pedidos }
-        arguments: [ null, Inodata\FloraBundle\Entity\Order, SonataAdminBundle:CRUD ]
+        arguments: [ null, Inodata\FloraBundle\Entity\Order, InodataFloraBundle:OrderAdmin ]
     admin.category:
         class: Inodata\FloraBundle\Admin\CategoryAdmin
         tags:
