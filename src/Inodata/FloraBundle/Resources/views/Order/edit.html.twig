@@ -110,7 +110,7 @@
                 }
             }
 
-            //Update product list and select-option when total is change
+            //Update product list, select-option and prices when amount is change
             $('.product-total').live('keydown', function(event){
                 if(event.which==13){
                     if($(this).val().match('^(0|[0-9][0-9]*)$')){
@@ -288,11 +288,11 @@
                             		<tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
                             		<tr>
                             			<td>Envío:</td>
-                            			<td>$ <input type="number" class="order-shipping" value="65.00" style="width: 70%;"/></td>
+                            			<td>$ <input type="number" class="order-shipping" value="0" style="width: 70%;"/></td>
                             		</tr>
                             		<tr>
                             			<td>Descuento:</td>
-                            			<td>$ <input type="number" class="order-discount" value="50.00" style="width: 70%;"/></td>
+                            			<td>$ <input type="number" class="order-discount" value="0" style="width: 70%;"/></td>
                             		</tr>
                             		<tr style="border-bottom: 1px solid #000;">
                             			<td>IVA(16%):</td>
