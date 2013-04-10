@@ -53,10 +53,18 @@ class OrderAdmin extends Admin
 				->add('products', null, array(
 						'attr' => array(
 								'class' => 'products-to-buy span5'
-								//'style' => 'display:none'
-								)
+						)
+				))
+				->add('shipping', 'text', array(
+					'attr' => array(
+						'class' => 'order-shipping'
+					)		
+				))
+				->add('discount', 'text', array(
+					'attr' => array(
+							'class' => 'order-discount'
 					)
-				)
+				))
 			->end()
 		;
 	}

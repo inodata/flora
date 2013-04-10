@@ -57,6 +57,10 @@
 
                     //Clear select
                     $(".inodata_product").select2('val', '');
+
+                    //Update totals table
+                    updatePriceTotals();
+                    
                 }, 'json');
             });
             //--------------------------------------------------------------//
@@ -69,7 +73,8 @@
                 $(this).closest("tr").remove();
                 //Remove from select
                 $(".products-to-buy ."+id).remove();
-                
+
+                updatePriceTotals();
                 showEmptyNotification();
             });
             //-----------------------------------------------------//
@@ -86,6 +91,8 @@
                 	$(".list-products tbody").append(data.listFields);
                 	$(".products-to-buy").append(data.selectOptions);
                 	hideEmptyNotification();
+                	//Load price totals for the order editing
+                	loadPriceTotals(data.totals);
                 }, 'json');
             }
 			//----------------------------------------//
@@ -104,7 +111,6 @@
             }
 
             //Update product list and select-option when total is change
-            
             $('.product-total').live('keydown', function(event){
                 if(event.which==13){
                     if($(this).val().match('^(0|[0-9][0-9]*)$')){
@@ -127,11 +133,67 @@
                     }else{
                         alert('Cantidad invalida');
                     }
+
+                    updatePriceTotals();
                                        
                     return false;
                 }
             });
+			//------------------------------------------------------------//
+			
+			//-----Update prices when shipping or discount changes -----//
+			$('.order-shipping, .order-discount').live('keypress', function(event){
+				if(event.which==13){
+					if($(this).val().match('[0-9]+(\.[0-9][0-9]?)?')){
+						updatePriceTotals();
+					}else{
+						alert('Cantidad invalida');
+						$(this).val('0');
+					}
 
+					return false;
+				}
+			});
+			
+			//---------------- Hide select-option fields -----------------//
+			hideElement($('.products-to-buy'));
+			hideElement($('.order-shipping:first'));
+			hideElement($('.order-discount:first'));
+			
+			function hideElement(element){
+				$(element).closest('.control-group').css('display', 'none');
+			}
+			//------------------------------------------------------------//
+
+			function loadPriceTotals(price)
+			{
+				$(".order-subtotal").text(price.subtotal);
+				$(".order-shipping").val(price.shipping);
+				$(".order-discount").val(price.discount);
+				$(".order-iva").text(price.iva);
+				$(".order-total").text(price.total);
+			}
+
+			function updatePriceTotals()
+			{
+				var o_subtotal=0.0;
+				$(".product").each(function(){
+					var o_price = parseFloat($(this).children(':nth-child(4)').text());
+					var o_cant = parseInt($(this).find(".product-total").val());
+
+					o_subtotal+=(o_price*o_cant);
+				});
+
+				var o_shipping = parseFloat($('.order-shipping').eq(1).val());
+				var o_discount = parseFloat($('.order-discount').eq(1).val());
+				var o_iva = (o_subtotal+o_shipping-o_discount)*0.16;
+				var o_total =  o_subtotal+o_shipping-o_discount+o_iva;
+
+				var prices = {subtotal:o_subtotal, shipping:o_shipping, 
+						  discount:o_discount, iva:o_iva, total:o_total};
+				  
+				loadPriceTotals(prices);
+			}
         });
     </script>
 {% endblock %}
@@ -223,7 +285,7 @@
                             		<tr><th colspan="2">Totales</th></tr>
                             	</thead>
                             	<tbody>
-                            		<tr><td>Subtotal:</td><td><span>$1,200</span></td></tr>
+                            		<tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
                             		<tr>
                             			<td>Envío:</td>
                             			<td>$ <input type="number" class="order-shipping" value="65.00" style="width: 70%;"/></td>
@@ -234,13 +296,13 @@
                             		</tr>
                             		<tr style="border-bottom: 1px solid #000;">
                             			<td>IVA(16%):</td>
-                            			<td><span class="order-iva">$143.56</span></td>
+                            			<td>$ <span class="order-iva">0</span></td>
                             		</tr>
                             	</tbody>
                             	<tfoot>
                             		<tr>
                             			<th>Total:</th>
-                            			<th><span class="order-total">$1,700</span></th>
+                            			<th>$ <span class="order-total">0</span></th>
                             		</tr>
                             	</tfoot>
                             </table>
