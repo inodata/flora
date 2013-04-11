@@ -22,9 +22,10 @@ class CustomerAdmin extends Admin
 			->add('businessName')
 			->add('rfc')
 			->add('discount')
-			->with('Direcciones', array('collapsed' => false))
-				->add('fiscalAddress', 'inodata_address_form')
-				->add('paymentAddress', 'inodata_address_form')
+			->with('Dirección Fiscal', array('collapsed' => false,))
+				->add('fiscalAddress', 'inodata_address_form', array('label'=>false))
+			->with('Dirección De Cobro')
+				->add('paymentAddress', 'inodata_address_form', array('label'=>false))
 			->end();
 		;
 	}
