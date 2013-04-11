@@ -10,7 +10,7 @@ class PaymentContactType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('name')
+			->add('name', 'hidden')
 			->add('department')
 			->add('employeeNumber')
 			->add('phone')

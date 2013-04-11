@@ -196,7 +196,18 @@ class OrderAdminController extends Controller
 		$response = $this->getPaymentCotactInfoAsArray($paymentContact);
 		
 		return New Response(json_encode($response));
-		exit();
+	}
+	
+	public function filterPaymentContactsByCustomerAction($customerId)
+	{
+		$paymentContacts = $this->getdoctrine()
+			->getRepository('InodataFloraBundle:PaymentContact')
+			->findByCustomer($customerId);
+		
+		$response = array('contacts' => $this->renderView('InodataFloraBundle:Order:_payment_contact_item.html.twig', 
+				array('contacts' => $paymentContacts)));
+		
+		return new Response(json_encode($response));
 	}
 	
 	public function configure()

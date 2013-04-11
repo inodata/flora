@@ -19,7 +19,7 @@
 	{% endjavascripts %}
 	<script>
         $(document).ready(function() { 
-
+            
             $(".inodata_customer").select2({ 
         		allowClear: true
         	});
@@ -34,6 +34,17 @@
             });
             
          // $('.sonata-medium-date').datepicker();
+         
+         $('.inodata_customer').change(function(){
+             var url = "{{ path('inodata_flora_order_filter_contact_by_customer', {'customerId' : ' '}) }}";
+             url = url.replace("%20", $(this).val());
+
+             $.get(url, function(data){
+            	 $("select.inodata_payment_contact option").remove();
+            	 $("select.inodata_payment_contact").append(data.contacts);
+            	 $(".inodata_payment_contact").select2('val','');
+             }, 'json');
+         });
          
          // ---------------- Select a contact an load information ----------------//
          var paymentContactId = $(".inodata_payment_contact option:selected").val();
@@ -72,8 +83,11 @@
                     
                     $.post(url, {'contactName' : name}, function(contact){
                     	$('select.inodata_payment_contact option:selected').removeAttr("selected");
-                        $('select.inodata_payment_contact').append('<option value="'+contact.id+'" selected="selected">'+contact.name+'</option>');
+                        $('select.inodata_payment_contact')
+                        		.append('<option value="'+contact.id+'" selected="selected">'+contact.name+'</option>');
                         setPContactDataOnInputs(contact);
+                        $(".inodata_payment_contact").select2('val', contact.id);
+                        $(".inodata_payment_contact").select2('close');
                     }, 'json');
                 }
              }
