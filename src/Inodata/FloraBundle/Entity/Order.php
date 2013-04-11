@@ -160,9 +160,9 @@ class Order
     /**
      * @var \PaymentContact
      *
-     * @ORM\ManyToOne(targetEntity="PaymentContact", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="PaymentContact")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="payment_contact_id", referencedColumnName="id", onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="payment_contact_id", referencedColumnName="id")
      * })
      */
     private $paymentContact;
@@ -596,29 +596,6 @@ class Order
     }
 
     /**
-     * Set paymentContact
-     *
-     * @param \Inodata\FloraBundle\Entity\PaymentContact $paymentContact
-     * @return Order
-     */
-    public function setPaymentContact(\Inodata\FloraBundle\Entity\PaymentContact $paymentContact = null)
-    {
-        $this->paymentContact = $paymentContact;
-    
-        return $this;
-    }
-
-    /**
-     * Get paymentContact
-     *
-     * @return \Inodata\FloraBundle\Entity\PaymentContact 
-     */
-    public function getPaymentContact()
-    {
-        return $this->paymentContact;
-    }
-
-    /**
      * Set status
      *
      * @param string $status
@@ -639,5 +616,28 @@ class Order
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set paymentContact
+     *
+     * @param \Inodata\FloraBundle\Entity\PaymentContact $paymentContact
+     * @return Order
+     */
+    public function setPaymentContact(\Inodata\FloraBundle\Entity\PaymentContact $paymentContact = null)
+    {
+        $this->paymentContact = $paymentContact;
+    
+        return $this;
+    }
+
+    /**
+     * Get paymentContact
+     *
+     * @return \Inodata\FloraBundle\Entity\PaymentContact 
+     */
+    public function getPaymentContact()
+    {
+        return $this->paymentContact;
     }
 }

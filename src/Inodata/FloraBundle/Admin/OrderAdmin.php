@@ -30,7 +30,19 @@ class OrderAdmin extends Admin
 						)
 					)
 				)
-				->add('paymentContact', 'inodata_payment_contact_form')
+				->add('paymentContact', 'genemu_jqueryselect2_entity',array(
+						'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
+						'empty_value' => '',
+						'attr' => array(
+								'class' => 'inodata_payment_contact span5',
+								'placeholder' => 'Selecciona o escribe un nuevo nombre'
+						)
+				))
+				->add('Contacto', 'inodata_payment_contact_form', array(
+						'label'=>false, 
+						'mapped' => false,
+						'attr' => array('class' => 'payment_contact_form')
+				))
 			->end()
 			->with('Tarjeta')
 				->add('from')
@@ -40,7 +52,7 @@ class OrderAdmin extends Admin
 			->with('Entrega')
 				->add('delivery_date', 'date')				
 				->add('to')
-				->add('shippingAddress', 'inodata_address_form')
+				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('Productos')
 				->add('productos', 'genemu_jqueryselect2_entity', array(
@@ -110,4 +122,8 @@ class OrderAdmin extends Admin
 	            break;
 		}
 	}
+	
+	/*public function create($object){
+			exit("Queriendo guardar datos");
+	}*/
 } 

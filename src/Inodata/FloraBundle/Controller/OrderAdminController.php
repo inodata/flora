@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Inodata\FloraBundle\Entity\Product;
 use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Entity\OrderProduct;
+use Inodata\FloraBundle\Entity\PaymentContact;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
 class OrderAdminController extends Controller
@@ -95,10 +96,34 @@ class OrderAdminController extends Controller
 					 'iva' =>$priceIVA, 'subtotal'=>$priceSubtotal, 'total'=>$priceTotal);
 	}
 	
+	public function paymentContactAction($id)
+	{
+		$paymentContact = $this->getDoctrine()
+			->getRepository('InodataFloraBundle:PaymentContact')
+			->find($id);
+		
+		$response = $this->getPaymentCotactInfoAsArray($paymentContact);
+		
+		return new Response(json_encode($response));
+	}
+	
+	private function getPaymentCotactInfoAsArray($paymentContact)
+	{
+		return array(
+				'id' => $paymentContact->getId(),
+				'name' => $paymentContact->getName(),
+				'emp_number' => $paymentContact->getEmployeeNumber(),
+				'phone' => $paymentContact->getPhone(),
+				'email' => $paymentContact->getEmail(),
+				'department' => $paymentContact->getDepartment()
+		);
+	}
+	
 	public function editAction($id = null)
 	{
 		if ($this->getRestMethod() == 'POST'){
 			$this->preUpdate($id);
+			$this->updatePaymentContactInfo();
 		}
 		
 		return parent::editAction($id);
@@ -119,6 +144,59 @@ class OrderAdminController extends Controller
 			$em->flush();
 			$em->clear();
 		}
+	}
+	
+	public function createAction()
+	{
+		if ($this->getRestMethod() == 'POST'){
+			$this->updatePaymentContactInfo();
+		}
+		
+		return parent::createAction();
+	}
+	
+	private function updatePaymentContactInfo()
+	{
+		$orderArray = $this->get('request')->get($this->get('request')->get('uniqid'));
+		$paymentContactId = $orderArray['paymentContact'];
+			
+		$em = $this->getDoctrine()->getEntityManager();
+		$paymentContact = $em->getRepository('InodataFloraBundle:PaymentContact')
+			->find($paymentContactId);
+		
+		if ($orderArray['customer'])
+		{
+			$customer = $em->getRepository('InodataFloraBundle:Customer')
+			->find($orderArray['customer']);
+			
+			$paymentContact->setCustomer($customer);
+		}
+		
+		$paymentContact->setName($orderArray['Contacto']['name']);
+		$paymentContact->setEmployeeNumber($orderArray['Contacto']['employeeNumber']);
+		$paymentContact->setPhone($orderArray['Contacto']['phone']);
+		$paymentContact->setEmail($orderArray['Contacto']['email']);
+		$paymentContact->setDepartment($orderArray['Contacto']['department']);
+			
+		$em->persist($paymentContact);
+		$em->flush();
+		$em->clear();
+	}
+	
+	public function createPaymentContactAction()
+	{
+		$name = $this->get('request')->get('contactName');
+		
+		$em = $this->getDoctrine()->getEntityManager();
+		$paymentContact = new PaymentContact();
+		$paymentContact->setName($name);
+		
+		$em->persist($paymentContact);
+		$em->flush();
+		$response = $this->getPaymentCotactInfoAsArray($paymentContact);
+		
+		return New Response(json_encode($response));
+		exit();
 	}
 	
 	public function configure()

@@ -32,7 +32,53 @@
                 placeholder: "Selecciona un producto",
         		allowClear: true
             });
+            
+         // $('.sonata-medium-date').datepicker();
+         
+         // ---------------- Select a contact an load information ----------------//
+         var paymentContactId = $(".inodata_payment_contact option:selected").val();
+         if(paymentContactId!=""){
+        	 loadPaymentContactInfo(paymentContactId);
+         }
+         $(".inodata_payment_contact").change(function(){
+             loadPaymentContactInfo($(this).val());
+         });
+         //--------------------------------------------------------------------//
+         
+         function loadPaymentContactInfo(id)
+         {
+        		 var url = $('#get_payment_contact').val();
+             url = url.replace("%20", id);
 
+             $.get(url, function(contact){
+            	 setPContactDataOnInputs(contact);
+             }, 'json');
+         }
+
+         function setPContactDataOnInputs(contact)
+         {
+             $('.payment_contact_form input').eq(0).val(contact.name);
+             $('.payment_contact_form input').eq(1).val(contact.department);
+             $('.payment_contact_form input').eq(2).val(contact.emp_number);
+             $('.payment_contact_form input').eq(3).val(contact.phone);
+             $('.payment_contact_form input').eq(4).val(contact.email);
+         }
+
+         $('.inodata_payment_contact').prev().find('input[type="text"]').keypress(function(event){
+             if(event.which == 13){
+                if($('.select2-results li:first').attr('class')=="select2-no-results" ){
+                    var url = $('#create_payment_contact').val();
+                    var name = $(this).val();
+                    
+                    $.post(url, {'contactName' : name}, function(contact){
+                    	$('select.inodata_payment_contact option:selected').removeAttr("selected");
+                        $('select.inodata_payment_contact').append('<option value="'+contact.id+'" selected="selected">'+contact.name+'</option>');
+                        setPContactDataOnInputs(contact);
+                    }, 'json');
+                }
+             }
+         });
+         
             //-- Select a product and insert to select-options and list  --//
             $(".inodata_product").change(function(){
                 url = $('#add_product_url').val();
@@ -113,7 +159,7 @@
             //Update product list, select-option and prices when amount is change
             $('.product-total').live('keydown', function(event){
                 if(event.which==13){
-                    if($(this).val().match('^(0|[0-9][0-9]*)$')){
+                    if($(this).val().match('^(0|[0-9][0-9]*)$') && $(this).val()!='0'){
                     	var id = $(this).closest('tr').attr('id');
                         var cant = parseInt($(this).val());
 
@@ -129,12 +175,10 @@
                             nOptions = $("."+id).length;
                         }
 
-                        //Realizar calculos monetarios
+                        updatePriceTotals();
                     }else{
                         alert('Cantidad invalida');
                     }
-
-                    updatePriceTotals();
                                        
                     return false;
                 }
@@ -186,8 +230,8 @@
 
 				var o_shipping = parseFloat($('.order-shipping').eq(1).val());
 				var o_discount = parseFloat($('.order-discount').eq(1).val());
-				var o_iva = (o_subtotal+o_shipping-o_discount)*0.16;
-				var o_total =  o_subtotal+o_shipping-o_discount+o_iva;
+				var o_iva = Math.round(((o_subtotal+o_shipping-o_discount)*0.16)*100)/100;
+				var o_total =  Math.round((o_subtotal+o_shipping-o_discount+o_iva)*100)/100;
 
 				var prices = {subtotal:o_subtotal, shipping:o_shipping, 
 						  discount:o_discount, iva:o_iva, total:o_total};
@@ -201,6 +245,8 @@
 {% block sonata_fieldsets %}
   <input type="hidden" id="add_product_url" value="{{ path('inodata_flora_order_product', {'id' : ' '}) }}" />
   <input type="hidden" id="add_products_url" value="{{ path('inodata_flora_order_products', {'id' : ' '}) }}" />
+  <input type="hidden" id="get_payment_contact" value="{{ path('inodata_flora_order_payment_contact', {'id' : ' '}) }}" />
+  <input type="hidden" id="create_payment_contact" value="{{ path('inodata_flora_order_payment_contact_create') }}" />
     <div class="tab-content">
         {% for name, form_group in admin.formgroups %}
             {% if name != 'Productos' %}
@@ -288,11 +334,11 @@
                             		<tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
                             		<tr>
                             			<td>Envío:</td>
-                            			<td>$ <input type="number" class="order-shipping" value="0" style="width: 70%;"/></td>
+                            			<td>$ <input type="number" class="order-shipping" value="0.0" style="width:70%;"/></td>
                             		</tr>
                             		<tr>
                             			<td>Descuento:</td>
-                            			<td>$ <input type="number" class="order-discount" value="0" style="width: 70%;"/></td>
+                            			<td>$ <input type="number" class="order-discount" value="0.0" style="width:70%;"/></td>
                             		</tr>
                             		<tr style="border-bottom: 1px solid #000;">
                             			<td>IVA(16%):</td>

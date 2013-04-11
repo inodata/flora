@@ -9,3 +9,11 @@ inodata_flora_order_product:
 inodata_flora_order_products:
     pattern: /admin/inodata/flora/order/{id}/products
     defaults: {_controller: InodataFloraBundle:OrderAdmin:orderProducts}
+
+inodata_flora_order_payment_contact:
+    pattern: /admin/inodata/flora/order/payment/contact/{id}
+    defaults: {_controller: InodataFloraBundle:OrderAdmin:paymentContact}
+    
+inodata_flora_order_payment_contact_create:
+    pattern: /admin/inodata/flora/order/new/payment/contact
+    defaults: {_controller: InodataFloraBundle:OrderAdmin:createPaymentContact}

@@ -10,16 +10,7 @@ class PaymentContactType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('name', 'genemu_jqueryselect2_entity', array(
-				'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
-				'property' => 'name',
-				'attr' => array(
-					'class' => 'inodata_payment_contact span5',
-					'placeholder' => 'Selecciona un contacto'
-					)
-				)
-			)
-			//->add('name', '')
+			->add('name')
 			->add('department')
 			->add('employeeNumber')
 			->add('phone')
