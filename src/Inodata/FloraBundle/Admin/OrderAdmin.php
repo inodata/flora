@@ -22,20 +22,18 @@ class OrderAdmin extends Admin
 				->add('id', 'hidden', array(
 						'attr' => array('class' => "order-id")
 						))
-				->add('customer', 'genemu_jqueryselect2_entity', array(
-					'class' => 'Inodata\FloraBundle\Entity\Customer',
-					'attr' => array(
-						'class' => 'inodata_customer span5',
-						'placeholder' => 'Selecciona un cliente'
-						)
-					)
-				)
+				->add('customer', 'sonata_type_model', array(
+						'empty_value' => '',
+						'attr' => array(
+								'class' => 'inodata_customer span5',
+								'placeholder' => 'Buscar Cliente')
+						))
 				->add('paymentContact', 'genemu_jqueryselect2_entity',array(
 						'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
 						'empty_value' => '',
 						'attr' => array(
 								'class' => 'inodata_payment_contact span5',
-								'placeholder' => 'Selecciona o escribe un nuevo nombre'
+								'placeholder' => 'Seleccionar nombre de contacto'
 						)
 				))
 				->add('Contacto', 'inodata_payment_contact_form', array(

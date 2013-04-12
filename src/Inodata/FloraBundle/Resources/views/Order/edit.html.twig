@@ -19,6 +19,8 @@
 	{% endjavascripts %}
 	<script>
         $(document).ready(function() { 
+
+            var isEnteredInModal = false;
             
             $(".inodata_customer").select2({ 
         		allowClear: true
@@ -33,9 +35,38 @@
         		allowClear: true
             });
             
-         // $('.sonata-medium-date').datepicker();
+         //$('.sonata-medium-date').datepicker();
          
-         $('.inodata_customer').change(function(){
+         //--- TRUCO PARA RESOLVER EL PROBLEMA CON LOS TABS EN LA VENTANA MODAL ---//
+         //------------------------------------------------------------------------
+         $('.ui-dialog').live('mouseenter', function(){
+             $(this).find('.nav-tabs li').each(function(){
+                 var element = $(this).find('a:first');
+                 var href = $(element).attr('href');
+                 var title = $(element).text();
+
+                 $(element).remove();
+
+                 $(this).append('<a href="'+href+'">'+title+'</a>');
+             });
+         });
+
+         $('.ui-dialog .nav-tabs li > a').live('click', function(event){
+             $(this).closest('ul').children().removeClass('active');
+             $(this).parent().addClass('active');
+             
+             var tabId = $(this).attr('href');
+             
+             $('.ui-dialog .tab-content > div').removeClass('active');
+             $(tabId).addClass('active');
+         });
+         
+         $('.sonata-ba-action').click(function(){
+             isEnteredInModal = false; 
+         });
+         //--------------------------------------------------------------------------//
+
+         $('.inodata_customer').live('change', function(){
              var url = "{{ path('inodata_flora_order_filter_contact_by_customer', {'customerId' : ' '}) }}";
              url = url.replace("%20", $(this).val());
 
