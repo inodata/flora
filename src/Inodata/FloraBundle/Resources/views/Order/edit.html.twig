@@ -21,21 +21,43 @@
         $(document).ready(function() { 
 
             var isEnteredInModal = false;
+            var isCustomerToSelect2 = false;
             
             $(".inodata_customer").select2({ 
-        		allowClear: true
-        	});
+        			allowClear: true
+        		});
 
             $(".inodata_payment_contact").select2({ 
                 allowClear: true
             });
 
-        	$(".inodata_product").select2({
-                placeholder: "Selecciona un producto",
-        		allowClear: true
-            });
-            
-         //$('.sonata-medium-date').datepicker();
+	        	$(".inodata_product").select2({
+	            placeholder: "Selecciona un producto",
+	        		allowClear: true
+	          });
+
+	        	$(".inodata_category_day, .inodata_messages").select2({ 
+	                allowClear: true
+	          });
+
+		        $('.inodata_dalivery_date').datepicker({ dateFormat: "yy-mm-dd" })
+		          
+          //---Reactiva el widget de Select2 al crear nuevo Customer desde la ventana modal---//
+          var element = $('.inodata_customer').closest('.sonata-ba-field-standard-natural');
+          
+					$(element).bind('DOMNodeInserted', function(){
+             if(!isCustomerToSelect2){
+               var selected = $('select.inodata_customer option:last').val();
+            	 $('.inodata_customer').select2();
+            	 $('.inodata_customer').select2('val', selected);
+             }
+             isCustomerToSelect2 = true;
+					});
+
+					$(element).bind('DOMNodeRemoved', function(){
+						isCustomerToSelect2 = false;
+					});
+					//---------------------------------------------------------------------------------//
          
          //--- TRUCO PARA RESOLVER EL PROBLEMA CON LOS TABS EN LA VENTANA MODAL ---//
          //------------------------------------------------------------------------
@@ -106,7 +128,7 @@
              $('.payment_contact_form input').eq(4).val(contact.email);
          }
 
-         $('.inodata_payment_contact').prev().find('input[type="text"]').keypress(function(event){
+         $('.inodata_payment_contact').prev().find('input[type="text"]').keyup(function(event){
              if(event.which == 13){
                 if($('.select2-results li:first').attr('class')=="select2-no-results" ){
                     var url = $('#create_payment_contact').val();
@@ -123,7 +145,27 @@
                 }
              }
          });
-         
+
+         		// ------------------------ Messages --------------------------//
+         		$('.inodata_category_day').change(function(){
+								var url = "{{ path('inodata_flora_order_filter_message_by_category', {'categoryId' : ' '}) }}";
+             		$(this).val()!=''?id=$(this).val():id=0;
+             		url = url.replace("%20", id);
+             		
+             		$.get(url, function(data){
+             			$('select.inodata_messages option').remove();
+             			$('select.inodata_messages').append(data.messages);
+                }, 'json');
+            });
+                
+         		$('.inodata_messages').change(function(){
+             		var message = $(this).children(':selected').text();
+             		if(message!=''){
+             			$('iframe').contents().find('body > p').text(message);
+                }
+            });
+         		//-------------------------------------------------------------//
+  		
             //-- Select a product and insert to select-options and list  --//
             $(".inodata_product").change(function(){
                 url = $('#add_product_url').val();

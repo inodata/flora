@@ -45,10 +45,35 @@ class OrderAdmin extends Admin
 			->with('Tarjeta')
 				->add('from')
 				->add('to')
-				->add('message', 'ckeditor', array('config_name' => 'inodata_editor'))
+				->add('category', 'genemu_jqueryselect2_entity', array(
+						'class' => 'Inodata\FloraBundle\Entity\Category',
+						'empty_value' => '',
+						'mapped' => false, 'required' => false,
+						'attr' => array(
+								'class' => 'inodata_category_day span5',
+								'placeholder' => 'Selecciona una fecha festiva'
+						)
+				))
+				->add('messages', 'genemu_jqueryselect2_entity', array(
+						'class' => 'Inodata\FloraBundle\Entity\Message',
+						'empty_value' => '',
+						'mapped' => false, 'required' => false,
+						'attr' => array(
+								'class' => 'inodata_messages span5',
+								'placeholder' => 'Selecciona un mensaje predefinido'
+						)
+				))
+				->add('message', 'ckeditor', array('config_name' => 'inodata_editor',
+							'attr' => array('class' => 'inodata_message span5')
+						))
 			->end()
 			->with('Entrega')
-				->add('delivery_date', 'date')				
+				->add('delivery_date', 'date', array(
+						'widget' => 'single_text',
+						'attr' => array(
+								'class' => 'inodata_dalivery_date'
+						)
+				))				
 				->add('to')
 				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
 			->end()
