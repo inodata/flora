@@ -199,12 +199,19 @@ class OrderAdminController extends Controller
 	
 	public function filterPaymentContactsByCustomerAction($customerId)
 	{
+		$customer = $this->getDoctrine()
+			->getRepository('InodataFloraBundle')
+			->find($customerId);
+		
 		$paymentContacts = $this->getdoctrine()
 			->getRepository('InodataFloraBundle:PaymentContact')
 			->findByCustomer($customerId);
 		
-		$response = array('contacts' => $this->renderView('InodataFloraBundle:Order:_dinamic_select_item.html.twig', 
-				array('contacts' => $paymentContacts)));
+		$response = array(
+				'customer_discount' => $customer->getDiscount(),
+				'contacts' => $this->renderView('InodataFloraBundle:Order:_dinamic_select_item.html.twig', 
+					array('contacts' => $paymentContacts)
+				));
 		
 		return new Response(json_encode($response));
 	}

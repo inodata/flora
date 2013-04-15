@@ -22,6 +22,7 @@
 
             var isEnteredInModal = false;
             var isCustomerToSelect2 = false;
+            var customerDiscount = 0;
             
             $(".inodata_customer").select2({ 
         			allowClear: true
@@ -96,6 +97,8 @@
             	 $("select.inodata_payment_contact option").remove();
             	 $("select.inodata_payment_contact").append(data.contacts);
             	 $(".inodata_payment_contact").select2('val','');
+
+            	 customerDiscount = data.customer_discount;
              }, 'json');
          });
          
@@ -161,7 +164,7 @@
          		$('.inodata_messages').change(function(){
              		var message = $(this).children(':selected').text();
              		if(message!=''){
-             			$('iframe').contents().find('body > p').text(message);
+             			$('iframe').contents().find('body').text(message);
                 }
             });
          		//-------------------------------------------------------------//
@@ -246,45 +249,58 @@
             //Update product list, select-option and prices when amount is change
             $('.product-total').live('keydown', function(event){
                 if(event.which==13){
-                    if($(this).val().match('^(0|[0-9][0-9]*)$') && $(this).val()!='0'){
-                    	var id = $(this).closest('tr').attr('id');
-                        var cant = parseInt($(this).val());
-
-                        var nOptions = $("."+id).length;
-                        while(nOptions != cant){
-                            if(nOptions<cant){
-                            	var option = $("."+id).last().clone();
-                            	$(".products-to-buy").append(option);
-                            }else{
-                            	$("."+id).last().remove();
-                            }
-
-                            nOptions = $("."+id).length;
-                        }
-
-                        updatePriceTotals();
-                    }else{
-                        alert('Cantidad invalida');
-                    }
-                                       
-                    return false;
+                	validateProductsTotalChange(this);
+                	return false;
                 }
+            }).live('blur', function(){
+            		validateProductsTotalChange(this);
             });
+
+            function validateProductsTotalChange(element)
+            {
+            	if($(element).val().match('^(0|[0-9][0-9]*)$') && $(element).val()!='0')
+              {
+              	var id = $(element).closest('tr').attr('id');
+            		var cant = parseInt($(element).val());
+
+            		var nOptions = $("."+id).length;
+            		while(nOptions != cant){
+            			if(nOptions<cant){
+            				var option = $("."+id).last().clone();
+            				$(".products-to-buy").append(option);
+            			}else{
+            				$("."+id).last().remove();
+            			}
+            			nOptions = $("."+id).length;
+            		}
+
+            		updatePriceTotals();
+            	}else{
+            		alert('Cantidad invalida');
+            	}
+            }
 			//------------------------------------------------------------//
 			
 			//-----Update prices when shipping or discount changes -----//
 			$('.order-shipping, .order-discount').live('keypress', function(event){
 				if(event.which==13){
-					if($(this).val().match('[0-9]+(\.[0-9][0-9]?)?')){
-						updatePriceTotals();
-					}else{
-						alert('Cantidad invalida');
-						$(this).val('0');
-					}
-
+					validateShippingOrDiscountChange(this);
 					return false;
 				}
+			}).live('blur', function(){
+				validateShippingOrDiscountChange(this);
 			});
+
+			function validateShippingOrDiscountChange(element)
+			{
+				if($(element).val().match('[0-9]+(\.[0-9][0-9]?)?')){
+					updatePriceTotals();
+				}else{
+					alert('Cantidad invalida');
+					$(element).val('0');
+				}
+			}
+			//-------------------------------------------------------------------//
 			
 			//---------------- Hide select-option fields -----------------//
 			hideElement($('.products-to-buy'));
@@ -325,7 +341,7 @@
 				  
 				loadPriceTotals(prices);
 			}
-        });
+    });
     </script>
 {% endblock %}
 
@@ -421,7 +437,7 @@
                             		<tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
                             		<tr>
                             			<td>Envío:</td>
-                            			<td>$ <input type="number" class="order-shipping" value="0.0" style="width:70%;"/></td>
+                            			<td>$ <input type="number" class="order-shipping" value="{{ order_shipping }}" style="width:70%;"/></td>
                             		</tr>
                             		<tr>
                             			<td>Descuento:</td>

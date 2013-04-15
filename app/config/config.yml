@@ -25,10 +25,12 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+      order_shipping: %order_shipping%
     form:
         resources:
             - 'InodataFloraBundle:Form:fields.html.twig'
-
+    
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
