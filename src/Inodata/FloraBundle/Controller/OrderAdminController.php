@@ -209,7 +209,7 @@ class OrderAdminController extends Controller
 		
 		$response = array(
 				'customer_discount' => $customer->getDiscount(),
-				'contacts' => $this->renderView('InodataFloraBundle:Order:_dinamic_select_item.html.twig', 
+				'contacts' => $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig', 
 					array('contacts' => $paymentContacts)
 				));
 		
@@ -229,7 +229,7 @@ class OrderAdminController extends Controller
 		
 		$messages = $query->getquery()->getResult();
 			
-		$response = array('messages'=>$this->renderView('InodataFloraBundle:Order:_dinamic_select_item.html.twig',
+		$response = array('messages'=>$this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
 				array('messages'=>$messages)));
 		
 		return new Response(json_encode($response));
