@@ -35,7 +35,7 @@ class OrderAdmin extends Admin
 						'empty_value' => '',
 						'attr' => array(
 								'class' => 'inodata_payment_contact span5',
-								'placeholder' => 'Seleccionar nombre de contacto'
+								'placeholder' => 'Seleccionar o crear contacto'
 						)
 				))
 				->add('Contacto', 'inodata_payment_contact_form', array(
@@ -46,57 +46,46 @@ class OrderAdmin extends Admin
 				)
 			->end()
 			->with('Tarjeta')
-				->add('from')
-				->add('to')
+				->add('from', null, array(
+					'label'=> 'De',)
+				)
+				->add('to', null, array(
+					'label'=> 'Para',)
+				)
 				->add('category', 'genemu_jqueryselect2_entity', array(
+						'label' => 'Ocasión',
 						'class' => 'Inodata\FloraBundle\Entity\Category',
 						'empty_value' => '',
 						'mapped' => false, 'required' => false,
 						'attr' => array(
 								'class' => 'inodata_category_day span5',
-								'placeholder' => 'Selecciona una fecha festiva'
+								'placeholder' => 'Seleccionar una ocasión'
 						)
 				))
 				->add('messages', 'genemu_jqueryselect2_entity', array(
+						'label' => 'Mensajes',
 						'class' => 'Inodata\FloraBundle\Entity\Message',
 						'empty_value' => '',
 						'mapped' => false, 'required' => false,
 						'attr' => array(
 								'class' => 'inodata_messages span5',
-								'placeholder' => 'Selecciona un mensaje predefinido'
+								'placeholder' => 'Seleccionar un mensaje predefinido'
 						)
 				))
-				->add('message', 'ckeditor', array('config_name' => 'inodata_editor',
-							'attr' => array('class' => 'inodata_message span5')
-						))
+				->add('message', 'ckeditor', array(
+						'label'=> 'Mensaje',
+						'config_name' => 'inodata_editor',
+						'attr' => array('class' => 'inodata_message span5')
+				))
 			->end()
 			->with('Entrega')
 				->add('delivery_date', 'date', array(
+						'label'=> 'Fecha de entrega',
 						'widget' => 'single_text',
 						'attr' => array(
 								'class' => 'inodata_dalivery_date'
 						)
 				))				
-				->add('to')
-				->add('from', null, array(
-					'label'=> 'De',)
-				)
-				->add('to', null, array(
-					'label'=> 'Para', 
-					)
-				)
-				->add('message', 'ckeditor', array(
-					'label'=> 'Mensaje', 
-					'config_name' => 'inodata_editor')
-				)
-			->end()
-			->with('Entrega')
-				->add('delivery_date', 'date', array(
-					'label'=> 'Fecha de entrega', )
-				)				
-				->add('to', null, array(
-					'label'=> 'Para', )
-				)
 				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('Productos')
