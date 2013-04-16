@@ -21,3 +21,7 @@ inodata_flora_order_payment_contact_create:
 inodata_flora_order_filter_contact_by_customer:
     pattern: /admin/inodata/flora/order/filter/contact/by/customer/{customerId}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:filterPaymentContactsByCustomer}
+
+inodata_flora_order_filter_message_by_category:
+    pattern: /admin/inodata/flora/order/filter/message/by/category/{categoryId}
+    defaults: {_controller: InodataFloraBundle:OrderAdmin:filterMessagesByCategory}

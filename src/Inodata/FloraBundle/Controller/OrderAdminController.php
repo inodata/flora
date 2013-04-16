@@ -2,7 +2,6 @@
 
 namespace Inodata\FloraBundle\Controller;
 
-//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Inodata\FloraBundle\Entity\Product;
@@ -200,12 +199,38 @@ class OrderAdminController extends Controller
 	
 	public function filterPaymentContactsByCustomerAction($customerId)
 	{
+		$customer = $this->getDoctrine()
+			->getRepository('InodataFloraBundle')
+			->find($customerId);
+		
 		$paymentContacts = $this->getdoctrine()
 			->getRepository('InodataFloraBundle:PaymentContact')
 			->findByCustomer($customerId);
 		
-		$response = array('contacts' => $this->renderView('InodataFloraBundle:Order:_payment_contact_item.html.twig', 
-				array('contacts' => $paymentContacts)));
+		$response = array(
+				'customer_discount' => $customer->getDiscount(),
+				'contacts' => $this->renderView('InodataFloraBundle:Order:_dinamic_select_item.html.twig', 
+					array('contacts' => $paymentContacts)
+				));
+		
+		return new Response(json_encode($response));
+	}
+	
+	public function filterMessagesByCategoryAction($categoryId)
+	{
+		$query = $this->getDoctrine()
+			->getRepository('InodataFloraBundle:Message')
+			->createQueryBuilder('m');
+		
+		if ($categoryId!=0){
+			$query->where('m.category=:category')
+				->setParameter('category', $categoryId);
+		}
+		
+		$messages = $query->getquery()->getResult();
+			
+		$response = array('messages'=>$this->renderView('InodataFloraBundle:Order:_dinamic_select_item.html.twig',
+				array('messages'=>$messages)));
 		
 		return new Response(json_encode($response));
 	}

@@ -1,8 +1,0 @@
-{% if contact is defined %}
-	<optio value="{{ contact.id }}" selected="selected">{{ contact.name }}</optio>
-{% else %}
-	<option value=""></option>
-	{% for contact in contacts %}
-		<option value="{{ contact.id }}">{{ contact.name }}</option>
-	{% endfor %}
-{% endif %}
