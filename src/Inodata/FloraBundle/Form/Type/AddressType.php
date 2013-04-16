@@ -10,13 +10,28 @@ class AddressType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('street')
-			->add('noExt')
-			->add('noInt')			
-			->add('postalCode')
-			->add('neighborhood')
-			->add('city')
-			->add('state', 'inodata_mx_states_type');
+			->add('street', null, array(
+				'label' => 'Calle', )
+			)
+			->add('noExt', null, array(
+				'label' => 'No. Exterior',)
+			)
+			->add('noInt', null, array(
+				'label' => 'No. Interior',)
+			)			
+			->add('postalCode', null, array(
+				'label' => 'Código Postal',)
+			)
+			->add('neighborhood', null, array(
+				'label' => 'Colonia',)
+			)
+			->add('city', null, array(
+				'label' => 'Ciudad',)
+			)
+			->add('state', 'inodata_mx_states_type', array(
+				'label' => 'Estado',)
+			)
+		;
 	}
 
 	public function getName()

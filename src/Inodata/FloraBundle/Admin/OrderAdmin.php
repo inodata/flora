@@ -23,12 +23,14 @@ class OrderAdmin extends Admin
 						'attr' => array('class' => "order-id")
 						))
 				->add('customer', 'sonata_type_model', array(
+						'label' => 'Nombre Cliente',
 						'empty_value' => '',
 						'attr' => array(
 								'class' => 'inodata_customer span5',
 								'placeholder' => 'Buscar Cliente')
 						))
 				->add('paymentContact', 'genemu_jqueryselect2_entity',array(
+						'label' => 'Contacto de pago',
 						'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
 						'empty_value' => '',
 						'attr' => array(
@@ -40,7 +42,8 @@ class OrderAdmin extends Admin
 						'label'=>false, 
 						'mapped' => false,
 						'attr' => array('class' => 'payment_contact_form')
-				))
+					)
+				)
 			->end()
 			->with('Tarjeta')
 				->add('from')
@@ -75,10 +78,30 @@ class OrderAdmin extends Admin
 						)
 				))				
 				->add('to')
+				->add('from', null, array(
+					'label'=> 'De',)
+				)
+				->add('to', null, array(
+					'label'=> 'Para', 
+					)
+				)
+				->add('message', 'ckeditor', array(
+					'label'=> 'Mensaje', 
+					'config_name' => 'inodata_editor')
+				)
+			->end()
+			->with('Entrega')
+				->add('delivery_date', 'date', array(
+					'label'=> 'Fecha de entrega', )
+				)				
+				->add('to', null, array(
+					'label'=> 'Para', )
+				)
 				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('Productos')
 				->add('productos', 'genemu_jqueryselect2_entity', array(
+					'label' => 'Buscar producto',
 					'class' => 'Inodata\FloraBundle\Entity\Product',
 					'mapped' => false,
 					'required' => false,
@@ -99,7 +122,7 @@ class OrderAdmin extends Admin
 							'class' => 'order-discount'
 					)
 				))
-			->end()
+				->end()
 		;
 	}
 	
@@ -145,8 +168,4 @@ class OrderAdmin extends Admin
 	            break;
 		}
 	}
-	
-	/*public function create($object){
-			exit("Queriendo guardar datos");
-	}*/
 } 
