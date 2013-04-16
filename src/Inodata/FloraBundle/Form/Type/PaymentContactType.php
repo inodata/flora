@@ -11,9 +11,15 @@ class PaymentContactType extends AbstractType
 	{
 		$builder
 			->add('name', 'hidden')
-			->add('department')
-			->add('employeeNumber')
-			->add('phone')
+			->add('department', null, array(
+				'label' => 'Departamento',)
+			)
+			->add('employeeNumber', null, array(
+				'label' => 'No. Empleado',)
+			)
+			->add('phone', null, array(
+				'label' => 'Teléfono',)
+			)
 			->add('email')
 		;
 	}
