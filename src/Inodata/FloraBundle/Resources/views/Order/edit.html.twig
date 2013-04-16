@@ -88,14 +88,17 @@
             
             $('.inodata_customer').live('change', function(){
                 var url = "{{ path('inodata_flora_order_filter_contact_by_customer', {'customerId' : ' '}) }}";
-                url = url.replace("%20", $(this).val());
-
+                $(this).val()!=''?id=$(this).val():id=0;
+                url = url.replace("%20", id);
+                	
                 $.get(url, function(data){
                 	$("select.inodata_payment_contact option").remove();
                 	$("select.inodata_payment_contact").append(data.contacts);
                 	$(".inodata_payment_contact").select2('val','');
-
-                	customerDiscount = data.customer_discount;
+                	
+                	$('.order-discount').eq(0).val(data.customer_discount);
+                	updateAjaxTotalsCost();
+                	
                 }, 'json');
             });
 
@@ -192,7 +195,7 @@
                     $(".inodata_product").select2('val', '');
 
                     //Update totals table
-                    updatePriceTotals();
+                    updateAjaxTotalsCost();
                     
                 }, 'json');
             });
@@ -207,7 +210,7 @@
                 //Remove from select
                 $(".products-to-buy ."+id).remove();
 
-                updatePriceTotals();
+                updateAjaxTotalsCost();
                 showEmptyNotification();
             });
             //-----------------------------------------------------//
@@ -271,7 +274,7 @@
             			nOptions = $("."+id).length;
             		}
 
-            		updatePriceTotals();
+            		updateAjaxTotalsCost();
             	}else{
             		alert('Cantidad invalida');
             	}
@@ -281,17 +284,20 @@
 			//-----Update prices when shipping or discount changes -----//
 			$('.order-shipping, .order-discount').live('keypress', function(event){
 				if(event.which==13){
-					validateShippingOrDiscountChange(this);
+					validateShippingOrDiscountChange(this, 'key');
 					return false;
 				}
 			}).live('blur', function(){
-				validateShippingOrDiscountChange(this);
+				validateShippingOrDiscountChange(this, null);
 			});
 
-			function validateShippingOrDiscountChange(element)
+			function validateShippingOrDiscountChange(element, event)
 			{
 				if($(element).val().match('[0-9]+(\.[0-9][0-9]?)?')){
-					updatePriceTotals();
+					if((event=='key') && ($(element).attr('class')=='order-discount')){
+						$('.order-discount:first').val($(element).val());
+					}
+					updateAjaxTotalsCost();
 				}else{
 					alert('Cantidad invalida');
 					$(element).val('0');
@@ -313,30 +319,32 @@
 			{
 				$(".order-subtotal").text(price.subtotal);
 				$(".order-shipping").val(price.shipping);
-				$(".order-discount").val(price.discount);
+				$(".order-discount").eq(0).val(price.discount);
+				$(".order-discount").eq(1).val(price.discount_net);
 				$(".order-iva").text(price.iva);
 				$(".order-total").text(price.total);
+				$('.order-discount-percent').text(price.discount_percent);
 			}
 
-			function updatePriceTotals()
-			{
-				var o_subtotal=0.0;
-				$(".product").each(function(){
-					var o_price = parseFloat($(this).children(':nth-child(4)').text());
-					var o_cant = parseInt($(this).find(".product-total").val());
-
-					o_subtotal+=(o_price*o_cant);
+			// ---- Update costs via Ajax -----//
+			function updateAjaxTotalsCost(){
+				var url = "{{ path('inodata_flora_order_update_totals_cost')}}";
+				var products = [];
+				var shipping = $('.order-shipping').eq(1).val();
+				var discount = $('.order-discount').eq(0).val();
+				
+				$('.product').each(function(){
+					var productId = $(this).attr('product_id');
+					var amount = $(this).find('.product-total').val();
+					products.push({'id':productId, 'amount':amount});
 				});
-
-				var o_shipping = parseFloat($('.order-shipping').eq(1).val());
-				var o_discount = parseFloat($('.order-discount').eq(1).val());
-				var o_iva = Math.round(((o_subtotal+o_shipping-o_discount)*0.16)*100)/100;
-				var o_total =  Math.round((o_subtotal+o_shipping-o_discount+o_iva)*100)/100;
-
-				var prices = {subtotal:o_subtotal, shipping:o_shipping, 
-						  discount:o_discount, iva:o_iva, total:o_total};
-				  
-				loadPriceTotals(prices);
+				
+				var data = {'products':products, 'shipping':shipping, 'discount':discount};
+				
+				$.post(url, data, function(response){
+					loadPriceTotals(response.prices);
+				}, 'json');
+				
 			}
     });
     </script>
@@ -434,11 +442,14 @@
                             		<tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
                             		<tr>
                             			<td>Envío:</td>
-                            			<td>$ <input type="number" class="order-shipping" value="{{ order_shipping }}" style="width:70%;"/></td>
+                            			<td>$ <input type="number" class="order-shipping" value="{{ order_shipping }}" style="width:60%;"/></td>
                             		</tr>
                             		<tr>
                             			<td>Descuento:</td>
-                            			<td>$ <input type="number" class="order-discount" value="0.0" style="width:70%;"/></td>
+                            			<td>$ 
+                            				<input type="number" class="order-discount" value="0.0" style="width:60%;"/>
+                            				<span class="order-discount-percent">0%</span>
+                            			</td>
                             		</tr>
                             		<tr style="border-bottom: 1px solid #000;">
                             			<td>IVA(16%):</td>

@@ -25,3 +25,7 @@ inodata_flora_order_filter_contact_by_customer:
 inodata_flora_order_filter_message_by_category:
     pattern: /admin/inodata/flora/order/filter/message/by/category/{categoryId}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:filterMessagesByCategory}
+    
+inodata_flora_order_update_totals_cost:
+    pattern: /admin/inodata/flora/order/update/totals/cost
+    defaults: {_controller: InodataFloraBundle:OrderAdmin:updateTotalsCost}

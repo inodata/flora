@@ -66,7 +66,7 @@ class OrderAdminController extends Controller
 		$selectOptions = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', array('products' => $order));
 		
 		$response = array("listFields"=>$listFields, "selectOptions"=>$selectOptions, 
-						  'totals'=>$this->getTotalsCost($id, $price_subtotal));
+						  'totals'=>$this->getTotalsCostAsArray($id, $price_subtotal));
 		
 		return new Response(json_encode($response));
 	}
@@ -74,25 +74,60 @@ class OrderAdminController extends Controller
 	 * Calculate total price for the order
 	 * @return array
 	 */
-	protected function getTotalsCost($orderId, $priceSubtotal)
+	protected function getTotalsCostAsArray($orderId, $subtotal, $shipping=null, $discount=null)
 	{
-		$order = $this->getDoctrine()
+		if ($orderId != null)
+		{
+			$order = $this->getDoctrine()
 			->getRepository('InodataFloraBundle:Order')
 			->find($orderId);
-		
-		$priceShipping = $order->getShipping();
-		if(!$priceShipping){
-			$priceShipping = 0;
+			
+			$shipping = $order->getShipping();
+			if(!$shipping){
+				$shipping = 0;
+			}
+			$discount = $order->getDiscount();
+			if (!$discount){
+				$discount = 0;
+			}
 		}
-		$priceDiscount = $order->getDiscount();
-		if (!$priceDiscount){
-			$priceDiscount = 0;
-		}
-		$priceIVA = ($priceSubtotal+$priceShipping-$priceDiscount)*0.16;
-		$priceTotal = $priceSubtotal+$priceShipping-$priceDiscount+$priceIVA;
 		
-		return array('shipping'=>$priceShipping, 'discount' =>$priceDiscount,
-					 'iva' =>$priceIVA, 'subtotal'=>$priceSubtotal, 'total'=>$priceTotal);
+		$discountPercentLabel = '';
+		$discountNet = $discount;
+		
+		if($discount<1){
+			$discountNet = ($subtotal+$shipping)*$discount;
+			$discountPercentLabel = ($discount*100).'%';
+		}
+		
+		$IVA = ($subtotal+$shipping-$discountNet)*0.16;
+		$total = $subtotal+$shipping-$discountNet+$IVA;
+		
+		return array('shipping'=>$shipping, 'discount' =>$discount, 
+				'discount_net' =>$discountNet,'discount_percent'=>$discountPercentLabel, 
+				'iva' =>$IVA, 'subtotal'=>$subtotal, 'total'=>$total);
+	}
+	
+	public function updateTotalsCostAction()
+	{
+		$shipping = $this->get('request')->get('shipping');
+		$discount = $this->get('request')->get('discount');
+		$products = $this->get('request')->get('products');
+		
+		$subtotal=0;
+		
+		if ($products){
+			$repository = $this->getDoctrine()->getRepository('InodataFloraBundle:Product');
+			
+			foreach ($products as $aProduct){
+				$product = $repository->find($aProduct['id']);
+				$subtotal += $product->getPrice()*$aProduct['amount'];
+			}
+		}
+		
+		$response = $this->getTotalsCostAsArray(null, $subtotal, $shipping, $discount);
+		
+		return new Response(json_encode(array('prices' =>$response)));
 	}
 	
 	public function paymentContactAction($id)
@@ -199,16 +234,27 @@ class OrderAdminController extends Controller
 	
 	public function filterPaymentContactsByCustomerAction($customerId)
 	{
-		$customer = $this->getDoctrine()
-			->getRepository('InodataFloraBundle')
-			->find($customerId);
+		$customerDiscount = 0;
 		
-		$paymentContacts = $this->getdoctrine()
+		$query = $this->getDoctrine()
 			->getRepository('InodataFloraBundle:PaymentContact')
-			->findByCustomer($customerId);
+			->createQueryBuilder('pc');
+		
+		if($customerId!=0){
+			$query->where('pc.customer=:customer')
+				->setParameter('customer', $customerId);
+			
+			$customer = $this->getDoctrine()
+				->getRepository('InodataFloraBundle:Customer')
+				->find($customerId);
+			
+			$customerDiscount = $customer->getDiscount();
+		}
+		
+		$paymentContacts = $query->getQuery()->getResult();
 		
 		$response = array(
-				'customer_discount' => $customer->getDiscount(),
+				'customer_discount' => $customerDiscount,
 				'contacts' => $this->renderView('InodataFloraBundle:Order:_dinamic_select_item.html.twig', 
 					array('contacts' => $paymentContacts)
 				));
@@ -227,7 +273,7 @@ class OrderAdminController extends Controller
 				->setParameter('category', $categoryId);
 		}
 		
-		$messages = $query->getquery()->getResult();
+		$messages = $query->getQuery()->getResult();
 			
 		$response = array('messages'=>$this->renderView('InodataFloraBundle:Order:_dinamic_select_item.html.twig',
 				array('messages'=>$messages)));
