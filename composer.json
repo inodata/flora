@@ -31,7 +31,8 @@
         "sonata-project/user-bundle": "dev-master",
         "egeloen/ckeditor-bundle": "2.*",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "genemu/form-bundle": "2.1.*"
+        "genemu/form-bundle": "2.1.*",
+        "friendsofsymfony/jsrouting-bundle": "~1.1"
     },
     "scripts": {
         "post-install-cmd": [
