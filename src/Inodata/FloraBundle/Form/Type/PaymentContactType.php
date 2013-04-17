@@ -12,15 +12,18 @@ class PaymentContactType extends AbstractType
 		$builder
 			->add('name', 'hidden')
 			->add('department', null, array(
-				'label' => 'Departamento',)
+				'label' => 'label.department',)
 			)
 			->add('employeeNumber', null, array(
-				'label' => 'No. Empleado',)
+				'label' => 'label.employee_number',)
 			)
 			->add('phone', null, array(
-				'label' => 'Teléfono',)
+				'label' => 'label.phone',)
 			)
-			->add('email')
+			->add('email', null, array(
+				'label' => 'label.email',
+				)
+			)
 		;
 	}
 
@@ -31,6 +34,9 @@ class PaymentContactType extends AbstractType
 
 	public function getDefaultOptions(array $options)
 	{
-		return array('data_class' => 'Inodata\FloraBundle\Entity\PaymentContact');
+		return array(
+			'data_class' => 'Inodata\FloraBundle\Entity\PaymentContact',
+			'translation_domain' => 'InodataFloraBundle'
+		);
 	}
 }

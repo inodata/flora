@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 
 class OrderAdmin extends Admin
 {
+	
 	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
 	 * 
@@ -23,14 +24,14 @@ class OrderAdmin extends Admin
 						'attr' => array('class' => "order-id")
 						))
 				->add('customer', 'sonata_type_model', array(
-						'label' => 'Nombre Cliente',
+						'label' => 'label.customer',
 						'empty_value' => '',
 						'attr' => array(
 								'class' => 'inodata_customer span5',
 								'placeholder' => 'Buscar Cliente')
 						))
 				->add('paymentContact', 'genemu_jqueryselect2_entity',array(
-						'label' => 'Contacto de pago',
+						'label' => 'label.payment_contact',
 						'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
 						'empty_value' => '',
 						'attr' => array(
@@ -47,13 +48,13 @@ class OrderAdmin extends Admin
 			->end()
 			->with('Tarjeta')
 				->add('from', null, array(
-					'label'=> 'De',)
+					'label' => 'label.from')
 				)
 				->add('to', null, array(
-					'label'=> 'Para',)
+					'label'=> 'label.to',)
 				)
 				->add('category', 'genemu_jqueryselect2_entity', array(
-						'label' => 'Ocasión',
+						'label' => 'label.message_category',
 						'class' => 'Inodata\FloraBundle\Entity\Category',
 						'empty_value' => '',
 						'mapped' => false, 'required' => false,
@@ -63,7 +64,7 @@ class OrderAdmin extends Admin
 						)
 				))
 				->add('messages', 'genemu_jqueryselect2_entity', array(
-						'label' => 'Mensajes',
+						'label' => 'label.messages_list',
 						'class' => 'Inodata\FloraBundle\Entity\Message',
 						'empty_value' => '',
 						'mapped' => false, 'required' => false,
@@ -73,14 +74,14 @@ class OrderAdmin extends Admin
 						)
 				))
 				->add('message', 'ckeditor', array(
-						'label'=> 'Mensaje',
+						'label'=> 'label.message',
 						'config_name' => 'inodata_editor',
 						'attr' => array('class' => 'inodata_message span5')
 				))
 			->end()
 			->with('Entrega')
 				->add('delivery_date', 'date', array(
-						'label'=> 'Fecha de entrega',
+						'label'=> 'label.delivery_date',
 						'widget' => 'single_text',
 						'attr' => array(
 								'class' => 'inodata_dalivery_date'
@@ -90,23 +91,26 @@ class OrderAdmin extends Admin
 			->end()
 			->with('Productos')
 				->add('productos', 'genemu_jqueryselect2_entity', array(
-					'label' => 'Buscar producto',
+					'label' => 'label.search_product',
 					'class' => 'Inodata\FloraBundle\Entity\Product',
 					'mapped' => false,
 					'required' => false,
 					'empty_value' => '',
 					'attr' => array('class'=>'inodata_product span5')))
 				->add('products', null, array(
+						'label' => 'label.product_list',
 						'attr' => array(
 								'class' => 'products-to-buy span5'
 						)
 				))
 				->add('shipping', 'text', array(
+					'label' => 'label.shipping',
 					'attr' => array(
 						'class' => 'order-shipping'
 					)		
 				))
 				->add('discount', 'text', array(
+					'label' => 'label.discount',
 					'attr' => array(
 							'class' => 'order-discount'
 					)

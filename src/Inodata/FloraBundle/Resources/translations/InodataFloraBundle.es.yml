@@ -1,1 +1,28 @@
-label.customer: Cliente
+#Order labels
+label.customer: Nombre Cliente
+label.payment_contact: Contacto de pago
+label.from: De
+label.to: Para
+label.message_category: Ocasión
+label.messages_list: Lista de mensajes
+label.message: Mensaje
+label.delivery_date: Fecha de entrega
+label.search_product: Buscar producto
+label.product_list: Lista de productos
+label.shipping: Envío
+label.discount: Descuento
+
+#Address labels
+label.street: Calle
+label.exterior: No. exterior
+label.interior: No. interior
+label.postal_code: Código postal
+label.neighborhood: Colonia
+label.city: Ciudad
+label.state: Estado
+
+#PaymentContact labels
+label.department: Departamento
+label.employee_number: No. de empleado
+label.phone: Teléfono
+label.email: Correo electrónico

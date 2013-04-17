@@ -11,25 +11,25 @@ class AddressType extends AbstractType
 	{
 		$builder
 			->add('street', null, array(
-				'label' => 'Calle', )
+				'label' => 'label.street', )
 			)
 			->add('noExt', null, array(
-				'label' => 'No. Exterior',)
+				'label' => 'label.exterior',)
 			)
 			->add('noInt', null, array(
-				'label' => 'No. Interior',)
+				'label' => 'label.interior',)
 			)			
 			->add('postalCode', null, array(
-				'label' => 'Código Postal',)
+				'label' => 'label.postal_code',)
 			)
 			->add('neighborhood', null, array(
-				'label' => 'Colonia',)
+				'label' => 'label.neighborhood',)
 			)
 			->add('city', null, array(
-				'label' => 'Ciudad',)
+				'label' => 'label.city',)
 			)
 			->add('state', 'inodata_mx_states_type', array(
-				'label' => 'Estado',)
+				'label' => 'label.state',)
 			)
 		;
 	}
@@ -41,6 +41,9 @@ class AddressType extends AbstractType
 
 	public function getDefaultOptions(array $options)
 	{
-		return array('data_class' => 'Inodata\FloraBundle\Entity\Address');
+		return array(
+			'data_class' => 'Inodata\FloraBundle\Entity\Address',
+			'translation_domain' => 'InodataFloraBundle'
+		);
 	}
 }

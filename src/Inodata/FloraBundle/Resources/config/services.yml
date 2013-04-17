@@ -38,6 +38,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Pedidos }
         arguments: [ null, Inodata\FloraBundle\Entity\Order, InodataFloraBundle:OrderAdmin ]
+        calls: 
+            - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.category:
         class: Inodata\FloraBundle\Admin\CategoryAdmin
         tags:
