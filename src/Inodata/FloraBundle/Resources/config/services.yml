@@ -27,12 +27,11 @@ services:
         class: Inodata\FloraBundle\Form\Type\EmpPositionsType
         tags:
             - { name: form.type }
-
     admin.distribution:
         class: Inodata\FloraBundle\Admin\DistributionAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Reparto }
-        arguments: [ null, Inodata\FloraBundle\Entity\Order, SonataAdminBundle:CRUD ]
+        arguments: [ null, Inodata\FloraBundle\Entity\Order, InodataFloraBundle:DistributionAdmin ]
     admin.order:
         class: Inodata\FloraBundle\Admin\OrderAdmin
         tags:

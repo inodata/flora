@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Inodata\FloraBundle\InodataFloraBundle(),
+        	new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

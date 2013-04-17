@@ -138,3 +138,6 @@ knp_menu:
 
 genemu_form:
     select2: ~
+    
+fos_js_routing:
+    routes_to_expose: [inodata_flora_order_*]
