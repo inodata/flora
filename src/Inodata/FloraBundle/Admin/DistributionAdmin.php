@@ -6,11 +6,15 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 use Symfony\Component\Form\AbstractType;
 
 class DistributionAdmin extends Admin
 {
+	protected $baseRouteName = 'distribution';
+	protected $baseRoutePattern = 'distribution';
+	
 	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
 	 * 
@@ -21,6 +25,13 @@ class DistributionAdmin extends Admin
 		$formMapper
 			->add('id')
 			->add('messenger_id')
+			->add('delivery_date', 'date', array(
+						'label'=> 'label.delivery_date',
+						'widget' => 'single_text',
+						'attr' => array(
+								'class' => 'inodata_dalivery_date'
+						)
+				))	
 		;
 	}
 	
@@ -31,12 +42,16 @@ class DistributionAdmin extends Admin
 	 */
 	protected function configureListFields(ListMapper $listMapper)
 	{
+		
+		/* TODO: Agregar comentarios */
 		$listMapper
-			->addIdentifier('id')
-			->addIdentifier('messenger_id')
+			->add('messenger')
+			->add('id')
+			->add('product')
+			->add('deliveryDate')
+			->add('status')
 			->add('_action', 'actions', array(
 				'actions' => array(
-					'view' => array(),
 					'edit' => array(),
 					'delete' => array(),
 				)
@@ -52,9 +67,24 @@ class DistributionAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
+			->add('messenger')
 			->add('id')
-			->addIdentifier('messenger_id')
+			->add('deliveryDate')
+			->add('status')
 		;		
+	}
+	
+	
+	public function getTemplate($name)
+	{
+		switch ($name) {
+			case 'list':
+				return 'InodataFloraBundle:Distribution:list.html.twig';
+				break;
+			default:
+				return parent::getTemplate($name);
+				break;
+		}
 	}
 	
 } 
