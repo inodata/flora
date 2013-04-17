@@ -1,0 +1,73 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% block javascripts %}
+	{{ parent() }}	
+	{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
+				   '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
+	%}
+		<script type="text/javascript" src="{{ asset_url }}" ></script>
+	{% endjavascripts %}
+	<script type="text/javascript"  >
+		$('document').ready(function(){
+			$('.inodata_dalivery_date').datepicker({ dateFormat: "yy-mm-dd" });
+
+			$('.print_link').live('click', function(){
+				window.print();
+			});
+			
+		});
+	</script>
+{% endblock %}
+
+{% block list_table %}
+	<b>Crear Orden de reparto</b>
+	{% block distribution_form %}
+	
+		<form method="POST" action="#">
+		{{ form_label(distribution_form.messenger) }}
+		{{ form_widget(distribution_form.messenger) }}
+		
+		{{ form_label(distribution_form.id) }}
+		{{ form_widget(distribution_form.id) }}
+		
+		{% block distribution_table %}
+			 <table class="table table-bordered table-striped list-products">
+				{% block distribution_table_header %}
+					<thead>
+						<tr class="sonata-ba-list-field-header">
+							{% spaceless %}
+	                        	<th class="sonata-ba-list-field-header-text" >
+	                            	No. Pedido
+	                        	</th>
+	                        	<th class="sonata-ba-list-field-header-text" >
+	                            	Detalles
+	                        	</th>
+	                        	<th class="sonata-ba-list-field-header-text" >
+	                            	Acciones
+	                        	</th>
+	                    	{% endspaceless %}
+						</tr>
+					</thead>
+				{% endblock %}
+				{% block distribution_table_body %}
+					<tbody>
+			        	<tr id="no_products" >
+			            	<td colspan="3" class="sonata-ba-list-field sonata-ba-list-field-text" >
+			                	<p class="notice">
+			                    	 Seleccione un Repartidor
+			                	</p>
+			        		</td>                 
+			       		</tr>
+			     	 </tbody>
+				{% endblock %}
+				{% block distribution_table_footer %}
+				{% endblock %}
+			</table>
+		{% endblock %}
+		</form>
+	{% endblock %}
+	{{ parent() }}
+	<a class="btn print_link" title="Edit" >
+		Print
+	</a>
+{% endblock %}
