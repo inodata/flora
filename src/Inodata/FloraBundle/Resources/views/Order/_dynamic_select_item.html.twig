@@ -12,6 +12,6 @@
 {% if messages is defined %}
 	<option value=""></option>
 	{% for message in messages %}
-		<option value="{{ message.id }}">{{ message.message }}</option>
+		<option value="{{ message.id }}" content="{{ message.message }}">{{ message }}</option>
 	{% endfor %}
 {% endif %}
