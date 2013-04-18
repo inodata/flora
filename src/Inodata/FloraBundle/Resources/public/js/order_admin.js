@@ -2,22 +2,12 @@ $(document).ready(function() {
 	var isEnteredInModal = false;
 	var isCustomerToSelect2 = false;
 	
-	$(".inodata_customer").select2({ 
-			allowClear: true
-		});
-	
-	$(".inodata_payment_contact").select2({ 
-	    allowClear: true
-	});
-	
-	$(".inodata_product").select2({
-		placeholder: "Selecciona un producto",
-		allowClear: true
-	});
-	
-	$(".inodata_category_day, .inodata_messages").select2({
-	    allowClear: true
-	});
+	$(".inodata_customer, " +
+	  ".inodata_payment_contact, " +
+	  ".inodata_product, " +
+	  ".inodata_category_day, " +
+	  ".inodata_messages"
+	).select2({ allowClear: true });
 	
 	$('.inodata_dalivery_date').datepicker({ dateFormat: "yy-mm-dd" })
 	
@@ -129,20 +119,28 @@ $(document).ready(function() {
 	//--------------------------------------------------------------------//
 	
 	// ------------------------ Messages --------------------------//
+	filterMessagesList($('.inodata_category_day').val());
+	
 	$('.inodata_category_day').change(function(){
-		$(this).val()!=''?id=$(this).val():id=0;
+		filterMessagesList($(this).val());
+	});
+	
+	function filterMessagesList(val)
+	{
+		val!=''?id=val:id=0;
 		var url = Routing.generate('inodata_flora_order_filter_message_by_category', {categoryId:id });
 	
 		$.get(url, function(data){
 			$('select.inodata_messages option').remove();
 			$('select.inodata_messages').append(data.messages);
+			$('.inodata_messages').select2('val', '');
 		}, 'json');
-	});
+	}
 	
 	$('.inodata_messages').change(function(){
-		var message = $(this).children(':selected').text();
+		var message = $(this).children(':selected').attr('content');
 		if(message!=''){
-			$('iframe').contents().find('body').text(message);
+			$('iframe').contents().find('body').html(message);
 	    }
 	});
 	//-------------------------------------------------------------//
