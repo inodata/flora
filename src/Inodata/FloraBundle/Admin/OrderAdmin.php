@@ -36,7 +36,7 @@ class OrderAdmin extends Admin
 						'empty_value' => '',
 						'attr' => array(
 								'class' => 'inodata_payment_contact span5',
-								'placeholder' => 'Seleccionar o crear contacto'
+								'placeholder' => $this->trans('label.contact_empty_list')
 						)
 				))
 				->add('Contacto', 'inodata_payment_contact_form', array(
@@ -45,6 +45,7 @@ class OrderAdmin extends Admin
 						'attr' => array('class' => 'payment_contact_form')
 					)
 				)
+				->add('status', 'hidden')
 			->end()
 			->with('Tarjeta')
 				->add('from', null, array(
@@ -60,7 +61,7 @@ class OrderAdmin extends Admin
 						'mapped' => false, 'required' => false,
 						'attr' => array(
 								'class' => 'inodata_category_day span5',
-								'placeholder' => 'Seleccionar una ocasión'
+								'placeholder' => $this->trans('label.msg_category_empty_list')
 						)
 				))
 				->add('messages', 'genemu_jqueryselect2_entity', array(
@@ -70,7 +71,7 @@ class OrderAdmin extends Admin
 						'mapped' => false, 'required' => false,
 						'attr' => array(
 								'class' => 'inodata_messages span5',
-								'placeholder' => 'Seleccionar un mensaje predefinido'
+								'placeholder' => $this->trans('Seleccionar un mensaje predefinido')
 						)
 				))
 				->add('message', 'ckeditor', array(
@@ -96,7 +97,9 @@ class OrderAdmin extends Admin
 					'mapped' => false,
 					'required' => false,
 					'empty_value' => '',
-					'attr' => array('class'=>'inodata_product span5')))
+					'attr' => array(
+							'placeholder' => $this->trans('label.product_empty_list'),
+							'class'=>'inodata_product span5')))
 				->add('products', null, array(
 						'label' => 'label.product_list',
 						'attr' => array(
@@ -115,7 +118,7 @@ class OrderAdmin extends Admin
 							'class' => 'order-discount'
 					)
 				))
-				->end()
+			->end()
 		;
 	}
 	

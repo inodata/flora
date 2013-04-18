@@ -616,8 +616,12 @@ class Order
      * @param string $status
      * @return Order
      */
-    public function setStatus($status)
+    public function setStatus($status = null)
     {
+    	if (empty($status)){
+    		$status = 'open';
+    	}
+    	
         $this->status = $status;
     
         return $this;
