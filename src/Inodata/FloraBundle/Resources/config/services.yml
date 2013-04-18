@@ -84,8 +84,25 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Control de inventario}
         arguments: [ null, Inodata\FloraBundle\Entity\ProductLog, SonataAdminBundle:CRUD ]
+
+    # KernelRequest listener
+    extension.listener:
+        class: Inodata\FloraBundle\Listener\DoctrineExtensionListener
+        calls:
+            - [ setContainer, [ @service_container ] ]
+        tags:
+            # loggable hooks user username if one is in security context
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    # Doctrine extensions
     gedmo.listener.timestampable:
         class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]
+    gedmo.listener.loggable:
+        class: Gedmo\Loggable\LoggableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:

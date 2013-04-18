@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 
 /**
  * Order
- *
+ * @Gedmo\Loggable
  * @ORM\Table(name="ino_order")
  * @ORM\Entity
  */
@@ -81,6 +81,7 @@ class Order
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="update")
+     * @Gedmo\Versioned
      */
     private $updatedAt;
 
