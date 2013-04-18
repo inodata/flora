@@ -11,6 +11,10 @@ label.search_product: Buscar producto
 label.product_list: Lista de productos
 label.shipping: Envío
 label.discount: Descuento
+label.product_empty_list: Seleccionar un producto
+label.contact_empty_list: Seleccionar o crear contacto
+label.msg_category_empty_list: Seleccionar una ocasión
+label.message_empty_list: Seleccionar un mensaje predefinido
 
 #Address labels
 label.street: Calle

@@ -25,13 +25,13 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $manager->persist($customer);
         $manager->flush();
 
-        $this->addReference('patito_sa', $customer);
+        $this->addReference('customer1', $customer);
         
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Super Colchones SA de CV');
         $customer->setCompanyName('Super Colchones');
-        $customer->setDiscount(.05);
+        $customer->setDiscount(.07);
         $customer->setFiscalAddress($this->getReference('direccion3'));
         $customer->setPaymentAddress($this->getReference('direccion4'));
         
@@ -39,6 +39,58 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $manager->flush();
         
         $this->addReference('customer2', $customer);
+        
+        $customer = new Customer();
+        $customer->setRfc('MAH128345GH2');
+        $customer->setBusinessName('Industrias Gonzalez');
+        $customer->setCompanyName('Super Colchones');
+        $customer->setDiscount(.05);
+        $customer->setFiscalAddress($this->getReference('direccion5'));
+        $customer->setPaymentAddress($this->getReference('direccion6'));
+        
+        $manager->persist($customer);
+        $manager->flush();
+        
+        $this->addReference('customer3', $customer);
+        
+        $customer = new Customer();
+        $customer->setRfc('MAH128345GH2');
+        $customer->setBusinessName('Industrias Perez');
+        $customer->setCompanyName('LOS Perez');
+        $customer->setDiscount(.1);
+        $customer->setFiscalAddress($this->getReference('direccion7'));
+        $customer->setPaymentAddress($this->getReference('direccion8'));
+        
+        $manager->persist($customer);
+        $manager->flush();
+        
+        $this->addReference('customer4', $customer);
+        
+        $customer = new Customer();
+        $customer->setRfc('MAH128345GH2');
+        $customer->setBusinessName('Industrias Gomez');
+        $customer->setCompanyName('Gomez Company');
+        $customer->setDiscount(0);
+        $customer->setFiscalAddress($this->getReference('direccion9'));
+        $customer->setPaymentAddress($this->getReference('direccion10'));
+        
+        $manager->persist($customer);
+        $manager->flush();
+        
+        $this->addReference('customer5', $customer);
+        
+        $customer = new Customer();
+        $customer->setRfc('MAH128345GH2');
+        $customer->setBusinessName('industrias texitles Rocha');
+        $customer->setCompanyName('Los Rochas');
+        $customer->setDiscount(.04);
+        $customer->setFiscalAddress($this->getReference('direccion11'));
+        $customer->setPaymentAddress($this->getReference('direccion12'));
+        
+        $manager->persist($customer);
+        $manager->flush();
+        
+        $this->addReference('customer6', $customer);
     }
 
     /**
@@ -46,6 +98,6 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
      */
     public function getOrder()
     {
-    	return 3;
+    	return 7;
     }
 }

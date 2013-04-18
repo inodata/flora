@@ -9,6 +9,7 @@
         "symfony/symfony": "2.2.*",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "1.2.*",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
         "twig/extensions": "1.0.*",
         "symfony/assetic-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.2.*",
@@ -19,6 +20,7 @@
         "jms/security-extra-bundle": "1.4.*",
         "jms/di-extra-bundle": "1.3.*",
         "friendsofsymfony/user-bundle": "*",
+        "friendsofsymfony/jsrouting-bundle": "~1.1",
         "sonata-project/cache-bundle": "2.*",
         "sonata-project/block-bundle": "2.2.*@dev",
         "sonata-project/jquery-bundle": "1.*",
@@ -30,9 +32,7 @@
         "sonata-project/doctrine-orm-admin-bundle": "2.2.*@dev",
         "sonata-project/user-bundle": "dev-master",
         "egeloen/ckeditor-bundle": "2.*",
-        "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "genemu/form-bundle": "2.1.*",
-        "friendsofsymfony/jsrouting-bundle": "~1.1"
+        "genemu/form-bundle": "2.1.*"  
     },
     "scripts": {
         "post-install-cmd": [
