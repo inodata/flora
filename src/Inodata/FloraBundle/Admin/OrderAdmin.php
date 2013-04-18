@@ -91,6 +91,13 @@ class OrderAdmin extends Admin
 				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('Productos')
+				->add('invoiceNumber', 'text',array(
+					'required' => false,
+					'label' => 'label.invoice',
+					'attr' => array(
+						'class' => 'inodata-invoice-number',
+						'style' => 'width:8%;')
+				))
 				->add('productos', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.search_product',
 					'class' => 'Inodata\FloraBundle\Entity\Product',
@@ -118,6 +125,7 @@ class OrderAdmin extends Admin
 							'class' => 'order-discount'
 					)
 				))
+				
 			->end()
 		;
 	}

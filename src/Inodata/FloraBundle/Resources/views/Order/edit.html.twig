@@ -138,3 +138,8 @@
         {% endfor %}
     </div>
 {% endblock %}
+
+{% block sonata_formactions%}
+	{{ parent() }}
+	<input type="submit" class="btn btn-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}) }}"/>
+{% endblock %}
