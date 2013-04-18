@@ -19,8 +19,8 @@ class ProductAdmin extends Admin
 		$showMapper
 			->add('code')
 			->add('description')
-			->add('price')
-			->add('stock', 'integer')
+			->add('price', 'string')
+			->add('stock')
 		;
 	}
 	

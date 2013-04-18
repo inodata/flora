@@ -30,7 +30,7 @@ twig:
     form:
         resources:
             - 'InodataFloraBundle:Form:fields.html.twig'
-    
+
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
@@ -65,6 +65,13 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+
+        mappings:
+            loggable:
+                type: annotation
+                alias: Gedmo
+                prefix: Gedmo\Loggable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -138,6 +145,7 @@ knp_menu:
 
 genemu_form:
     select2: ~
-    
+    date:    ~
+
 fos_js_routing:
     routes_to_expose: [inodata_flora_order_*]

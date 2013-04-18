@@ -32,7 +32,8 @@
         "sonata-project/doctrine-orm-admin-bundle": "2.2.*@dev",
         "sonata-project/user-bundle": "dev-master",
         "egeloen/ckeditor-bundle": "2.*",
-        "genemu/form-bundle": "2.1.*"  
+        "genemu/form-bundle": "2.1.*",
+        "gedmo/doctrine-extensions": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

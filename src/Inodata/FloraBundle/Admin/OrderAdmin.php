@@ -119,7 +119,7 @@ class OrderAdmin extends Admin
 						'class' => 'order-shipping'
 					)		
 				))
-				->add('discount', 'text', array(
+				->add('discount', null, array(
 					'label' => 'label.discount',
 					'attr' => array(
 							'class' => 'order-discount'
@@ -139,11 +139,14 @@ class OrderAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id')
+			->add('product')
+			->add('createdAt')
+			->add('updatedAt')
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'view' => array(),
 					'edit' => array(),
-					'delete' => array(),
+					//'delete' => array(),
 				)
 			)
 		);
