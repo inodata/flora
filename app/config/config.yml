@@ -30,7 +30,7 @@ twig:
     form:
         resources:
             - 'InodataFloraBundle:Form:fields.html.twig'
-    
+
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
@@ -138,6 +138,7 @@ knp_menu:
 
 genemu_form:
     select2: ~
-    
+    date:    ~
+
 fos_js_routing:
     routes_to_expose: [inodata_flora_order_*]
