@@ -109,7 +109,7 @@ class OrderAdmin extends Admin
 						'class' => 'order-shipping'
 					)		
 				))
-				->add('discount', 'text', array(
+				->add('discount', null, array(
 					'label' => 'label.discount',
 					'attr' => array(
 							'class' => 'order-discount'

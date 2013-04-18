@@ -3,6 +3,7 @@
 namespace Inodata\FloraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 //use Doctrine\ORM\EntityRepository;
 
 /**
@@ -70,7 +71,8 @@ class Order
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
