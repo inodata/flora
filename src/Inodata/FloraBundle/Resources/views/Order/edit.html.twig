@@ -141,5 +141,9 @@
 
 {% block sonata_formactions%}
 	{{ parent() }}
-	<input type="submit" class="btn btn-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}) }}"/>
+	{% if admin.id(object) %}
+		<a class="btn " href="javascript:window.print()">{{ 'button.print_invoice'|trans({}) }}</a>
+	{% else %}
+		<input type="submit" class="btn btn-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}) }}"/>
+	{% endif %}
 {% endblock %}
