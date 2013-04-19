@@ -1,3 +1,9 @@
+#Order tabs
+tab.customer: Cliente
+tab.delivery_data: Datos de entrega
+tab.card: Tarjeta
+tab.products_detail: Detalle de productos
+
 #Order labels
 label.customer: Nombre Cliente
 label.payment_contact: Contacto de pago

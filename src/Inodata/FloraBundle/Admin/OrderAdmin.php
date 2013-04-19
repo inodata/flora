@@ -19,7 +19,7 @@ class OrderAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->with('Cliente')
+			->with($this->trans('tab.customer'))
 				->add('id', 'hidden', array(
 						'attr' => array('class' => "order-id")
 						))
@@ -47,7 +47,17 @@ class OrderAdmin extends Admin
 				)
 				->add('status', 'hidden')
 			->end()
-			->with('Tarjeta')
+			->with('Datos de entrega')
+				->add('delivery_date', 'date', array(
+						'label'=> 'label.delivery_date',
+						'widget' => 'single_text',
+						'attr' => array(
+								'class' => 'inodata_dalivery_date'
+						)
+				))				
+				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
+			->end()
+			->with($this->trans('tab.card'))
 				->add('from', null, array(
 					'label' => 'label.from')
 				)
@@ -79,18 +89,8 @@ class OrderAdmin extends Admin
 						'config_name' => 'inodata_editor',
 						'attr' => array('class' => 'inodata_message span5')
 				))
-			->end()
-			->with('Entrega')
-				->add('delivery_date', 'date', array(
-						'label'=> 'label.delivery_date',
-						'widget' => 'single_text',
-						'attr' => array(
-								'class' => 'inodata_dalivery_date'
-						)
-				))				
-				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
-			->end()
-			->with('Productos')
+			->end()			
+			->with($this->trans('tab.products_detail'))
 				->add('invoiceNumber', 'text',array(
 					'required' => false,
 					'label' => 'label.invoice',
