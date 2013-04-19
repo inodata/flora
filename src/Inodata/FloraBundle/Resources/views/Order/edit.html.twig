@@ -1,14 +1,11 @@
 {% extends 'InodataFloraBundle::base_edit.html.twig' %}
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css' %}
+	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
+                   '@InodataFloraBundle/Resources/public/css/main.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
-	<style>
-		div.list-products-content{ width:100%;}
-		div.list-products-content .table-1 {float:left; width:80%;}
-		div.list-products-content .table-2 { float:right; width: 20%;}
-	</style>
+
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}	
