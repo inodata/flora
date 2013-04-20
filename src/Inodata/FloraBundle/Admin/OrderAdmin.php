@@ -91,13 +91,6 @@ class OrderAdmin extends Admin
 				))
 			->end()			
 			->with('tab.products_detail')
-				->add('invoiceNumber', 'text',array(
-					'required' => false,
-					'label' => 'label.invoice',
-					'attr' => array(
-						'class' => 'inodata-invoice-number',
-						'style' => 'width:8%;')
-				))
 				->add('productos', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.search_product',
 					'class' => 'Inodata\FloraBundle\Entity\Product',
@@ -126,6 +119,15 @@ class OrderAdmin extends Admin
 					)
 				))
 				
+			->end()
+			->with('tab.invoice')
+				->add('invoiceNumber', 'text',array(
+					'required' => false,
+					'label' => 'label.invoice',
+					'attr' => array(
+						'class' => 'inodata-invoice-number',
+						'style' => 'width:8%;')
+				))
 			->end()
 		;
 	}
