@@ -1,3 +1,13 @@
+#Order tabs
+tab.customer: Cliente
+tab.delivery_data: Datos de entrega
+tab.card: Tarjeta
+tab.products_detail: Detalle de productos
+
+#Order buttons
+button.print_card: Imprimir tarjeta
+button.print_invoice: Imprimir factura
+
 #Order labels
 label.customer: Nombre Cliente
 label.payment_contact: Contacto de pago
@@ -16,7 +26,6 @@ label.contact_empty_list: Seleccionar o crear contacto
 label.msg_category_empty_list: Seleccionar una ocasión
 label.message_empty_list: Seleccionar un mensaje predefinido
 label.invoice: Factura
-button.print_invoice: Imprimmir Factura
 
 #Address labels
 label.street: Calle
