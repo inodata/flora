@@ -194,9 +194,6 @@ class OrderAdminController extends Controller
 		$uniqid = $this->get('request')->get('uniqid');
 		$request = $this->get('request')->get($uniqid);
 		
-		if (isset( $request['btn_create_and_print'])){
-			exit('save and printing!!!');
-		}
 		//btn_create_and_print
 		if ($this->getRestMethod() == 'POST'){
 			$this->updatePaymentContactInfo();
@@ -222,11 +219,11 @@ class OrderAdminController extends Controller
 			$paymentContact->setCustomer($customer);
 		}
 		
-		$paymentContact->setName($orderArray['Contacto']['name']);
-		$paymentContact->setEmployeeNumber($orderArray['Contacto']['employeeNumber']);
-		$paymentContact->setPhone($orderArray['Contacto']['phone']);
-		$paymentContact->setEmail($orderArray['Contacto']['email']);
-		$paymentContact->setDepartment($orderArray['Contacto']['department']);
+		$paymentContact->setName($orderArray['contact']['name']);
+		$paymentContact->setEmployeeNumber($orderArray['contact']['employeeNumber']);
+		$paymentContact->setPhone($orderArray['contact']['phone']);
+		$paymentContact->setEmail($orderArray['contact']['email']);
+		$paymentContact->setDepartment($orderArray['contact']['department']);
 			
 		$em->persist($paymentContact);
 		$em->flush();
