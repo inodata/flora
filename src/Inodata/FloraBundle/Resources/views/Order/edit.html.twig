@@ -43,7 +43,17 @@
     </div>
 {% endblock %}
 
+{% block footer %}
+	{{ parent() }}
+	<div id="order-invoice-print">
+	</div>
+{% endblock %}
+
 {% block sonata_formactions%}
 	{{ parent() }}
-	<input type="submit" class="btn btn-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}) }}"/>
+	{% if admin.id(object) %}
+		<a class="btn btn-print-invoice" href="javascript:void()">{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}</a>
+	{% else %}
+		<input type="submit" class="btn btn-create-and-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}"/>
+	{% endif %}
 {% endblock %}
