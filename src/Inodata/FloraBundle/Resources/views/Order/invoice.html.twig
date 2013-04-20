@@ -231,18 +231,20 @@
             	<div class="left_column">
                 	<div class="issuing">
                     	<div class="logo"><IMG SRC="%\//Compac/Encabezado/MGW10008/Imagenes|i_LOGOEMPRESA\%" HEIGHT="70"></div>
-                    	<h3>%issuing_NOMBRE%</h3>
-                        <p>%issuing_DOMICILIO%, %issuing_COLONIA% <br/>
-                        %issuing_LOCALIDAD%, %issuing_MUNICIPIO%, %issuing_ESTADO%, C.P. %issuing_CP% <br/>
-                        RFC: %issuing_RFC%</p>
+                    	<h3>{{ issuing_name }}</h3>
+                        <p>{{ issuing_street }} No. {{ issuing_nint }}, {{ issuing_neighborhood }} <br/>
+                        {{ issuing_city }}, {{ issuing_state }}, C.P. {{ issuing_cp }} <br/>
+                        RFC: {{ issuing_rfc }}</p>
         			</div>
                     <div class="receptor">
                     	<div class="div_header">Cliente</div>
                     	<div class="div_content">
-                            %RECEPTOR_NOMBRE%<br/>
-                            %RECEPTOR_DOMICILIO%, %RECEPTOR_COLONIA% <br/>
-                            %RECEPTOR_LOCALIDAD%, %RECEPTOR_MUNICIPIO%, %RECEPTOR_ESTADO%, C.P. %RECEPTOR_CP% <br/>
-                            RFC: %RECEPTOR_RFC%
+                            {{ object.customer.businessName }}<br/>
+                            {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noInt }} 
+                            {% if(object.customer.fiscalAddress.noExt =!'') %} Ext. {{ object.customer.fiscalAddress.noExt }} {% endif %}, 
+                            {{ object.customer.fiscalAddress.neighborhood }} <br/>
+                            {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/>
+                            {{ object.customer.rfc }}
                         </div>
                     </div>
                 </div>

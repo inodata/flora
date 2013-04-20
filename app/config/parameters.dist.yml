@@ -16,3 +16,15 @@ parameters:
     database_path:     ~
     
     order_shipping:    65
+    
+    issuing_name:       ~
+    issuing_rfc:        ~
+    issuing_curp:       ~
+    issuing_street:     ~
+    issuing_nint:       ~
+    issuing_neighborhood: ~
+    issuing_city:       ~
+    issuing_state:      ~
+    issuing_cp:         ~
+    issuing_phone:      ~
+    issuing_phone2:     ~
