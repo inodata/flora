@@ -2,9 +2,12 @@
   div.list-products-content{ width:100%;}
   div.list-products-content .table-1 {float:left; width:80%;}
   div.list-products-content .table-2 { float:right; width: 20%;}
+  
+  #order-invoice-print {display: none;}
 }
 
-@media print {
+@media print
+{
   * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
   a, a:visited { text-decoration: underline; }
   a[href]:after { content: " (" attr(href) ")"; }
@@ -17,4 +20,8 @@
   @page { margin: 0.5cm; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
+  
+  /*Rules for inovoice print */
+  body.sonata-bc { padding: 0px; }
+  .navbar, .sf-toolbar, .container-fluid > .row-fluid,.nav, .tab-content, .alert { display: none; }
 }
