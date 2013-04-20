@@ -176,6 +176,20 @@ class Order
     * @ORM\Column(type="string", columnDefinition="ENUM('open','intransit','delivered','partiallypayment','closed')") 
     */
     private $status;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="payment_condition", type="string", length=255, nullable=true)
+     */
+    private $paymentCondition;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="invoice_comment", type="string", length=255, nullable=true)
+     */
+    private $invoiceComment;
 
     /**
      * Constructor
@@ -662,5 +676,51 @@ class Order
     public function getPaymentContact()
     {
         return $this->paymentContact;
+    }
+
+    /**
+     * Set paymentCondition
+     *
+     * @param string $paymentCondition
+     * @return Order
+     */
+    public function setPaymentCondition($paymentCondition)
+    {
+        $this->paymentCondition = $paymentCondition;
+    
+        return $this;
+    }
+
+    /**
+     * Get paymentCondition
+     *
+     * @return string 
+     */
+    public function getPaymentCondition()
+    {
+        return $this->paymentCondition;
+    }
+
+    /**
+     * Set invoiceComment
+     *
+     * @param string $invoiceComment
+     * @return Order
+     */
+    public function setInvoiceComment($invoiceComment)
+    {
+        $this->invoiceComment = $invoiceComment;
+    
+        return $this;
+    }
+
+    /**
+     * Get invoiceComment
+     *
+     * @return string 
+     */
+    public function getInvoiceComment()
+    {
+        return $this->invoiceComment;
     }
 }
