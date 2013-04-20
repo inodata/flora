@@ -19,7 +19,7 @@ class OrderAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->with('Cliente')
+			->with('tab.customer')
 				->add('id', 'hidden', array(
 						'attr' => array('class' => "order-id")
 						))
@@ -39,7 +39,7 @@ class OrderAdmin extends Admin
 								'placeholder' => $this->trans('label.contact_empty_list')
 						)
 				))
-				->add('Contacto', 'inodata_payment_contact_form', array(
+				->add('contact', 'inodata_payment_contact_form', array(
 						'label'=>false, 
 						'mapped' => false,
 						'attr' => array('class' => 'payment_contact_form')
@@ -47,7 +47,17 @@ class OrderAdmin extends Admin
 				)
 				->add('status', 'hidden')
 			->end()
-			->with('Tarjeta')
+			->with('tab.delivery_data')
+				->add('delivery_date', 'date', array(
+						'label'=> 'label.delivery_date',
+						'widget' => 'single_text',
+						'attr' => array(
+								'class' => 'inodata_dalivery_date'
+						)
+				))				
+				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
+			->end()
+			->with('tab.card')
 				->add('from', null, array(
 					'label' => 'label.from')
 				)
@@ -79,25 +89,8 @@ class OrderAdmin extends Admin
 						'config_name' => 'inodata_editor',
 						'attr' => array('class' => 'inodata_message span5')
 				))
-			->end()
-			->with('Entrega')
-				->add('delivery_date', 'date', array(
-						'label'=> 'label.delivery_date',
-						'widget' => 'single_text',
-						'attr' => array(
-								'class' => 'inodata_dalivery_date'
-						)
-				))				
-				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
-			->end()
-			->with('Productos')
-				->add('invoiceNumber', 'text',array(
-					'required' => false,
-					'label' => 'label.invoice',
-					'attr' => array(
-						'class' => 'inodata-invoice-number',
-						'style' => 'width:8%;')
-				))
+			->end()			
+			->with('tab.products_detail')
 				->add('productos', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.search_product',
 					'class' => 'Inodata\FloraBundle\Entity\Product',
@@ -126,6 +119,15 @@ class OrderAdmin extends Admin
 					)
 				))
 				
+			->end()
+			->with('tab.invoice')
+				->add('invoiceNumber', 'text',array(
+					'required' => false,
+					'label' => 'label.invoice',
+					'attr' => array(
+						'class' => 'inodata-invoice-number',
+						'style' => 'width:8%;')
+				))
 			->end()
 		;
 	}
