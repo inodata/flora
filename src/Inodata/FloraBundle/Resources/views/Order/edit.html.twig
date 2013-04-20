@@ -52,7 +52,9 @@
 {% block sonata_formactions%}
 	{{ parent() }}
 	{% if admin.id(object) %}
-		<a class="btn btn-print-invoice" href="javascript:void()">{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}</a>
+		<a class="btn btn-print-invoice" href="javascript:void()">
+			<i class="icon-print"></i>{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}
+		</a>
 	{% else %}
 		<input type="submit" class="btn btn-create-and-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}"/>
 	{% endif %}
