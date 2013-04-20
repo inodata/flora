@@ -16,6 +16,7 @@ label.contact_empty_list: Seleccionar o crear contacto
 label.msg_category_empty_list: Seleccionar una ocasión
 label.message_empty_list: Seleccionar un mensaje predefinido
 label.invoice: Factura
+button.print_invoice: Imprimmir Factura
 
 #Address labels
 label.street: Calle

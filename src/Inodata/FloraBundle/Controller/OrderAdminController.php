@@ -32,23 +32,13 @@ class OrderAdminController extends Controller
 		return new Response(json_encode($response));
 	}
 	
-	public function orderProductsAction($id = null)
+	public function orderProductsAction($id = null, $isForInvoice = false)
 	{
 		$price_subtotal = 0;
 		
 		if($id){
-			$order = $this->getDoctrine()
-				->getRepository('InodataFloraBundle:OrderProduct')
-				->findByOrderId($id);
-			
-			$productIds = array();
-			foreach ($order as $product){
-				if(isset($productIds[$product->getProductId()])){
-					$productIds[$product->getProductId()]+=1;
-				}else{
-					$productIds[$product->getProductId()]=1;
-				}
-			}
+			$orderProduct = $this->getOrderProductGroupedByProduct($id);
+			$productIds = $orderProduct['productIds'];
 			
 			$listFields="";
 			foreach ($productIds as $productId=>$cant){
@@ -63,13 +53,32 @@ class OrderAdminController extends Controller
 			}
 		}
 		
-		$selectOptions = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', array('products' => $order));
+		$selectOptions = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', array('products' => $orderProduct['order']));
 		
 		$response = array("listFields"=>$listFields, "selectOptions"=>$selectOptions, 
 						  'totals'=>$this->getTotalsCostAsArray($id, $price_subtotal));
 		
 		return new Response(json_encode($response));
 	}
+	
+	protected function getOrderProductGroupedByProduct($id)
+	{
+		$order = $this->getDoctrine()
+			->getRepository('InodataFloraBundle:OrderProduct')
+			->findByOrderId($id);
+			
+		$productIds = array();
+		foreach ($order as $product){
+			if(isset($productIds[$product->getProductId()])){
+				$productIds[$product->getProductId()]+=1;
+			}else{
+				$productIds[$product->getProductId()]=1;
+			}
+		}
+		
+		return array('order'=>$order, 'productIds' =>$productIds);
+	}
+	
 	/**
 	 * Calculate total price for the order
 	 * @return array
@@ -104,8 +113,8 @@ class OrderAdminController extends Controller
 		$total = $subtotal+$shipping-$discountNet+$IVA;
 		
 		return array('shipping'=>$shipping, 'discount' =>$discount, 
-				'discount_net' =>$discountNet,'discount_percent'=>$discountPercentLabel, 
-				'iva' =>$IVA, 'subtotal'=>$subtotal, 'total'=>$total);
+				'discount_net' =>round($discountNet,2),'discount_percent'=>$discountPercentLabel, 
+				'iva' =>round($IVA,2), 'subtotal'=>$subtotal, 'total'=>round($total, 2));
 	}
 	
 	public function updateTotalsCostAction()
@@ -288,13 +297,49 @@ class OrderAdminController extends Controller
 		return new Response(json_encode($response));
 	}
 	
+	public function createInvoiceTotalsAction($orderId)
+	{
+		if ($orderId){
+			$products = array();
+			$subtotal = 0;
+			$orderProduct = $this->getOrderProductGroupedByProduct($orderId);
+			$order=$this->getDoctrine()->getRepository('InodataFloraBundle:Order')->find($orderId);
+			
+			foreach ($orderProduct['productIds'] as $productId => $cant){
+				$product = $this->getDoctrine()
+					->getRepository('InodataFloraBundle:Product')
+					->find($productId);
+				$products[] = array('product' => $product, 'cant'=>$cant);
+				
+				$subtotal+=$cant*$product->getPrice();
+			}
+		}
+		
+		$response = array('inovice_totals' => $this->renderView('InodataFloraBundle:Order:_invoice_products_and_totals.html.twig',
+						array('order'=>$order, 'products'=>$products, 'totals' => $this->getTotalsCostAsArray($orderId, $subtotal))));
+		
+		return new Response(json_encode($response));
+	}
+	
+	public function isPrintRequiredAction()
+	{
+		$isPrint = false;
+		$action = $this->getRequest()->getSession()->get('action');
+		if ($action=="print"){
+			$this->getRequest()->getSession()->set('action', '');
+			$isPrint = true;
+		}
+		
+		return new Response(json_encode(array('isPrint'=>$isPrint)));
+	}
+	
 	//Overwitten function
 	public function redirectTo($object)
 	{
 		$response = parent::redirectTo($object);
 		
 		if ($this->get('request')->get('btn_create_and_print')){
-			//TODO printing controller
+			$this->getRequest()->getSession()->set('action', 'print');
 		}
 		
 		return $response;

@@ -87,11 +87,11 @@ $(document).ready(function() {
 		$.get(url, function(contact){
 			setPContactDataOnInputs(contact);
 		}, 'json');
-	    }
-	  
-	    function setPContactDataOnInputs(contact)
-	    {
-	    	$('.payment_contact_form input').eq(0).val(contact.name);
+	}
+
+	function setPContactDataOnInputs(contact)
+	{
+		$('.payment_contact_form input').eq(0).val(contact.name);
 		$('.payment_contact_form input').eq(1).val(contact.department);
 		$('.payment_contact_form input').eq(2).val(contact.emp_number);
 		$('.payment_contact_form input').eq(3).val(contact.phone);
@@ -275,6 +275,36 @@ $(document).ready(function() {
 			alert('Cantidad invalida');
 			$(element).val('0');
 		}
+	}
+	//-------------------------------------------------------------------//
+	
+	//-------------------------- Print Invoice---------------------------//
+	$('.btn-print-invoice').click(function(){
+		var orderId = $(".order-id").val();
+		if($('#order-invoice-print>div').length==0){
+			if(orderId.length!=0){
+				loadInvoiceAndPrint(orderId);
+			}
+		}else{
+			window.print();
+		}
+	});
+	
+	if(id!=''){
+		var url = Routing.generate('inodata_flora_order_is_print_required');
+		$.get(url, function(response){
+			if(response.isPrint){
+				loadInvoiceAndPrint(id);
+			}
+		}, 'json')
+	}
+	
+	function loadInvoiceAndPrint(orderId){
+		var url = Routing.generate('inodata_flora_order_create_inovice_totals', {orderId:orderId});
+		$.get(url, function(response){
+			$('#order-invoice-print').append(response.inovice_totals);
+			window.print();
+		},'json');
 	}
 	//-------------------------------------------------------------------//
 	
