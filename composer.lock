@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "43c7f83ee47d8dea5b06faa3d5e97560",
+    "hash": "2604ba0199b1b5871c6824407db2f1a0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -302,7 +302,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -2826,14 +2826,14 @@
     ],
     "minimum-stability": "alpha",
     "stability-flags": {
+        "doctrine/doctrine-fixtures-bundle": 20,
         "sonata-project/block-bundle": 20,
         "knplabs/knp-menu": 20,
         "knplabs/knp-menu-bundle": 20,
         "sonata-project/intl-bundle": 20,
         "sonata-project/admin-bundle": 20,
         "sonata-project/doctrine-orm-admin-bundle": 20,
-        "sonata-project/user-bundle": 20,
-        "doctrine/doctrine-fixtures-bundle": 20
+        "sonata-project/user-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

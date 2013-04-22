@@ -255,6 +255,89 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
         $this->addReference('direccion20', $address);
         
+        $address = new Address();
+        $address->setStreet('Av Universidad');
+        $address->setNoInt('A');
+        $address->setNoExt('600');
+        $address->setNeighborhood('Centro');
+        $address->setCity('San Nicolas');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion21', $address);
+        
+        $address = new Address();
+        $address->setStreet('Av Garza Sada');
+        $address->setNoInt('A');
+        $address->setNoExt('600');
+        $address->setNeighborhood('Monterrey');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion22', $address);
+        
+        $address = new Address();
+        $address->setStreet('Av Revolucion');
+        $address->setNoInt('A');
+        $address->setNoExt('600');
+        $address->setNeighborhood('Monterrey');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion23', $address);
+        
+        $address = new Address();
+        $address->setStreet('Av Gonzalitos');
+        $address->setNoInt('A');
+        $address->setNoExt('600');
+        $address->setNeighborhood('Monterrey');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion24', $address);
+        
+        $address = new Address();
+        $address->setStreet('Av Miguel Aleman');
+        $address->setNoInt('A');
+        $address->setNoExt('600');
+        $address->setNeighborhood('Apodaca');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion25', $address);
+        
+        $address = new Address();
+        $address->setStreet('Av Sendero');
+        $address->setNoInt('A');
+        $address->setNoExt('600');
+        $address->setNeighborhood('Escobedo');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion26', $address);
+        
+        $address = new Address();
+        $address->setStreet('Av Constitucion');
+        $address->setNoInt('A');
+        $address->setNoExt('600');
+        $address->setNeighborhood('Monterrey');
+        $address->setCity('Monterrey');
+        $address->setState('NLE');
+        $address->setPostalCode('64000');
+        $manager->persist($address);
+        $manager->flush();
+        $this->addReference('direccion27', $address);
     }
 
     /**
