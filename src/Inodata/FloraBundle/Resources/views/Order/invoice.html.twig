@@ -1,312 +1,82 @@
-<html>
-	<head>
-    	<!--
-        Template de CFD realizado para Inodata S.C. <www.inodata.com.mx>
-        @author Enrique Garcia Cruz <enrique@inodata.com.mx>
-        @copyright Copyright 2010 - 2011 Inodata S.C. Todos los derechos reservados, se prohibe la
-        reproduccion total o parcial
-        -->
-		<title></title>
-		<style type="text/css">
-			@media screen, print {
-				* {
-					Margin: 0;
-					Padding: 0;
-					Border: 0;
-				}
-				
-				body {
-					font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-					font-size: 12px;
-				}
-				
-				.border{
-					border: 1px solid #06C;
-				}
-				
-				.bold_text{
-					font-weight:bold;
-				}
-				
-				.left_column{
-					float:left;
-					width:50%;
-				}
-				
-				.right_column{
-					float:right;
-					width:50%;
-				}
-				
-				.issuing, .invoice_data{
-					height: 150px;
-				}
-				
-				.labels, .data_container{
-					padding-top: 11px;
-					height: 23px;
-				}
-					
-				.labels{
-					font-weight:bold;
-					width: 48%;
-					text-align:right;
-					float:left;
-					valign: middle;
-					border: 1px solid #FFF;
-				}
-				
-				.data_container{
-					width: 48%;
-					text-align:center;
-					float:right;
-					-moz-border-radius: 10px;
-					-webkit-border-radius: 10px;
-					-khtml-border-radius: 10px;
-					border-radius: 10px;
-					vertical-align:middle;
-				}
-				
-				.series, .folio{
-					font-weight:bold;
-				}
-				
-				.series{
-					color: #C00;
-				}
-				
-				.folio{
-					color: #03F;
-				}
-				
-				.original_string, .digital_stamp{
-					text-align:center;
-					font-size:10px;
-				}
-				
-				.divisor{
-					clear: both;
-					height: 10px;
-				}
-				
-				.transparent_background{
-					background-image:url(../inodata.com.mx/sinIFEnoDJ.jpg);
-					filter:alpha(opacity=50);
-					-moz-opacity:0.5;
-					-khtml-opacity: 0.5;
-					opacity: 0.5;
-				}
-				
-				.remove_transparency{
-					filter:alpha(opacity=100);
-					-moz-opacity:1.0;
-					-khtml-opacity: 1.0;
-					opacity: 1.0;
-					z-index: 10000;
-				}
-	
-				.items_container, .summary_container, .original_string, .digital_stamp, .footer_container{
-					
-					width: 100%;
-					clear: both;
-				}
-				
-				.ammount_in_words, .tax_id_card {
-					padding-top: 10px;
-					float: right;
-					margin-right: 10px;
-				}
-				
-				.ammount_in_words {
-					width: 60%;
-				}
-				
-				.ammount_in_words_content{
-					text-align: center;
-					border-radius: 0px 0px 10px 10px;
-					-moz-border-radius:  0px 0px 10px 10px;
-					-webkit-border-radius: 0px 0px 10px 10px;
-					-khtml-border-radius: 0px 0px 10px 10px;
-					border: 1px solid #06C;
-					padding: 10px;
-					margin-top: -1px;
-				}
-				
-				.taxes{
-					float: right;
-					width: 160px;
-				}
-				
-				.align_right{
-					text-align: right;
-				}
-				
-				.taxes_header{
-					margin-top: -1px;
-					border: 1px solid #06C;
-					border-bottom: none;
-					height: 10px;
-				}
-				
-				.taxes_content{
-					margin-top: -1px;
-					padding: 0px 10px 10px 10px;
-					border: 1px solid #06C;
-					border-top: none;
-					border-radius: 0px 0px 10px 10px;
-					-moz-border-radius:  0px 0px 10px 10px;
-					-webkit-border-radius: 0px 0px 10px 10px;
-					-khtml-border-radius: 0px 0px 10px 10px;
-				}
-				
-				
-				.total{
-					color: #390;
-					font-weight:bold;
-				}
-				
-				.footer_container{
-					text-align:center;
-				}
-				
-				/**
-				Guia para los bordes
-				border-radius	 -moz-border-radius
-				border-top-left-radius	-moz-border-radius-topleft
-				border-top-right-radius	-moz-border-radius-topright
-				border-bottom-right-radius	-moz-border-radius-bottomright
-				border-bottom-left-radius	-moz-border-radius-bottomleft
-				*/			
-				
-				.div_header{
-					height: 17px;
-					background-color: #06C !important;
-					border-radius: 10px 10px 0px 0px;
-					-moz-border-radius:  10px 10px 0px 0px;
-					-webkit-border-radius: 10px 10px 0px 0px;
-					-khtml-border-radius: 10px 10px 0px 0px;
-					border: 1px solid #06C;
-					text-align:center;
-					font-weight:bold;
-					color: #FFF;
-					padding-top: 5px;
-				}
-				
-				.div_content{
-					min-height: 80px;
-					border-radius: 0px 0px 10px 10px;
-					-moz-border-radius:  0px 0px 10px 10px;
-					-webkit-border-radius: 0px 0px 10px 10px;
-					-khtml-border-radius: 0px 0px 10px 10px;
-					border: 1px solid #06C;
-					padding: 10px;
-					margin-top: -1px;
-				}
-				
-				.remove_corner_bottom_right{
-					border-bottom-right-radius: 0px;
-					-moz-border-radius-bottomright: 0px;
-					-webkit-border-radius-bottomright: 0px;
-					-khtml-border-radius-bottomrights: 0px;
-				}
-					
-			}
-        </style>
-		<script>
-			function PrintDoc()
-			{
-				var o = document.all.item("Inst");
-				o.style.visibility="hidden"; 
-				
-				var oPrintCmd = document.all.item("PrintCmd");
-				oPrintCmd.style.visibility="hidden"; 
-				
-				window.print();
-			}
-		</script>
-	</head>
-<body onLoad="resizeTo(800,600);">
-    	<div class="pagina">
-        	<div class="header_container">
-            	<div class="left_column">
-                	<div class="issuing">
-                    	<div class="logo"><IMG SRC="%\//Compac/Encabezado/MGW10008/Imagenes|i_LOGOEMPRESA\%" HEIGHT="70"></div>
-                    	<h3>{{ issuing_name }}</h3>
-                        <p>{{ issuing_street }} No. {{ issuing_nint }}, {{ issuing_neighborhood }} <br/>
-                        {{ issuing_city }}, {{ issuing_state }}, C.P. {{ issuing_cp }} <br/>
-                        RFC: {{ issuing_rfc }}</p>
-        			</div>
-                    <div class="receptor">
-                    	<div class="div_header">Cliente</div>
-                    	<div class="div_content">
-                            {{ object.customer.businessName }}<br/>
-                            {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noInt }} 
-                            {% if(object.customer.fiscalAddress.noExt =!'') %} Ext. {{ object.customer.fiscalAddress.noExt }} {% endif %}, 
-                            {{ object.customer.fiscalAddress.neighborhood }} <br/>
-                            {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/>
-                            {{ object.customer.rfc }}
-                        </div>
-                    </div>
+<div class="invoice_page">
+	<div class="header_container">
+    	<div class="left_column">
+        	<div class="issuing">
+            	<div class="logo">aqui va el logo <!--<IMG SRC="logo.jpg" HEIGHT="70">--></div>
+            	<h3>{{ issuing_name }}</h3>
+                <p>{{ issuing_street }} No. {{ issuing_nint }}, {{ issuing_neighborhood }} <br/>
+                {{ issuing_city }}, {{ issuing_state }}, C.P. {{ issuing_cp }} <br/>
+                RFC: {{ issuing_rfc }}</p>
+			</div>
+            <div class="receptor">
+            	<div class="div_header">Cliente</div>
+            	<div class="div_content">
+                    {{ object.customer.businessName }}<br/>
+                    {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noInt }} 
+                    {% if (object.customer.fiscalAddress.noExt != '') %} Ext. {{ object.customer.fiscalAddress.noExt }} {% endif %}, 
+                    {{ object.customer.fiscalAddress.neighborhood }} <br/>
+                    {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/>
+                    {{ object.customer.rfc }}
                 </div>
-                <div class="right_column">
-		    		<div class="invoice_data">
-                    	<div><div class="labels ">Fecha / Hora</div><div class="data_container border">%INVOICE_DATE%</div></div><br/>&nbsp;
-                        <div><div class="labels ">Series / Folio</div><div class="data_container border"><span class="series">%INOVICE_SERIEs%</span><span class="folio">%INVOICE_FOLIO%</span></div></div><br/>&nbsp;
-                        <div><div class="labels ">No. Certificado</div><div class="data_container border">%SERIEs_CERT%</div></div>
-                    </div>
-                    <div class="expedicion">
-                    	<div class="div_header">data_container de Expedici&oacute;n</div>
-                        <div class="div_content">
-                            %EXP_DOMICILIO%, %EXP_COLONIA% <br/>
-                            %EXP_LOCALIDAD%, %EXP_MUNICIPIO%, %EXP_ESTADO%, C.P. %EXP_CP% <br/>
-                            RFC: %EXP_RFC%
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="divisor" >&nbsp;</div>
-            <div class="items_container">
-            	<div class="items ">
-                	<div class="div_header">Detalle</div>
-                    <div >
-                		<div class="div_content remove_corner_bottom_right ">%CONCEPTOS%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="sumary_container">
-            	<div class="taxes">
-                	<div class="taxes_header">&nbsp;</div>
-                    <div class="taxes_content">
-                        <div class="left_column bold_text">SubTotal</div><div class="right_column align_right">%SUBTOTAL%</div><br/><br/>
-                        <div class="left_column bold_text">IVA</div><div class="right_column align_right">%IVA%</div><br/><br/>
-                        <div class="left_column bold_text">Total</div><div class="right_column total align_right">%Total%</div><br/>
-                    </div>
-                </div>
-            	<div class="ammount_in_words">
-                	<div class="div_header">Cantidad con letra</div>
-                	<div class="ammount_in_words_content">
-                    	%//Compac/Encabezado/MGW10008/Funciones|f_TOTAL_LETRA\%
-                    </div>
-                </div>
-                <div class="tax_id_card"><IMG SRC="%\//Compac/Encabezado/MGW10008/Imagenes|i_tax_id_cardEMPRESA\%" HEIGHT="120" WIDTH="80"></div>
-            </div>
-            <div class="divisor" >&nbsp;</div>
-            <div class="original_string">
-            	<div class="div_header">Cadena Original</div>
-                <div class="div_content">%ORIGINAL_string%</div>
-            </div>
-            <div class="divisor" >&nbsp;</div>
-            <div class="digital_stamp">
-            	<div class="div_header">Sello Digital</div>
-                <div class="div_content">%DIGITAL_stamp%</div>
-            </div>
-            <div class="divisor" >&nbsp;</div>
-            <div class="footer_container">
-            	<p>Este documento es una representaci&oacute;n impresa de un CFD.<br/>
-N&uacute;mero de aprobaci&oacute;n <span class="folio">%INVOICE_APROBACION%</span>.  A&ntilde;o de aprobaci&oacute;n <span class="folio">%ANO_APROBACION%</span>.
-				</p>
-                <a href="www.inodata.com.mx.">www.inodata.com.mx</a>
             </div>
         </div>
-	</body>
-</html>
+        <div class="right_column">
+    		<div class="invoice_data">
+            	<div><div class="labels ">Fecha / Hora</div><div class="data_container border">invoice.date</div></div><br/>&nbsp;
+                <div><div class="labels ">Series / Folio</div><div class="data_container border"><span class="series">invoice.series</span><span class="folio">invoice.folio</span></div></div><br/>&nbsp;
+                <div><div class="labels ">No. Certificado</div><div class="data_container border">%SERIEs_CERT%</div></div>
+            </div>
+            <div class="expedicion">
+            	<div class="div_header">data_container de Expedici&oacute;n</div>
+                <div class="div_content">
+                    domicilio.expedicion, expedicion.colonia<br/>
+                    expedicion.localidad, expedicion.municipio, expedicion.estado, C.P. expedicion.cp <br/>
+                    RFC: expedicion.rfc
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="items_container">
+    	<div class="items ">
+        	<div class="div_header">Detalle</div>
+            <div >
+        		<div class="div_content remove_corner_bottom_right ">conceptos</div>
+            </div>
+        </div>
+    </div>
+    <div class="sumary_container">
+    	<div class="taxes">
+        	<div class="taxes_header">&nbsp;</div>
+            <div class="taxes_content">
+                <div class="left_column bold_text">SubTotal</div><div class="right_column align_right">%SUBTOTAL%</div><br/><br/>
+                <div class="left_column bold_text">IVA</div><div class="right_column align_right">%IVA%</div><br/><br/>
+                <div class="left_column bold_text">Total</div><div class="right_column total align_right">%Total%</div><br/>
+            </div>
+        </div>
+    	<div class="ammount_in_words">
+        	<div class="div_header">Cantidad con letra</div>
+        	<div class="ammount_in_words_content">
+            	%//Compac/Encabezado/MGW10008/Funciones|f_TOTAL_LETRA\%
+            </div>
+        </div>
+        <div class="tax_id_card">Aqui va el codigo Qr<!--<IMG SRC="%\//Compac/Encabezado/MGW10008/Imagenes|i_tax_id_cardEMPRESA\%" HEIGHT="120" WIDTH="80">--></div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="original_string">
+    	<div class="div_header">Cadena Original</div>
+        <div class="div_content">%ORIGINAL_string%</div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="digital_stamp">
+    	<div class="div_header">Sello Digital</div>
+        <div class="div_content">%DIGITAL_stamp%</div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="footer_container">
+    	<p>Este documento es una representaci&oacute;n impresa de un CFD.<br/>
+N&uacute;mero de aprobaci&oacute;n <span class="folio">%INVOICE_APROBACION%</span>.  A&ntilde;o de aprobaci&oacute;n <span class="folio">%ANO_APROBACION%</span>.
+		</p>
+        <a href="www.inodata.com.mx.">www.inodata.com.mx</a>
+    </div>
+</div>

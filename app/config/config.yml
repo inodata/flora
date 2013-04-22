@@ -33,6 +33,7 @@ twig:
       issuing_street:     %issuing_street%
       issuing_nint:       %issuing_nint%
       issuing_neighborhood: %issuing_neighborhood%
+      issuing_cp:         %issuing_cp%
       issuing_city:       %issuing_city%
       issuing_state:      %issuing_state%
       issuing_phone:      %issuing_phone%
