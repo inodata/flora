@@ -24,10 +24,15 @@
   /*Rules for invoice print */
   body.sonata-bc { padding: 0px; }
   
-  /*TODO: Revisar donde esta el error aqui truena 
+  /*TODO: Revisar donde esta el error, aqui truena 
   .navbar, .sf-toolbar, .container-fluid > .row-fluid,.nav, .tab-content, .alert { display: none; }
   */
 
+  
+}
+
+@media print screen
+{
   * {
       Margin: 0;
       Padding: 0;
