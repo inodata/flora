@@ -160,6 +160,7 @@ $(document).ready(function() {
 	            //Update total if exist
 	            var cant = parseInt($('#'+data.id+" input").val());
 	        	$('#'+data.id+" input").val(cant+1);
+	        	calculateProductImport($('#'+data.id));
 	        }
 	        
 	        //Add select option with product selected
@@ -246,11 +247,18 @@ $(document).ready(function() {
 				}
 				nOptions = $("."+id).length;
 			}
-	
+			calculateProductImport($(element).closest('tr'));
 			updateAjaxTotalsCost();
 		}else{
 			alert('Cantidad invalida');
 		}
+	}
+	
+	function calculateProductImport(element){
+		var cant = parseInt($(element).find('input').val());
+		var price = parseFloat($(element).find('.price').text());
+		
+		$(element).find('.import').text(cant*price);
 	}
 	//------------------------------------------------------------//
 	

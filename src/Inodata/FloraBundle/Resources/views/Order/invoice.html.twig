@@ -1,0 +1,82 @@
+<div class="invoice_page">
+	<div class="header_container">
+    	<div class="left_column">
+        	<div class="issuing">
+            	<div class="logo">aqui va el logo <!--<IMG SRC="logo.jpg" HEIGHT="70">--></div>
+            	<h3>{{ issuing_name }}</h3>
+                <p>{{ issuing_street }} No. {{ issuing_nint }}, {{ issuing_neighborhood }} <br/>
+                {{ issuing_city }}, {{ issuing_state }}, C.P. {{ issuing_cp }} <br/>
+                RFC: {{ issuing_rfc }}</p>
+			</div>
+            <div class="receptor">
+            	<div class="div_header">Cliente</div>
+            	<div class="div_content">
+                    {{ object.customer.businessName }}<br/>
+                    {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noInt }} 
+                    {% if (object.customer.fiscalAddress.noExt != '') %} Ext. {{ object.customer.fiscalAddress.noExt }} {% endif %}, 
+                    {{ object.customer.fiscalAddress.neighborhood }} <br/>
+                    {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/>
+                    {{ object.customer.rfc }}
+                </div>
+            </div>
+        </div>
+        <div class="right_column">
+    		<div class="invoice_data">
+            	<div><div class="labels ">Fecha / Hora</div><div class="data_container border">invoice.date</div></div><br/>&nbsp;
+                <div><div class="labels ">Series / Folio</div><div class="data_container border"><span class="series">invoice.series</span><span class="folio">invoice.folio</span></div></div><br/>&nbsp;
+                <div><div class="labels ">No. Certificado</div><div class="data_container border">%SERIEs_CERT%</div></div>
+            </div>
+            <div class="expedicion">
+            	<div class="div_header">data_container de Expedici&oacute;n</div>
+                <div class="div_content">
+                    domicilio.expedicion, expedicion.colonia<br/>
+                    expedicion.localidad, expedicion.municipio, expedicion.estado, C.P. expedicion.cp <br/>
+                    RFC: expedicion.rfc
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="items_container">
+    	<div class="items ">
+        	<div class="div_header">Detalle</div>
+            <div >
+        		<div class="div_content remove_corner_bottom_right ">conceptos</div>
+            </div>
+        </div>
+    </div>
+    <div class="sumary_container">
+    	<div class="taxes">
+        	<div class="taxes_header">&nbsp;</div>
+            <div class="taxes_content">
+                <div class="left_column bold_text">SubTotal</div><div class="right_column align_right">%SUBTOTAL%</div><br/><br/>
+                <div class="left_column bold_text">IVA</div><div class="right_column align_right">%IVA%</div><br/><br/>
+                <div class="left_column bold_text">Total</div><div class="right_column total align_right">%Total%</div><br/>
+            </div>
+        </div>
+    	<div class="ammount_in_words">
+        	<div class="div_header">Cantidad con letra</div>
+        	<div class="ammount_in_words_content">
+            	%//Compac/Encabezado/MGW10008/Funciones|f_TOTAL_LETRA\%
+            </div>
+        </div>
+        <div class="tax_id_card">Aqui va el codigo Qr<!--<IMG SRC="%\//Compac/Encabezado/MGW10008/Imagenes|i_tax_id_cardEMPRESA\%" HEIGHT="120" WIDTH="80">--></div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="original_string">
+    	<div class="div_header">Cadena Original</div>
+        <div class="div_content">%ORIGINAL_string%</div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="digital_stamp">
+    	<div class="div_header">Sello Digital</div>
+        <div class="div_content">%DIGITAL_stamp%</div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="footer_container">
+    	<p>Este documento es una representaci&oacute;n impresa de un CFD.<br/>
+N&uacute;mero de aprobaci&oacute;n <span class="folio">%INVOICE_APROBACION%</span>.  A&ntilde;o de aprobaci&oacute;n <span class="folio">%ANO_APROBACION%</span>.
+		</p>
+        <a href="www.inodata.com.mx.">www.inodata.com.mx</a>
+    </div>
+</div>

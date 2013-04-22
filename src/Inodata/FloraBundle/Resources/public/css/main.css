@@ -21,7 +21,217 @@
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
   
-  /*Rules for inovoice print */
+  /*Rules for invoice print */
   body.sonata-bc { padding: 0px; }
+  
+  /*TODO: Revisar donde esta el error, aqui truena 
   .navbar, .sf-toolbar, .container-fluid > .row-fluid,.nav, .tab-content, .alert { display: none; }
+  */
+
+  
+}
+
+@media print screen
+{
+  * {
+      Margin: 0;
+      Padding: 0;
+      Border: 0;
+    }
+        
+  body {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  }
+
+  .border{
+    border: 1px solid #06C;
+  }
+
+  .bold_text{
+    font-weight:bold;
+  }
+
+  .left_column{
+    float:left;
+    width:50%;
+  }
+
+  .right_column{
+    float:right;
+    width:50%;
+  }
+
+  .issuing, .invoice_data{
+    height: 150px;
+  }
+
+  .labels, .data_container{
+    padding-top: 11px;
+    height: 23px;
+  }
+    
+  .labels{
+    font-weight:bold;
+    width: 48%;
+    text-align:right;
+    float:left;
+    valign: middle;
+    border: 1px solid #FFF;
+  }
+
+  .data_container{
+    width: 48%;
+    text-align:center;
+    float:right;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    vertical-align:middle;
+  }
+
+  .series, .folio{
+    font-weight:bold;
+  }
+
+  .series{
+    color: #C00;
+  }
+
+  .folio{
+    color: #03F;
+  }
+
+  .original_string, .digital_stamp{
+    text-align:center;
+    font-size:10px;
+  }
+
+  .divisor{
+    clear: both;
+    height: 10px;
+  }
+
+  .transparent_background{
+    background-image:url(../inodata.com.mx/sinIFEnoDJ.jpg);
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+  }
+
+  .remove_transparency{
+    filter:alpha(opacity=100);
+    -moz-opacity:1.0;
+    -khtml-opacity: 1.0;
+    opacity: 1.0;
+    z-index: 10000;
+  }
+
+  .items_container, .summary_container, .original_string, .digital_stamp, .footer_container{
+    
+    width: 100%;
+    clear: both;
+  }
+
+  .ammount_in_words, .tax_id_card {
+    padding-top: 10px;
+    float: right;
+    margin-right: 10px;
+  }
+
+  .ammount_in_words {
+    width: 60%;
+  }
+
+  .ammount_in_words_content{
+    text-align: center;
+    border-radius: 0px 0px 10px 10px;
+    -moz-border-radius:  0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+    border: 1px solid #06C;
+    padding: 10px;
+    margin-top: -1px;
+  }
+
+  .taxes{
+    float: right;
+    width: 160px;
+  }
+
+  .align_right{
+    text-align: right;
+  }
+
+  .taxes_header{
+    margin-top: -1px;
+    border: 1px solid #06C;
+    border-bottom: none;
+    height: 10px;
+  }
+
+  .taxes_content{
+    margin-top: -1px;
+    padding: 0px 10px 10px 10px;
+    border: 1px solid #06C;
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    -moz-border-radius:  0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+  }
+
+
+  .total{
+    color: #390;
+    font-weight:bold;
+  }
+
+  .footer_container{
+    text-align:center;
+  }
+
+  /**
+  Guia para los bordes
+  border-radius  -moz-border-radius
+  border-top-left-radius  -moz-border-radius-topleft
+  border-top-right-radius -moz-border-radius-topright
+  border-bottom-right-radius  -moz-border-radius-bottomright
+  border-bottom-left-radius -moz-border-radius-bottomleft
+  */      
+
+  .div_header{
+    height: 17px;
+    background-color: #06C !important;
+    border-radius: 10px 10px 0px 0px;
+    -moz-border-radius:  10px 10px 0px 0px;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    -khtml-border-radius: 10px 10px 0px 0px;
+    border: 1px solid #06C;
+    text-align:center;
+    font-weight:bold;
+    color: #FFF;
+    padding-top: 5px;
+  }
+
+  .div_content{
+    min-height: 80px;
+    border-radius: 0px 0px 10px 10px;
+    -moz-border-radius:  0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+    border: 1px solid #06C;
+    padding: 10px;
+    margin-top: -1px;
+  }
+
+  .remove_corner_bottom_right{
+    border-bottom-right-radius: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-bottomright: 0px;
+    -khtml-border-radius-bottomrights: 0px;
+  }
+>>>>>>> refs/remotes/origin/print-order-invoice
 }
