@@ -29,3 +29,16 @@ inodata_flora_order_filter_message_by_category:
 inodata_flora_order_update_totals_cost:
     pattern: /admin/inodata/flora/order/update/totals/cost
     defaults: {_controller: InodataFloraBundle:OrderAdmin:updateTotalsCost}
+    
+inodata_flora_distribution_filter_order_by_messenger:
+    pattern: /admin/inodata/flora/distribution/filter/order/by/messenger/{messengerId}
+    defaults: {_controller: InodataFloraBundle:DistributionAdmin:ordersByMessengerId}
+
+inodata_flora_distribution_add_orders_to_messenger: 
+    pattern: /admin/inodata/flora/distribution/add/order/to/messenger
+    defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrdersToMessenger}
+    
+inodata_flora_distribution_add_preview_order_to_messenger: 
+    pattern: /admin/inodata/flora/distribution/add/preview/order/to/messenger/{orderId}
+    defaults: {_controller: InodataFloraBundle:DistributionAdmin:addPreviewOrderToMessenger}
+    

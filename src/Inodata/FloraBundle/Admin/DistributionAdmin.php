@@ -45,7 +45,12 @@ class DistributionAdmin extends Admin
 		
 		/* TODO: Agregar comentarios */
 		$listMapper
-			->add('messenger')
+			->add('messenger', null, array(
+					'query_builder' => function(EntityRepository $er) {
+						return $er->createQueryBuilder('u')
+								  ->where('u.messenger IS NULL');
+					}
+				))
 			->add('id')
 			->add('product')
 			->add('deliveryDate')
@@ -86,5 +91,6 @@ class DistributionAdmin extends Admin
 				break;
 		}
 	}
+	
 	
 } 

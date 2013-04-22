@@ -2,19 +2,88 @@
 
 {% block javascripts %}
 	{{ parent() }}	
+	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 	{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
 				   '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
 	%}
 		<script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
 	<script type="text/javascript"  >
-		$('document').ready(function(){
+		$('document').ready(function(){	
+			
 			$('.inodata_dalivery_date').datepicker({ dateFormat: "yy-mm-dd" });
-
+			
 			$('.print_link').live('click', function(){
 				window.print();
 			});
+
+			$('#inodata_distribution_type_form_id').change(function(){
+				var id = $(this).val()!=''?id=$(this).val():id=0;
+				
+				if( id != 0)
+				{
+					var url = Routing.generate('inodata_flora_distribution_add_preview_order_to_messenger', {orderId:id});
+					
+					$.get(url, function(data){
+						$("tbody#messenger_orders").append(data.row);
+
+						if( $('tbody#messenger_orders').find('tr').length > 1)
+						{
+							$("tbody#messenger_orders tr#no_orders").remove();
+						}
+						
+						refreshOrders();
+					}, 'json');
+				}
+			});
+
+			$('.delete_link').live('click', function(){
+				
+				var id = $(this).parent().parent().attr('order_id');
+				$(this).parent().parent().remove();
+				$('#inodata_distribution_type_form_id').append('<option value="'+id+'">'+id+'</option>');
+			});
 			
+			$('.add_link').live('click', function(){
+				
+				var messengerId = $('#inodata_distribution_type_form_messenger').val();
+			
+				var orderIds = [];
+				
+				$('#messenger_orders > tr').each(function(){
+					orderIds.push( $(this).attr('order_id') );
+				});
+				
+				var values = {
+					'orderIds': orderIds,
+					'messengerId': messengerId
+				}
+
+				var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger');
+				
+				$.post(url, values)
+				.done( function(data){
+					
+					alert(data.messengerId);
+					alert(data.firstOrderId);
+				});
+			}); 
+			
+
+			
+			function refreshOrders()
+			{
+				$('#messenger_orders > tr').each(function(){
+					var orderPreview = $(this).attr('order_id');
+					$('#inodata_distribution_type_form_id > option').each(function(){
+						if( orderPreview == $(this).val() )
+						{
+							$(this).remove();
+						}
+					});
+				});
+			}
 		});
 	</script>
 {% endblock %}
@@ -23,12 +92,12 @@
 	<b>Crear Orden de reparto</b>
 	{% block distribution_form %}
 	
-		<form method="POST" action="#">
-		{{ form_label(distribution_form.messenger) }}
-		{{ form_widget(distribution_form.messenger) }}
-		
-		{{ form_label(distribution_form.id) }}
-		{{ form_widget(distribution_form.id) }}
+		<form method="post" action="{{ path('inodata_flora_distribution_add_orders_to_messenger') }}" {{ form_enctype(form) }}>
+		{{ form_label(distribution_form.messenger)}}
+		<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+	 	{{ form_widget(distribution_form.messenger)}}
+		</div>
+		{{ form_row(distribution_form.id)}}
 		
 		{% block distribution_table %}
 			 <table class="table table-bordered table-striped list-products">
@@ -50,11 +119,11 @@
 					</thead>
 				{% endblock %}
 				{% block distribution_table_body %}
-					<tbody>
-			        	<tr id="no_products" >
+					<tbody id="messenger_orders" >
+			        	<tr id="no_orders" >
 			            	<td colspan="3" class="sonata-ba-list-field sonata-ba-list-field-text" >
 			                	<p class="notice">
-			                    	 Seleccione un Repartidor
+			                    	 Ninguna Orden agregada al listado
 			                	</p>
 			        		</td>                 
 			       		</tr>
@@ -64,6 +133,11 @@
 				{% endblock %}
 			</table>
 		{% endblock %}
+		<a class="btn add_link" title="Edit" >
+			Asignar
+		</a>
+		<input type="submit" value="Asignar" class="btn add_link" title="Asignar" />
+		
 		</form>
 	{% endblock %}
 	{{ parent() }}

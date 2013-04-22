@@ -34,4 +34,44 @@ class DistributionAdminController extends Controller
             'datagrid' => $datagrid
         ));
     }
+    
+    /* TODO:ERMOVE*/
+    public function ordersByMessengerIdAction()
+    {
+
+    }
+    
+    public function addPreviewOrderToMessengerAction($orderId)
+    {
+    	$order = $this->getDoctrine()
+				    	->getRepository('InodataFloraBundle:Order')
+				    	->find( $orderId );
+    	
+    	$row = $this->renderView('InodataFloraBundle:Distribution:_order_item.html.twig',
+    			array('order' => $order));
+    
+    	$response = array('row' => $row);
+    	
+    	return new Response(json_encode($response));
+    }
+    
+    public function addOrdersToMessengerAction(Request $request)
+    {
+    	$id = $request->get('orderIds');
+    	$response = array('messengerId' => $request->get('messengerId'),
+    			'firstOrderId' => $id[0]	);
+    	
+    	//$response = array( 'request' => $this->container->get('request')->get('_sonata_admin'));
+    	
+    	return new Response(json_encode($response));    
+    }
+    
+    public function configure()
+    {
+    	$adminCode = $this->container->get('request')->get('_sonata_admin');
+    
+    	if($adminCode){
+    		parent::configure();
+    	}
+    }
 }
