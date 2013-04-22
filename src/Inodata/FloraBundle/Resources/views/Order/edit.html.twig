@@ -1,14 +1,11 @@
 {% extends 'InodataFloraBundle::base_edit.html.twig' %}
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css' %}
+	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
+                   '@InodataFloraBundle/Resources/public/css/main.css' %}
 		<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
-	<style>
-		div.list-products-content{ width:100%;}
-		div.list-products-content .table-1 {float:left; width:80%;}
-		div.list-products-content .table-2 { float:right; width: 20%;}
-	</style>
+
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}	
@@ -24,126 +21,41 @@
 
 {% block sonata_fieldsets %}
     <div class="tab-content">
-        {% for name, form_group in admin.formgroups %}
-            {% if name != 'Productos' %}
-                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ name }}">
-                    <fieldset>
-                        <div class="sonata-ba-collapsed-fields">
-                            {% if form_group.description != false %}
-                                <p>{{ form_group.description|raw }}</p>
-                            {% endif %}
-
-                            {% for field_name in form_group.fields %}
-                                {% if admin.formfielddescriptions[field_name] is defined %}
-                                    {{ form_row(form[field_name])}}
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </fieldset>
+        {% for name, form_group in admin.formgroups %}            
+            {% if name == "tab.products_detail" %}                
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
+                    {{ block('sonata_fieldset') }}
+                    {% embed 'InodataFloraBundle:Order:products_table.html.twig' %}{% endembed %}
+                </div>
+            {% elseif name == "tab.card" %}
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
+                    {{ block('sonata_fieldset') }}
+                    <a href="#" class="btn print_card_link" title="{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}">
+                        <i class="icon-print"></i>{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}
+                    </a>
                 </div>
             {% else %}
-                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ name }}">
-                    <fieldset>
-                        <div class="sonata-ba-collapsed-fields">
-                            {% if form_group.description != false %}
-                                <p>{{ form_group.description|raw }}</p>
-                            {% endif %}
-
-                            {% for field_name in form_group.fields %}
-                                {% if admin.formfielddescriptions[field_name] is defined %}
-                                    {{ form_row(form[field_name])}}
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </fieldset>
-                    {% block products_table %}
-                    	<div class="list-products-content">
-                    		<div class="table-1">
-                            <table class="table table-bordered table-striped list-products">
-                                {% block table_header %}
-                                    <thead>
-                                        <tr class="sonata-ba-list-field-header">
-                                            {% spaceless %}
-                                                <th class="sonata-ba-list-field-header-text" >
-                                                    Cantidad
-                                                </th>
-                                                <th class="sonata-ba-list-field-header-text" >
-                                                    Clave
-                                                </th>
-                                                <th class="sonata-ba-list-field-header-text" >
-                                                    Descripción
-                                                </th>
-                                                <th class="sonata-ba-list-field-header-text" >
-                                                    Precio
-                                                </th>
-                                                <th class="sonata-ba-list-field-header-text" >
-                                                    Acciones
-                                                </th>
-                                            {% endspaceless %}
-                                        </tr>
-                                    </thead>
-                                {% endblock %}
-
-                                {% block table_body %}
-                                    <tbody>
-                                        <tr id="no_products" >
-                                            <td colspan="5" class="sonata-ba-list-field sonata-ba-list-field-text" >
-                                                <p class="notice">
-                                                    No hay productos seleccionados.
-                                                </p>
-                                            </td>                 
-                                        </tr>
-                                    </tbody>
-                                {% endblock %}
-
-                                {% block table_footer %}
-                                                 
-                                {% endblock %}
-                            </table>
-                            </div>
-                            <div class="table-2">
-                            <table class="table table-bordered pay-table">
-                            	<thead>
-                            		<tr><th colspan="2">Totales</th></tr>
-                            	</thead>
-                            	<tbody>
-                            		<tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
-                            		<tr>
-                            			<td>Envío:</td>
-                            			<td>$ <input type="number" class="order-shipping" value="{{ order_shipping }}" style="width:60%;"/></td>
-                            		</tr>
-                            		<tr>
-                            			<td>Descuento (-<span class="order-discount-percent"></span>):</td>
-                            			<td>$ 
-                            				<input type="number" step="any" class="order-discount" value="0.0" style="width:60%;"/>
-                            			</td>
-                            		</tr>
-                            		<tr style="border-bottom: 1px solid #000;">
-                            			<td>IVA(16%):</td>
-                            			<td>$ <span class="order-iva">0</span></td>
-                            		</tr>
-                            	</tbody>
-                            	<tfoot>
-                            		<tr>
-                            			<th>Total:</th>
-                            			<th>$ <span class="order-total">0</span></th>
-                            		</tr>
-                            	</tfoot>
-                            </table>
-                            </div>
-                    	</div>
-                    {% endblock %}
-                </div>                
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
+                    {{ block('sonata_fieldset') }}
+                </div>
             {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
 
+{% block footer %}
+	{{ parent() }}
+	<div id="order-invoice-print">
+	</div>
+{% endblock %}
+
 {% block sonata_formactions%}
 	{{ parent() }}
 	{% if admin.id(object) %}
-		<a class="btn " href="javascript:window.print()">{{ 'button.print_invoice'|trans({}) }}</a>
+		<a class="btn btn-print-invoice" href="javascript:void()">
+			<i class="icon-print"></i>{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}
+		</a>
 	{% else %}
-		<input type="submit" class="btn btn-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}) }}"/>
+		<input type="submit" class="btn btn-create-and-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}"/>
 	{% endif %}
 {% endblock %}
