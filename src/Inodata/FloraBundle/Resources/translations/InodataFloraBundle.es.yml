@@ -3,6 +3,7 @@ tab.customer: Cliente
 tab.delivery_data: Datos de entrega
 tab.card: Tarjeta
 tab.products_detail: Detalle de productos
+tab.invoice: Datos de facturación
 
 #Order buttons
 button.print_card: Imprimir tarjeta

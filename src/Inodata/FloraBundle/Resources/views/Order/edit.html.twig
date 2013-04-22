@@ -34,6 +34,11 @@
                         <i class="icon-print"></i>{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}
                     </a>
                 </div>
+            {% elseif name == "tab.invoice" %}
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
+                    {{ block('sonata_fieldset') }}
+                    {% embed 'InodataFloraBundle:Order:invoice.html.twig' %}{% endembed %}
+                </div>
             {% else %}
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
                     {{ block('sonata_fieldset') }}
