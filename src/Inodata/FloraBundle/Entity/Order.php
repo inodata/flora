@@ -3,11 +3,12 @@
 namespace Inodata\FloraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 //use Doctrine\ORM\EntityRepository;
 
 /**
  * Order
- *
+ * @Gedmo\Loggable
  * @ORM\Table(name="ino_order")
  * @ORM\Entity
  */
@@ -70,7 +71,8 @@ class Order
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -78,6 +80,8 @@ class Order
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     * @Gedmo\Versioned
      */
     private $updatedAt;
 
@@ -502,7 +506,6 @@ class Order
     {
         return $this->products;
     }
-    
     
     /**
      * Get product

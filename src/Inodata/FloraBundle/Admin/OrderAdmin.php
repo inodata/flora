@@ -91,6 +91,13 @@ class OrderAdmin extends Admin
 				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('Productos')
+				->add('invoiceNumber', 'text',array(
+					'required' => false,
+					'label' => 'label.invoice',
+					'attr' => array(
+						'class' => 'inodata-invoice-number',
+						'style' => 'width:8%;')
+				))
 				->add('productos', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.search_product',
 					'class' => 'Inodata\FloraBundle\Entity\Product',
@@ -112,12 +119,13 @@ class OrderAdmin extends Admin
 						'class' => 'order-shipping'
 					)		
 				))
-				->add('discount', 'text', array(
+				->add('discount', null, array(
 					'label' => 'label.discount',
 					'attr' => array(
 							'class' => 'order-discount'
 					)
 				))
+				
 			->end()
 		;
 	}
@@ -131,11 +139,14 @@ class OrderAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id')
+			->add('product')
+			->add('createdAt')
+			->add('updatedAt')
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'view' => array(),
 					'edit' => array(),
-					'delete' => array(),
+					//'delete' => array(),
 				)
 			)
 		);

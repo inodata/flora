@@ -182,6 +182,13 @@ class OrderAdminController extends Controller
 	
 	public function createAction()
 	{
+		$uniqid = $this->get('request')->get('uniqid');
+		$request = $this->get('request')->get($uniqid);
+		
+		if (isset( $request['btn_create_and_print'])){
+			exit('save and printing!!!');
+		}
+		//btn_create_and_print
 		if ($this->getRestMethod() == 'POST'){
 			$this->updatePaymentContactInfo();
 		}
@@ -279,6 +286,18 @@ class OrderAdminController extends Controller
 				array('messages'=>$messages)));
 		
 		return new Response(json_encode($response));
+	}
+	
+	//Overwitten function
+	public function redirectTo($object)
+	{
+		$response = parent::redirectTo($object);
+		
+		if ($this->get('request')->get('btn_create_and_print')){
+			//TODO printing controller
+		}
+		
+		return $response;
 	}
 	
 	public function configure()
