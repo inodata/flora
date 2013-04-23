@@ -1,0 +1,80 @@
+{% block products_table %}
+    <div class="list-products-content">
+        <div class="table-1">
+        <table class="table table-bordered table-striped list-products">
+            {% block table_header %}
+                <thead>
+                    <tr class="sonata-ba-list-field-header">
+                        {% spaceless %}
+                            <th class="sonata-ba-list-field-header-text" >
+                                Cantidad
+                            </th>
+                            <th class="sonata-ba-list-field-header-text" >
+                                Clave
+                            </th>
+                            <th class="sonata-ba-list-field-header-text" >
+                                Descripción
+                            </th>
+                            <th class="sonata-ba-list-field-header-text" >
+                                Precio Unitario
+                            </th>
+                            <th class="sonata-ba-list-field-header-text" >
+                                Importe
+                            </th>
+                            <th class="sonata-ba-list-field-header-text" >
+                                Acciones
+                            </th>
+                        {% endspaceless %}
+                    </tr>
+                </thead>
+            {% endblock %}
+
+            {% block table_body %}
+                <tbody>
+                    <tr id="no_products" >
+                        <td colspan="6" class="sonata-ba-list-field sonata-ba-list-field-text" >
+                            <p class="notice">
+                                No hay productos seleccionados.
+                            </p>
+                        </td>                 
+                    </tr>
+                </tbody>
+            {% endblock %}
+
+            {% block table_footer %}
+                             
+            {% endblock %}
+        </table>
+        </div>
+        <div class="table-2">
+        <table class="table table-bordered pay-table">
+            <thead>
+                <tr><th colspan="2">Totales</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Envío:</td>
+                    <td>$ <input type="number" class="order-shipping" value="{{ order_shipping }}" style="width:60%;"/></td>
+                </tr>
+                <tr>
+                    <td>Descuento (-<span class="order-discount-percent"></span>):</td>
+                    <td>$ 
+                        <input type="number" step="any" class="order-discount" value="0.0" style="width:60%;"/>
+                    </td>
+                </tr>
+                <tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
+                <tr style="border-bottom: 1px solid #000;">
+                    <td>IVA(16%):</td>
+                    <td>$ <span class="order-iva">0</span></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total:</th>
+                    <th>$ <span class="order-total">0</span></th>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+    </div>
+{% endblock %}

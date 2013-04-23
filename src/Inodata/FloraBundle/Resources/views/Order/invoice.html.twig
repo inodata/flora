@@ -1,0 +1,110 @@
+<div class="invoice_page">
+	<div class="header_container">
+    	<div class="left_column">
+        	<div class="issuing">
+            	<div class="logo"></div>
+            	<h3>{{ issuing_name }}</h3>
+                <p>{{ issuing_street }} No. {{ issuing_nint }}, {{ issuing_neighborhood }} <br/>
+                {{ issuing_city }}, {{ issuing_state }}, C.P. {{ issuing_cp }} <br/>
+                RFC: {{ issuing_rfc }}</p>
+			</div>
+            <div class="receptor">
+            	<div class="div_header">{{ 'tab.customer'|trans({}, 'InodataFloraBundle') }}</div>
+            	<div class="div_content">
+                    {{ object.customer.businessName }}<br/>
+                    {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noExt }} 
+                    {% if (object.customer.fiscalAddress.noInt!= '') %} Int. {{ object.customer.fiscalAddress.noInt}} {% endif %}, 
+                    {{ object.customer.fiscalAddress.neighborhood }} <br/>
+                    {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/>
+                    {{ object.customer.rfc }}
+                </div>
+            </div>
+        </div>
+        <div class="right_column">
+    		<div class="invoice_data">
+            	<div><div class="labels ">{{ 'label.date'|trans({}, 'InodataFloraBundle') }}</div><div class="data_container">{{ object.createdAt|date("m/d/Y") }}</div></div><br/>
+                <div><div class="labels ">{{ 'label.folio'|trans({}, 'InodataFloraBundle') }}</div><div class="data_container editable"><span class="folio"></span></div></div><br/>
+                <div><div class="labels ">{{ 'label.payment_condition'|trans({}, 'InodataFloraBundle') }}</div><div class="data_container payment-condition editable"></div></div>
+            </div>
+            <div class="expedicion">
+            	<div class="div_header">{{ 'label.expedition_place'|trans({}, 'InodataFloraBundle') }}</div>
+                <div class="div_content">
+                    Monterrey Nuevo León, México.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="items_container">
+    	<div class="items ">
+        	<div class="div_header">{{ 'label.details'|trans({}, 'InodataFloraBundle') }}</div>
+            <div >
+        		<div class="div_content remove_corner_bottom_right ">
+        			<div id="invoice_order_products">
+						<table>
+							<thead>
+								<tr>
+									<th class="amount">{{ 'label.amount'|trans({}, 'InodataFloraBundle') }}</th>
+									<th class="code">{{ 'label.code'|trans({}, 'InodataFloraBundle') }}</th>
+									<th class="description">{{ 'label.description'|trans({}, 'InodataFloraBundle') }}</th>
+									<th class="unit_price">{{ 'label.unit_price'|trans({}, 'InodataFloraBundle') }}</th>
+									<th class="import">{{ 'label.import'|trans({}, 'InodataFloraBundle') }}</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td class="space" colspan="5"></td>
+								</tr>
+								<tr>
+									<td class="td-label" colspan="4">{{ 'label.shipping'|trans({}, 'InodataFloraBundle') }}</td>
+									<td class="invoice-shipping"></td>
+								</tr>
+								<tr>
+									<td class="td-label" colspan="4">{{ 'label.discount'|trans({}, 'InodataFloraBundle') }}</td>
+									<td class="invoice-discount">- </td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+        		</div>
+            </div>
+        </div>
+    </div>
+    <div class="sumary_container">
+    	<div class="taxes">
+        	<div class="taxes_header">&nbsp;</div>
+            <div class="taxes_content">
+                <div class="left_column bold_text">{{ 'label.subtotal'|trans({}, 'InodataFloraBundle') }}</div><div class="right_column align_right invoice-subtotal">$ </div><br/><br/>
+                <div class="left_column bold_text">IVA</div><div class="right_column align_right invoice-iva">$ </div><br/><br/>
+                <div class="left_column bold_text">{{ 'label.total'|trans({}, 'InodataFloraBundle') }}</div><div class="right_column total align_right invoice-total">$ </div><br/>
+            </div>
+        </div>
+    	<div class="ammount_in_words">
+        	<div class="div_header">Observaciones</div>
+        	<div class="ammount_in_words_content comment-container editable">
+            </div>
+        </div>
+        <div class="tax_id_card">
+        	<!-- Codigo de barras -->
+        </div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="original_string">
+    	<div class="div_header">Cadena Original</div>
+        <div class="div_content">%ORIGINAL_string%</div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="digital_stamp">
+    	<div class="div_header">Sello Digital</div>
+        <div class="div_content">%DIGITAL_stamp%</div>
+    </div>
+    <div class="divisor" >&nbsp;</div>
+    <div class="footer_container">
+    	<p>Este documento es una representaci&oacute;n impresa de un CFD.<br/>
+N&uacute;mero de aprobaci&oacute;n <span class="folio">%INVOICE_APROBACION%</span>.  A&ntilde;o de aprobaci&oacute;n <span class="folio">%ANO_APROBACION%</span>.
+		</p>
+        <a href="www.inodata.com.mx.">www.inodata.com.mx</a>
+    </div>
+</div>

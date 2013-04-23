@@ -1,3 +1,14 @@
+#Order tabs
+tab.customer: Cliente
+tab.delivery_data: Datos de entrega
+tab.card: Tarjeta
+tab.products_detail: Detalle de productos
+tab.invoice: Datos de facturación
+
+#Order buttons
+button.print_card: Imprimir tarjeta
+button.print_invoice: Imprimir factura
+
 #Order labels
 label.customer: Nombre Cliente
 label.payment_contact: Contacto de pago
@@ -19,6 +30,18 @@ label.invoice: Factura
 label.order_number: No. de pedido
 label.created_at: Creado el
 label.updated_at: Actualizado el
+label.date: Fecha
+label.folio: Folio
+label.payment_condition: Condición de pago
+label.expedition_place: Lugar de expedición
+label.details: Detalles
+label.amount: Cantidad
+label.code: Clave
+label.description: Descripción
+label.unit_price: Precio Unit.
+label.import: Importe
+label.subtotal: Subtotal
+label.total: Total
 
 #Address labels
 label.street: Calle
