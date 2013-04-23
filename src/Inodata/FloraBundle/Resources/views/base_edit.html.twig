@@ -53,9 +53,9 @@
             {% block sonata_post_fieldsets %}
                 </div>
             {% endblock %}
-
-            {{ form_rest(form) }}
-
+            {% block form_rest %}}
+                {{ form_rest(form) }}
+            {% endblock %}
             {% block formactions %}
                 <div class="well form-actions">
                 	{% block sonata_formactions%}

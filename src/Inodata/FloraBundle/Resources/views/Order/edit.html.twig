@@ -58,3 +58,7 @@
 		<input type="submit" class="btn btn-create-and-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}"/>
 	{% endif %}
 {% endblock %}
+{% block form_rest %}
+    {% embed "InodataFloraBundle:Order:card.html.twig" %}{% endembed %}
+    {{ parent() }}
+{% endblock %}
