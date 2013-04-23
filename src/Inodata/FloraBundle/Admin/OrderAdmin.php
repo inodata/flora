@@ -125,7 +125,24 @@ class OrderAdmin extends Admin
 					'required' => false,
 					'label' => 'label.invoice',
 					'attr' => array(
-						'class' => 'inodata-invoice-number')
+						'class' => 'inodata-invoice-number',
+						'style' => 'width:98%')
+				))
+				->add('paymentCondition', 'hidden', array(
+						'required' => false,
+						'label' => 'label.payment_condition',
+						'attr' => array(
+							'class' => 'inodata-payment-condition',
+							'style' => 'width:98%'
+						)
+					))
+				->add('invoiceComment', 'hidden', array(
+						'required' => false,
+						'label' => 'label.invoice_comment',
+						'attr' => array(
+								'class' => 'inodata-invoice-comment',
+								'style' => 'width:100%'
+						)
 				))
 			->end()
 		;

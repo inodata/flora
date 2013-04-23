@@ -294,6 +294,7 @@ $(document).ready(function() {
 			var cant = $(this).children('td:first').find('input').val();
 			$(this).children('td:first').html(cant);
 			$(this).children('td:last').remove();
+			$(this).attr('id', '').removeClass('product')
 		});
 		
 		$('#invoice_order_products table > tbody').append(listFields);
@@ -303,11 +304,19 @@ $(document).ready(function() {
 		$('.invoice-iva').append(totals.iva);
 		$('.invoice-total').append(totals.total);
 		$('.invoice-shipping').append(totals.shipping);
-		$('.invoice-discount').append(totals.discount);
+		$('.invoice-discount').append(totals.discount_net);
 		
 		var invoiceNumber = $('.inodata-invoice-number');
 		$('.invoice_data .folio').append($(invoiceNumber).clone().attr('type', 'text'));
 		$(invoiceNumber).remove();
+		
+		var inovicePCondition = $('.inodata-payment-condition');
+		$('.invoice_data .payment-condition').append($(inovicePCondition).clone().attr('type', 'text'));
+		$(inovicePCondition).remove();
+		
+		var invoiceComment = $('.inodata-invoice-comment');
+		$('.comment-container').append($(invoiceComment).clone().attr('type', 'text'));
+		$(invoiceComment).remove();
 		
 	}
 	/*$('.btn-print-invoice').click(function(){
@@ -364,7 +373,6 @@ $(document).ready(function() {
 		});
 		
 		var data = {'products':products, 'shipping':shipping, 'discount':discount};
-		
 		$.post(url, data, function(response){
 			loadPriceTotals(response.prices);
 		}, 'json');
