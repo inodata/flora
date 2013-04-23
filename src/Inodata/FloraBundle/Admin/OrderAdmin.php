@@ -121,12 +121,28 @@ class OrderAdmin extends Admin
 				
 			->end()
 			->with('tab.invoice')
-				->add('invoiceNumber', 'text',array(
+				->add('invoiceNumber', 'hidden',array(
 					'required' => false,
 					'label' => 'label.invoice',
 					'attr' => array(
 						'class' => 'inodata-invoice-number',
-						'style' => 'width:8%;')
+						'style' => 'width:98%')
+				))
+				->add('paymentCondition', 'hidden', array(
+						'required' => false,
+						'label' => 'label.payment_condition',
+						'attr' => array(
+							'class' => 'inodata-payment-condition',
+							'style' => 'width:98%'
+						)
+					))
+				->add('invoiceComment', 'hidden', array(
+						'required' => false,
+						'label' => 'label.invoice_comment',
+						'attr' => array(
+								'class' => 'inodata-invoice-comment',
+								'style' => 'width:100%'
+						)
 				))
 			->end()
 		;
@@ -140,10 +156,13 @@ class OrderAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->addIdentifier('id')
+			->addIdentifier('id', null, array("label" => "label.order_number"))
 			->add('product')
-			->add('createdAt')
-			->add('updatedAt')
+			->add('createdAt', 'date', array(
+				"label" => "label.created_at",
+				"format" => "dd/mm/yyyy")
+			)
+			->add('updatedAt', null, array("label" => "label.updated_at"))
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'view' => array(),
@@ -177,4 +196,4 @@ class OrderAdmin extends Admin
 	            break;
 		}
 	}
-} 
+}

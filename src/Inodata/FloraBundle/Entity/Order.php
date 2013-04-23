@@ -521,17 +521,19 @@ class Order
         return $this->products;
     }
     
-    
     /**
      * Get product
      *
      * @return string
      */
     public function getProduct()
-    {
-    	return 'Product 0001';
-		/* TODO: Validar cuando product = null*/
-    	return $this->products[0]->getDescription();
+    {	
+    	if( count($this->products) >= 1 )
+    	{
+    		return $this->products[0]->getDescription();
+    	}
+    	
+    	return '';
     }
     
     

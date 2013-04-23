@@ -53,12 +53,12 @@
             {% block sonata_post_fieldsets %}
                 </div>
             {% endblock %}
-
-            {{ form_rest(form) }}
-
+            {% block form_rest %}
+                {{ form_rest(form) }}
+            {% endblock %}
             {% block formactions %}
                 <div class="well form-actions">
-                	{% block sonata_formactions%}
+                	{% block sonata_formactions %}
 	                    {% if app.request.isxmlhttprequest %}
 	                        {% if admin.id(object) %}
 	                            <input type="submit" class="btn btn-primary" name="btn_update" value="{{ 'btn_update'|trans({}, 'SonataAdminBundle') }}"/>
@@ -90,6 +90,6 @@
                 </div>
             {% endblock formactions %}
         </form>
-    {% endif%}
+    {% endif %}
 
 {% endblock %}

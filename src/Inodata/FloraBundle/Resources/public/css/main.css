@@ -4,6 +4,7 @@
   div.list-products-content .table-2 { float:right; width: 20%;}
   
   #order-invoice-print {display: none;}
+  .divisor, .original_string, .digital_stamp, .footer_container{display:none;}
 }
 
 @media print
@@ -24,14 +25,21 @@
   /*Rules for invoice print */
   body.sonata-bc { padding: 0px; }
   
-  /*TODO: Revisar donde esta el error, aqui truena 
-  .navbar, .sf-toolbar, .container-fluid > .row-fluid,.nav, .tab-content, .alert { display: none; }
-  */
-
+  .divisor, .original_string, .digital_stamp, .footer_container{display:none;}
   
+  .sonata-bc .container-fluid .row-fluid .span6, 
+  .sonata-bc .container-fluid .row-fluid .span4,
+  .sonata-bc .container-fluid .row-fluid .span2,
+  .navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
+  
+  .invoice_page .logo:before{
+  	width: 150px; height: 70px;
+  	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+  	background-size: 100% 100%;
+  }
 }
 
-@media print screen
+@media print, screen
 {
   * {
       Margin: 0;
@@ -43,9 +51,16 @@
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 12px;
   }
-
-  .border{
-    border: 1px solid #06C;
+  
+  .logo{
+  	width: 150px; height: 70px;
+  	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+  	background-size: 100% 100%;
+  }
+  
+  .issuing h3{
+  	font-size: 14px;
+  	line-height: 0px;
   }
 
   .bold_text{
@@ -73,7 +88,7 @@
     
   .labels{
     font-weight:bold;
-    width: 48%;
+    width: 56%;
     text-align:right;
     float:left;
     valign: middle;
@@ -81,7 +96,7 @@
   }
 
   .data_container{
-    width: 48%;
+    width: 40%;
     text-align:center;
     float:right;
     -moz-border-radius: 10px;
@@ -89,18 +104,7 @@
     -khtml-border-radius: 10px;
     border-radius: 10px;
     vertical-align:middle;
-  }
-
-  .series, .folio{
-    font-weight:bold;
-  }
-
-  .series{
-    color: #C00;
-  }
-
-  .folio{
-    color: #03F;
+    border: 1px solid #06C;
   }
 
   .original_string, .digital_stamp{
@@ -233,5 +237,40 @@
     -webkit-border-radius-bottomright: 0px;
     -khtml-border-radius-bottomrights: 0px;
   }
->>>>>>> refs/remotes/origin/print-order-invoice
+  
+  .editable{
+  	padding-top: 0px;
+  	height: 34px
+  }
+  
+  .sonata-bc .editable input{
+  	border: none;
+  	padding: 4px 0px 4px 6px;
+  	height: 24px;
+  	text-align: center;
+  	border-radius:10px;
+  }
+  
+  #invoice_order_products table{
+  	width: 100%;
+  }
+  
+  #invoice_order_products table th{
+  	text-align:left;
+  }
+  
+  #invoice_order_products .amount{ width: 10%; }
+  #invoice_order_products .code{ width: 10%; }
+  #invoice_order_products .unit_price{ width: 13%; }
+  #invoice_order_products .import{ width: 10%; }
+  
+   .td-label{
+   	font-weight: bold;
+  	text-align:right;
+  	padding-right: 20px;
+  }
+  
+  td.space {
+  	padding-top: 15px;
+  }
 }
