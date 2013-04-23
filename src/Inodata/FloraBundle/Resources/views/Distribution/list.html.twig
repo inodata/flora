@@ -108,7 +108,7 @@
 {% endblock %}
 
 {% block list_table %}
-	<b>Crear Orden de reparto</b>
+	<b>{{ 'label.distribution_assign'|trans({}, 'InodataFloraBundle') }}</b>
 	{% block distribution_form %}
 	
 		<form method="post" action="{{ path('inodata_flora_distribution_add_orders_to_messenger', { 'messengerId': '2', 'orderIds': '1+3+' } ) }}" {{ form_enctype(form) }}>
