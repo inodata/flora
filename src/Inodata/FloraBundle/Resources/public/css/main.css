@@ -4,6 +4,8 @@
   div.list-products-content .table-2 { float:right; width: 20%;}
   
   #order-invoice-print {display: none;}
+  
+  .divisor, .original_string, .digital_stamp, .footer_container{display:none;}
 }
 
 @media print
@@ -24,14 +26,16 @@
   /*Rules for invoice print */
   body.sonata-bc { padding: 0px; }
   
-  /*TODO: Revisar donde esta el error, aqui truena 
-  .navbar, .sf-toolbar, .container-fluid > .row-fluid,.nav, .tab-content, .alert { display: none; }
-  */
-
+  .divisor, .original_string, .digital_stamp, .footer_container{display:none;}
   
+  .sonata-bc .container-fluid .row-fluid .span6, 
+  .sonata-bc .container-fluid .row-fluid .span4,
+  .sonata-bc .container-fluid .row-fluid .span2,
+  .navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
+  .sonata-ba-form div{overflow:hidden;}
 }
 
-@media print screen
+@media print, screen
 {
   * {
       Margin: 0;
@@ -42,6 +46,11 @@
   body {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 12px;
+  }
+  
+  .issuing h3{
+  	font-size: 14px;
+  	line-height: 0px;
   }
 
   .border{
@@ -233,5 +242,4 @@
     -webkit-border-radius-bottomright: 0px;
     -khtml-border-radius-bottomrights: 0px;
   }
->>>>>>> refs/remotes/origin/print-order-invoice
 }

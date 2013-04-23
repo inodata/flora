@@ -203,6 +203,7 @@ $(document).ready(function() {
 	    	hideEmptyNotification();
 	    	//Load price totals for the order editing
 	    	loadPriceTotals(data.totals);
+	    	loadInvoiceOrderProducts($(data.listFields).clone(), data.totals);
 	    }, 'json');
 	}
 	//----------------------------------------//
@@ -287,7 +288,29 @@ $(document).ready(function() {
 	//-------------------------------------------------------------------//
 	
 	//-------------------------- Print Invoice---------------------------//
-	$('.btn-print-invoice').click(function(){
+	function loadInvoiceOrderProducts(listFields, totals)
+	{
+		$(listFields).each(function(){
+			var cant = $(this).children('td:first').find('input').val();
+			$(this).children('td:first').html(cant);
+			$(this).children('td:last').remove();
+		});
+		
+		$('#invoice_order_products table > tbody').append(listFields);
+		
+		//Load totals
+		$('.invoice-subtotal').append(totals.subtotal);
+		$('.invoice-iva').append(totals.iva);
+		$('.invoice-total').append(totals.total);
+		$('.invoice-shipping').append(totals.shipping);
+		$('.invoice-discount').append(totals.discount);
+		
+		var invoiceNumber = $('.inodata-invoice-number');
+		$('.invoice_data .folio').append($(invoiceNumber).clone().attr('type', 'text'));
+		$(invoiceNumber).remove();
+		
+	}
+	/*$('.btn-print-invoice').click(function(){
 		var orderId = $(".order-id").val();
 		if($('#order-invoice-print>div').length==0){
 			if(orderId.length!=0){
@@ -297,23 +320,13 @@ $(document).ready(function() {
 			window.print();
 		}
 	});
-	
-	if(id!=''){
-		var url = Routing.generate('inodata_flora_order_is_print_required');
-		$.get(url, function(response){
-			if(response.isPrint){
-				loadInvoiceAndPrint(id);
-			}
-		}, 'json')
-	}
-	
 	function loadInvoiceAndPrint(orderId){
 		var url = Routing.generate('inodata_flora_order_create_inovice_totals', {orderId:orderId});
 		$.get(url, function(response){
 			$('#order-invoice-print').append(response.inovice_totals);
 			window.print();
 		},'json');
-	}
+	}*/
 	//-------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//

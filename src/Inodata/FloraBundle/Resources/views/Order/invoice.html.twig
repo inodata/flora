@@ -22,16 +22,14 @@
         </div>
         <div class="right_column">
     		<div class="invoice_data">
-            	<div><div class="labels ">Fecha / Hora</div><div class="data_container border">invoice.date</div></div><br/>&nbsp;
-                <div><div class="labels ">Series / Folio</div><div class="data_container border"><span class="series">invoice.series</span><span class="folio">invoice.folio</span></div></div><br/>&nbsp;
-                <div><div class="labels ">No. Certificado</div><div class="data_container border">%SERIEs_CERT%</div></div>
+            	<div><div class="labels ">Fecha / Hora</div><div class="data_container border">{{ object.createdAt|date("m/d/Y") }}</div></div><br/>&nbsp;
+                <div><div class="labels ">Series / Folio</div><div class="data_container border"><span class="folio"></span></div></div><br/>&nbsp;
+                <div><div class="labels ">No. Certificado</div><div class="data_container border">{{ "-----" }}</div></div>
             </div>
             <div class="expedicion">
-            	<div class="div_header">data_container de Expedici&oacute;n</div>
+            	<div class="div_header">Lugar de Expedición</div>
                 <div class="div_content">
-                    domicilio.expedicion, expedicion.colonia<br/>
-                    expedicion.localidad, expedicion.municipio, expedicion.estado, C.P. expedicion.cp <br/>
-                    RFC: expedicion.rfc
+                    Monterrey Nuevo León, México.
                 </div>
             </div>
         </div>
@@ -41,7 +39,21 @@
     	<div class="items ">
         	<div class="div_header">Detalle</div>
             <div >
-        		<div class="div_content remove_corner_bottom_right ">conceptos</div>
+        		<div class="div_content remove_corner_bottom_right ">
+        			<div id="invoice_order_products">
+						<table>
+							<thead>
+								<tr><th>Cant. </th><th>Clave</th><th>Descipcion</th><th>Precio Unit.</th><th>Importe</th></tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+					<div>
+        				<div class="align_right"><span>Envío </span><span class="invoice-shipping">$ </span></div>
+        				<div class="align_right"><span>Descuento(-) </span><span class="invoice-discount">$ </span></div>
+        			</div>
+        		</div>
             </div>
         </div>
     </div>
@@ -49,9 +61,9 @@
     	<div class="taxes">
         	<div class="taxes_header">&nbsp;</div>
             <div class="taxes_content">
-                <div class="left_column bold_text">SubTotal</div><div class="right_column align_right">%SUBTOTAL%</div><br/><br/>
-                <div class="left_column bold_text">IVA</div><div class="right_column align_right">%IVA%</div><br/><br/>
-                <div class="left_column bold_text">Total</div><div class="right_column total align_right">%Total%</div><br/>
+                <div class="left_column bold_text">SubTotal</div><div class="right_column align_right invoice-subtotal">$ </div><br/><br/>
+                <div class="left_column bold_text">IVA</div><div class="right_column align_right invoice-iva">$ </div><br/><br/>
+                <div class="left_column bold_text">Total</div><div class="right_column total align_right invoice-total">$ </div><br/>
             </div>
         </div>
     	<div class="ammount_in_words">

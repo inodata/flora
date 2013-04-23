@@ -121,12 +121,11 @@ class OrderAdmin extends Admin
 				
 			->end()
 			->with('tab.invoice')
-				->add('invoiceNumber', 'text',array(
+				->add('invoiceNumber', 'hidden',array(
 					'required' => false,
 					'label' => 'label.invoice',
 					'attr' => array(
-						'class' => 'inodata-invoice-number',
-						'style' => 'width:8%;')
+						'class' => 'inodata-invoice-number')
 				))
 			->end()
 		;

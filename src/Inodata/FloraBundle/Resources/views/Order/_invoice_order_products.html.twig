@@ -1,0 +1,9 @@
+{% for orderItem in products %}
+	<tr>
+		<td>{{ orderItem['cant']}}</td>
+		<td>{{ orderItem['product'].code }}</td>
+		<td>{{ orderItem['product'].description }}</td>
+		<td>{{ orderItem['product'].price}}</td>
+		<td>{{ orderItem['product'].price * orderItem['cant']}}</td>
+	</tr>
+{% endfor %}

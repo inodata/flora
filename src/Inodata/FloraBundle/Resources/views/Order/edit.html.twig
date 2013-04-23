@@ -48,12 +48,6 @@
     </div>
 {% endblock %}
 
-{% block footer %}
-	{{ parent() }}
-	<div id="order-invoice-print">
-	</div>
-{% endblock %}
-
 {% block sonata_formactions%}
 	{{ parent() }}
 	{% if admin.id(object) %}
