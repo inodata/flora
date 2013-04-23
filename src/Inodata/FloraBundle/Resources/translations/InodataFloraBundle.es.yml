@@ -16,6 +16,9 @@ label.contact_empty_list: Seleccionar o crear contacto
 label.msg_category_empty_list: Seleccionar una ocasión
 label.message_empty_list: Seleccionar un mensaje predefinido
 label.invoice: Factura
+label.order_number: No. de pedido
+label.created_at: Creado el
+label.updated_at: Actualizado el
 
 #Address labels
 label.street: Calle
