@@ -58,9 +58,8 @@ class DistributionAdmin extends Admin
 			->add('deliveryDate')
 			->add('status')
 			->add('_action', 'actions', array(
-				'actions' => array(
-					'edit' => array(),
-					'delete' => array(),
+				'actions' => array( 
+						'Delivered' => array() 
 				)
 			));
 	}
@@ -92,6 +91,17 @@ class DistributionAdmin extends Admin
 				return parent::getTemplate($name);
 				break;
 		}
+	}
+	
+	protected function configureSideMenu(MenuItemInterface $menu, $action, Admin $childAdmin = null)
+	{
+		if (!$childAdmin && !in_array($action, array('edit'))) {
+			return;
+		}
+		
+		$admin = $this->isChild() ? $this->getParent() : $this;
+		$id = $admin->getRequest()->get('id');
+		$menu->addChild('delivered', array('uri' => 'http://google.com?id=' . $id));
 	}
 	
 	

@@ -152,6 +152,8 @@
 				{% endblock %}
 			</table>
 		{% endblock %}
+
+		
 		<a class="btn add_link" title="Edit" >
 			Asignar
 		</a>
@@ -160,7 +162,28 @@
 	{% endblock %}
 	<br/><br/>
 	<b>{{ 'label.distribution_title'|trans({}, 'InodataFloraBundle') }}</b><br/>
-	{{ parent() }}
+    {% set batchactions = admin.batchactions %}
+    {% if admin.datagrid.results|length > 0 %}
+        <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
+            <table class="table table-bordered table-striped">
+                {% block table_header %}
+                    {{ parent() }}
+                {% endblock %}
+
+                {% block table_body %}
+                    {{ parent() }}
+                {% endblock %}
+
+                {% block table_footer %}
+                   {{ parent() }}
+                {% endblock %}
+            </table>
+        </form>
+    {% else %}
+        <p class="notice">
+            {{ 'no_result'|trans({}, 'SonataAdminBundle') }}
+        </p>
+    {% endif %}
 	<a class="btn print_link" title="Edit" >
 		Print
 	</a>
