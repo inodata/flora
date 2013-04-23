@@ -24,7 +24,9 @@ class DistributionAdmin extends Admin
 	{
 		$formMapper
 			->add('id')
-			->add('messenger_id')
+			->add('messenger', 'genemu_jqueryselect2_entity', array( 
+					'class' => 'Inodata\FloraBundle\Entity\Employee'
+					))
 			->add('delivery_date', 'date', array(
 						'label'=> 'label.delivery_date',
 						'widget' => 'single_text',
@@ -51,7 +53,7 @@ class DistributionAdmin extends Admin
 								  ->where('u.messenger IS NULL');
 					}
 				))
-			->add('id')
+			->addIdentifier('id')
 			->add('product')
 			->add('deliveryDate')
 			->add('status')

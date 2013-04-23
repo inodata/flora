@@ -42,32 +42,51 @@
 				
 				var id = $(this).parent().parent().attr('order_id');
 				$(this).parent().parent().remove();
-				$('#inodata_distribution_type_form_id').append('<option value="'+id+'">'+id+'</option>');
+				var url = Routing.generate('inodata_flora_distribution_verify_order_status', {orderId:id});
+				$.get(url, function(data){
+					if( data.isValidToAdd == 'true'){
+						$('#inodata_distribution_type_form_id').append(data.option);
+					}
+				}, 'json' );		
+				
+				
 			});
 			
 			$('.add_link').live('click', function(){
 				
 				var messengerId = $('#inodata_distribution_type_form_messenger').val();
-			
-				var orderIds = [];
+				var orderIds = "";
 				
-				$('#messenger_orders > tr').each(function(){
-					orderIds.push( $(this).attr('order_id') );
+				$('#messenger_orders tr').each(function(){
+					if( $(this).attr('id') == 'no_orders' ){
+						alert('Seleccione al menos una orden');
+						return;
+					}
+					orderIds = orderIds + $(this).attr('order_id');
+					orderIds = orderIds+"+";
+
+					
 				});
-				
-				var values = {
-					'orderIds': orderIds,
-					'messengerId': messengerId
+
+				if(orderIds == ''){
+					alert('Seleccione al menos una orden');
+					return;
 				}
 
-				var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger');
-				
-				$.post(url, values)
-				.done( function(data){
+				if( messengerId == '' ){
+					alert('Seleccione un Repartidor');
+					return;
+				}
+		
+				var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger', { messengerId:messengerId, orderIds:orderIds } );
+			
+				$.get(url, function(data){
+					alert('Se asignaron las ordenes al Repartidor');
 					
-					alert(data.messengerId);
-					alert(data.firstOrderId);
-				});
+					$('#messenger_orders > tr').each(function(){
+						$(this).remove();
+					});
+				}, 'json');
 			}); 
 			
 
@@ -92,7 +111,7 @@
 	<b>Crear Orden de reparto</b>
 	{% block distribution_form %}
 	
-		<form method="post" action="{{ path('inodata_flora_distribution_add_orders_to_messenger') }}" {{ form_enctype(form) }}>
+		<form method="post" action="{{ path('inodata_flora_distribution_add_orders_to_messenger', { 'messengerId': '2', 'orderIds': '1+3+' } ) }}" {{ form_enctype(form) }}>
 		{{ form_label(distribution_form.messenger)}}
 		<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
 	 	{{ form_widget(distribution_form.messenger)}}
@@ -136,10 +155,11 @@
 		<a class="btn add_link" title="Edit" >
 			Asignar
 		</a>
-		<input type="submit" value="Asignar" class="btn add_link" title="Asignar" />
 		
 		</form>
 	{% endblock %}
+	<br/><br/>
+	<b>{{ 'label.distribution_title'|trans({}, 'InodataFloraBundle') }}</b><br/>
 	{{ parent() }}
 	<a class="btn print_link" title="Edit" >
 		Print

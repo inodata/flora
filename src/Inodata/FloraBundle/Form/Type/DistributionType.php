@@ -21,7 +21,7 @@ class DistributionType extends AbstractType
 					}
 					,
 				'attr' => array(
-					'class' => 'select2-offscreen inodata_messenger_list span5',
+					'class' => 'inodata_messenger_list span5 select2-offscreen',
 				)
 			))
 			->add('id', 'genemu_jqueryselect2_entity', array(
@@ -29,7 +29,8 @@ class DistributionType extends AbstractType
 				'class' => 'Inodata\FloraBundle\Entity\Order',
 				'query_builder' => function(EntityRepository $er) {
 						return $er->createQueryBuilder('u')
-								  ->where('u.status = \'open\' AND u.messenger IS NULL');
+								  ->where('u.status = \'open\'')
+								  ->andWhere('u.messenger IS NULL');
 					}
 					,
 				'attr' => array(

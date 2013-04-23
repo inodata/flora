@@ -31,3 +31,6 @@ label.department: Departamento
 label.employee_number: No. de empleado
 label.phone: Teléfono
 label.email: Correo electrónico
+
+#Distribution labels
+label.distribution_title: Distribución

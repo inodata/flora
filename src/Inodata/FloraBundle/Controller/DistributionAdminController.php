@@ -35,12 +35,6 @@ class DistributionAdminController extends Controller
         ));
     }
     
-    /* TODO:ERMOVE*/
-    public function ordersByMessengerIdAction()
-    {
-
-    }
-    
     public function addPreviewOrderToMessengerAction($orderId)
     {
     	$order = $this->getDoctrine()
@@ -55,15 +49,50 @@ class DistributionAdminController extends Controller
     	return new Response(json_encode($response));
     }
     
-    public function addOrdersToMessengerAction(Request $request)
+    public function addOrdersToMessengerAction($messengerId, $orderIds)
     {
-    	$id = $request->get('orderIds');
-    	$response = array('messengerId' => $request->get('messengerId'),
-    			'firstOrderId' => $id[0]	);
     	
-    	//$response = array( 'request' => $this->container->get('request')->get('_sonata_admin'));
+    	$orderIds = explode("+", $orderIds);
+    	unset( $orderIds[ count($orderIds)-1 ]);
     	
+    	$messenger = $this->getDoctrine()
+    	    			  ->getRepository('InodataFloraBundle:Employee')
+    					  ->find( $messengerId );
+    	
+    	
+    	foreach( $orderIds as $orderId)
+    	{
+    		$em = $this->getDoctrine()->getEntityManager();
+    		$order = $this->getDoctrine()
+    					  ->getRepository('InodataFloraBundle:Order')
+    		   			  ->find( $orderId );
+    		
+    		if( $order != null )
+    		{
+	    		$order->setStatus('intransit');
+	    		$order->setMessenger($messenger);	 
+	    		
+	    		$em->flush();
+	    		$em->persist($order);
+    		}
+    	}
+    	
+    	
+    	$response = array('messenger' => $orderIds );
     	return new Response(json_encode($response));    
+    }
+    
+    public function verifyOrderStatusAction($orderId)
+    {
+    	$order = $this->getDoctrine()
+    				  ->getRepository('InodataFloraBundle:Order')
+    				  ->find( $orderId );
+    	$option = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
+    			array('id' => $order->getId()));
+    	
+    	$response = array( 'isValidToAdd' => ( $order->getStatus() == 'open' && $order->getMessenger() == null) ? 'true' : 'false', 
+    			           'option' => $option );
+    	return new Response(json_encode($response));    	
     }
     
     public function configure()
@@ -74,4 +103,5 @@ class DistributionAdminController extends Controller
     		parent::configure();
     	}
     }
+    
 }
