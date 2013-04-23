@@ -27,6 +27,18 @@ label.contact_empty_list: Seleccionar o crear contacto
 label.msg_category_empty_list: Seleccionar una ocasión
 label.message_empty_list: Seleccionar un mensaje predefinido
 label.invoice: Factura
+label.date: Fecha
+label.folio: Folio
+label.payment_condition: Condición de pago
+label.expedition_place: Lugar de expedición
+label.details: Detalles
+label.amount: Cantidad
+label.code: Clave
+label.description: Descripción
+label.unit_price: Precio Unit.
+label.import: Importe
+label.subtotal: Subtotal
+label.total: Total
 
 #Address labels
 label.street: Calle

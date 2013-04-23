@@ -37,7 +37,11 @@
             {% elseif name == "tab.invoice" %}
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
                     {{ block('sonata_fieldset') }}
-                    {% embed 'InodataFloraBundle:Order:invoice.html.twig' %}{% endembed %}
+                    {% if admin.id(object) %}
+                    	{% embed 'InodataFloraBundle:Order:invoice.html.twig' %}{% endembed %}
+                    {% else %}
+                    	<div>Para facturar, primero debe crear la orden.</div>
+                    {% endif %}
                 </div>
             {% else %}
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">

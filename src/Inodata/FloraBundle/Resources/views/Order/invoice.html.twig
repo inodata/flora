@@ -2,18 +2,18 @@
 	<div class="header_container">
     	<div class="left_column">
         	<div class="issuing">
-            	<div class="logo">aqui va el logo <!--<IMG SRC="logo.jpg" HEIGHT="70">--></div>
+            	<div class="logo"></div>
             	<h3>{{ issuing_name }}</h3>
                 <p>{{ issuing_street }} No. {{ issuing_nint }}, {{ issuing_neighborhood }} <br/>
                 {{ issuing_city }}, {{ issuing_state }}, C.P. {{ issuing_cp }} <br/>
                 RFC: {{ issuing_rfc }}</p>
 			</div>
             <div class="receptor">
-            	<div class="div_header">Cliente</div>
+            	<div class="div_header">{{ 'tab.customer'|trans({}, 'InodataFloraBundle') }}</div>
             	<div class="div_content">
                     {{ object.customer.businessName }}<br/>
-                    {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noInt }} 
-                    {% if (object.customer.fiscalAddress.noExt != '') %} Ext. {{ object.customer.fiscalAddress.noExt }} {% endif %}, 
+                    {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noExt }} 
+                    {% if (object.customer.fiscalAddress.noInt!= '') %} Int. {{ object.customer.fiscalAddress.noInt}} {% endif %}, 
                     {{ object.customer.fiscalAddress.neighborhood }} <br/>
                     {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/>
                     {{ object.customer.rfc }}
@@ -22,12 +22,12 @@
         </div>
         <div class="right_column">
     		<div class="invoice_data">
-            	<div><div class="labels ">Fecha / Hora</div><div class="data_container border">{{ object.createdAt|date("m/d/Y") }}</div></div><br/>&nbsp;
-                <div><div class="labels ">Series / Folio</div><div class="data_container border"><span class="folio"></span></div></div><br/>&nbsp;
-                <div><div class="labels ">No. Certificado</div><div class="data_container border">{{ "-----" }}</div></div>
+            	<div><div class="labels ">{{ 'label.date'|trans({}, 'InodataFloraBundle') }}</div><div class="data_container">{{ object.createdAt|date("m/d/Y") }}</div></div><br/>
+                <div><div class="labels ">{{ 'label.folio'|trans({}, 'InodataFloraBundle') }}</div><div class="data_container editable"><span class="folio"></span></div></div><br/>
+                <div><div class="labels ">{{ 'label.payment_condition'|trans({}, 'InodataFloraBundle') }}</div><div class="data_container payment-condition editable"></div></div>
             </div>
             <div class="expedicion">
-            	<div class="div_header">Lugar de Expedición</div>
+            	<div class="div_header">{{ 'label.expedition_place'|trans({}, 'InodataFloraBundle') }}</div>
                 <div class="div_content">
                     Monterrey Nuevo León, México.
                 </div>
@@ -37,22 +37,37 @@
     <div class="divisor" >&nbsp;</div>
     <div class="items_container">
     	<div class="items ">
-        	<div class="div_header">Detalle</div>
+        	<div class="div_header">{{ 'label.details'|trans({}, 'InodataFloraBundle') }}</div>
             <div >
         		<div class="div_content remove_corner_bottom_right ">
         			<div id="invoice_order_products">
 						<table>
 							<thead>
-								<tr><th>Cant. </th><th>Clave</th><th>Descipcion</th><th>Precio Unit.</th><th>Importe</th></tr>
+								<tr>
+									<th class="amount">{{ 'label.amount'|trans({}, 'InodataFloraBundle') }}</th>
+									<th class="code">{{ 'label.code'|trans({}, 'InodataFloraBundle') }}</th>
+									<th class="description">{{ 'label.description'|trans({}, 'InodataFloraBundle') }}</th>
+									<th class="unit_price">{{ 'label.unit_price'|trans({}, 'InodataFloraBundle') }}</th>
+									<th class="import">{{ 'label.import'|trans({}, 'InodataFloraBundle') }}</th>
+								</tr>
 							</thead>
 							<tbody>
 							</tbody>
+							<tfoot>
+								<tr>
+									<td class="space" colspan="5"></td>
+								</tr>
+								<tr>
+									<td class="td-label" colspan="4">{{ 'label.shipping'|trans({}, 'InodataFloraBundle') }}</td>
+									<td class="invoice-shipping"></td>
+								</tr>
+								<tr>
+									<td class="td-label" colspan="4">{{ 'label.discount'|trans({}, 'InodataFloraBundle') }}</td>
+									<td class="invoice-discount">- </td>
+								</tr>
+							</tfoot>
 						</table>
 					</div>
-					<div>
-        				<div class="align_right"><span>Envío </span><span class="invoice-shipping">$ </span></div>
-        				<div class="align_right"><span>Descuento(-) </span><span class="invoice-discount">$ </span></div>
-        			</div>
         		</div>
             </div>
         </div>
@@ -61,18 +76,19 @@
     	<div class="taxes">
         	<div class="taxes_header">&nbsp;</div>
             <div class="taxes_content">
-                <div class="left_column bold_text">SubTotal</div><div class="right_column align_right invoice-subtotal">$ </div><br/><br/>
+                <div class="left_column bold_text">{{ 'label.subtotal'|trans({}, 'InodataFloraBundle') }}</div><div class="right_column align_right invoice-subtotal">$ </div><br/><br/>
                 <div class="left_column bold_text">IVA</div><div class="right_column align_right invoice-iva">$ </div><br/><br/>
-                <div class="left_column bold_text">Total</div><div class="right_column total align_right invoice-total">$ </div><br/>
+                <div class="left_column bold_text">{{ 'label.total'|trans({}, 'InodataFloraBundle') }}</div><div class="right_column total align_right invoice-total">$ </div><br/>
             </div>
         </div>
     	<div class="ammount_in_words">
-        	<div class="div_header">Cantidad con letra</div>
-        	<div class="ammount_in_words_content">
-            	%//Compac/Encabezado/MGW10008/Funciones|f_TOTAL_LETRA\%
+        	<div class="div_header">Observaciones</div>
+        	<div class="ammount_in_words_content comment-container editable">
             </div>
         </div>
-        <div class="tax_id_card">Aqui va el codigo Qr<!--<IMG SRC="%\//Compac/Encabezado/MGW10008/Imagenes|i_tax_id_cardEMPRESA\%" HEIGHT="120" WIDTH="80">--></div>
+        <div class="tax_id_card">
+        	<!-- Codigo de barras -->
+        </div>
     </div>
     <div class="divisor" >&nbsp;</div>
     <div class="original_string">

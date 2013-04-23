@@ -109,8 +109,9 @@ class OrderAdminController extends Controller
 			$discountPercentLabel = ($discount*100).'%';
 		}
 		
-		$IVA = ($subtotal+$shipping-$discountNet)*0.16;
-		$total = $subtotal+$shipping-$discountNet+$IVA;
+		$subtotal = $subtotal+$shipping-$discountNet;
+		$IVA = $subtotal*0.16;
+		$total = $subtotal+$IVA;
 		
 		return array('shipping'=>$shipping, 'discount' =>$discount, 
 				'discount_net' =>round($discountNet,2),'discount_percent'=>$discountPercentLabel, 
