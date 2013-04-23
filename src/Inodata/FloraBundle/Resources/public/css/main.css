@@ -1,0 +1,276 @@
+@media screen, projection {
+  div.list-products-content{ width:100%;}
+  div.list-products-content .table-1 {float:left; width:80%;}
+  div.list-products-content .table-2 { float:right; width: 20%;}
+  
+  #order-invoice-print {display: none;}
+  .divisor, .original_string, .digital_stamp, .footer_container{display:none;}
+}
+
+@media print
+{
+  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* h5bp.com/t */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+  
+  /*Rules for invoice print */
+  body.sonata-bc { padding: 0px; }
+  
+  .divisor, .original_string, .digital_stamp, .footer_container{display:none;}
+  
+  .sonata-bc .container-fluid .row-fluid .span6, 
+  .sonata-bc .container-fluid .row-fluid .span4,
+  .sonata-bc .container-fluid .row-fluid .span2,
+  .navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
+  
+  .invoice_page .logo:before{
+  	width: 150px; height: 70px;
+  	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+  	background-size: 100% 100%;
+  }
+}
+
+@media print, screen
+{
+  * {
+      Margin: 0;
+      Padding: 0;
+      Border: 0;
+    }
+        
+  body {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  }
+  
+  .logo{
+  	width: 150px; height: 70px;
+  	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+  	background-size: 100% 100%;
+  }
+  
+  .issuing h3{
+  	font-size: 14px;
+  	line-height: 0px;
+  }
+
+  .bold_text{
+    font-weight:bold;
+  }
+
+  .left_column{
+    float:left;
+    width:50%;
+  }
+
+  .right_column{
+    float:right;
+    width:50%;
+  }
+
+  .issuing, .invoice_data{
+    height: 150px;
+  }
+
+  .labels, .data_container{
+    padding-top: 11px;
+    height: 23px;
+  }
+    
+  .labels{
+    font-weight:bold;
+    width: 56%;
+    text-align:right;
+    float:left;
+    valign: middle;
+    border: 1px solid #FFF;
+  }
+
+  .data_container{
+    width: 40%;
+    text-align:center;
+    float:right;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    vertical-align:middle;
+    border: 1px solid #06C;
+  }
+
+  .original_string, .digital_stamp{
+    text-align:center;
+    font-size:10px;
+  }
+
+  .divisor{
+    clear: both;
+    height: 10px;
+  }
+
+  .transparent_background{
+    background-image:url(../inodata.com.mx/sinIFEnoDJ.jpg);
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+  }
+
+  .remove_transparency{
+    filter:alpha(opacity=100);
+    -moz-opacity:1.0;
+    -khtml-opacity: 1.0;
+    opacity: 1.0;
+    z-index: 10000;
+  }
+
+  .items_container, .summary_container, .original_string, .digital_stamp, .footer_container{
+    
+    width: 100%;
+    clear: both;
+  }
+
+  .ammount_in_words, .tax_id_card {
+    padding-top: 10px;
+    float: right;
+    margin-right: 10px;
+  }
+
+  .ammount_in_words {
+    width: 60%;
+  }
+
+  .ammount_in_words_content{
+    text-align: center;
+    border-radius: 0px 0px 10px 10px;
+    -moz-border-radius:  0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+    border: 1px solid #06C;
+    padding: 10px;
+    margin-top: -1px;
+  }
+
+  .taxes{
+    float: right;
+    width: 160px;
+  }
+
+  .align_right{
+    text-align: right;
+  }
+
+  .taxes_header{
+    margin-top: -1px;
+    border: 1px solid #06C;
+    border-bottom: none;
+    height: 10px;
+  }
+
+  .taxes_content{
+    margin-top: -1px;
+    padding: 0px 10px 10px 10px;
+    border: 1px solid #06C;
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    -moz-border-radius:  0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+  }
+
+
+  .total{
+    color: #390;
+    font-weight:bold;
+  }
+
+  .footer_container{
+    text-align:center;
+  }
+
+  /**
+  Guia para los bordes
+  border-radius  -moz-border-radius
+  border-top-left-radius  -moz-border-radius-topleft
+  border-top-right-radius -moz-border-radius-topright
+  border-bottom-right-radius  -moz-border-radius-bottomright
+  border-bottom-left-radius -moz-border-radius-bottomleft
+  */      
+
+  .div_header{
+    height: 17px;
+    background-color: #06C !important;
+    border-radius: 10px 10px 0px 0px;
+    -moz-border-radius:  10px 10px 0px 0px;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    -khtml-border-radius: 10px 10px 0px 0px;
+    border: 1px solid #06C;
+    text-align:center;
+    font-weight:bold;
+    color: #FFF;
+    padding-top: 5px;
+  }
+
+  .div_content{
+    min-height: 80px;
+    border-radius: 0px 0px 10px 10px;
+    -moz-border-radius:  0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+    border: 1px solid #06C;
+    padding: 10px;
+    margin-top: -1px;
+  }
+
+  .remove_corner_bottom_right{
+    border-bottom-right-radius: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-bottomright: 0px;
+    -khtml-border-radius-bottomrights: 0px;
+  }
+  
+  .editable{
+  	padding-top: 0px;
+  	height: 34px
+  }
+  
+  .sonata-bc .editable input{
+  	border: none;
+  	padding: 4px 0px 4px 6px;
+  	height: 24px;
+  	text-align: center;
+  	border-radius:10px;
+  }
+  
+  #invoice_order_products table{
+  	width: 100%;
+  }
+  
+  #invoice_order_products table th{
+  	text-align:left;
+  }
+  
+  #invoice_order_products .amount{ width: 10%; }
+  #invoice_order_products .code{ width: 10%; }
+  #invoice_order_products .unit_price{ width: 13%; }
+  #invoice_order_products .import{ width: 10%; }
+  
+   .td-label{
+   	font-weight: bold;
+  	text-align:right;
+  	padding-right: 20px;
+  }
+  
+  td.space {
+  	padding-top: 15px;
+  }
+}

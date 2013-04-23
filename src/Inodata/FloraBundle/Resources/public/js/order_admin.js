@@ -87,11 +87,11 @@ $(document).ready(function() {
 		$.get(url, function(contact){
 			setPContactDataOnInputs(contact);
 		}, 'json');
-	    }
-	  
-	    function setPContactDataOnInputs(contact)
-	    {
-	    	$('.payment_contact_form input').eq(0).val(contact.name);
+	}
+
+	function setPContactDataOnInputs(contact)
+	{
+		$('.payment_contact_form input').eq(0).val(contact.name);
 		$('.payment_contact_form input').eq(1).val(contact.department);
 		$('.payment_contact_form input').eq(2).val(contact.emp_number);
 		$('.payment_contact_form input').eq(3).val(contact.phone);
@@ -160,6 +160,7 @@ $(document).ready(function() {
 	            //Update total if exist
 	            var cant = parseInt($('#'+data.id+" input").val());
 	        	$('#'+data.id+" input").val(cant+1);
+	        	calculateProductImport($('#'+data.id));
 	        }
 	        
 	        //Add select option with product selected
@@ -202,6 +203,7 @@ $(document).ready(function() {
 	    	hideEmptyNotification();
 	    	//Load price totals for the order editing
 	    	loadPriceTotals(data.totals);
+	    	loadInvoiceOrderProducts($(data.listFields).clone(), data.totals);
 	    }, 'json');
 	}
 	//----------------------------------------//
@@ -246,11 +248,18 @@ $(document).ready(function() {
 				}
 				nOptions = $("."+id).length;
 			}
-	
+			calculateProductImport($(element).closest('tr'));
 			updateAjaxTotalsCost();
 		}else{
 			alert('Cantidad invalida');
 		}
+	}
+	
+	function calculateProductImport(element){
+		var cant = parseInt($(element).find('input').val());
+		var price = parseFloat($(element).find('.price').text());
+		
+		$(element).find('.import').text(cant*price);
 	}
 	//------------------------------------------------------------//
 	
@@ -276,6 +285,57 @@ $(document).ready(function() {
 			$(element).val('0');
 		}
 	}
+	//-------------------------------------------------------------------//
+	
+	//-------------------------- Print Invoice---------------------------//
+	function loadInvoiceOrderProducts(listFields, totals)
+	{
+		$(listFields).each(function(){
+			var cant = $(this).children('td:first').find('input').val();
+			$(this).children('td:first').html(cant);
+			$(this).children('td:last').remove();
+			$(this).attr('id', '').removeClass('product')
+		});
+		
+		$('#invoice_order_products table > tbody').append(listFields);
+		
+		//Load totals
+		$('.invoice-subtotal').append(totals.subtotal);
+		$('.invoice-iva').append(totals.iva);
+		$('.invoice-total').append(totals.total);
+		$('.invoice-shipping').append(totals.shipping);
+		$('.invoice-discount').append(totals.discount_net);
+		
+		var invoiceNumber = $('.inodata-invoice-number');
+		$('.invoice_data .folio').append($(invoiceNumber).clone().attr('type', 'text'));
+		$(invoiceNumber).remove();
+		
+		var inovicePCondition = $('.inodata-payment-condition');
+		$('.invoice_data .payment-condition').append($(inovicePCondition).clone().attr('type', 'text'));
+		$(inovicePCondition).remove();
+		
+		var invoiceComment = $('.inodata-invoice-comment');
+		$('.comment-container').append($(invoiceComment).clone().attr('type', 'text'));
+		$(invoiceComment).remove();
+		
+	}
+	/*$('.btn-print-invoice').click(function(){
+		var orderId = $(".order-id").val();
+		if($('#order-invoice-print>div').length==0){
+			if(orderId.length!=0){
+				loadInvoiceAndPrint(orderId);
+			}
+		}else{
+			window.print();
+		}
+	});
+	function loadInvoiceAndPrint(orderId){
+		var url = Routing.generate('inodata_flora_order_create_inovice_totals', {orderId:orderId});
+		$.get(url, function(response){
+			$('#order-invoice-print').append(response.inovice_totals);
+			window.print();
+		},'json');
+	}*/
 	//-------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//
@@ -313,7 +373,6 @@ $(document).ready(function() {
 		});
 		
 		var data = {'products':products, 'shipping':shipping, 'discount':discount};
-		
 		$.post(url, data, function(response){
 			loadPriceTotals(response.prices);
 		}, 'json');
