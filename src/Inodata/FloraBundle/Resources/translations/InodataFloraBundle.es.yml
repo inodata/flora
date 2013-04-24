@@ -1,3 +1,12 @@
+#Customer labels
+label.general: Datos Generales
+label.fiscal_address: Dirección fiscal
+label.payment_address: Dirección de pago
+label.company_name: Nombre / Razón social
+label.business_name: Nombre comercial
+label.rfc: RFC
+label.discount: Descuento
+
 #Order tabs
 tab.customer: Cliente
 tab.delivery_data: Datos de entrega
@@ -39,7 +48,7 @@ label.details: Detalles
 label.amount: Cantidad
 label.code: Clave
 label.description: Descripción
-label.unit_price: Precio Unit.
+label.unit_price: Precio Unitario
 label.import: Importe
 label.subtotal: Subtotal
 label.total: Total

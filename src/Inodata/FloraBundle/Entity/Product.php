@@ -76,11 +76,7 @@ class Product
      */
     public function __toString()
     {
-    	if(!$this->id){
-    		return "New";
-    	}
-    	
-    	return $this->description.' ('.$this->code.')';
+    	return $this->getDescription() ? $this->code.' - '.$this->description : " " ;
     }
 
     /**

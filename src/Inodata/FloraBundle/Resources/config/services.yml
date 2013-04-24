@@ -61,6 +61,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Cliente }
         arguments: [ null, Inodata\FloraBundle\Entity\Customer, SonataAdminBundle:CRUD ]
+        calls: 
+            - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.address:
         class: Inodata\FloraBundle\Admin\AddressAdmin
         tags:
