@@ -76,6 +76,69 @@ class LoadOrderData extends AbstractFixture implements OrderedFixtureInterface
     	  $manager->persist($order);
     	  $manager->flush();
     	  $this->addReference('order3',$order);
+    	  
+    	  
+    	  $order =new Order();
+    	  $order->setDeliveryDate(new \DateTime('2013-03-02 12:40:50'));
+    	  $order->setInvoiceNumber('A0004');
+    	  $order->setShipping('75');
+    	  $order->setDiscount('40');
+    	  $order->setCreator($this->getReference('user1'));
+    	  $order->setCreatedAt(new \DateTime('2013-03-02 12:25:50'));
+    	  $order->setFrom('Juan');
+    	  $order->setTo('Maria');
+    	  $order->setMessage($this->getReference('message5'));
+    	  $order->addProduct($this->getReference('producto8'));
+    	  $order->addProduct($this->getReference('producto9'));
+    	  $order->setShippingAddress($this->getReference('direccion24'));
+    	  $order->setCustomer($this->getReference('customer7'));
+    	  $order->setPaymentContact($this->getReference('paymentcontact7'));
+    	  $order->setStatus('open');
+    	  $manager->persist($order);
+    	  $manager->flush();
+    	  $this->addReference('order4',$order);
+    	  
+    	  
+    	  $order =new Order();
+    	  $order->setDeliveryDate(new \DateTime('2013-03-02 12:45:50'));
+    	  $order->setInvoiceNumber('A0005');
+    	  $order->setShipping('75');
+    	  $order->setDiscount('40');
+    	  $order->setCreator($this->getReference('user2'));
+    	  $order->setCreatedAt(new \DateTime('2013-03-02 12:25:50'));
+    	  $order->setFrom('Daniel');
+    	  $order->setTo('Daniela');
+    	  $order->setMessage($this->getReference('message6'));
+    	  $order->addProduct($this->getReference('producto10'));
+    	  $order->addProduct($this->getReference('producto11'));
+    	  $order->setShippingAddress($this->getReference('direccion25'));
+    	  $order->setCustomer($this->getReference('customer8'));
+    	  $order->setPaymentContact($this->getReference('paymentcontact8'));
+    	  $order->setStatus('open');
+    	  $manager->persist($order);
+    	  $manager->flush();
+    	  $this->addReference('order5',$order);
+    	  
+    	  
+    	  $order =new Order();
+    	  $order->setDeliveryDate(new \DateTime('2013-03-02 12:50:50'));
+    	  $order->setInvoiceNumber('A0006');
+    	  $order->setShipping('75');
+    	  $order->setDiscount('40');
+    	  $order->setCreator($this->getReference('user3'));
+    	  $order->setCreatedAt(new \DateTime('2013-03-02 12:25:50'));
+    	  $order->setFrom('Raul');
+    	  $order->setTo('Patricia');
+    	  $order->setMessage($this->getReference('message7'));
+    	  $order->addProduct($this->getReference('producto12'));
+    	  $order->addProduct($this->getReference('producto13'));
+    	  $order->setShippingAddress($this->getReference('direccion26'));
+    	  $order->setCustomer($this->getReference('customer9'));
+    	  $order->setPaymentContact($this->getReference('paymentcontact9'));
+    	  $order->setStatus('open');
+    	  $manager->persist($order);
+    	  $manager->flush();
+    	  $this->addReference('order6',$order);
     }
     
 /**

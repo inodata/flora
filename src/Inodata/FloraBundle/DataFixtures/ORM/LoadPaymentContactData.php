@@ -87,7 +87,7 @@ class LoadPaymentContactData extends AbstractFixture implements OrderedFixtureIn
 			  $paymentcontact->setPhone('8112358974');
 			  $paymentcontact->setEmail('maria.dominguez@gmail.com');
 			  $paymentcontact->setDepartment('Ventas');
-			  $paymentcontact->setCustomer($this->getReference('customer6'));
+			  $paymentcontact->setCustomer($this->getReference('customer7'));
 			  $manager->persist($paymentcontact);
 			  $manager->flush();
 			  $this->addReference('paymentcontact7',$paymentcontact);
@@ -98,7 +98,7 @@ class LoadPaymentContactData extends AbstractFixture implements OrderedFixtureIn
 			  $paymentcontact->setPhone('811457845');
 			  $paymentcontact->setEmail('jorge.ramirez@gmail.com');
 			  $paymentcontact->setDepartment('Sistemas');
-			  $paymentcontact->setCustomer($this->getReference('customer6'));
+			  $paymentcontact->setCustomer($this->getReference('customer8'));
 			  $manager->persist($paymentcontact);
 			  $manager->flush();
 			  $this->addReference('paymentcontact8',$paymentcontact);
@@ -109,7 +109,7 @@ class LoadPaymentContactData extends AbstractFixture implements OrderedFixtureIn
 			  $paymentcontact->setPhone('8111382830');
 			  $paymentcontact->setEmail('gustavo.mendez@gmail.com');
 			  $paymentcontact->setDepartment('Direccion');
-			  $paymentcontact->setCustomer($this->getReference('customer1'));
+			  $paymentcontact->setCustomer($this->getReference('customer9'));
 			  $manager->persist($paymentcontact);
 			  $manager->flush();
 			  $this->addReference('paymentcontact9',$paymentcontact);
@@ -120,7 +120,7 @@ class LoadPaymentContactData extends AbstractFixture implements OrderedFixtureIn
 			  $paymentcontact->setPhone('8111899689');
 			  $paymentcontact->setEmail('francisco.rocha@gmail.com');
 			  $paymentcontact->setDepartment('Direccion');
-			  $paymentcontact->setCustomer($this->getReference('customer1'));
+			  $paymentcontact->setCustomer($this->getReference('customer9'));
 			  $manager->persist($paymentcontact);
 			  $manager->flush();
 			  $this->addReference('paymentcontact10',$paymentcontact);

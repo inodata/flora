@@ -91,6 +91,46 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $manager->flush();
         
         $this->addReference('customer6', $customer);
+        
+         $customer = new Customer();
+        $customer->setRfc('MAH128345GH2');
+        $customer->setBusinessName('industrias texitles Rocha');
+        $customer->setCompanyName('Los Rochas');
+        $customer->setDiscount(.04);
+        $customer->setFiscalAddress($this->getReference('direccion13'));
+        $customer->setPaymentAddress($this->getReference('direccion14'));
+        
+        $manager->persist($customer);
+        $manager->flush();
+        
+        $this->addReference('customer7', $customer);
+        
+        
+         $customer = new Customer();
+        $customer->setRfc('MAH128345GH2');
+        $customer->setBusinessName('industrias texitles Rocha');
+        $customer->setCompanyName('Los Rochas');
+        $customer->setDiscount(.04);
+        $customer->setFiscalAddress($this->getReference('direccion15'));
+        $customer->setPaymentAddress($this->getReference('direccion16'));
+        
+        $manager->persist($customer);
+        $manager->flush();
+        
+        $this->addReference('customer8', $customer);
+        
+         $customer = new Customer();
+        $customer->setRfc('MAH128345GH2');
+        $customer->setBusinessName('industrias texitles Rocha');
+        $customer->setCompanyName('Los Rochas');
+        $customer->setDiscount(.04);
+        $customer->setFiscalAddress($this->getReference('direccion17'));
+        $customer->setPaymentAddress($this->getReference('direccion18'));
+        
+        $manager->persist($customer);
+        $manager->flush();
+        
+        $this->addReference('customer9', $customer);
     }
 
     /**
