@@ -70,5 +70,6 @@ label.distribution_assign: Crear Orden de reparto
 label.distribution_actions: Acciones
 label.distribution_print: Imprimir
 label.distribution_assign_button: Asignar Pedidos
+label.distribution_assign_empty: No hay pedidos asignados
 label.action_delivered: Entregado
 label.action_closed: Cerrado

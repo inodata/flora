@@ -78,8 +78,9 @@ class DistributionAdminController extends Controller
     		}
     	}
     	
+    	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
     	
-    	$response = array('messenger' => $orderIds );
+    	$response = array('messenger' => $orderIds, 'empty_list' => $emptyList);
     	return new Response(json_encode($response));    
     }
     
