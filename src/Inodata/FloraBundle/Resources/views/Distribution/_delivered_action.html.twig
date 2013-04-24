@@ -1,0 +1,6 @@
+{% if admin.isGranted('EDIT', object) and admin.hasRoute('edit') %}
+<a href="{{ admin.generateObjectUrl('delivered', object) }}" class="btn" title="{{ 'label.action_delivered'|trans({}, 'InodataFloraBundle') }}">
+    <img src="{{ asset('bundles/sonataadmin/famfamfam/accept.png') }}" alt="{{ 'label.action_delivered'|trans({}, 'InodataFloraBundle') }}" />
+	{{ 'label.action_delivered'|trans({}, 'InodataFloraBundle') }}
+</a>
+{% endif %}

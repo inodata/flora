@@ -4,6 +4,7 @@ namespace Inodata\FloraBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Inodata\FloraBundle\Entity\Product;
 use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Form\Type\DistributionType;
@@ -72,8 +73,8 @@ class DistributionAdminController extends Controller
 	    		$order->setStatus('intransit');
 	    		$order->setMessenger($messenger);	 
 	    		
-	    		$em->flush();
 	    		$em->persist($order);
+	    		$em->flush();
     		}
     	}
     	
@@ -102,6 +103,52 @@ class DistributionAdminController extends Controller
     	if($adminCode){
     		parent::configure();
     	}
+    }
+    
+    public function deliveredAction()
+    {
+    	$id = $this->get('request')->get('id');
+    	
+    	if( isset($id))
+    	{
+    		$order =  $this->getDoctrine()
+    				  	   ->getRepository('InodataFloraBundle:Order')
+    				       ->find( $id );
+    		
+    		if( $order == null ){
+    			//TODO: Flash Object Not Found
+    		} else{
+    			$order->setStatus('delivered');
+    			$em = $this->getDoctrine()->getEntityManager();
+    			$em->persist($order);
+    			$em->flush();
+    		}
+    	}
+    	
+    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
+    }
+    
+    public function closedAction()
+    {
+    	$id = $this->get('request')->get('id');
+    	 
+    	if( isset($id))
+    	{
+    		$order =  $this->getDoctrine()
+    					   ->getRepository('InodataFloraBundle:Order')
+    					   ->find( $id );
+    		
+    		if( $order == null ){
+    			//TODO: Flash Object Not Found
+    		} else{
+    			$order->setStatus('closed');
+    			$em = $this->getDoctrine()->getEntityManager();
+    			$em->persist($order);
+    			$em->flush();
+    		}
+    	}
+    	 
+    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
     
 }
