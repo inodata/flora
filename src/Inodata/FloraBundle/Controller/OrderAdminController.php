@@ -105,11 +105,12 @@ class OrderAdminController extends Controller
 		$discountNet = $discount;
 		
 		if($discount<1){
-			$discountNet = ($subtotal+$shipping)*$discount;
+			$discountNet = $subtotal*$discount;
 			$discountPercentLabel = ($discount*100).'%';
 		}
 		
 		$subtotal = $subtotal+$shipping-$discountNet;
+		//TODO: Calcular IVA solo si se requiere factura, por defecto es 0 para las notas.
 		$IVA = $subtotal*0.16;
 		$total = $subtotal+$IVA;
 		

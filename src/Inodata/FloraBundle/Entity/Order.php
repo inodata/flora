@@ -183,6 +183,13 @@ class Order
      * @ORM\Column(name="payment_condition", type="string", length=255, nullable=true)
      */
     private $paymentCondition;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_notes", type="string", length=255, nullable=true)
+     */
+    private $order_notes;
     
     /**
      * @var string
@@ -196,6 +203,7 @@ class Order
      */
     public function __construct()
     {
+        $this->deliveryDate = new \DateTime("NOW");
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -724,5 +732,28 @@ class Order
     public function getInvoiceComment()
     {
         return $this->invoiceComment;
+    }
+
+    /**
+     * Set order_notes
+     *
+     * @param string $orderNotes
+     * @return Order
+     */
+    public function setOrderNotes($orderNotes)
+    {
+        $this->order_notes = $orderNotes;
+    
+        return $this;
+    }
+
+    /**
+     * Get order_notes
+     *
+     * @return string 
+     */
+    public function getOrderNotes()
+    {
+        return $this->order_notes;
     }
 }

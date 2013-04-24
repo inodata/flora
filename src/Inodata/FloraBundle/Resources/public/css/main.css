@@ -4,7 +4,8 @@
   div.list-products-content .table-2 { float:right; width: 20%;}
   
   #order-invoice-print {display: none;}
-  .divisor, .original_string, .digital_stamp, .footer_container{display:none;}
+  .original_string, .digital_stamp, .footer_container{display:none;}
+
 }
 
 @media print

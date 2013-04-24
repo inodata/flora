@@ -19,107 +19,104 @@ class OrderAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->with('tab.customer')
-				->add('id', 'hidden', array(
-						'attr' => array('class' => "order-id")
-						))
-				->add('customer', 'sonata_type_model', array(
-						'label' => 'label.customer',
-						'empty_value' => '',
-						'attr' => array(
-								'class' => 'inodata_customer span5',
-								'placeholder' => 'Buscar Cliente')
-						))
-				->add('paymentContact', 'genemu_jqueryselect2_entity',array(
-						'label' => 'label.payment_contact',
-						'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
-						'empty_value' => '',
-						'attr' => array(
-								'class' => 'inodata_payment_contact span5',
-								'placeholder' => $this->trans('label.contact_empty_list')
-						)
-				))
-				->add('contact', 'inodata_payment_contact_form', array(
-						'label'=>false, 
-						'mapped' => false,
-						'attr' => array('class' => 'payment_contact_form')
+			->add('delivery_date', 'date', array(
+					'label'=> 'label.delivery_date',
+					'widget' => 'single_text',					
+					'attr' => array(
+							'class' => 'inodata_delivery_date'
 					)
-				)
-				->add('status', 'hidden')
-			->end()
-			->with('tab.delivery_data')
-				->add('delivery_date', 'date', array(
-						'label'=> 'label.delivery_date',
-						'widget' => 'single_text',
-						'attr' => array(
-								'class' => 'inodata_dalivery_date'
-						)
-				))				
-				->add('shippingAddress', 'inodata_address_form', array('label'=>false))
-			->end()
-			->with('tab.card')
-				->add('from', null, array(
-					'label' => 'label.from')
-				)
-				->add('to', null, array(
-					'label'=> 'label.to',)
-				)
-				->add('category', 'genemu_jqueryselect2_entity', array(
-						'label' => 'label.message_category',
-						'class' => 'Inodata\FloraBundle\Entity\Category',
-						'empty_value' => '',
-						'mapped' => false, 'required' => false,
-						'attr' => array(
-								'class' => 'inodata_category_day span5',
-								'placeholder' => $this->trans('label.msg_category_empty_list')
-						)
-				))
-				->add('messages', 'genemu_jqueryselect2_entity', array(
-						'label' => 'label.messages_list',
-						'class' => 'Inodata\FloraBundle\Entity\Message',
-						'empty_value' => '',
-						'mapped' => false, 'required' => false,
-						'attr' => array(
-								'class' => 'inodata_messages span5',
-								'placeholder' => $this->trans('Seleccionar un mensaje predefinido')
-						)
-				))
-				->add('message', 'ckeditor', array(
-						'label'=> 'label.message',
-						'config_name' => 'inodata_editor',
-						'attr' => array('class' => 'inodata_message span5')
-				))
-			->end()			
-			->with('tab.products_detail')
-				->add('productos', 'genemu_jqueryselect2_entity', array(
-					'label' => 'label.search_product',
-					'class' => 'Inodata\FloraBundle\Entity\Product',
-					'mapped' => false,
-					'required' => false,
+			))
+			->add('to', null, array(
+				'label'=> 'label.to',)
+			)
+			->add('from', null, array(
+				'label' => 'label.from')
+			)
+							
+			->add('shippingAddress', 'inodata_address_form', array('label'=>false))			
+			->add('id', 'hidden', array(
+					'attr' => array('class' => "order-id")
+			))
+			->add('customer', 'sonata_type_model', array(
+					'label' => 'label.customer',
 					'empty_value' => '',
 					'attr' => array(
-							'placeholder' => $this->trans('label.product_empty_list'),
-							'class'=>'inodata_product span5')))
-				->add('products', null, array(
-						'label' => 'label.product_list',
-						'attr' => array(
-								'class' => 'products-to-buy span5'
-						)
-				))
-				->add('shipping', 'text', array(
-					'label' => 'label.shipping',
+							'class' => 'inodata_customer span5',
+							'placeholder' => 'Buscar Cliente')
+					))
+			->add('paymentContact', 'genemu_jqueryselect2_entity',array(
+					'label' => 'label.payment_contact',
+					'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
+					'empty_value' => '',
 					'attr' => array(
-						'class' => 'order-shipping'
-					)		
-				))
-				->add('discount', null, array(
-					'label' => 'label.discount',
-					'attr' => array(
-							'class' => 'order-discount'
+							'class' => 'inodata_payment_contact span5',
+							'placeholder' => $this->trans('label.contact_empty_list')
 					)
-				))
-				
-			->end()
+			))
+			->add('contact', 'inodata_payment_contact_form', array(
+					'label'=>false, 
+					'mapped' => false,
+					'attr' => array('class' => 'payment_contact_form')
+				)
+			)
+			->add('status', 'hidden')
+			->add('category', 'genemu_jqueryselect2_entity', array(
+					'label' => 'label.message_category',
+					'class' => 'Inodata\FloraBundle\Entity\Category',
+					'empty_value' => '',
+					'mapped' => false, 'required' => false,
+					'attr' => array(
+							'class' => 'inodata_category_day span5',
+							'placeholder' => $this->trans('label.msg_category_empty_list')
+					)
+			))
+			->add('messages', 'genemu_jqueryselect2_entity', array(
+					'label' => 'label.messages_list',
+					'class' => 'Inodata\FloraBundle\Entity\Message',
+					'empty_value' => '',
+					'mapped' => false, 'required' => false,
+					'attr' => array(
+							'class' => 'inodata_messages span5',
+							'placeholder' => $this->trans('Seleccionar un mensaje predefinido')
+					)
+			))
+			->add('message', 'ckeditor', array(
+					'label'=> 'label.message',
+					'config_name' => 'inodata_editor',
+					'attr' => array('class' => 'inodata_message span5')
+			))
+			->add('productos', 'genemu_jqueryselect2_entity', array(
+				'label' => 'label.search_product',
+				'class' => 'Inodata\FloraBundle\Entity\Product',
+				'mapped' => false,
+				'required' => false,
+				'empty_value' => '',
+				'attr' => array(
+						'placeholder' => $this->trans('label.product_empty_list'),
+						'class'=>'inodata_product span5')))
+			->add('products', null, array(
+					'label' => 'label.product_list',
+					'attr' => array(
+							'class' => 'products-to-buy span5'
+					)
+			))
+			->add('order_notes', null, array('label' => 'label.order_notes'))
+			->add('has_invoice', 'checkbox', array(
+				'label' => 'label.has_invoice',
+				'required' => false,
+				'mapped' => false))
+			->add('shipping', 'text', array(
+				'label' => 'label.shipping',
+				'attr' => array(
+					'class' => 'order-shipping'
+				)		
+			))
+			->add('discount', null, array(
+				'label' => 'label.discount',
+				'attr' => array(
+						'class' => 'order-discount'
+				)
+			))
 			->with('tab.invoice')
 				->add('invoiceNumber', 'hidden',array(
 					'required' => false,

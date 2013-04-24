@@ -22,19 +22,7 @@
 {% block sonata_fieldsets %}
     <div class="tab-content">
         {% for name, form_group in admin.formgroups %}            
-            {% if name == "tab.products_detail" %}                
-                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
-                    {{ block('sonata_fieldset') }}
-                    {% embed 'InodataFloraBundle:Order:products_table.html.twig' %}{% endembed %}
-                </div>
-            {% elseif name == "tab.card" %}
-                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
-                    {{ block('sonata_fieldset') }}
-                    <a href="#" class="btn print_card_link" title="{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}">
-                        <i class="icon-print"></i>{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}
-                    </a>
-                </div>
-            {% elseif name == "tab.invoice" %}
+            {% if name == "tab.invoice" %}
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
                     {{ block('sonata_fieldset') }}
                     {% if admin.id(object) %}
@@ -46,6 +34,7 @@
             {% else %}
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
                     {{ block('sonata_fieldset') }}
+                    {% embed 'InodataFloraBundle:Order:products_table.html.twig' %}{% endembed %}
                 </div>
             {% endif %}
         {% endfor %}
@@ -62,3 +51,8 @@
 		<input type="submit" class="btn btn-create-and-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}"/>
 	{% endif %}
 {% endblock %}
+{#}
+<a href="#" class="btn print_card_link" title="{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}">
+    <i class="icon-print"></i>{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}
+</a>
+#}

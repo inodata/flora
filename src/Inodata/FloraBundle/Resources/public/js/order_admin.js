@@ -9,7 +9,7 @@ $(document).ready(function() {
 	  ".inodata_messages"
 	).select2({ allowClear: true });
 	
-	$('.inodata_dalivery_date').datepicker({ dateFormat: "yy-mm-dd" })
+	$('.inodata_delivery_date').datepicker({ dateFormat: "yy-mm-dd" });
 	
 	//---Reactiva el widget de Select2 al crear nuevo Customer desde la ventana modal---//
 	var element = $('.inodata_customer').closest('.sonata-ba-field-standard-natural');
