@@ -2,11 +2,8 @@
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
 		<input type="text" class="product-total" value="{{total}}" style="width: 25px; text-align: center;"/>
 	</td>
-	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
-		{{ product.code }}
-	</td>
-	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
-		{{ product.description }} ({{ product.priceInLetters }})
+	<td class="sonata-ba-list-field sonata-ba-list-field-text details" >
+		{{ product }} ({{ product.priceInLetters }})
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text price" >
 		{{ product.price }}
@@ -15,7 +12,7 @@
 		{{ product.price * total}}
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
-		<a href="#" class="btn delete_link" title="Borrar">
+		<a href="javascript:void()" class="btn delete_link" title="Borrar">
 			<i class="icon-remove"></i>Borrar
 		</a>
 	</td>

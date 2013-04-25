@@ -36,7 +36,7 @@ $(document).ready(function() {
 	        var title = $(element).text();
 	
 	        $(element).remove();
-	        $(this).append('<a href="'+href+'">'+title+'</a>');
+	        $(this).append('<a href="javascript:void()" tabId="'+href+'">'+title+'</a>');
 	    });
 	});
 	
@@ -44,7 +44,7 @@ $(document).ready(function() {
 		$(this).closest('ul').children().removeClass('active');
 		$(this).parent().addClass('active');
 	
-		var tabId = $(this).attr('href');
+		var tabId = $(this).attr('tabId');
 	
 		$('.ui-dialog .tab-content > div').removeClass('active');
 		$(tabId).addClass('active');
@@ -297,7 +297,7 @@ $(document).ready(function() {
 			$(this).attr('id', '').removeClass('product')
 		});
 		
-		$('#invoice_order_products table > tbody').append(listFields);
+		$('.invoice_page table > tbody').append(listFields);
 		
 		//Load totals
 		$('.invoice-subtotal').append(totals.subtotal);
@@ -307,16 +307,19 @@ $(document).ready(function() {
 		$('.invoice-discount').append(totals.discount_net);
 		
 		var invoiceNumber = $('.inodata-invoice-number');
-		$('.invoice_data .folio').append($(invoiceNumber).clone().attr('type', 'text'));
+		$('.folio-container .div_content').append($(invoiceNumber).clone().attr('type', 'text'));
 		$(invoiceNumber).remove();
 		
 		var inovicePCondition = $('.inodata-payment-condition');
-		$('.invoice_data .payment-condition').append($(inovicePCondition).clone().attr('type', 'text'));
+		$('.payment-condition .div_content').append($(inovicePCondition).clone().attr('type', 'text'));
 		$(inovicePCondition).remove();
 		
 		var invoiceComment = $('.inodata-invoice-comment');
-		$('.comment-container').append($(invoiceComment).clone().attr('type', 'text'));
+		$('.comments .div_content').append($(invoiceComment).clone().attr('type', 'text'));
 		$(invoiceComment).remove();
+		
+		var orderNote = $('.inodata-order-notes').val();
+		$('.invoice_page .order-note').text(orderNote);
 		
 	}
 	/*$('.btn-print-invoice').click(function(){

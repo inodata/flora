@@ -100,7 +100,9 @@ class OrderAdmin extends Admin
 							'class' => 'products-to-buy span5'
 					)
 			))
-			->add('order_notes', null, array('label' => 'label.order_notes'))
+			->add('order_notes', null, array('label' => 'label.order_notes',
+					'attr' => array('class' => 'inodata-order-notes span5')	
+				))
 			->add('has_invoice', 'checkbox', array(
 				'label' => 'label.has_invoice',
 				'required' => false,

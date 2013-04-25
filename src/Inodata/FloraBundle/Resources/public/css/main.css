@@ -32,11 +32,6 @@
   .sonata-bc .container-fluid .row-fluid .span4,
   .sonata-bc .container-fluid .row-fluid .span2,
   .navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
-  
-  .invoice_page .logo:before{
-  	width: 150px; height: 70px;
-  	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
-  	background-size: 100% 100%;
   }
 }
 
@@ -53,162 +48,33 @@
     font-size: 12px;
   }
   
-  .logo{
-  	width: 150px; height: 70px;
-  	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
-  	background-size: 100% 100%;
+  .invoice_page table{
+  	width: 100%;
+  }
+  
+  .invoice_page th, .invoice_page tbody td, .invoice-shipping, .invoice-discount{
+  	text-align: center;
+  }
+  
+  .invoice_page tbody td.details{
+  	padding-left: 15px;
+  	text-align: left;
+  }
+  .invoice_page tbody td:first-child{
+  	text-align:left;
   }
   
   .issuing h3{
-  	font-size: 14px;
+  	font-size: 13px;
   	line-height: 0px;
   }
 
   .bold_text{
     font-weight:bold;
-  }
-
-  .left_column{
-    float:left;
-    width:50%;
-  }
-
-  .right_column{
-    float:right;
-    width:50%;
-  }
-
-  .issuing, .invoice_data{
-    height: 150px;
-  }
-
-  .labels, .data_container{
-    padding-top: 11px;
-    height: 23px;
-  }
-    
-  .labels{
-    font-weight:bold;
-    width: 56%;
-    text-align:right;
-    float:left;
-    valign: middle;
-    border: 1px solid #FFF;
-  }
-
-  .data_container{
-    width: 40%;
-    text-align:center;
-    float:right;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;
-    vertical-align:middle;
-    border: 1px solid #06C;
-  }
-
-  .original_string, .digital_stamp{
-    text-align:center;
-    font-size:10px;
-  }
-
-  .divisor{
-    clear: both;
-    height: 10px;
-  }
-
-  .transparent_background{
-    background-image:url(../inodata.com.mx/sinIFEnoDJ.jpg);
-    filter:alpha(opacity=50);
-    -moz-opacity:0.5;
-    -khtml-opacity: 0.5;
-    opacity: 0.5;
-  }
-
-  .remove_transparency{
-    filter:alpha(opacity=100);
-    -moz-opacity:1.0;
-    -khtml-opacity: 1.0;
-    opacity: 1.0;
-    z-index: 10000;
-  }
-
-  .items_container, .summary_container, .original_string, .digital_stamp, .footer_container{
-    
-    width: 100%;
-    clear: both;
-  }
-
-  .ammount_in_words, .tax_id_card {
-    padding-top: 10px;
-    float: right;
-    margin-right: 10px;
-  }
-
-  .ammount_in_words {
-    width: 60%;
-  }
-
-  .ammount_in_words_content{
-    text-align: center;
-    border-radius: 0px 0px 10px 10px;
-    -moz-border-radius:  0px 0px 10px 10px;
-    -webkit-border-radius: 0px 0px 10px 10px;
-    -khtml-border-radius: 0px 0px 10px 10px;
-    border: 1px solid #06C;
-    padding: 10px;
-    margin-top: -1px;
-  }
-
-  .taxes{
-    float: right;
-    width: 160px;
-  }
-
-  .align_right{
-    text-align: right;
-  }
-
-  .taxes_header{
-    margin-top: -1px;
-    border: 1px solid #06C;
-    border-bottom: none;
-    height: 10px;
-  }
-
-  .taxes_content{
-    margin-top: -1px;
-    padding: 0px 10px 10px 10px;
-    border: 1px solid #06C;
-    border-top: none;
-    border-radius: 0px 0px 10px 10px;
-    -moz-border-radius:  0px 0px 10px 10px;
-    -webkit-border-radius: 0px 0px 10px 10px;
-    -khtml-border-radius: 0px 0px 10px 10px;
-  }
-
-
-  .total{
-    color: #390;
-    font-weight:bold;
-  }
-
-  .footer_container{
-    text-align:center;
-  }
-
-  /**
-  Guia para los bordes
-  border-radius  -moz-border-radius
-  border-top-left-radius  -moz-border-radius-topleft
-  border-top-right-radius -moz-border-radius-topright
-  border-bottom-right-radius  -moz-border-radius-bottomright
-  border-bottom-left-radius -moz-border-radius-bottomleft
-  */      
+  }   
 
   .div_header{
-    height: 17px;
+    height: 14px;
     background-color: #06C !important;
     border-radius: 10px 10px 0px 0px;
     -moz-border-radius:  10px 10px 0px 0px;
@@ -218,18 +84,23 @@
     text-align:center;
     font-weight:bold;
     color: #FFF;
-    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   .div_content{
-    min-height: 80px;
+    min-height: 28px;
     border-radius: 0px 0px 10px 10px;
     -moz-border-radius:  0px 0px 10px 10px;
     -webkit-border-radius: 0px 0px 10px 10px;
     -khtml-border-radius: 0px 0px 10px 10px;
     border: 1px solid #06C;
-    padding: 10px;
     margin-top: -1px;
+    padding: 0px 8px 0px 10px;
+    font-weight: bold;
+  }
+  
+  .div_content input{
+  	font-weight: bold;
   }
 
   .remove_corner_bottom_right{
@@ -252,18 +123,9 @@
   	border-radius:10px;
   }
   
-  #invoice_order_products table{
-  	width: 100%;
-  }
-  
-  #invoice_order_products table th{
-  	text-align:left;
-  }
-  
-  #invoice_order_products .amount{ width: 10%; }
-  #invoice_order_products .code{ width: 10%; }
-  #invoice_order_products .unit_price{ width: 13%; }
-  #invoice_order_products .import{ width: 10%; }
+  #invoice_order_products .amount{ width: 7%; }
+  #invoice_order_products .unit_price{ width: 15%; }
+  #invoice_order_products .import{ width: 15%; }
   
    .td-label{
    	font-weight: bold;
@@ -274,4 +136,110 @@
   td.space {
   	padding-top: 15px;
   }
+  /* -----------------------*/
+  .issuing-container{
+  	width:100%;
+  	height: 115px;
+  }
+  .issuing-container > div{
+  	float:left;
+  }
+  
+  .issuing-container .logo{
+  	height: 70px;
+  	#background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+  	width: 35%;
+  }
+  .issuing-container .issuing{
+  	width: 45%;
+  }
+  .issuing-container .folio-container{
+  	width: 20%;
+  	padding-top: 30px;
+  }
+  
+  .sub-header{
+  	width: 100%;
+  	height:120px;
+  }
+  .sub-header > div, .other-details > div{
+  	float: left;
+  }
+  .sub-header .receptor{
+  	width:45%;
+  }
+  
+  .receptor .div_content{
+  	height: 95px;
+  }
+  
+  .other-details{ width:54% }
+  .other-details .payment-condition{
+  	clear:left;
+  	width:100%;
+  }
+  .other-details .expedition { width: 59%;}
+  .other-details .date { width: 40%; }
+  
+  .date .div_content{ text-align: center; }
+  
+  .items_container{
+  	height: 316px;
+  }
+  .items_container .div_content{
+  	height: 290px;
+  	padding-top: 3px;
+  }
+  
+  .sumary_container > div { float:left;}
+  .sumary_container .tax_id_card{ width:15%; }
+  .sumary_container .totals{ width:85%; }
+  
+  .totals > div { float: left; }
+  .totals .ammount_in_words { width: 69%}
+  .totals .taxes { width: 30%}
+  .totals .comments{ clear:left; width:100%}
+  
+  .taxes_content{
+    margin-top: -1px;
+    padding: 5px 10px 10px 10px;
+    border: 1px solid #06C;
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    -moz-border-radius:  0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -khtml-border-radius: 0px 0px 10px 10px;
+    height:90px;
+  }
+  
+  .taxes_content > div{
+  	width: 100%;
+  	padding: 10px 2px 10px 0px;
+  }
+  
+  .taxes_content div > div{
+  	width: 50%;
+  	float: left;
+  	text-align: right;
+  }
+  
+  .taxes_content > div{
+  	clear:left;
+  }
+
+  .invoice-total{
+    color: #390;
+    font-weight:bold;
+  }
+  
+  .payment-condition, .ammount_in_words, .comments, .items_container { 
+  	padding-top: 10px;
+  }
+  
+  .ammount_in_words .div_content{ height: 53px; padding-top: 20px;}
+  .comments .div_content{height: 63px; padding-top: 10px}
+  
+  
+  .divisor-w {width: 1%; height:2px;};
+  
 }
