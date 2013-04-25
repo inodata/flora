@@ -287,6 +287,15 @@ $(document).ready(function() {
 	}
 	//-------------------------------------------------------------------//
 	
+	//-------------------------- Print Card -----------------------------//
+	$('.btn-print-card').click(function(){
+		var message = $('.inodata_from').val();
+		var message = $('.inodata_to').val();
+		var message = $('.inodata_message').val();
+		alert(message);
+	});
+	//-------------------------------------------------------------------//
+
 	//-------------------------- Print Invoice---------------------------//
 	function loadInvoiceOrderProducts(listFields, totals)
 	{

@@ -40,7 +40,10 @@
         {% endfor %}
     </div>
 {% endblock %}
-
+{% block form_rest %}
+	{% embed 'InodataFloraBundle:Order:card.html.twig' %}{% endembed %}
+	{{ parent() }}
+{% endblock %}
 {% block sonata_formactions %}
 	{{ parent() }}
 	{% if admin.id(object) %}
@@ -51,8 +54,3 @@
 		<input type="submit" class="btn btn-create-and-print-invoice" name="btn_create_and_print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}"/>
 	{% endif %}
 {% endblock %}
-{#}
-<a href="#" class="btn print_card_link" title="{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}">
-    <i class="icon-print"></i>{{ 'button.print_card'|trans({}, 'InodataFloraBundle') }}
-</a>
-#}
