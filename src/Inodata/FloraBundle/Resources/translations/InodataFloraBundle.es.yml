@@ -1,3 +1,12 @@
+#Customer labels
+label.general: Datos Generales
+label.fiscal_address: Dirección fiscal
+label.payment_address: Dirección de pago
+label.company_name: Nombre / Razón social
+label.business_name: Nombre comercial
+label.rfc: RFC
+label.discount: Descuento
+
 #Order tabs
 tab.customer: Cliente
 tab.delivery_data: Datos de entrega
@@ -8,13 +17,14 @@ tab.invoice: Datos de facturación
 #Order buttons
 button.print_card: Imprimir tarjeta
 button.print_invoice: Imprimir factura
+button.print_note: Imprimir Nota
 
 #Order labels
 label.customer: Nombre Cliente
-label.payment_contact: Contacto de pago
+label.payment_contact: Ordenó
 label.from: De
 label.to: Para
-label.message_category: Ocasión
+label.message_category: Tarjeta
 label.messages_list: Lista de mensajes
 label.message: Mensaje
 label.delivery_date: Fecha de entrega
@@ -27,6 +37,7 @@ label.contact_empty_list: Seleccionar o crear contacto
 label.msg_category_empty_list: Seleccionar una ocasión
 label.message_empty_list: Seleccionar un mensaje predefinido
 label.invoice: Factura
+label.order_notes: Observaciones
 label.order_number: No. de pedido
 label.created_at: Creado el
 label.updated_at: Actualizado el
@@ -35,13 +46,14 @@ label.folio: Folio
 label.payment_condition: Condición de pago
 label.expedition_place: Lugar de expedición
 label.details: Detalles
-label.amount: Cantidad
+label.amount: Cant.
 label.code: Clave
 label.description: Descripción
 label.unit_price: Precio Unit.
 label.import: Importe
 label.subtotal: Subtotal
 label.total: Total
+label.has_invoice: Requiere Factura
 
 #Address labels
 label.street: Calle
