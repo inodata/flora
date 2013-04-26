@@ -286,13 +286,22 @@ $(document).ready(function() {
 		}
 	}
 	//-------------------------------------------------------------------//
-	
+
 	//-------------------------- Print Card -----------------------------//
 	$('.btn-print-card').click(function(){
-		var message = $('.inodata_from').val();
-		var message = $('.inodata_to').val();
-		var message = $('.inodata_message').val();
-		alert(message);
+		var from = $('.inodata_from').val();
+		var to = $('.inodata_to').val();
+		var message = $('iframe').contents().find('body>p').html();
+		if( from == "" || to == "" || message == "<br>"){
+			alert(trans("alert.card_missing_fields"));
+		}else{
+			$(".card_from").html(from);
+			$(".card_to").html(to);
+			$(".card_message").html($('iframe').contents().find('body>p').html());
+			window.print();
+		}
+		
+
 	});
 	//-------------------------------------------------------------------//
 
