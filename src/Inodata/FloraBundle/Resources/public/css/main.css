@@ -16,7 +16,7 @@
   #order-invoice-print {display: none;}
   .original_string, .digital_stamp, .footer_container{display:none;}
   
-  .payment-note { display: none; }
+  .payment-note, .card_page { display: none; }
 }
 
 @media print
@@ -36,27 +36,71 @@
 	.divisor, .original_string, .digital_stamp, .footer_container{display:none;}
 	.sonata-bc .container-fluid .row-fluid .span6, 
 	.sonata-bc .container-fluid .row-fluid .span4,
-  	.sonata-bc .container-fluid .row-fluid .span2,
-  	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
-  	
-  	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA FACTURA*/
-  	.invoice_page .issuing-container { visibility:hidden; }
-  	.invoice_page .div_header { visibility:hidden; }
-  	.invoice_page .div_content { border: solid 1px #FFF; }
-  	.invoice_page .taxes_content { border: solid 1px #FFF; }
-  	.sonata-bc .editable input { box-shadow: none; }
-  	
-  	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA NOTA*/
-  	.payment-note > div{ visibility:hidden; }
-  	.payment-note .info-row > div.info{ visibility:visible;}
-  	
-  	.invoice_page thead { visibility: hidden; }
-  	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
-  	
-  	.hidden_print_invoice, .hidden_print_note{ display: none; }
-  	
-  	.sonata-bc .tab-content > .tab-pane:first-child{ display: none; }
-  	.sonata-bc .tab-content > .tab-pane:nth-child(2) { display: block; }
+	.sonata-bc .container-fluid .row-fluid .span2,
+	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
+	
+	/* Reglas de impresion para la tarjeta */
+  .card_page{
+    max-width: 10.2cm;
+    max-height: 14cm;
+    
+    border: 1px solid black;
+  }
+
+  .card_header{
+    border: 1px dotted yellow;
+    min-height: 6cm;
+  }
+
+  .card_data{
+    min-height: 7.4cm;
+    
+  }
+
+  .card_to{
+    border: 1px dotted red;
+    padding-top: .5cm;
+    padding-left: 2cm;
+
+  }
+
+  .card_message{
+    border: 1px dotted blue;
+    padding-top: .3cm;
+    padding-left: 1cm;
+    min-height: 4cm;
+    max-height: 4cm;
+  }
+
+  .card_from{
+    border: 1px dotted green;
+    padding-top: .3cm;
+    padding-left: 2cm;
+
+  }
+
+
+  .btn-print-card {visibility: hidden;}
+  /* Terina la impresion de tarjeta */
+
+	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA FACTURA*/
+	.invoice_page .issuing-container { visibility:hidden; }
+	.invoice_page .div_header { visibility:hidden; }
+	.invoice_page .div_content { border: solid 1px #FFF; }
+	.invoice_page .taxes_content { border: solid 1px #FFF; }
+	.sonata-bc .editable input { box-shadow: none; }
+	
+	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA NOTA*/
+	.payment-note > div{ visibility:hidden; }
+	.payment-note .info-row > div.info{ visibility:visible;}
+	
+	.invoice_page thead { visibility: hidden; }
+	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
+	
+	.hide_template{ display: none; }
+	
+	.sonata-bc .tab-content > .tab-pane:first-child{ display: none; }
+	.sonata-bc .tab-content > .tab-pane:nth-child(2) { display: block; }
 }
 
 @media print, screen

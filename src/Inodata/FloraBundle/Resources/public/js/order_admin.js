@@ -291,7 +291,34 @@ $(document).ready(function() {
 		}
 	}
 	//-------------------------------------------------------------------//
-	
+
+	//-------------------------- Print Card -----------------------------//
+	$('.btn-print-card').live('click', function(){
+		var from = $('.inodata_from').val();
+		var to = $('.inodata_to').val();
+		var message = $('iframe').contents().find('body>p').html();
+		if( from == "" || to == "" || message == "<br>"){
+			alert(trans("alert.card_missing_fields"));
+		}else{
+			$(".card_from").html(from);
+			$(".card_to").html(to);
+			$(".card_message").html($('iframe').contents().find('body>p').html());
+
+			$('.invoice_page').addClass('hide_template');
+			$('.payment-note').addClass('hide_template');
+			$('.card_page').removeClass('hide_template');			
+			window.print();
+		}
+		
+
+	});
+
+	// Agrega boton para imprimir tarjeta
+	var btnPrinCard = $('.btn-print-card');
+	$('.inodata_message').closest('.control-group').append($(btnPrinCard).clone());
+	$(btnPrinCard).remove();
+	//-------------------------------------------------------------------//
+
 	//-------------------------- Print Invoice---------------------------//
 	function loadInvoiceOrderProducts(listFields, totals)
 	{
@@ -346,14 +373,16 @@ $(document).ready(function() {
 	}*/
 	
 	$('.btn-print-note').click(function(){
-		$('.invoice_page').addClass('hidden_print_invoice');
-		$('.payment-note').removeClass('hidden_print_note');
+		$('.invoice_page').addClass('hide_template');
+		$('.card_page').addClass('hide_template');
+		$('.payment-note').removeClass('hide_template');
 		window.print();
 	});
 	
 	$('.btn-print-invoice').click(function(){
-		$('.invoice_page').removeClass('hidden_print_invoice');
-		$('.payment-note').addClass('hidden_print_note');
+		$('.invoice_page').removeClass('hide_template');
+		$('.payment-note').addClass('hide_template');
+		$('.card_page').addClass('hide_template');
 		window.print();
 	});
 	//-------------------------------------------------------------------//
