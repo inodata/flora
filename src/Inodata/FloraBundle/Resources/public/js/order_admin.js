@@ -11,6 +11,11 @@ $(document).ready(function() {
 	
 	$('.inodata_delivery_date').datepicker({ dateFormat: "yy-mm-dd" });
 	
+	//Mueve el elemento de orservaciones en el pedido al final.
+	var notesContainer = $('.inodata-order-notes').closest('div.control-group');
+	$('.list-products-content .table-1').append($(notesContainer).clone());
+	$(notesContainer).remove();
+	
 	//---Reactiva el widget de Select2 al crear nuevo Customer desde la ventana modal---//
 	var element = $('.inodata_customer').closest('.sonata-ba-field-standard-natural');
 	
@@ -36,7 +41,7 @@ $(document).ready(function() {
 	        var title = $(element).text();
 	
 	        $(element).remove();
-	        $(this).append('<a href="'+href+'">'+title+'</a>');
+	        $(this).append('<a href="javascript:void()" tabId="'+href+'">'+title+'</a>');
 	    });
 	});
 	
@@ -44,7 +49,7 @@ $(document).ready(function() {
 		$(this).closest('ul').children().removeClass('active');
 		$(this).parent().addClass('active');
 	
-		var tabId = $(this).attr('href');
+		var tabId = $(this).attr('tabId');
 	
 		$('.ui-dialog .tab-content > div').removeClass('active');
 		$(tabId).addClass('active');
@@ -315,7 +320,7 @@ $(document).ready(function() {
 			$(this).attr('id', '').removeClass('product')
 		});
 		
-		$('#invoice_order_products table > tbody').append(listFields);
+		$('.invoice_page table > tbody').append(listFields);
 		
 		//Load totals
 		$('.invoice-subtotal').append(totals.subtotal);
@@ -325,16 +330,19 @@ $(document).ready(function() {
 		$('.invoice-discount').append(totals.discount_net);
 		
 		var invoiceNumber = $('.inodata-invoice-number');
-		$('.invoice_data .folio').append($(invoiceNumber).clone().attr('type', 'text'));
+		$('.folio-container .div_content').append($(invoiceNumber).clone().attr('type', 'text'));
 		$(invoiceNumber).remove();
 		
 		var inovicePCondition = $('.inodata-payment-condition');
-		$('.invoice_data .payment-condition').append($(inovicePCondition).clone().attr('type', 'text'));
+		$('.payment-condition .div_content').append($(inovicePCondition).clone().attr('type', 'text'));
 		$(inovicePCondition).remove();
 		
 		var invoiceComment = $('.inodata-invoice-comment');
-		$('.comment-container').append($(invoiceComment).clone().attr('type', 'text'));
+		$('.comments .div_content').append($(invoiceComment).clone().attr('type', 'text'));
 		$(invoiceComment).remove();
+		
+		var orderNote = $('.inodata-order-notes').val();
+		$('.invoice_page .order-note').text(orderNote);
 		
 	}
 	/*$('.btn-print-invoice').click(function(){
@@ -383,6 +391,11 @@ $(document).ready(function() {
 		var products = [];
 		var shipping = $('.order-shipping').eq(1).val();
 		var discount = $('.order-discount').eq(0).val();
+		var hasInvoice = $('.inodata-has-invoice:checked').val();
+		
+		if(!hasInvoice){
+			hasInvoice = 0;
+		}
 		
 		$('.product').each(function(){
 			var productId = $(this).attr('product_id');
@@ -390,9 +403,16 @@ $(document).ready(function() {
 			products.push({'id':productId, 'amount':amount});
 		});
 		
-		var data = {'products':products, 'shipping':shipping, 'discount':discount};
+		var data = {'products':products, 'shipping':shipping, 'discount':discount, 'hasInvoice':hasInvoice};
 		$.post(url, data, function(response){
 			loadPriceTotals(response.prices);
 		}, 'json');
 	}
+	//------------------------------------------------//
+	
+	//-------------- Is inovoice require -----------------/
+	$('.inodata-has-invoice').click(function(){
+		updateAjaxTotalsCost();
+	});
+	//-----------------------------------------------------
 });

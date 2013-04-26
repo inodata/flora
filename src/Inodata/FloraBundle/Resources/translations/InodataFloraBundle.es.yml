@@ -45,10 +45,10 @@ label.folio: Folio
 label.payment_condition: Condición de pago
 label.expedition_place: Lugar de expedición
 label.details: Detalles
-label.amount: Cantidad
+label.amount: Cant.
 label.code: Clave
 label.description: Descripción
-label.unit_price: Precio Unitario
+label.unit_price: Precio Unit.
 label.import: Importe
 label.subtotal: Subtotal
 label.total: Total

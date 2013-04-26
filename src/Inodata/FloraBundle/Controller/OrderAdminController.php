@@ -9,6 +9,7 @@ use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Entity\OrderProduct;
 use Inodata\FloraBundle\Entity\PaymentContact;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Inodata\FloraBundle\Lib\NumberToLetter;
 
 class OrderAdminController extends Controller
 {	
@@ -83,8 +84,10 @@ class OrderAdminController extends Controller
 	 * Calculate total price for the order
 	 * @return array
 	 */
-	protected function getTotalsCostAsArray($orderId, $subtotal, $shipping=null, $discount=null)
+	protected function getTotalsCostAsArray($orderId, $subtotal, $shipping=null, $discount=null, $hasInvoice=null)
 	{
+		$IVA = 0 ;
+		
 		if ($orderId != null)
 		{
 			$order = $this->getDoctrine()
@@ -99,6 +102,8 @@ class OrderAdminController extends Controller
 			if (!$discount){
 				$discount = 0;
 			}
+			
+			$hasInvoice = $order->getHasInvoice();
 		}
 		
 		$discountPercentLabel = '';
@@ -110,13 +115,26 @@ class OrderAdminController extends Controller
 		}
 		
 		$subtotal = $subtotal+$shipping-$discountNet;
-		//TODO: Calcular IVA solo si se requiere factura, por defecto es 0 para las notas.
-		$IVA = $subtotal*0.16;
+		
+		if ($hasInvoice){
+			$IVA = $subtotal*0.16;
+		}
+		
 		$total = $subtotal+$IVA;
 		
-		return array('shipping'=>$shipping, 'discount' =>$discount, 
-				'discount_net' =>round($discountNet,2),'discount_percent'=>$discountPercentLabel, 
-				'iva' =>round($IVA,2), 'subtotal'=>$subtotal, 'total'=>round($total, 2));
+		//Convierte el total a letras
+		$numberLetter = new NumberToLetter();
+		$numberLetter->setNumero($total);
+		$totalInLetters = $numberLetter->getletras();
+		
+		return array('shipping'=>$shipping, 
+			'discount' =>$discount, 
+			'discount_net' =>round($discountNet,2),
+			'discount_percent'=>$discountPercentLabel, 
+			'iva' =>round($IVA,2), 
+			'subtotal'=>$subtotal, 
+			'total'=>round($total, 2),
+			'totalInLetters'=>$totalInLetters);
 	}
 	
 	public function updateTotalsCostAction()
@@ -124,6 +142,7 @@ class OrderAdminController extends Controller
 		$shipping = $this->get('request')->get('shipping');
 		$discount = $this->get('request')->get('discount');
 		$products = $this->get('request')->get('products');
+		$hasInvoice = $this->get('request')->get('hasInvoice');
 		
 		$subtotal=0;
 		
@@ -136,7 +155,7 @@ class OrderAdminController extends Controller
 			}
 		}
 		
-		$response = $this->getTotalsCostAsArray(null, $subtotal, $shipping, $discount);
+		$response = $this->getTotalsCostAsArray(null, $subtotal, $shipping, $discount, $hasInvoice);
 		
 		return new Response(json_encode(array('prices' =>$response)));
 	}

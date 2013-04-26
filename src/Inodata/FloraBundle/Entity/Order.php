@@ -197,12 +197,20 @@ class Order
      * @ORM\Column(name="invoice_comment", type="string", length=255, nullable=true)
      */
     private $invoiceComment;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="has_invoice", type="boolean", nullable=true)
+     */
+    private $hasInvoice;
 
     /**
      * Constructor
      */
     public function __construct()
     {
+    	$this->hasInvoice = false;
         $this->deliveryDate = new \DateTime("NOW");
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -755,5 +763,28 @@ class Order
     public function getOrderNotes()
     {
         return $this->order_notes;
+    }
+
+    /**
+     * Set hasInvoice
+     *
+     * @param boolean $hasInvoice
+     * @return Order
+     */
+    public function setHasInvoice($hasInvoice)
+    {
+        $this->hasInvoice = $hasInvoice;
+    
+        return $this;
+    }
+
+    /**
+     * Get hasInvoice
+     *
+     * @return boolean 
+     */
+    public function getHasInvoice()
+    {
+        return $this->hasInvoice;
     }
 }
