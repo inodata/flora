@@ -2,9 +2,6 @@ $('document').ready(function(){
 
 	$('.inodata_delivery_date').datepicker({ dateFormat: "yy-mm-dd" });
 	$('.inodata_messenger').select2();
-	$('.print_link').live('click', function(){
-		window.print();
-	});
 
 	$('#inodata_distribution_type_form_id').change(function(){
 		var id = $(this).val()!=''?id=$(this).val():id=0;
@@ -29,12 +26,20 @@ $('document').ready(function(){
 	$('.delete_link').live('click', function(){
 		
 		var id = $(this).parent().parent().attr('order_id');
-		$(this).parent().parent().remove();
+		var row = $(this).parent().parent();
 		var url = Routing.generate('inodata_flora_distribution_verify_order_status', {orderId:id});
+		
 		$.get(url, function(data){
+			row.remove();
 			if( data.isValidToAdd == 'true'){
 				$('#inodata_distribution_type_form_id').append(data.option);
 			}
+			
+			if( $('tbody#messenger_orders').find('tr').length < 1)
+			{
+				$("tbody#messenger_orders").html(data.empty_list);
+			}
+			
 		}, 'json' );		
 		
 		
@@ -47,39 +52,80 @@ $('document').ready(function(){
 		
 		$('#messenger_orders tr').each(function(){
 			if( $(this).attr('id') == 'no_orders' ){
-				alert('Seleccione al menos una orden');
+				rapidFlash('Seleccione al menos un pedido', 'error', 'no-order', 5000);
 				return;
+			} else {
+				removeFlash();
+				orderIds = orderIds + $(this).attr('order_id');
+				orderIds = orderIds+"+";
 			}
-			orderIds = orderIds + $(this).attr('order_id');
-			orderIds = orderIds+"+";
-
 			
 		});
 
 		if(orderIds == ''){
-			alert('Seleccione al menos una orden');
+			rapidFlash('Seleccione al menos un pedido', 'error', 'no-order', 5000);
 			return;
+		} else{
+			removeFlash('no-order');
 		}
 
 		if( messengerId == '' ){
-			alert('Seleccione un Repartidor');
+			rapidFlash('Seleccione un repartidor', 'error', 'no-messenger', 5000);
 			return;
+		} else {
+			removeFlash('no-messenger');
 		}
 
 		var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger', { messengerId:messengerId, orderIds:orderIds } );
 	
 		$.get(url, function(data){
-			alert('Se asignaron las ordenes al Repartidor');
 			
 			$('#messenger_orders > tr').each(function(){
 				$(this).remove();
 			});
 			$('#messenger_orders').html( data.empty_list);
 			
+			window.location.reload();
 		}, 'json');
+		
+		//refreshOrderList();
+		
+		
 	}); 
 	
+	function removeFlash(id)
+	{
+		$('div#'+id).remove();
+	}
+	
+	function addFlash(msg, type, id)
+	{
+		var alertClass = 'alert alert-'+type+' '+id;
 
+		if( $('.sonata-bc > div.container-fluid').children(0).attr('class') != alertClass )
+		{
+			$('.sonata-bc > div.container-fluid')
+				.prepend('<div id="'+id+'" class="'+alertClass+'">'+msg+'</div>');
+		}
+	}
+	
+	function rapidFlash(msg, type, id, time)
+	{
+		addFlash(msg, type, id);
+
+		$('div#'+id).fadeOut(time, function(){
+			$(this).remove();
+		});
+	}	
+	
+	function refreshOrderList()
+	{
+		var url = Routing.generate('distribution_list');
+		
+		$.get(url, function(data){
+			$('#messenger_orders').html(data.list_orders);
+		});
+	}
 	
 	function refreshOrders()
 	{

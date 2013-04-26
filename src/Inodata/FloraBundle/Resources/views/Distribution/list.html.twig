@@ -55,6 +55,7 @@
 				{% endblock %}
 			</table>
 		{% endblock %}
+		
 		<a class="btn add_link" title="Edit" >
 			{{ 'label.distribution_assign_button'|trans({}, 'InodataFloraBundle') }}
 		</a>
@@ -63,7 +64,7 @@
 	<br/><br/>
 	<b>{{ 'label.distribution_title'|trans({}, 'InodataFloraBundle') }}</b><br/>
     {{ parent() }}
-	<a class="btn print_link" title="Edit" >
+	<a href="{{ path('inodata_flora_distribution_list_print') }}" class="btn print_link" title="Imprimir Listado" >
 		{{ 'label.distribution_print'|trans({}, 'InodataFloraBundle') }}
 	</a>
 {% endblock %}

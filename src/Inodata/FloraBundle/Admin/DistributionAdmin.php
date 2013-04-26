@@ -30,12 +30,11 @@ class DistributionAdmin extends Admin
 						'class' => 'inodata_messenger span5'
 					)
 				))
-			->add('delivery_date', 'date', array(
-						'label'=> 'label.delivery_date',
-						'widget' => 'single_text',
-						'attr' => array(
+			->add('delivery_date', 'sonata_type_text', array(
+						'label'=> 'label.delivery_date'
+						/*'attr' => array(
 								'class' => 'inodata_delivery_date'
-						)
+						)*/
 				))	
 		;
 	}
@@ -70,10 +69,11 @@ class DistributionAdmin extends Admin
 					'label' => 'label.distribution_status',
 				))
 			->add('_action', 'actions', array(
-					'label' => 'label.distribution_messenger',
+					'label' => 'label.distribution_actions',
 					'actions' => array(
 						'delivered' => array('template' => 'InodataFloraBundle:Distribution:_delivered_action.html.twig'),
 						'closed'  => array('template' => 'InodataFloraBundle:Distribution:_closed_action.html.twig')
+						//'open'    => array('template' => 'InodataFloraBundle:Distribution:_closed_action.html.twig')
 					) 
 				)
 			);
@@ -107,6 +107,7 @@ class DistributionAdmin extends Admin
 	{
 		$collection->add('delivered');
 		$collection->add('closed');
+		$collection->add('open');
 		$collection->remove('create');
 	}
 	
@@ -117,6 +118,8 @@ class DistributionAdmin extends Admin
 			case 'list':
 				return 'InodataFloraBundle:Distribution:list.html.twig';
 				break;
+			case 'print':
+				return 'InodataFloraBundle:Distribution:print_list.html.twig';
 			default:
 				return parent::getTemplate($name);
 				break;

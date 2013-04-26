@@ -27,13 +27,28 @@ class DistributionAdminController extends Controller
 
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
-
-        return $this->render($this->admin->getTemplate('list'), array(
-            'action'   => 'list',
-            'form'     => $formView,
-        	'distribution_form' => $distributionFormView,
-            'datagrid' => $datagrid
+		
+        /*
+        if( $this->getRequest()->isXmlHttpRequest() ){
+        	$render = $this->renderView('SonataAdminBundle:CRUD:list.html.twig', array(
+        			'action'   => 'list',
+        			'base_template' => $this->getBaseTemplate(),
+        			'admin' => $this->admin,
+        			'form'     => $formView,
+        			'distribution_form' => $distributionFormView,
+        			'datagrid' => $datagrid));
+        	
+        	return new Response($render);
+        }*/
+        
+        $render = $this->render($this->admin->getTemplate('list'), array(
+        		'action'   => 'list',
+        		'form'     => $formView,
+        		'distribution_form' => $distributionFormView,
+        		'datagrid' => $datagrid
         ));
+        
+        return $render;
     }
     
     public function addPreviewOrderToMessengerAction($orderId)
@@ -77,6 +92,7 @@ class DistributionAdminController extends Controller
 	    		$em->flush();
     		}
     	}
+    	//$this->addFlash('sonata_flash_success', 'Se asignaron las ordenes al repartidor '.$messenger->getName().' '.$messenger->getLastName());
     	
     	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
     	
@@ -91,9 +107,12 @@ class DistributionAdminController extends Controller
     				  ->find( $orderId );
     	$option = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
     			array('id' => $order->getId()));
+    	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
     	
     	$response = array( 'isValidToAdd' => ( $order->getStatus() == 'open' && $order->getMessenger() == null) ? 'true' : 'false', 
-    			           'option' => $option );
+    			           'option' => $option ,
+    					   'empty_list' => $emptyList
+    					);
     	return new Response(json_encode($response));    	
     }
     
@@ -106,50 +125,47 @@ class DistributionAdminController extends Controller
     	}
     }
     
+    public function printDistributionAction()
+    {
+        return new Response(); 	
+    }
+    
     public function deliveredAction()
     {
-    	$id = $this->get('request')->get('id');
-    	
-    	if( isset($id))
-    	{
-    		$order =  $this->getDoctrine()
-    				  	   ->getRepository('InodataFloraBundle:Order')
-    				       ->find( $id );
-    		
-    		if( $order == null ){
-    			//TODO: Flash Object Not Found
-    		} else{
-    			$order->setStatus('delivered');
-    			$em = $this->getDoctrine()->getEntityManager();
-    			$em->persist($order);
-    			$em->flush();
-    		}
-    	}
-    	
-    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
+    	return $this->setOrderStatus('delivered');
     }
     
     public function closedAction()
     {
+    	return $this->setOrderStatus('closed');
+    }
+    
+    public function openAction()
+    {
+		return $this->setOrderStatus('open');
+    }
+    
+    private function setOrderStatus($status)
+    {
     	$id = $this->get('request')->get('id');
-    	 
+    	
     	if( isset($id))
     	{
     		$order =  $this->getDoctrine()
-    					   ->getRepository('InodataFloraBundle:Order')
-    					   ->find( $id );
-    		
+    			->getRepository('InodataFloraBundle:Order')
+    			->find( $id );
+    	
     		if( $order == null ){
     			//TODO: Flash Object Not Found
     		} else{
-    			$order->setStatus('closed');
+    			$order->setStatus($status);
     			$em = $this->getDoctrine()->getEntityManager();
     			$em->persist($order);
     			$em->flush();
     		}
     	}
-    	 
-    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
+    	
+    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));    	
     }
     
 }

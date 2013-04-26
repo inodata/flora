@@ -122,7 +122,6 @@ sonata_admin:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
 
-
 sonata_cache:
     caches:
         apc:
@@ -159,5 +158,5 @@ genemu_form:
     date:    ~
 
 fos_js_routing:
-    routes_to_expose: [inodata_flora_order_*, inodata_flora_distribution_*]
+    routes_to_expose: [inodata_flora_order_*, inodata_flora_distribution_*, distribution_list]
     
