@@ -56,7 +56,7 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Industrias Perez');
-        $customer->setCompanyName('LOS Perez');
+        $customer->setCompanyName('Los Perez');
         $customer->setDiscount(.1);
         $customer->setFiscalAddress($this->getReference('direccion7'));
         $customer->setPaymentAddress($this->getReference('direccion8'));
@@ -81,8 +81,8 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
-        $customer->setBusinessName('industrias texitles Rocha');
-        $customer->setCompanyName('Los Rochas');
+        $customer->setBusinessName('Industrias texitles Gutierrez');
+        $customer->setCompanyName('Los Gutierrez');
         $customer->setDiscount(.04);
         $customer->setFiscalAddress($this->getReference('direccion11'));
         $customer->setPaymentAddress($this->getReference('direccion12'));
@@ -92,10 +92,10 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         
         $this->addReference('customer6', $customer);
         
-         $customer = new Customer();
+        $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
-        $customer->setBusinessName('industrias texitles Rocha');
-        $customer->setCompanyName('Los Rochas');
+        $customer->setBusinessName('Industrias Bimbo');
+        $customer->setCompanyName('Bimbo');
         $customer->setDiscount(.04);
         $customer->setFiscalAddress($this->getReference('direccion13'));
         $customer->setPaymentAddress($this->getReference('direccion14'));
@@ -106,10 +106,10 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $this->addReference('customer7', $customer);
         
         
-         $customer = new Customer();
+        $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
-        $customer->setBusinessName('industrias texitles Rocha');
-        $customer->setCompanyName('Los Rochas');
+        $customer->setBusinessName('Duques Asociados');
+        $customer->setCompanyName('Los Duques');
         $customer->setDiscount(.04);
         $customer->setFiscalAddress($this->getReference('direccion15'));
         $customer->setPaymentAddress($this->getReference('direccion16'));
@@ -119,10 +119,10 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         
         $this->addReference('customer8', $customer);
         
-         $customer = new Customer();
+        $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
-        $customer->setBusinessName('industrias texitles Rocha');
-        $customer->setCompanyName('Los Rochas');
+        $customer->setBusinessName('Industrias Almeida');
+        $customer->setCompanyName('Patito Jr');
         $customer->setDiscount(.04);
         $customer->setFiscalAddress($this->getReference('direccion17'));
         $customer->setPaymentAddress($this->getReference('direccion18'));
