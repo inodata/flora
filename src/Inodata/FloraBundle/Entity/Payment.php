@@ -139,10 +139,10 @@ class Payment
     /**
      * Set order
      *
-     * @param \Inodata\FloraBundle\Entity\InoOrder $order
+     * @param \Inodata\FloraBundle\Entity\Order $order
      * @return InoPayment
      */
-    public function setOrder(\Inodata\FloraBundle\Entity\InoOrder $order = null)
+    public function setOrder(\Inodata\FloraBundle\Entity\Order $order = null)
     {
         $this->order = $order;
     
@@ -152,7 +152,7 @@ class Payment
     /**
      * Get order
      *
-     * @return \Inodata\FloraBundle\Entity\InoOrder 
+     * @return \Inodata\FloraBundle\Entity\Order 
      */
     public function getOrder()
     {
