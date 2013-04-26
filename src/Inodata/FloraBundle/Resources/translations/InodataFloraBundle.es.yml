@@ -17,6 +17,7 @@ tab.invoice: Datos de facturación
 #Order buttons
 button.print_card: Imprimir tarjeta
 button.print_invoice: Imprimir factura
+button.print_note: Imprimir Nota
 
 #Order labels
 label.customer: Nombre Cliente

@@ -344,6 +344,18 @@ $(document).ready(function() {
 			window.print();
 		},'json');
 	}*/
+	
+	$('.btn-print-note').click(function(){
+		$('.invoice_page').addClass('hidden_print_invoice');
+		$('.payment-note').removeClass('hidden_print_note');
+		window.print();
+	});
+	
+	$('.btn-print-invoice').click(function(){
+		$('.invoice_page').removeClass('hidden_print_invoice');
+		$('.payment-note').addClass('hidden_print_note');
+		window.print();
+	});
 	//-------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//
