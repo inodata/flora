@@ -127,7 +127,11 @@ class DistributionAdminController extends Controller
     
     public function printDistributionAction()
     {
-        return new Response(); 	
+    	$render = $this->renderView('InodataFloraBundle:Distribution:print_distribution.html.twig', array(
+    				'base_template' => null,
+    				
+    			));
+    	return new Response($render);
     }
     
     public function deliveredAction()
