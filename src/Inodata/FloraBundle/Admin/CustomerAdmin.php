@@ -18,16 +18,16 @@ class CustomerAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->with('Datos Generales', array('expanded' => true,))
-				->add('companyName')
-				->add('businessName')
-				->add('rfc')
-				->add('discount')
+			->with('label.general', array('expanded' => true,))
+				->add('companyName', null, array('label' => 'label.company_name'))
+				->add('businessName', null, array('label' => 'label.business_name'))
+				->add('rfc', null, array('label' => 'label.rfc'))
+				->add('discount', null, array('label' => 'label.discount'))
 			->end()
-			->with('Dirección Fiscal', array('expanded' => true,))
+			->with('label.fiscal_address', array('expanded' => false,))
 				->add('fiscalAddress', 'inodata_address_form', array('label'=>false))
 			->end()
-			->with('Dirección De Pago', array('expanded' => true,))
+			->with('label.payment_address', array('expanded' => true,))
 				->add('paymentAddress', 'inodata_address_form', array('label'=>false))
 			->end();
 		;

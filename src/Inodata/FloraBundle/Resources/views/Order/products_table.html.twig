@@ -10,9 +10,6 @@
                                 Cantidad
                             </th>
                             <th class="sonata-ba-list-field-header-text" >
-                                Clave
-                            </th>
-                            <th class="sonata-ba-list-field-header-text" >
                                 Descripción
                             </th>
                             <th class="sonata-ba-list-field-header-text" >
@@ -52,18 +49,18 @@
                 <tr><th colspan="2">Totales</th></tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Envío:</td>
-                    <td>$ <input type="number" class="order-shipping" value="{{ order_shipping }}" style="width:60%;"/></td>
-                </tr>
-                <tr>
+            	<tr>
                     <td>Descuento (-<span class="order-discount-percent"></span>):</td>
                     <td>$ 
                         <input type="number" step="any" class="order-discount" value="0.0" style="width:60%;"/>
                     </td>
                 </tr>
+                <tr>
+                    <td>Envío:</td>
+                    <td>$ <input type="number" class="order-shipping" value="{{ order_shipping }}" style="width:60%;"/></td>
+                </tr>
                 <tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
-                <tr style="border-bottom: 1px solid #000;">
+                <tr class="iva-container">
                     <td>IVA(16%):</td>
                     <td>$ <span class="order-iva">0</span></td>
                 </tr>

@@ -76,11 +76,7 @@ class Product
      */
     public function __toString()
     {
-    	if(!$this->id){
-    		return "New";
-    	}
-    	
-    	return $this->description.' ('.$this->code.')';
+    	return $this->getDescription() ? $this->code.' - '.$this->description : " " ;
     }
 
     /**
@@ -295,5 +291,14 @@ class Product
     public function getOrder()
     {
         return $this->order;
+    }
+
+    /**
+    *@return string
+    */
+    public function getPriceInLetters(){
+        $letters = array('A','B','C','D','E','F','G','H','I','J');
+        $numbers = array('1','2','3','4','5','6','7','8','9','0');
+        return str_replace($numbers, $letters, $this->price);
     }
 }
