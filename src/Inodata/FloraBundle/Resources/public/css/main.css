@@ -35,19 +35,30 @@
 	.divisor, .original_string, .digital_stamp, .footer_container{display:none;}
 	.sonata-bc .container-fluid .row-fluid .span6, 
 	.sonata-bc .container-fluid .row-fluid .span4,
-  	.sonata-bc .container-fluid .row-fluid .span2,
-  	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
-  	
-  	.invoice_page .issuing-container { visibility:hidden; }
-  	.invoice_page .div_header { visibility:hidden; }
-  	.invoice_page .div_content { border: solid 1px #FFF; }
-  	.invoice_page .taxes_content { border: solid 1px #FFF; }
-  	.sonata-bc .editable input { box-shadow: none; }
-  	
-  	
-  	
-  	.invoice_page thead { visibility: hidden; }
-  	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
+	.sonata-bc .container-fluid .row-fluid .span2,
+	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
+	
+	.invoice_page .issuing-container { visibility:hidden; }
+	.invoice_page .div_header { visibility:hidden; }
+	.invoice_page .div_content { border: solid 1px #FFF; }
+	.invoice_page .taxes_content { border: solid 1px #FFF; }
+	.sonata-bc .editable input { box-shadow: none; }
+
+  .card_page{
+    
+  }
+  .card_to{
+
+  }
+  .card_from{
+
+  }
+  .card_message{
+
+  }
+	
+	.invoice_page thead { visibility: hidden; }
+	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
   	
   	
   	
