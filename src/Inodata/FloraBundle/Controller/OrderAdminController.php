@@ -9,6 +9,7 @@ use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Entity\OrderProduct;
 use Inodata\FloraBundle\Entity\PaymentContact;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Inodata\FloraBundle\Lib\NumberToLetter;
 
 class OrderAdminController extends Controller
 {	
@@ -114,9 +115,19 @@ class OrderAdminController extends Controller
 		$IVA = $subtotal*0.16;
 		$total = $subtotal+$IVA;
 		
-		return array('shipping'=>$shipping, 'discount' =>$discount, 
-				'discount_net' =>round($discountNet,2),'discount_percent'=>$discountPercentLabel, 
-				'iva' =>round($IVA,2), 'subtotal'=>$subtotal, 'total'=>round($total, 2));
+		//Convierte el total a letras
+		$numberLetter = new NumberToLetter();
+		$numberLetter->setNumero($total);
+		$totalInLetters = $numberLetter->getletras();
+		
+		return array('shipping'=>$shipping, 
+			'discount' =>$discount, 
+			'discount_net' =>round($discountNet,2),
+			'discount_percent'=>$discountPercentLabel, 
+			'iva' =>round($IVA,2), 
+			'subtotal'=>$subtotal, 
+			'total'=>round($total, 2),
+			'totalInLetters'=>$totalInLetters);
 	}
 	
 	public function updateTotalsCostAction()
