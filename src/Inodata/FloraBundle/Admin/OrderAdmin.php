@@ -93,7 +93,13 @@ class OrderAdmin extends Admin
 				'empty_value' => '',
 				'attr' => array(
 						'placeholder' => $this->trans('label.product_empty_list'),
-						'class'=>'inodata_product span5')))
+						'class'=>'inodata_product', 'style'=>'width:100%')))
+			->add('hasInvoice', 'checkbox', array(
+					'label' => 'label.has_invoice',
+					'required' => false,
+					'attr'=>array(
+							'class' => 'inodata-has-invoice'
+					)))
 			->add('products', null, array(
 					'label' => 'label.product_list',
 					'attr' => array(
@@ -101,12 +107,10 @@ class OrderAdmin extends Admin
 					)
 			))
 			->add('order_notes', null, array('label' => 'label.order_notes',
-					'attr' => array('class' => 'inodata-order-notes span5')	
-				))
-			->add('has_invoice', 'checkbox', array(
-				'label' => 'label.has_invoice',
-				'required' => false,
-				'mapped' => false))
+					'attr' => array(
+							'class' => 'inodata-order-notes',
+							'style' => 'width:95%')
+			))
 			->add('shipping', 'text', array(
 				'label' => 'label.shipping',
 				'attr' => array(

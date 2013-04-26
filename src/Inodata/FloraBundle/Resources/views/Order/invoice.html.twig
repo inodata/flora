@@ -6,7 +6,7 @@
 				<h3>{{ issuing_name }}</h3>
                 <p>{{ issuing_street }} No. {{ issuing_nint }}, {{ issuing_neighborhood }} <br/>
                 {{ issuing_city }}, {{ issuing_state }}, C.P. {{ issuing_cp }} <br/>
-                RFC: {{ issuing_rfc }}</p>
+                RFC: {{ issuing_rfc }}
 			</div>
 			<div class="folio-container">
 				<div class="div_header">{{ 'label.folio'|trans({}, 'InodataFloraBundle') }}</div>
@@ -21,7 +21,7 @@
                     {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noExt }} 
                     {% if (object.customer.fiscalAddress.noInt!= '') %} Int. {{ object.customer.fiscalAddress.noInt}} {% endif %}, 
                     {{ object.customer.fiscalAddress.neighborhood }} <br/>
-                    {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/>
+                    {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/><br/>
                     R.F.C. {{ object.customer.rfc }}
                 </div>
 			</div>
@@ -71,12 +71,12 @@
 								</tr>
 								<tr><td class="space" colspan="4"></td></tr>
 								<tr>
-									<td class="td-label" colspan="3">{{ 'label.shipping'|trans({}, 'InodataFloraBundle') }}</td>
-									<td class="invoice-shipping"></td>
-								</tr>
-								<tr>
 									<td class="td-label" colspan="3">{{ 'label.discount'|trans({}, 'InodataFloraBundle') }}</td>
 									<td class="invoice-discount">- </td>
+								</tr>
+								<tr>
+									<td class="td-label" colspan="3">{{ 'label.shipping'|trans({}, 'InodataFloraBundle') }}</td>
+									<td class="invoice-shipping"></td>
 								</tr>
 							</tfoot>
 						</table>

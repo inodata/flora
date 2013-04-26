@@ -3,6 +3,16 @@
   div.list-products-content .table-1 {float:left; width:80%;}
   div.list-products-content .table-2 { float:right; width: 20%;}
   
+  .sonata-ba-collapsed-fields > .control-group:nth-child(13),
+  .sonata-ba-collapsed-fields > .control-group:nth-child(14){
+  	float: left;
+  	width: 50%;
+  }
+  
+  .invoice_page .editable, .sonata-bc .invoice_page .editable input{
+  	background: #FFCCCC;
+  }
+  
   #order-invoice-print {display: none;}
   .original_string, .digital_stamp, .footer_container{display:none;}
 
@@ -10,29 +20,37 @@
 
 @media print
 {
-  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
-  a, a:visited { text-decoration: underline; }
-  a[href]:after { content: " (" attr(href) ")"; }
-  abbr[title]:after { content: " (" attr(title) ")"; }
-  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
-  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
-  thead { display: table-header-group; } /* h5bp.com/t */
-  tr, img { page-break-inside: avoid; }
-  img { max-width: 100% !important; }
-  @page { margin: 0.5cm; }
-  p, h2, h3 { orphans: 3; widows: 3; }
-  h2, h3 { page-break-after: avoid; }
-  
-  /*Rules for invoice print */
-  body.sonata-bc { padding: 0px; }
-  
-  .divisor, .original_string, .digital_stamp, .footer_container{display:none;}
-  
-  .sonata-bc .container-fluid .row-fluid .span6, 
-  .sonata-bc .container-fluid .row-fluid .span4,
-  .sonata-bc .container-fluid .row-fluid .span2,
-  .navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
-  }
+	*{ background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; }
+	a, a:visited { text-decoration: underline; }
+	a[href]:after { content: " (" attr(href) ")"; }
+	.ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+	pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+	thead { display: table-header-group; }
+	img { max-width: 100% !important; }
+	@page { margin: 0.5cm; }
+	body.sonata-bc { padding: 0px; }
+	p, h2, h3 { orphans: 3; widows: 3; }
+  	h2, h3 { page-break-after: avoid; }
+	
+	.divisor, .original_string, .digital_stamp, .footer_container{display:none;}
+	.sonata-bc .container-fluid .row-fluid .span6, 
+	.sonata-bc .container-fluid .row-fluid .span4,
+  	.sonata-bc .container-fluid .row-fluid .span2,
+  	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
+  	
+  	.invoice_page .issuing-container { visibility:hidden; }
+  	.invoice_page .div_header { visibility:hidden; }
+  	.invoice_page .div_content { border: solid 1px #FFF; }
+  	.invoice_page .taxes_content { border: solid 1px #FFF; }
+  	.sonata-bc .editable input { box-shadow: none; }
+  	
+  	
+  	
+  	.invoice_page thead { visibility: hidden; }
+  	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
+  	
+  	
+  	
 }
 
 @media print, screen
@@ -52,7 +70,7 @@
   	width: 100%;
   }
   
-  .invoice_page th, .invoice_page tbody td, .invoice-shipping, .invoice-discount{
+  .invoice_page th, td.price{
   	text-align: center;
   }
   
@@ -69,7 +87,7 @@
   	line-height: 0px;
   }
 
-  .bold_text{
+  .bold_text, .invoice-iva, .invoice-subtotal{
     font-weight:bold;
   }   
 
@@ -191,6 +209,10 @@
   	padding-top: 3px;
   }
   
+  td.import, td.invoice-discount, td.invoice-shipping{
+  	text-align: right;
+  }
+  
   .sumary_container > div { float:left;}
   .sumary_container .tax_id_card{ width:15%; }
   .sumary_container .totals{ width:85%; }
@@ -226,7 +248,7 @@
   .taxes_content > div{
   	clear:left;
   }
-
+  
   .invoice-total{
     color: #390;
     font-weight:bold;
@@ -240,6 +262,78 @@
   .comments .div_content{height: 63px; padding-top: 10px}
   
   
-  .divisor-w {width: 1%; height:2px;};
+  .divisor-w {width: 1%; height:2px;}
   
+  
+  /*---------STYLE FOR PAYMENT NOTE----------*/
+  .payment-note > div{
+  	border: solid 1px #000;
+  	border-radius: 5px;
+  	font-size: 11px;
+  	font-weight: bold;
+  	padding: 0 5px;
+  	margin-bottom: 15px;
+  }
+  
+  .payment-note .header{
+  	height: 139px;
+  }
+  
+  .payment-note .payment-info{
+  	height: 108px;
+  	padding-top: 2px;
+  }
+  
+  .payment-note .info-row:nth-child(2n){
+  	padding-top: 1px;
+  }
+  
+  .payment-note .totals{
+  	height: 112px;
+  }
+  
+  .payment-note .shipping-info{
+  	height: 50px;
+  }
+  
+  .payment-note .info-row {
+   	clear: left;
+   }
+  .payment-note .info-row > div{
+  	float: left;
+  	line-height: 15px;
+  }
+  
+  .payment-note .info-row > div:first-child{
+  	width: 9%
+  }
+  
+  .payment-note .space-1{
+  	width: 48%
+  }
+  
+  .payment-note .space-2{
+  	width: 11%;
+  	text-align: right;
+  }
+  
+  .payment-note .space-3{
+  	width: 19%;
+  }
+  
+  .payment-note .space-4{
+  	width: 23.3%;
+  }
+  
+  .payment-note .space-5{
+  	width: 5%;
+  }
+  
+  .payment-note .space-6{
+  	width: 62%;
+  }
+  
+  .payment-note .info{
+  	padding-left: 5px;
+  }
 }

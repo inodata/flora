@@ -84,8 +84,10 @@ class OrderAdminController extends Controller
 	 * Calculate total price for the order
 	 * @return array
 	 */
-	protected function getTotalsCostAsArray($orderId, $subtotal, $shipping=null, $discount=null)
+	protected function getTotalsCostAsArray($orderId, $subtotal, $shipping=null, $discount=null, $hasInvoice=null)
 	{
+		$IVA = 0 ;
+		
 		if ($orderId != null)
 		{
 			$order = $this->getDoctrine()
@@ -100,6 +102,8 @@ class OrderAdminController extends Controller
 			if (!$discount){
 				$discount = 0;
 			}
+			
+			$hasInvoice = $order->getHasInvoice();
 		}
 		
 		$discountPercentLabel = '';
@@ -111,8 +115,11 @@ class OrderAdminController extends Controller
 		}
 		
 		$subtotal = $subtotal+$shipping-$discountNet;
-		//TODO: Calcular IVA solo si se requiere factura, por defecto es 0 para las notas.
-		$IVA = $subtotal*0.16;
+		
+		if ($hasInvoice){
+			$IVA = $subtotal*0.16;
+		}
+		
 		$total = $subtotal+$IVA;
 		
 		//Convierte el total a letras
@@ -135,6 +142,7 @@ class OrderAdminController extends Controller
 		$shipping = $this->get('request')->get('shipping');
 		$discount = $this->get('request')->get('discount');
 		$products = $this->get('request')->get('products');
+		$hasInvoice = $this->get('request')->get('hasInvoice');
 		
 		$subtotal=0;
 		
@@ -147,7 +155,7 @@ class OrderAdminController extends Controller
 			}
 		}
 		
-		$response = $this->getTotalsCostAsArray(null, $subtotal, $shipping, $discount);
+		$response = $this->getTotalsCostAsArray(null, $subtotal, $shipping, $discount, $hasInvoice);
 		
 		return new Response(json_encode(array('prices' =>$response)));
 	}
