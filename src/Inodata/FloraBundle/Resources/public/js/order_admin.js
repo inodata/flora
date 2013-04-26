@@ -293,7 +293,7 @@ $(document).ready(function() {
 	//-------------------------------------------------------------------//
 
 	//-------------------------- Print Card -----------------------------//
-	$('.btn-print-card').click(function(){
+	$('.btn-print-card').live('click', function(){
 		var from = $('.inodata_from').val();
 		var to = $('.inodata_to').val();
 		var message = $('iframe').contents().find('body>p').html();
@@ -303,11 +303,20 @@ $(document).ready(function() {
 			$(".card_from").html(from);
 			$(".card_to").html(to);
 			$(".card_message").html($('iframe').contents().find('body>p').html());
+
+			$('.invoice_page').addClass('hide_template');
+			$('.payment-note').addClass('hide_template');
+			$('.card_page').removeClass('hide_template');			
 			window.print();
 		}
 		
 
 	});
+
+	// Agrega boton para imprimir tarjeta
+	var btnPrinCard = $('.btn-print-card');
+	$('.inodata_message').closest('.control-group').append($(btnPrinCard).clone());
+	$(btnPrinCard).remove();
 	//-------------------------------------------------------------------//
 
 	//-------------------------- Print Invoice---------------------------//
@@ -362,6 +371,20 @@ $(document).ready(function() {
 			window.print();
 		},'json');
 	}*/
+	
+	$('.btn-print-note').click(function(){
+		$('.invoice_page').addClass('hide_template');
+		$('.card_page').addClass('hide_template');
+		$('.payment-note').removeClass('hide_template');
+		window.print();
+	});
+	
+	$('.btn-print-invoice').click(function(){
+		$('.invoice_page').removeClass('hide_template');
+		$('.payment-note').addClass('hide_template');
+		$('.card_page').addClass('hide_template');
+		window.print();
+	});
 	//-------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//
