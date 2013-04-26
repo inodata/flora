@@ -30,7 +30,7 @@ class DistributionAdmin extends Admin
 						'class' => 'inodata_messenger span5'
 					)
 				))
-			->add('delivery_date', 'sonata_type_text', array(
+			->add('delivery_date', 'date', array(
 						'label'=> 'label.delivery_date'
 						/*'attr' => array(
 								'class' => 'inodata_delivery_date'
