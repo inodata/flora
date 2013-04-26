@@ -307,7 +307,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -866,12 +866,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "ae5ff75ac8076213af0bfece16ecc012bf3ec151"
+                "reference": "91d608d5f4a437b47df4e482a964ef534da1e8a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/ae5ff75ac8076213af0bfece16ecc012bf3ec151",
-                "reference": "ae5ff75ac8076213af0bfece16ecc012bf3ec151",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/91d608d5f4a437b47df4e482a964ef534da1e8a8",
+                "reference": "91d608d5f4a437b47df4e482a964ef534da1e8a8",
                 "shasum": ""
             },
             "require": {
@@ -937,7 +937,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2013-04-22 12:44:19"
+            "time": "2013-04-26 14:37:18"
         },
         {
             "name": "genemu/form-bundle",
