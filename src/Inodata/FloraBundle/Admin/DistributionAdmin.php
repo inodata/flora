@@ -108,6 +108,7 @@ class DistributionAdmin extends Admin
 		$collection->add('delivered');
 		$collection->add('closed');
 		$collection->add('open');
+		$collection->add('print');
 		$collection->remove('create');
 	}
 	
@@ -119,7 +120,7 @@ class DistributionAdmin extends Admin
 				return 'InodataFloraBundle:Distribution:list.html.twig';
 				break;
 			case 'print':
-				return 'InodataFloraBundle:Distribution:print_list.html.twig';
+				return 'InodataFloraBundle:Distribution:print_distribution.html.twig';
 			default:
 				return parent::getTemplate($name);
 				break;
