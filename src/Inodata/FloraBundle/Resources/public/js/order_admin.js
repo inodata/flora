@@ -331,12 +331,18 @@ $(document).ready(function() {
 		
 		$('.invoice_page table > tbody').append(listFields);
 		
+		var listForNote = $(listFields).clone();
+		
+		$('.payment-note .totals table > tbody').append(listForNote);
+		$('.payment-note .totals .price').append(totals.total);
+		
 		//Load totals
 		$('.invoice-subtotal').append(totals.subtotal);
 		$('.invoice-iva').append(totals.iva);
 		$('.invoice-total').append(totals.total);
 		$('.invoice-shipping').append(totals.shipping);
 		$('.invoice-discount').append(totals.discount_net);
+		$('.ammount_in_words .div_content').text(totals.totalInLetters);
 		
 		var invoiceNumber = $('.inodata-invoice-number');
 		$('.folio-container .div_content').append($(invoiceNumber).clone().attr('type', 'text'));

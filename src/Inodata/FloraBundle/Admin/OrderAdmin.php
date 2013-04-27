@@ -20,28 +20,32 @@ class OrderAdmin extends Admin
 	{
 		$formMapper
 			->add('delivery_date', 'date', array(
-					'label'=> 'label.delivery_date',
-					'widget' => 'single_text',					
-					'attr' => array(
-							'class' => 'inodata_delivery_date'
-					)
+				'label'=> 'label.delivery_date',
+				'widget' => 'single_text',
+				'attr' => array(
+					'class' => 'inodata_delivery_date'
+				)
 			))
 			->add('to', null, array(
 				'label'=> 'label.to',
 				'attr' => array(
-					'class' => 'inodata_to span5'
-					)
+					'class' => 'inodata_to',
+					'style' => 'width:210px'
 				)
-			)
+			))
 			->add('from', null, array(
 				'label' => 'label.from',
 				'attr' => array(
-					'class' => 'inodata_from span5'
-					)
+					'class' => 'inodata_from span5',
+					'style' => 'width:210px'
 				)
-			)
-							
-			->add('shippingAddress', 'inodata_address_form', array('label'=>false))			
+			))				
+			->add('shippingAddress', 'inodata_address_form', array(
+				'label'=>false,
+				'attr' => array(
+					'class' => 'inodata-shipping-address'
+				)
+			))			
 			->add('id', 'hidden', array(
 					'attr' => array('class' => "order-id")
 			))
@@ -101,7 +105,8 @@ class OrderAdmin extends Admin
 				'empty_value' => '',
 				'attr' => array(
 						'placeholder' => $this->trans('label.product_empty_list'),
-						'class'=>'inodata_product', 'style'=>'width:100%')))
+						'class'=>'inodata_product', 'style'=>'width:100%')
+			))
 			->add('hasInvoice', 'checkbox', array(
 					'label' => 'label.has_invoice',
 					'required' => false,

@@ -3,6 +3,19 @@
   div.list-products-content .table-1 {float:left; width:80%;}
   div.list-products-content .table-2 { float:right; width: 20%;}
   
+  /*.sonata-ba-collapsed-fields > .control-group:nth-child(2){
+  	float: left;
+  }
+  .sonata-ba-collapsed-fields > .control-group:nth-child(3){
+  	margin-bottom: 0px;
+  }
+  .sonata-ba-collapsed-fields .inodata-shipping-address > .control-group:nth-child(1),
+  .sonata-ba-collapsed-fields .inodata-shipping-address > .control-group:nth-child(2){
+  	float: left;
+  }
+  .sonata-ba-collapsed-fields .inodata-shipping-address > .control-group:nth-child(3){
+  	margin-bottom: 0px;
+  }*/
   .sonata-ba-collapsed-fields > .control-group:nth-child(13),
   .sonata-ba-collapsed-fields > .control-group:nth-child(14){
   	float: left;
@@ -16,7 +29,7 @@
   #order-invoice-print {display: none;}
   .original_string, .digital_stamp, .footer_container{display:none;}
   
-  .payment-note, .card_page { display: none; }
+ .payment-note, .card_page { display: none; }
 }
 
 @media print
@@ -92,7 +105,8 @@
 	
 	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA NOTA*/
 	.payment-note > div{ visibility:hidden; }
-	.payment-note .info-row > div.info{ visibility:visible;}
+	.payment-note .info-row > div.info,
+	.payment-note .totals > div{ visibility:visible;}
 	
 	.invoice_page thead { visibility: hidden; }
 	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
@@ -304,6 +318,10 @@
     font-weight:bold;
   }
   
+  .ammount_in_words .div_content{
+  	text-align: center;
+  }
+  
   .payment-condition, .ammount_in_words, .comments, .items_container { 
   	padding-top: 10px;
   }
@@ -385,6 +403,28 @@
   
   .payment-note .info{
   	padding-left: 5px;
+  }
+  
+  .payment-note .totals .products{
+  	width: 80%;
+  }
+  .payment-note .totals table{
+  	width: 100%;
+  }
+  
+  .payment-note .totals table td:first-child{
+  	text-align: center;
+  	width: 7%;
+  }
+  
+  .payment-note .totals table td.price,
+  .payment-note .totals table td.import{
+  	display: none;
+  }
+  
+  .payment-note .totals .price{
+  	text-align: center;
+  	width: 20%;
   }
   
   
