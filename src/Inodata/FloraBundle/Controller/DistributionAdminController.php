@@ -92,7 +92,10 @@ class DistributionAdminController extends Controller
 	    		$em->flush();
     		}
     	}
-    	//$this->addFlash('sonata_flash_success', 'Se asignaron las ordenes al repartidor '.$messenger->getName().' '.$messenger->getLastName());
+    	
+    	$messengerFullName = $messenger->getName().' '.$messenger->getLastName();
+    	$transMessage = $this->get('translator')->trans('alert.distribution_assigned_success', array( 'messenger' => $messengerFullName), 'InodataFloraBundle');
+    	$this->addFlash('sonata_flash_success', $transMessage);
     	
     	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
     	

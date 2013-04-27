@@ -3,6 +3,11 @@ $('document').ready(function(){
 	$('.inodata_delivery_date').datepicker({ dateFormat: "yy-mm-dd" });
 	$('.inodata_messenger').select2();
 
+	/* Refactorizar esta funcion */
+	$('div.alert-success').fadeOut(5000, function(){
+		$(this).remove();
+	});
+	
 	$('#inodata_distribution_type_form_id').change(function(){
 		var id = $(this).val()!=''?id=$(this).val():id=0;
 		
@@ -52,7 +57,7 @@ $('document').ready(function(){
 		
 		$('#messenger_orders tr').each(function(){
 			if( $(this).attr('id') == 'no_orders' ){
-				rapidFlash('Seleccione al menos un pedido', 'error', 'no-order', 5000);
+				rapidFlash(trans('alert.distribution_no_orders'), 'error', 'no-order', 5000);
 				return;
 			} else {
 				removeFlash();
@@ -63,14 +68,14 @@ $('document').ready(function(){
 		});
 
 		if(orderIds == ''){
-			rapidFlash('Seleccione al menos un pedido', 'error', 'no-order', 5000);
+			rapidFlash(trans('alert.distribution_no_orders'), 'error', 'no-order', 5000);
 			return;
 		} else{
 			removeFlash('no-order');
 		}
 
 		if( messengerId == '' ){
-			rapidFlash('Seleccione un repartidor', 'error', 'no-messenger', 5000);
+			rapidFlash(trans('alert.distribution_no_messenger'), 'error', 'no-messenger', 5000);
 			return;
 		} else {
 			removeFlash('no-messenger');

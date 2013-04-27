@@ -85,3 +85,4 @@ label.distribution_assign_button: Asignar Pedidos
 label.distribution_assign_empty: No hay pedidos asignados
 label.action_delivered: Entregado
 label.action_closed: Cerrado
+alert.distribution_assigned_success: Se asignaron las órdenes al repartidor messenger
