@@ -53,41 +53,51 @@
 	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
 	
 	/* Reglas de impresion para la tarjeta */
-  .card_page{
-    max-width: 10.2cm;
-    max-height: 14cm;
-    
+
+  /* Bordes para debug */
+  /*.card_page{
     border: 1px solid black;
   }
 
+  .card_header, .card_to, .card_message, .card_from{
+    border: 1px dotted;
+  }/* termina bordes de debug */
+
+  .card_page{
+    max-width: 9.7cm;
+    max-height: 14.5cm;
+    border-color: black;
+  }
+
   .card_header{
-    border: 1px dotted yellow;
-    min-height: 6cm;
+    border-color: yellow;
+    min-height: 5.5cm;
+    max-height: 5.5cm;
   }
 
   .card_data{
-    min-height: 7.4cm;
+    min-height: 6.4cm;
     
   }
 
   .card_to{
-    border: 1px dotted red;
-    padding-top: .5cm;
-    padding-left: 2cm;
+    border-color: red;
+    padding-top: .3cm;
+    padding-left: 2.5cm;
 
   }
 
   .card_message{
-    border: 1px dotted blue;
-    padding-top: .3cm;
-    padding-left: 1cm;
-    min-height: 4cm;
-    max-height: 4cm;
+    border-color: blue;
+    padding-top: .1cm;
+    padding-left: .5cm;
+    min-height: 3.2cm;
+    max-height: 3.2cm;
   }
 
   .card_from{
-    border: 1px dotted green;
-    padding-top: .3cm;
+    border-color: green;
+    padding-top: .1cm;
     padding-left: 2cm;
 
   }
