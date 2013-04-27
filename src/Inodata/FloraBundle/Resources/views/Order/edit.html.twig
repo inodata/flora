@@ -11,9 +11,10 @@
 	{{ parent() }}	
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-	{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
-				   '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
-				   '@InodataFloraBundle/Resources/public/js/order_admin.js' 
+	{% javascripts "@InodataFloraBundle/Resources/public/js/select2.js" 
+				   "@InodataFloraBundle/Resources/public/js/select2_locale_es.js"
+				   "@InodataFloraBundle/Resources/public/js/order_admin.js"
+				   "@InodataFloraBundle/Resources/public/js/lang/es.js"
 	%}
 	<script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
@@ -33,6 +34,7 @@
                     {% else %}
                     	<div>Para facturar, primero debe crear la orden.</div>
                     {% endif %}
+                    {% embed 'InodataFloraBundle:Order:card.html.twig' %}{% endembed %}
                 </div>
             {% else %}
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
@@ -43,7 +45,6 @@
         {% endfor %}
     </div>
 {% endblock %}
-
 {% block sonata_formactions %}
 	{{ parent() }}
 	{% if admin.id(object) %}

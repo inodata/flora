@@ -27,10 +27,18 @@ class OrderAdmin extends Admin
 					)
 			))
 			->add('to', null, array(
-				'label'=> 'label.to',)
+				'label'=> 'label.to',
+				'attr' => array(
+					'class' => 'inodata_to span5'
+					)
+				)
 			)
 			->add('from', null, array(
-				'label' => 'label.from')
+				'label' => 'label.from',
+				'attr' => array(
+					'class' => 'inodata_from span5'
+					)
+				)
 			)
 							
 			->add('shippingAddress', 'inodata_address_form', array('label'=>false))			
