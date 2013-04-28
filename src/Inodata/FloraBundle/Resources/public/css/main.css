@@ -29,7 +29,7 @@
   #order-invoice-print {display: none;}
   .original_string, .digital_stamp, .footer_container{display:none;}
   
- .payment-note, .card_page { display: none; }
+ /*.payment-note,*/ .card_page { display: none; }
 }
 
 @media print
@@ -114,9 +114,9 @@
 	.sonata-bc .editable input { box-shadow: none; }
 	
 	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA NOTA*/
-	.payment-note > div{ visibility:hidden; }
+	/*.payment-note > div{ visibility:hidden; }
 	.payment-note .info-row > div.info,
-	.payment-note .totals > div{ visibility:visible;}
+	.payment-note .totals > div{ visibility:visible;}*/
 	
 	.invoice_page thead { visibility: hidden; }
 	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
@@ -384,36 +384,36 @@
   }
   
   .payment-note .info-row > div:first-child{
-  	width: 9%
+  	width: 1.7cm;
   }
   
   .payment-note .space-0{
-  	width: 60%
+  	width: 10cm
   
   }
   .payment-note .space-1{
-  	width: 48%
+  	width: 9.2cm
   }
   
   .payment-note .space-2{
-  	width: 11%;
+  	width: 2.3cm;
   	text-align: right;
   }
   
   .payment-note .space-3{
-  	width: 19%;
+  	width: 4cm;
   }
   
   .payment-note .space-4{
-  	width: 23.3%;
+  	width: 5.2cm;
   }
   
   .payment-note .space-5{
-  	width: 5%;
+  	width: 1cm;
   }
   
   .payment-note .space-6{
-  	width: 62%;
+  	width: 12.2cm;
   }
   
   .payment-note .info{
@@ -437,10 +437,10 @@
   
   .payment-note .totals tbody td:first-child{
   	text-align: center;
-  	width: 7%;
+  	width: 1.5cm;
   }
   .payment-note .totals table td:nth-child(2){
-  	width: 80%;
+  	width: 13.4cm;
   }
   .payment-note .totals table td:last-child{
   	width:0%;
