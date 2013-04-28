@@ -29,7 +29,7 @@
   #order-invoice-print {display: none;}
   .original_string, .digital_stamp, .footer_container{display:none;}
   
- /*.payment-note,*/ .card_page { display: none; }
+ .payment-note, .card_page { display: none; }
 }
 
 @media print
@@ -53,51 +53,41 @@
 	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
 	
 	/* Reglas de impresion para la tarjeta */
-
-  /* Bordes para debug */
-  /*.card_page{
+  .card_page{
+    max-width: 10.2cm;
+    max-height: 14cm;
+    
     border: 1px solid black;
   }
 
-  .card_header, .card_to, .card_message, .card_from{
-    border: 1px dotted;
-  }/* termina bordes de debug */
-
-  .card_page{
-    max-width: 10.1cm;
-    max-height: 13.8cm;
-    border-color: black;
-  }
-
   .card_header{
-    border-color: yellow;
+    border: 1px dotted yellow;
     min-height: 6cm;
-    max-height: 6cm;
   }
 
   .card_data{
-    min-height: 6cm;
+    min-height: 7.4cm;
     
   }
 
   .card_to{
-    border-color: red;
-    padding-top: .3cm;
-    padding-left: 2.5cm;
+    border: 1px dotted red;
+    padding-top: .5cm;
+    padding-left: 2cm;
 
   }
 
   .card_message{
-    border-color: blue;
-    padding-top: .1cm;
-    padding-left: .5cm;
-    min-height: 3.2cm;
-    max-height: 3.2cm;
+    border: 1px dotted blue;
+    padding-top: .3cm;
+    padding-left: 1cm;
+    min-height: 4cm;
+    max-height: 4cm;
   }
 
   .card_from{
-    border-color: green;
-    padding-top: .1cm;
+    border: 1px dotted green;
+    padding-top: .3cm;
     padding-left: 2cm;
 
   }
@@ -114,9 +104,11 @@
 	.sonata-bc .editable input { box-shadow: none; }
 	
 	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA NOTA*/
-	/*.payment-note > div{ visibility:hidden; }
+	/*
+	.payment-note > div{ visibility:hidden; }
 	.payment-note .info-row > div.info,
-	.payment-note .totals > div{ visibility:visible;}*/
+	.payment-note .totals > div{ visibility:visible;}
+	*/
 	
 	.invoice_page thead { visibility: hidden; }
 	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
@@ -351,15 +343,14 @@
   	font-weight: bold;
   	padding: 0 5px;
   	margin-bottom: 15px;
-  	width: 20.1cm;
   }
   
   .payment-note .header{
-  	height: 129px;
+  	height: 139px;
   }
   
   .payment-note .payment-info{
-  	height: 3cm;
+  	height: 108px;
   	padding-top: 2px;
   }
   
@@ -368,7 +359,7 @@
   }
   
   .payment-note .totals{
-  	height: 3cm;
+  	height: 112px;
   }
   
   .payment-note .shipping-info{
@@ -384,36 +375,35 @@
   }
   
   .payment-note .info-row > div:first-child{
-  	width: 1.7cm;
+  	width: 9%
   }
   
-  .payment-note .space-0{
-  	width: 10cm
-  
-  }
+   .payment-note .space-0{
+   	width: 60%;
+   }
   .payment-note .space-1{
-  	width: 9.2cm
+  	width: 48%
   }
   
   .payment-note .space-2{
-  	width: 2.3cm;
+  	width: 11%;
   	text-align: right;
   }
   
   .payment-note .space-3{
-  	width: 4cm;
+  	width: 19%;
   }
   
   .payment-note .space-4{
-  	width: 5.2cm;
+  	width: 23.3%;
   }
   
   .payment-note .space-5{
-  	width: 1cm;
+  	width: 5%;
   }
   
   .payment-note .space-6{
-  	width: 12.2cm;
+  	width: 62%;
   }
   
   .payment-note .info{
@@ -421,31 +411,18 @@
   }
   
   .payment-note .totals .products{
-  	width: 100%;
+  	width: 80%;
   }
   .payment-note .totals table{
   	width: 100%;
   }
   
-  .payment-note .totals table .padding{
-  	height: 6px;
-  }
-  
-  .payment-note .totals table .note-comments{
-  	padding-left: 15px;
-  }
-  
-  .payment-note .totals tbody td:first-child{
+  .payment-note .totals table td:first-child{
   	text-align: center;
-  	width: 1.5cm;
-  }
-  .payment-note .totals table td:nth-child(2){
-  	width: 13.4cm;
-  }
-  .payment-note .totals table td:last-child{
-  	width:0%;
+  	width: 7%;
   }
   
+  .payment-note .totals table td.price,
   .payment-note .totals table td.import{
   	display: none;
   }
