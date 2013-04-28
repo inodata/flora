@@ -58,7 +58,7 @@ label.has_invoice: Requiere Factura
 
 #Address labels
 label.street: Calle
-label.exterior: No. exterior
+label.exterior: Número
 label.interior: No. interior
 label.postal_code: Código postal
 label.neighborhood: Colonia 
