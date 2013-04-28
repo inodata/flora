@@ -29,7 +29,7 @@
   #order-invoice-print {display: none;}
   .original_string, .digital_stamp, .footer_container{display:none;}
   
- .payment-note, .card_page { display: none; }
+ /*.payment-note,*/ .card_page { display: none; }
 }
 
 @media print
@@ -346,7 +346,7 @@
   }
   
   .payment-note .header{
-  	height: 139px;
+  	height: 119px;
   }
   
   .payment-note .payment-info{
@@ -386,7 +386,7 @@
   }
   
   .payment-note .space-2{
-  	width: 11%;
+  	width: 12%;
   	text-align: right;
   }
   
@@ -411,25 +411,32 @@
   }
   
   .payment-note .totals .products{
-  	width: 80%;
+  	width: 100%;
   }
   .payment-note .totals table{
   	width: 100%;
   }
   
-  .payment-note .totals table td:first-child{
+  .payment-note .totals table .padding{
+  	height: 6px;
+  }
+  
+  .payment-note .totals table .note-comments{
+  	padding-left: 15px;
+  }
+  
+  .payment-note .totals tbody td:first-child{
   	text-align: center;
   	width: 7%;
   }
-  
-  .payment-note .totals table td.price,
+  .payment-note .totals table td:nth-child(2){
+  	width: 80%;
+  }
+  .payment-note .totals table td:last-child{
+  	width:0%;
+  }
   .payment-note .totals table td.import{
   	display: none;
-  }
-  
-  .payment-note .totals .price{
-  	text-align: center;
-  	width: 20%;
   }
   
   
