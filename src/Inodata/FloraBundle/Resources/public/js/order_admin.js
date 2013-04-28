@@ -334,7 +334,6 @@ $(document).ready(function() {
 		var listForNote = $(listFields).clone();
 		
 		$('.payment-note .totals table > tbody').append(listForNote);
-		$('.payment-note .totals .price').append(totals.total);
 		
 		//Load totals
 		$('.invoice-subtotal').append(totals.subtotal);

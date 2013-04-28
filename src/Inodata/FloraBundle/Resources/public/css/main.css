@@ -351,14 +351,15 @@
   	font-weight: bold;
   	padding: 0 5px;
   	margin-bottom: 15px;
+  	width: 20.1cm;
   }
   
   .payment-note .header{
-  	height: 139px;
+  	height: 129px;
   }
   
   .payment-note .payment-info{
-  	height: 108px;
+  	height: 3cm;
   	padding-top: 2px;
   }
   
@@ -367,7 +368,7 @@
   }
   
   .payment-note .totals{
-  	height: 112px;
+  	height: 3cm;
   }
   
   .payment-note .shipping-info{
@@ -386,6 +387,10 @@
   	width: 9%
   }
   
+  .payment-note .space-0{
+  	width: 60%
+  
+  }
   .payment-note .space-1{
   	width: 48%
   }
@@ -416,18 +421,31 @@
   }
   
   .payment-note .totals .products{
-  	width: 80%;
+  	width: 100%;
   }
   .payment-note .totals table{
   	width: 100%;
   }
   
-  .payment-note .totals table td:first-child{
+  .payment-note .totals table .padding{
+  	height: 6px;
+  }
+  
+  .payment-note .totals table .note-comments{
+  	padding-left: 15px;
+  }
+  
+  .payment-note .totals tbody td:first-child{
   	text-align: center;
   	width: 7%;
   }
+  .payment-note .totals table td:nth-child(2){
+  	width: 80%;
+  }
+  .payment-note .totals table td:last-child{
+  	width:0%;
+  }
   
-  .payment-note .totals table td.price,
   .payment-note .totals table td.import{
   	display: none;
   }
