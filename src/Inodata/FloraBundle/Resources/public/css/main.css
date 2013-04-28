@@ -51,19 +51,19 @@
   }/* termina bordes de debug */
 
   .card_page{
-    max-width: 9.7cm;
-    max-height: 14.5cm;
+    max-width: 10.1cm;
+    max-height: 13.8cm;
     border-color: black;
   }
 
   .card_header{
     border-color: yellow;
-    min-height: 5.5cm;
-    max-height: 5.5cm;
+    min-height: 6cm;
+    max-height: 6cm;
   }
 
   .card_data{
-    min-height: 6.4cm;
+    min-height: 6cm;
     
   }
 
