@@ -104,11 +104,9 @@
 	.sonata-bc .editable input { box-shadow: none; }
 	
 	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA NOTA*/
-	/*
 	.payment-note > div{ visibility:hidden; }
 	.payment-note .info-row > div.info,
 	.payment-note .totals > div{ visibility:visible;}
-	*/
 	
 	.invoice_page thead { visibility: hidden; }
 	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
@@ -346,7 +344,7 @@
   }
   
   .payment-note .header{
-  	height: 119px;
+  	height: 123px;
   }
   
   .payment-note .payment-info{
