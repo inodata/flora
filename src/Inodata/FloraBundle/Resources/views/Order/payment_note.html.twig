@@ -1,28 +1,29 @@
 <div class="payment-note">
 	<div class="header">
 	</div>
-	
 	<div class="payment-info">
 		<div class="info-row">
-			<div>NOMBRE:</div><div class="info">{{ object.to }}</div>
+			<div>NOMBRE:</div><div class="space-0 info">{{ object.to }}</div>
+			<div class="info">Monterrey, N. L. &nbsp;&nbsp;&nbsp; {{ object.deliveryDate|date("d/m/Y") }}</div>
 		</div>
 		<div class="info-row">
-			<div>COBRAR:</div><div class="space-1 info">{{ object.paymentContact }}</div>
+			<div>COBRAR:</div><div class="space-1 info">{{ object.customer.companyName }}</div>
 			<div class="space-2">DEPTO:</div><div class="info">{{ object.paymentContact.department }}</div>
 		</div>
 		<div class="info-row">
-			<div>DIR. COB:</div><div class="space-1 info">{{ object.customer.paymentAddress }}</div>
-			<div class="space-2">No. TARJETA:</div><div class="space-3 info">{{ object.id }}</div>
-			<div class="space-5">EXT.:</div><div></div>
+			<div>DIR. COB:</div>
+				<div class="space-1 info">{{ object.customer.paymentAddress.street }}</div>
+			<div class="space-2">No. TARJETA:</div><div class="space-3 info">{{ object.paymentContact.employeeNumber}}</div>
+			<div class="space-5">EXT.:</div><div class="info">                                                                            </div>
 		</div>
 		<div class="info-row">
-			<div>EMPRESA:</div><div class="space-1 info">{{ object.customer.companyName }}</div>
+			<div>EMPRESA:</div><div class="space-1 info">{{ object.creator }}</div>
 			<div class="space-2">ORDENO:</div><div class="info">{{ object.paymentContact }}</div>
 		</div>
 		<div class="info-row">
-			<div>No. EMP.:</div><div class="space-3 info">{{ object.paymentContact.employeeNumber }}</div>
+			<div>No. EMP.:</div><div class="space-3 info"> --- </div>
 			<div class="space-5">TEL:</div><div class="space-4 info">{{ object.paymentContact.phone }}</div>
-			<div class="space-2">EMP. U OBR.:</div><div class="info"></div>
+			<div class="space-2">EMP. U OBR.:</div><div class="info"> --- </div>
 		</div>
 		<div class="info-row">
 			<div>FACTURA:</div><div class="info">{% if(object.hasInvoice)==1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</div>
@@ -33,7 +34,19 @@
 	</div>
 	
 	<div class="totals">
-		<div></div><div></div>
+		<div class="products">
+			<table>
+				<thead>
+					<tr><th class="padding"></th></tr>
+				</thead>
+				<tbody>
+				</tbody>
+				<tfoot>
+					<tr><td colspan="4" class="padding"></td></tr>
+					<tr><td colspan="2" class="note-comments">{{ object.orderNotes }}</td><td colspan="2"></td></tr>
+				</tfoot>
+			</table>
+		</div>
 	</div>
 	<div class="shipping-info">
 		<div class="info-row">
