@@ -1,7 +1,10 @@
+#Message labels
+label.message_code: Número
+
 #Customer labels
 label.general: Datos Generales
 label.fiscal_address: Dirección fiscal
-label.payment_address: Dirección de pago
+label.payment_address: Dirección de cobro
 label.company_name: Nombre / Razón social
 label.business_name: Nombre comercial
 label.rfc: RFC
@@ -24,7 +27,7 @@ label.customer: Nombre Cliente
 label.payment_contact: Ordenó
 label.from: De
 label.to: Para
-label.message_category: Tarjeta
+label.message_category: Categoría
 label.messages_list: Lista de mensajes
 label.message: Mensaje
 label.delivery_date: Fecha de entrega

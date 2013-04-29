@@ -22,6 +22,12 @@ class Message
     private $id;
 
     /**
+    *@var integer
+    *@ORM\Column(name="code", type="integer", nullable=false)
+    */
+    private $code;
+    
+     /**
      * @var string
      *
      * @ORM\Column(name="message", type="text", nullable=false)
@@ -43,7 +49,7 @@ class Message
     */
     public function __toString()
     {
-        return strip_tags($this->message);
+        return strip_tags($this->code.".- ".$this->message);
     }
 
     /**
@@ -100,5 +106,28 @@ class Message
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set code
+     *
+     * @param integer $code
+     * @return Message
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return integer 
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 }
