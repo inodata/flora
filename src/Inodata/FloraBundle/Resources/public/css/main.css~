@@ -49,7 +49,7 @@
 
   .card_header{
     border: 1px dotted white;
-    min-height: 5.8cm;
+    min-height: 6.3cm;
   }
 
   .card_data{

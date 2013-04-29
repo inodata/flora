@@ -32,7 +32,7 @@
                     		{% embed 'InodataFloraBundle:Order:invoice.html.twig' %}{% endembed %}
                     	{% endif %}
                     {% else %}
-                    	<div>Para facturar, primero debe crear la orden.</div>
+                    	<div class="no-invoice-msg">Para facturar, primero debe crear la orden.</div>
                     {% endif %}
                     {% embed 'InodataFloraBundle:Order:card.html.twig' %}{% endembed %}
                 </div>

@@ -51,15 +51,15 @@
 	</div>
 	<div class="shipping-info">
 		<div class="info-row">
-			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress }}</div>
+			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} {{object.shippingAddress.noExt}}</div>
 		</div>
 		<div class="info-row">
-			<div>ENTRE:</div><div class="space-6 info">&nbsp;</div>
-			<div>TEL:</div><div class="info"></div>
+			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.noInt }}</div>
+			<div>TEL:</div><div class="info">&nbsp;</div>
 		</div>
 		<div class="info-row">
 			<div>COLONIA:</div><div class="space-1 info">{{ object.shippingAddress.neighborhood }}&nbsp;</div>
-			<div>MUNICIPIO:</div><div class="info">{{ object.shippingAddress.city}}</div>
+			<div>MUNICIPIO:</div><div class="info">{{ object.shippingAddress.city}}, {{ object.shippingAddress.state}}</div>
 		</div>
 	</div>
 </div>
