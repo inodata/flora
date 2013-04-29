@@ -45,6 +45,13 @@ class PaymentContact
     /**
      * @var string
      *
+     * @ORM\Column(name="extension", type="string", length=15, nullable=true)
+     */
+    private $extension;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="email", type="string", length=100, nullable=true)
      */
     private $email;
@@ -225,5 +232,28 @@ class PaymentContact
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Set extension
+     *
+     * @param string $extension
+     * @return PaymentContact
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+    
+        return $this;
+    }
+
+    /**
+     * Get extension
+     *
+     * @return string 
+     */
+    public function getExtension()
+    {
+        return $this->extension;
     }
 }

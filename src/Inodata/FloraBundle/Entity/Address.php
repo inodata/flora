@@ -71,6 +71,13 @@ class Address
     private $neighborhood;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=45, nullable=true)
+     */
+    private $phone;
+
+    /**
     *@return string
     */
     public function __toString()
@@ -254,5 +261,28 @@ class Address
     public function getNeighborhood()
     {
         return $this->neighborhood;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Address
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

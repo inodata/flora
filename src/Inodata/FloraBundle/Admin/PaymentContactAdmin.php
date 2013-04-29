@@ -22,6 +22,7 @@ class PaymentContactAdmin extends Admin
 			->add('department')
 			->add('employeeNumber')
 			->add('phone')
+			->add('extension')
 			->add('email')
 		;
 	}

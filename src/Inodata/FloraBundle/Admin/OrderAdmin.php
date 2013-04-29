@@ -181,7 +181,6 @@ class OrderAdmin extends Admin
 			->add('updatedAt', null, array("label" => "label.updated_at"))
 			->add('_action', 'actions', array(
 				'actions' => array(
-					'view' => array(),
 					'edit' => array(),
 					//'delete' => array(),
 				)

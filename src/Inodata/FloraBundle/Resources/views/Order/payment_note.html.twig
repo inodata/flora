@@ -14,7 +14,7 @@
 			<div>DIR. COB:</div>
 				<div class="space-1 info">{{ object.customer.paymentAddress.street }}&nbsp;</div>
 			<div class="space-2">No. TARJETA:</div><div class="space-3 info">{{ object.paymentContact.employeeNumber}}&nbsp;</div>
-			<div class="space-5">EXT.:</div><div class="info">&nbsp;</div>
+			<div class="space-5">EXT.:</div><div class="info">{{ object.paymentContact.extension}}&nbsp;</div>
 		</div>
 		<div class="info-row">
 			<div>EMPRESA:</div><div class="space-1 info">{{ object.creator }}&nbsp;</div>
@@ -55,7 +55,7 @@
 		</div>
 		<div class="info-row">
 			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.noInt }}</div>
-			<div>TEL:</div><div class="info">&nbsp;</div>
+			<div>TEL:</div><div class="info">{{ object.shippingAddress.phone }}&nbsp;</div>
 		</div>
 		<div class="info-row">
 			<div>COLONIA:</div><div class="space-1 info">{{ object.shippingAddress.neighborhood }}&nbsp;</div>

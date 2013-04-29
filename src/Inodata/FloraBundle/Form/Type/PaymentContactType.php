@@ -20,6 +20,9 @@ class PaymentContactType extends AbstractType
 			->add('phone', null, array(
 				'label' => 'label.phone',)
 			)
+			->add('extension', null, array(
+				'label' => 'label.extension',)
+			)
 			->add('email', null, array(
 				'label' => 'label.email',
 				)
