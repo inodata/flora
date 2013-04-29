@@ -178,6 +178,7 @@ class OrderAdminController extends Controller
 				'name' => $paymentContact->getName(),
 				'emp_number' => $paymentContact->getEmployeeNumber(),
 				'phone' => $paymentContact->getPhone(),
+				'extension' => $paymentContact->getExtension(),
 				'email' => $paymentContact->getEmail(),
 				'department' => $paymentContact->getDepartment()
 		);
@@ -243,6 +244,7 @@ class OrderAdminController extends Controller
 		$paymentContact->setName($orderArray['contact']['name']);
 		$paymentContact->setEmployeeNumber($orderArray['contact']['employeeNumber']);
 		$paymentContact->setPhone($orderArray['contact']['phone']);
+		$paymentContact->setExtension($orderArray['contact']['extension']);
 		$paymentContact->setEmail($orderArray['contact']['email']);
 		$paymentContact->setDepartment($orderArray['contact']['department']);
 			

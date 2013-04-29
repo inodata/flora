@@ -100,8 +100,7 @@ $(document).ready(function() {
 		$('.payment_contact_form input').eq(1).val(contact.department);
 		$('.payment_contact_form input').eq(2).val(contact.emp_number);
 		$('.payment_contact_form input').eq(3).val(contact.phone);
-                $('.payment_contact_form input').eq(4).val(contact.extension);
-		$('.payment_contact_form input').eq(5).val(contact.email);
+		$('.payment_contact_form input').eq(4).val(contact.email);
 	}
 	
 	// CREA EL PAYMENT CONTACT SI NO EXISTE

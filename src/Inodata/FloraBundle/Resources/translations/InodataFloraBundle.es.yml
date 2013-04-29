@@ -72,6 +72,7 @@ label.state: Estado
 label.department: Departamento
 label.employee_number: No. de empleado
 label.phone: Teléfono
+label.extension: Ext.
 label.email: Correo electrónico
 
 #Distribution labels

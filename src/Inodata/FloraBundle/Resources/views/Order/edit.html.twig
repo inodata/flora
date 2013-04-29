@@ -1,4 +1,22 @@
 {% extends 'InodataFloraBundle::base_edit.html.twig' %}
+
+{#
+    probar si arregla la inclusion de javascripts utilizados por genemu bundle y otros
+
+    {% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+    {% block javascripts %}
+       {{ parent() }}
+       {% if form is defined %}{{ form_javascript(form) }}{% endif %}
+    {% endblock %}
+
+    {% block stylesheets %}
+       {{ parent() }}
+       {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
+    {% endblock %}
+#}
+
+
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
