@@ -144,7 +144,9 @@ sonata_block:
 ivory_ck_editor:
     configs:
         inodata_editor:
-            toolbar: [ [ "Bold", "Italic", "Underline" ] ]
+            disableNativeSpellChecker: true,
+            scayt_autoStartup: true,
+            toolbar: [ [ "Bold", "Italic", "Underline", "Scayt" ] ]
             language: "es"
 
 knp_menu:
