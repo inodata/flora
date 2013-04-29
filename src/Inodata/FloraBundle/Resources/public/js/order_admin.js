@@ -1,6 +1,7 @@
 $(document).ready(function() { 
 	var isEnteredInModal = false;
 	var isCustomerToSelect2 = false;
+	var isEditingCustomer = false;
 	
 	$(".inodata_customer, " +
 	  ".inodata_payment_contact, " +
@@ -21,9 +22,14 @@ $(document).ready(function() {
 	
 	$(element).bind('DOMNodeInserted', function(){
 	    if(!isCustomerToSelect2){
-	        var selected = $('select.inodata_customer option:last').val();
-	        $('.inodata_customer').select2();
+	    	if(isEditingCustomer){
+	    		var selected = $('select.inodata_customer option:selected').val();
+	    	}else{
+	    		var selected = $('select.inodata_customer option:last').val();
+	    	}
+	        $('.inodata_customer').select2({ allowClear: true});
 	        $('.inodata_customer').select2('val', selected);
+	        updateEditCustomerButton();
 	    }
 	    isCustomerToSelect2 = true;
 	});
@@ -35,14 +41,18 @@ $(document).ready(function() {
 	
 	//--- TRUCO PARA RESOLVER EL PROBLEMA CON LOS TABS EN LA VENTANA MODAL ---//
 	$('.ui-dialog').live('mouseenter', function(){
-	    $(this).find('.nav-tabs li').each(function(){
-	        var element = $(this).find('a:first');
-	        var href = $(element).attr('href');
-	        var title = $(element).text();
-	
-	        $(element).remove();
-	        $(this).append('<a href="javascript:void()" tabId="'+href+'">'+title+'</a>');
-	    });
+		if(!isEnteredInModal){
+		    $(this).find('.nav-tabs li').each(function(){
+		        var element = $(this).find('a:first');
+		        var href = $(element).attr('href');
+		        var title = $(element).text();
+		        
+		        $(this).append('<a href="javascript:void()" tabId="'+href+'">'+title+'</a>');
+		        $(element).remove();
+		    });
+		    
+		    isEnteredInModal = true;
+		}
 	});
 	
 	$('.ui-dialog .nav-tabs li > a').live('click', function(event){
@@ -55,11 +65,21 @@ $(document).ready(function() {
 		$(tabId).addClass('active');
 	});
 	
-	$('.sonata-ba-action').click(function(){
+	$('select.inodata_customer').closest('.control-group').mouseenter(function(){
 		isEnteredInModal = false;
+	});
+	
+	$('.sonata-ba-action').mouseenter(function(){
+		isEnteredInModal = false;
+		isEditingCustomer = false;
+	});
+	$('.btn_edit_customer').live('mouseenter', function(){
+		isEnteredInModal = false;
+		isEditingCustomer = true;
 	});
 	//--------------------------------------------------------------------------//
 	
+	//----------------Fila de seleccion de cliente en la orden------------------//
 	$('.inodata_customer').live('change', function(){
 		$(this).val()!=''?id=$(this).val():id=0;
 	    var url = Routing.generate('inodata_flora_order_filter_contact_by_customer', {customerId:id });
@@ -71,9 +91,37 @@ $(document).ready(function() {
 	    	
 	    	$('.order-discount').eq(0).val(data.customer_discount);
 	    	updateAjaxTotalsCost();
+	    	updateEditCustomerButton();
 	    	
 	    }, 'json');
 	});
+	
+	updateEditCustomerButton();
+	
+	function updateEditCustomerButton()
+	{
+		var id = $('select.inodata_customer option:selected').val();
+		var url = Routing.generate('admin_inodata_flora_customer_edit', {id:id});
+		
+		if(id){
+			if($('.btn_edit_customer').length<1){
+				createEditCustomerButton(url);
+			}else{
+				$('.btn_edit_customer').attr('href', url);
+			}
+		}else{
+			$('.btn_edit_customer').remove();
+		}
+	}
+	
+	function createEditCustomerButton(url)
+	{	
+		var button = $('select.inodata_customer').parent().next().children(':first-child').children().clone();
+		$(button).attr('href', url).removeClass('sonata-ba-action').addClass('edit_link btn_edit_customer')
+			.attr('title', 'Editar').html('<i class="icon-edit"></i>Editar').css('margin', '0 4px 0 4px');
+		$('select.inodata_customer').parent().next().children(':first-child').prepend(button);
+	}
+	//--------------------------------------------------------------------------//
 	
 	// ---------------- Select a contact an load information ----------------//
 	var paymentContactId = $(".inodata_payment_contact option:selected").val();
