@@ -334,6 +334,7 @@ $(document).ready(function() {
 		var listForNote = $(listFields).clone();
 		
 		$('.payment-note .totals table > tbody').append(listForNote);
+		$('.payment-note .totals .shipping').text(totals.shipping);
 		
 		//Load totals
 		$('.invoice-subtotal').append(totals.subtotal);
@@ -359,23 +360,6 @@ $(document).ready(function() {
 		$('.invoice_page .order-note').text(orderNote);
 		
 	}
-	/*$('.btn-print-invoice').click(function(){
-		var orderId = $(".order-id").val();
-		if($('#order-invoice-print>div').length==0){
-			if(orderId.length!=0){
-				loadInvoiceAndPrint(orderId);
-			}
-		}else{
-			window.print();
-		}
-	});
-	function loadInvoiceAndPrint(orderId){
-		var url = Routing.generate('inodata_flora_order_create_inovice_totals', {orderId:orderId});
-		$.get(url, function(response){
-			$('#order-invoice-print').append(response.inovice_totals);
-			window.print();
-		},'json');
-	}*/
 	
 	$('.btn-print-note').click(function(){
 		$('.invoice_page').addClass('hide_template');

@@ -3,19 +3,6 @@
   div.list-products-content .table-1 {float:left; width:80%;}
   div.list-products-content .table-2 { float:right; width: 20%;}
   
-  /*.sonata-ba-collapsed-fields > .control-group:nth-child(2){
-  	float: left;
-  }
-  .sonata-ba-collapsed-fields > .control-group:nth-child(3){
-  	margin-bottom: 0px;
-  }
-  .sonata-ba-collapsed-fields .inodata-shipping-address > .control-group:nth-child(1),
-  .sonata-ba-collapsed-fields .inodata-shipping-address > .control-group:nth-child(2){
-  	float: left;
-  }
-  .sonata-ba-collapsed-fields .inodata-shipping-address > .control-group:nth-child(3){
-  	margin-bottom: 0px;
-  }*/
   .sonata-ba-collapsed-fields > .control-group:nth-child(13),
   .sonata-ba-collapsed-fields > .control-group:nth-child(14){
   	float: left;
@@ -29,7 +16,7 @@
   #order-invoice-print {display: none;}
   .original_string, .digital_stamp, .footer_container{display:none;}
   
- /*.payment-note,*/ .card_page { display: none; }
+ .payment-note, .card_page { display: none; }
 }
 
 @media print
@@ -380,28 +367,34 @@
    	width: 60%;
    }
   .payment-note .space-1{
-  	width: 48%
+  	min-width: 48%;
+  	max-width: 48%;
   }
   
   .payment-note .space-2{
-  	width: 12%;
+  	min-width: 12%;
+  	max-width: 12%;
   	text-align: right;
   }
   
   .payment-note .space-3{
-  	width: 19%;
+  	min-width: 19%;
+  	max-width: 19%;
   }
   
   .payment-note .space-4{
-  	width: 23.3%;
+  	min-width: 23.3%;
+  	max-width: 23.3%;
   }
   
   .payment-note .space-5{
-  	width: 5%;
+  	min-width: 5%;
+  	max-width: 5%;
   }
   
   .payment-note .space-6{
-  	width: 62%;
+  	min-width: 62%;
+  	max-width: 62%;
   }
   
   .payment-note .info{
@@ -435,6 +428,10 @@
   }
   .payment-note .totals table td.import{
   	display: none;
+  }
+  
+  .payment-note .totals tfoot td.shipping{
+  	text-align: center;
   }
   
   
