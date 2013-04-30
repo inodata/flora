@@ -17,80 +17,99 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
     {
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('No solo te debo la vida si no todo lo que soy Garcias Madre');
+        $message->setCode('1');
+        $message->setMessage('NO SOLO TE DEBO LA VIDA,SI NO TODO LO QUE SOY GRACIAS MADRE.');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message1', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('Gracias Madre tu fuerza y tu amor me han dado las alas que necesito para volar');
+        $message->setCode('2');
+        $message->setMessage('GRACIAS MADRE TU FUERZA Y TU AMOR ME HAN DADO LAS ALAS QUE NECESITABA PARA VOLAR.');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message2', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('Los consejos de una madre son los unicos que vienen siempre desde el corazon por eso han de ser bien recibidos Feliz dia de las Madres !!');
+        $message->setCode('3');
+        $message->setMessage('LOS CONSEJOS DE UNA MADRE SON LOS UNICOS,QUE VIENEN SIEMPRE DESDE EL CORAZON,POR ESO HAN DE SER BIEN RECIBIDOS Feliz dia de las Madres.!!');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message3', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('Madre la palabra mas bella pronunciada,al ser humano mas bello del mundo eres tu !!');
+        $message->setCode('4');
+        $message->setMessage('MADRE:LA PALABRA MAS BELLA PRONUNCIADA,AL SER HUMANO MAS BELLO DEL MUNDO ERES TU. !!');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message4', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('No hay suficientes dias al año para darte gracias Madre por tu dedicacion generosa y amor incondicional feliz dia !!');
+        $message->setCode('5');
+        $message->setMessage('NO HAY SUFICIENTES DIAS AL AÑO, PARA DARTE GRACIAS MADRE,POR TU DEDICACION GENEROSA Y AMOR INCONDICIONAL FELIZ DIA.!!');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message5', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('Hoy tengo decir que te quiero porque manda el calendario,El resto del año, te lo demuestro porque eres la mejor Madre del Mundo ');
+        $message->setCode('6');
+        $message->setMessage('GRACIAS MADRE TU FUERZA Y TU AMOR ME HAN DADO LAS ALAS QUE NECESITABA PARA VOLAR.');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message6', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('El amor de una Madre es el combustible que le permite al ser humano,Lograr lo imposible');
+        $message->setCode('7');
+        $message->setMessage('HOY TENGO DECIR QUE TE QUIERO PORQUE MANDA EL CALENDARIO,EL RESTO DEL AÑO, TE LO DEMUESTRO PORQUE ERES LA MEJOR MADRE DEL MUNDO');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message7', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('Solo una madre sabe lo que es amar a un hijo con todos sus defectos y problemas.');
+        $message->setCode('8');
+        $message->setMessage('EL AMOR DE UNA MADRE ES EL COMBUSTIBLE QUE LE PERMITE AL SER HUMANO,LOGRAR LO IMPOSIBLE');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message8', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('Mama tus brazos se abren cuando necesito un abrazo,tu corazon sabe cuando necesito una amiga.');
+        $message->setCode('9');
+        $message->setMessage('SOLO UNA MADRE SABE LO QUE ES AMAR A UN HIJO,CON TODOS SUS DEFECTOS Y PROBLEMAS.');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message9', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('Para ti hermana en este dia especial,Gracias por ser la mejor madre del mundo.');
+        $message->setCode('10');
+        $message->setMessage('MAMA TUS BRAZOS SE ABREN CUANDO NECESITO UN ABRAZO,TU CORAZON SABE CUANDO NECESITO UNA AMIGA.');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message10', $message);
         
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
-        $message->setMessage('Gracias por ser la mejor madre que tienen mis hijos Te Amo.');
+        $message->setCode('11');
+        $message->setMessage('PARA TI HERMANA EN ESTE DIA ESPECIAL,GRACIAS POR SER LA MEJOR MADRE DEL MUNDO.');
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message11', $message);
+        
+        $message = new Message();
+        $message->setCategory($this->getReference('category1'));
+        $message->setCode('12');
+        $message->setMessage('GRACIAS POR SER LA MEJOR MADRE,QUE TIENEN MIS HIJOS TE AMO.');
+        $manager->persist($message);
+        $manager->flush();
+        $this->addReference('message12', $message);
         
         
    
