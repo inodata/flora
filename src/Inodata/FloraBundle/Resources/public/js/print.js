@@ -58,7 +58,7 @@ function setupGlobalOptions(){
 //  jsPrintSetup.print();
 function printCard(){
   setupGlobalOptions();
-  jsPrintSetup.setPrinter('hpcolor');
+  jsPrintSetup.setPrinter('Epson_xp001');
   jsPrintSetup.setPaperSizeData(99);
   jsPrintSetup.print();
 }
@@ -66,7 +66,7 @@ function printCard(){
 function printNote(){
   setupGlobalOptions();
   
-  jsPrintSetup.setPrinter('hpcolor');
+  jsPrintSetup.setPrinter('Epson_xp002');
   jsPrintSetup.setPaperSizeData(2);
   jsPrintSetup.print();
 }
