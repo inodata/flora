@@ -211,4 +211,17 @@ class OrderAdmin extends Admin
 	            break;
 		}
 	}
+	
+	public function setSecurityContext($securityContext) {
+		$this->securityContext = $securityContext;
+	}
+	
+	public function getSecurityContext() {
+		return $this->securityContext;
+	}
+	
+	public function prePersist($order) {
+		$user = $this->getSecurityContext()->getToken()->getUser();
+		$order->setCreator($user);
+	}
 }

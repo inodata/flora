@@ -41,6 +41,7 @@ services:
         arguments: [ null, Inodata\FloraBundle\Entity\Order, InodataFloraBundle:OrderAdmin ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
+            - [ setSecurityContext, [ @security.context ] ]
     admin.category:
         class: Inodata\FloraBundle\Admin\CategoryAdmin
         tags:
