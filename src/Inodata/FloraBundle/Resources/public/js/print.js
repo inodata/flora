@@ -58,15 +58,20 @@ function setupGlobalOptions(){
 //  jsPrintSetup.print();
 function printCard(){
   setupGlobalOptions();
-  jsPrintSetup.setPrinter('hpcolor');
+  jsPrintSetup.setGlobalOption('paperWidth', 110);
+  jsPrintSetup.setGlobalOption('paperHeight', 140);
+  jsPrintSetup.setPrinter('Epson_xp001');
   jsPrintSetup.setPaperSizeData(99);
   jsPrintSetup.print();
 }
 
 function printNote(){
-  setupGlobalOptions();
   
-  jsPrintSetup.setPrinter('hpcolor');
+  setupGlobalOptions();
+  jsPrintSetup.setGlobalOption('paperWidth', 216);
+  jsPrintSetup.setGlobalOption('paperHeight', 140);
+  //alert(jsPrintSetup.getPrintersList());
+  jsPrintSetup.setPrinter('Epson_xp002');
   jsPrintSetup.setPaperSizeData(2);
   jsPrintSetup.print();
 }

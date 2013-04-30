@@ -173,7 +173,7 @@ class OrderAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id', null, array("label" => "label.order_number"))
-			->add('product')
+			//->add('firstProduct')
 			->add('createdAt', 'date', array(
 				"label" => "label.created_at",
 				"format" => "dd/mm/yyyy")

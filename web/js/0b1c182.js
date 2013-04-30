@@ -3007,18 +3007,20 @@ $(document).ready(function() {
 	
 	        hideEmptyNotification();
 	        
-	        if($('#'+data.id).length==0){
+	        if($('#product-'+data.id).length==0){
 	        	//Add new new row if product doesn't exist
 	            $(".list-products tbody").append(data.listField);
+	            //Create a hidden to update on DB
+	            $('.list-products-content').append(data.optionsToSave);
 	        }else{
 	            //Update total if exist
-	            var cant = parseInt($('#'+data.id+" input").val());
-	        	$('#'+data.id+" input").val(cant+1);
-	        	calculateProductImport($('#'+data.id));
+	            var cant = parseInt($('#product-'+data.id+" input").val());
+	        	$('#product-'+data.id+" input").val(cant+1);
+	        	//Update hidden total to insert in DB
+	        	$('#data_product_'+data.id).val(cant+1);
+	        	
+	        	calculateProductImport($('#product-'+data.id));
 	        }
-	        
-	        //Add select option with product selected
-	        $(".products-to-buy").append(data.selectOption);
 	
 	        //Clear select
 	        $(".inodata_product").select2('val', '');
@@ -3032,12 +3034,12 @@ $(document).ready(function() {
 	
 	//-----Delete product from list and select options ----//
 	$(".delete_link").live('click', function(){
-	    var id = $(this).closest("tr").attr('id');
+	    var id = $(this).closest("tr").attr('product_id');
 	    
 		//Remove from list
 	    $(this).closest("tr").remove();
-	    //Remove from select
-	    $(".products-to-buy ."+id).remove();
+	    //Remove from imput for save
+	    $("#data_product_"+id).remove();
 	
 	    updateAjaxTotalsCost();
 	    showEmptyNotification();
@@ -3046,14 +3048,13 @@ $(document).ready(function() {
 	
 	//----------Load initial data for edit order ----------//
 	var id = $(".order-id").val();
-	$(".products-to-buy option").remove();
 	
 	if(id!=''){
 		var url = Routing.generate('inodata_flora_order_products', {id:id});
 	    
 	    $.get(url, function(data){
 	    	$(".list-products tbody").append(data.listFields);
-	    	$(".products-to-buy").append(data.selectOptions);
+	    	$(".list-products-content").append(data.optionsToSave);
 	    	hideEmptyNotification();
 	    	//Load price totals for the order editing
 	    	loadPriceTotals(data.totals);
@@ -3089,19 +3090,9 @@ $(document).ready(function() {
 	{
 		if($(element).val().match('^(0|[0-9][0-9]*)$') && $(element).val()!='0')
 		{
-			var id = $(element).closest('tr').attr('id');
+			var id = $(element).closest('tr').attr('product_id');
 			var cant = parseInt($(element).val());
-	
-			var nOptions = $("."+id).length;
-			while(nOptions != cant){
-				if(nOptions<cant){
-					var option = $("."+id).last().clone();
-					$(".products-to-buy").append(option);
-				}else{
-					$("."+id).last().remove();
-				}
-				nOptions = $("."+id).length;
-			}
+			$('#data_product_'+id).val(cant);
 			calculateProductImport($(element).closest('tr'));
 			updateAjaxTotalsCost();
 		}else{
@@ -3347,15 +3338,20 @@ function setupGlobalOptions(){
 //  jsPrintSetup.print();
 function printCard(){
   setupGlobalOptions();
-  jsPrintSetup.setPrinter('hpcolor');
+  jsPrintSetup.setGlobalOption('paperWidth', 110);
+  jsPrintSetup.setGlobalOption('paperHeight', 140);
+  jsPrintSetup.setPrinter('Epson_xp001');
   jsPrintSetup.setPaperSizeData(99);
   jsPrintSetup.print();
 }
 
 function printNote(){
-  setupGlobalOptions();
   
-  jsPrintSetup.setPrinter('hpcolor');
+  setupGlobalOptions();
+  jsPrintSetup.setGlobalOption('paperWidth', 216);
+  jsPrintSetup.setGlobalOption('paperHeight', 140);
+  //alert(jsPrintSetup.getPrintersList());
+  jsPrintSetup.setPrinter('Epson_xp002');
   jsPrintSetup.setPaperSizeData(2);
   jsPrintSetup.print();
 }
