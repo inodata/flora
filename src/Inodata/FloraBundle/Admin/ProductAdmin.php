@@ -10,21 +10,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class ProductAdmin extends Admin
 {
 	/**
-	 * @param Sonata\AdminBundle\Show\ShowMapper $showMapper
-	 *
-	 * @return void
-	 */
-	protected function configureShowField(ShowMapper $showMapper)
-	{
-		$showMapper
-			->add('code')
-			->add('description')
-			->add('price', 'string')
-			->add('stock')
-		;
-	}
-	
-	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
 	 *
 	 * @return void
@@ -54,9 +39,7 @@ class ProductAdmin extends Admin
 		->add('stock')
 		->add('_action', 'actions', array(
 				'actions' => array(
-						'view' => array(),
 						'edit' => array(),
-						'delete' => array(),
 				)
 		));
 	}
@@ -72,6 +55,6 @@ class ProductAdmin extends Admin
 			->add('code')
 			->add('description')
 			->add('stock')
-			;
+		;
 	}
 }
