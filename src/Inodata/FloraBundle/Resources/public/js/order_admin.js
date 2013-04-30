@@ -69,12 +69,10 @@ $(document).ready(function() {
 		isEnteredInModal = false;
 	});
 	
-	$('.sonata-ba-action').mouseenter(function(){
-		isEnteredInModal = false;
+	$('.sonata-ba-action').live('mouseenter', function(){
 		isEditingCustomer = false;
 	});
 	$('.btn_edit_customer').live('mouseenter', function(){
-		isEnteredInModal = false;
 		isEditingCustomer = true;
 	});
 	//--------------------------------------------------------------------------//
