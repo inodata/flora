@@ -66,9 +66,11 @@ function printCard(){
 }
 
 function printNote(){
+  
   setupGlobalOptions();
   jsPrintSetup.setGlobalOption('paperWidth', 216);
   jsPrintSetup.setGlobalOption('paperHeight', 140);
+  //alert(jsPrintSetup.getPrintersList());
   jsPrintSetup.setPrinter('Epson_xp002');
   jsPrintSetup.setPaperSizeData(2);
   jsPrintSetup.print();
