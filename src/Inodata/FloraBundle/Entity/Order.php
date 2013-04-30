@@ -107,21 +107,6 @@ class Order
     private $message;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Product", inversedBy="order")
-     * @ORM\JoinTable(name="ino_order_product",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="order_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $products;
-
-    /**
      * @var \Address
      *
      * @ORM\ManyToOne(targetEntity="Address", cascade={"persist"})
@@ -212,7 +197,6 @@ class Order
     {
     	$this->hasInvoice = false;
         $this->deliveryDate = new \DateTime("NOW");
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -503,55 +487,6 @@ class Order
     {
         return $this->message;
     }
-
-    /**
-     * Add product
-     *
-     * @param \Inodata\FloraBundle\Entity\Product $product
-     * @return Order
-     */
-    public function addProduct(\Inodata\FloraBundle\Entity\Product $product)
-    {
-        $this->product[] = $product;
-    
-        return $this;
-    }
-
-    /**
-     * Remove Product
-     *
-     * @param \Inodata\FloraBundle\Entity\Product $product
-     */
-    public function removeProduct(\Inodata\FloraBundle\Entity\Product $product)
-    {
-        $this->product->removeElement($product);
-    }
-
-    /**
-     * Get product
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getProducts()
-    {
-        return $this->products;
-    }
-    
-    /**
-     * Get product
-     *
-     * @return string
-     */
-    public function getProduct()
-    {	
-    	if( count($this->products) >= 1 )
-    	{
-    		return $this->products[0]->getDescription();
-    	}
-    	
-    	return '';
-    }
-    
     
 
     /**

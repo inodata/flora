@@ -13,66 +13,116 @@ use Doctrine\ORM\Mapping as ORM;
 class OrderProduct
 {
 	/**
-	 * @var integer $orderId
+	 * @var integer
 	 *
-	 * @ORM\Column(name="order_id", type="integer", nullable=false)
+	 * @ORM\Column(name="id", type="integer", nullable=false)
 	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="NONE")
+	 * @ORM\GeneratedValue(strategy="IDENTITY")
 	 */
-	private $orderId;
+	private $id;
 	
 	/**
-	 * @var integer $productId
+	 * @var \Order
 	 *
-	 * @ORM\Column(name="product_id", type="integer", nullable=false)
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="NONE")
+	 * @ORM\ManyToOne(targetEntity="Order")
+	 * @ORM\JoinColumns({
+	 *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+	 * })
 	 */
-	private $productId;
+	private $order;
+	
+	/**
+	 * @var \Product
+	 *
+	 * @ORM\ManyToOne(targetEntity="Product")
+	 * @ORM\JoinColumns({
+	 *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+	 * })
+	 */
+	private $product;
+	
+	/**
+	 *@var integer
+	 *@ORM\Column(name="quantity", type="integer", nullable=false)
+	 */
+	private $quantity;
 
     /**
-     * Set orderId
+     * Get id
      *
-     * @param integer $orderId
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
      * @return OrderProduct
      */
-    public function setOrderId($orderId)
+    public function setQuantity($quantity)
     {
-        $this->orderId = $orderId;
+        $this->quantity = $quantity;
     
         return $this;
     }
 
     /**
-     * Get orderId
+     * Get quantity
      *
      * @return integer 
      */
-    public function getOrderId()
+    public function getQuantity()
     {
-        return $this->orderId;
+        return $this->quantity;
     }
 
     /**
-     * Set productId
+     * Set order
      *
-     * @param integer $productId
+     * @param \Inodata\FloraBundle\Entity\Order $order
      * @return OrderProduct
      */
-    public function setProductId($productId)
+    public function setOrder(\Inodata\FloraBundle\Entity\Order $order = null)
     {
-        $this->productId = $productId;
+        $this->order = $order;
     
         return $this;
     }
 
     /**
-     * Get productId
+     * Get order
      *
-     * @return integer 
+     * @return \Inodata\FloraBundle\Entity\Order 
      */
-    public function getProductId()
+    public function getOrder()
     {
-        return $this->productId;
+        return $this->order;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \Inodata\FloraBundle\Entity\Product $product
+     * @return OrderProduct
+     */
+    public function setProduct(\Inodata\FloraBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+    
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \Inodata\FloraBundle\Entity\Product 
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }

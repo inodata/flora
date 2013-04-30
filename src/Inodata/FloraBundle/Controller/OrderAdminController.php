@@ -28,7 +28,7 @@ class OrderAdminController extends Controller
 				array('product' => $product, 'total' => 1));
 		$selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', 
 				array('id' => $product->getId()));
-		$response = array('listField' => $listField, 'selectOption' => $selectOption, 'id' => 'product-'.$id);
+		$response = array('listField' => $listField, 'selectOption' => $selectOption, 'id' => $id);
 		
 		return new Response(json_encode($response));
 	}
@@ -186,26 +186,48 @@ class OrderAdminController extends Controller
 	
 	public function editAction($id = null)
 	{
+		$products = $this->get('request')->get('product');
+		
 		if ($this->getRestMethod() == 'POST'){
-			$this->preUpdate($id);
+			$this->preUpdate($id, $products);
 			$this->updatePaymentContactInfo();
 		}
 		
 		return parent::editAction($id);
 	}
 	
-	protected function preUpdate($id)
+	protected function preUpdate($id, $newProducts=null)
 	{
 		$em = $this->getDoctrine()->getEntityManager();
 		$orderProducts = $em->getRepository('InodataFloraBundle:OrderProduct')
-			->findByOrderId($id);
-		
-		if ($orderProducts)
-		{
+			->findByOrder($id);
+		//Delete all order's products
+		if ($orderProducts){
 			foreach ($orderProducts as $product){
 				$em->remove($product);
 			}
 			
+			$em->flush();
+			$em->clear();
+		}
+		
+		$this->createOrderProducts($id, $newProducts);
+		
+	}
+	
+	public function createOrderProducts($orderId, $products=null)
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+		if ($products){
+			$order = $em->getRepository('InodataFloraBundle:Order')->find($orderId);
+			foreach ($products as $productId => $quantity){
+				$product = $em->getRepository('InodataFloraBundle:Product')->find($productId);
+				$orderProduct = new OrderProduct();
+				$orderProduct->setOrder($order);
+				$orderProduct->setProduct($product);
+				$orderProduct->setQuantity($quantity);
+				$em->persist($orderProduct);
+			}
 			$em->flush();
 			$em->clear();
 		}
@@ -215,6 +237,7 @@ class OrderAdminController extends Controller
 	{
 		$uniqid = $this->get('request')->get('uniqid');
 		$request = $this->get('request')->get($uniqid);
+		$products = $this->get('request')->get('product');
 		
 		//btn_create_and_print
 		if ($this->getRestMethod() == 'POST'){

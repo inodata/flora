@@ -205,18 +205,24 @@ $(document).ready(function() {
 	
 	        hideEmptyNotification();
 	        
-	        if($('#'+data.id).length==0){
+	        if($('#product-'+data.id).length==0){
 	        	//Add new new row if product doesn't exist
 	            $(".list-products tbody").append(data.listField);
+	            //Create a hidden to update on DB
+	            $('.list-products-content').append('<input type="hidden" name="product['+data.id+']" id="data_product_'+data.id+'" value="1"/>');
 	        }else{
 	            //Update total if exist
-	            var cant = parseInt($('#'+data.id+" input").val());
-	        	$('#'+data.id+" input").val(cant+1);
-	        	calculateProductImport($('#'+data.id));
+	            var cant = parseInt($('#product-'+data.id+" input").val());
+	            alert(cant);
+	        	$('#product-'+data.id+" input").val(cant+1);
+	        	//Update hidden total to insert in DB
+	        	$('#data_product_'+data.id).val(cant+1);
+	        	
+	        	calculateProductImport($('#product-'+data.id));
 	        }
 	        
 	        //Add select option with product selected
-	        $(".products-to-buy").append(data.selectOption);
+	        //$(".products-to-buy").append(data.selectOption);
 	
 	        //Clear select
 	        $(".inodata_product").select2('val', '');

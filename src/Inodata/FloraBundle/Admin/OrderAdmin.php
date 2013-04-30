@@ -113,12 +113,12 @@ class OrderAdmin extends Admin
 					'attr'=>array(
 							'class' => 'inodata-has-invoice'
 					)))
-			->add('products', null, array(
+			/*->add('products', null, array(
 					'label' => 'label.product_list',
 					'attr' => array(
 							'class' => 'products-to-buy span5'
 					)
-			))
+			))*/
 			->add('order_notes', null, array('label' => 'label.order_notes',
 					'attr' => array(
 							'class' => 'inodata-order-notes',

@@ -52,13 +52,6 @@ class Product
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Order", mappedBy="products")
-     */
-    private $order;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="product", cascade={"persist"})
      * @ORM\JoinTable(name="ino_product_category",
      *   joinColumns={
@@ -84,7 +77,6 @@ class Product
      */
     public function __construct()
     {
-        $this->order = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -258,39 +250,6 @@ class Product
         $this->categories[] = $categories;
     
         return $this;
-    }
-
-    /**
-     * Add order
-     *
-     * @param \Inodata\FloraBundle\Entity\Order $order
-     * @return Product
-     */
-    public function addOrder(\Inodata\FloraBundle\Entity\Order $order)
-    {
-        $this->order[] = $order;
-    
-        return $this;
-    }
-
-    /**
-     * Remove order
-     *
-     * @param \Inodata\FloraBundle\Entity\Order $order
-     */
-    public function removeOrder(\Inodata\FloraBundle\Entity\Order $order)
-    {
-        $this->order->removeElement($order);
-    }
-
-    /**
-     * Get order
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getOrder()
-    {
-        return $this->order;
     }
 
     /**
