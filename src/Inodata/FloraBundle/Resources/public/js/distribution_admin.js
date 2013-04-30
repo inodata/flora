@@ -1,13 +1,14 @@
 $('document').ready(function(){	
 
-	$('.inodata_delivery_date').datepicker({ dateFormat: "yy-mm-dd" });
-	$('.inodata_messenger').select2();
-
+	$('#filter_deliveryDate_value').datepicker({ dateFormat: "yy-mm-dd" });
+	$('.inodata_messenger_list').select2();
+	$('.inodata_id_list').select2();
+	
 	/* Refactorizar esta funcion */
 	$('div.alert-success').fadeOut(5000, function(){
 		$(this).remove();
 	});
-	
+
 	$('#inodata_distribution_type_form_id').change(function(){
 		var id = $(this).val()!=''?id=$(this).val():id=0;
 		
@@ -89,8 +90,7 @@ $('document').ready(function(){
 				$(this).remove();
 			});
 			$('#messenger_orders').html( data.empty_list);
-			
-			window.location.reload();
+				window.location.reload();
 		}, 'json');
 		
 		//refreshOrderList();

@@ -1,5 +1,12 @@
 {% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
-
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
+                   '@InodataFloraBundle/Resources/public/css/main.css' 
+				   '@InodataFloraBundle/Resources/public/css/distribution.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}
 {% block javascripts %}
 	{{ parent() }}	
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -18,16 +25,22 @@
 
 {% block list_table %}
 	<b>{{ 'label.distribution_assign'|trans({}, 'InodataFloraBundle') }}</b>
+	<br/><br/>
 	{% block distribution_form %}
 	
 		<form method="post" action="{{ path('inodata_flora_distribution_add_orders_to_messenger', { 'messengerId': '2', 'orderIds': '1+3+' } ) }}" {{ form_enctype(form) }}>
-		{{ form_label(distribution_form['messenger'], 'label.distribution_messenger'|trans({}, 'InodataFloraBundle') ) }}
-		<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-	 	{{ form_widget(distribution_form.messenger)}}
-		</div>
-		{{ form_label(distribution_form['id'], 'label.distribution_id'|trans({}, 'InodataFloraBundle') ) }}
-		{{ form_widget(distribution_form.id)}}
-		
+			<div class="label-inline" >
+				{{ form_label(distribution_form['messenger'], 'label.distribution_messenger'|trans({}, 'InodataFloraBundle') ) }}
+			</div>
+			<div class="label-inline" >
+				{{ form_label(distribution_form['id'], 'label.distribution_id'|trans({}, 'InodataFloraBundle') ) }}
+			</div>
+			<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+	 			{{ form_widget(distribution_form.messenger)}}
+	 			{{ form_widget(distribution_form.id)}}
+			</div>
+
+			<br/><br/>
 		{% block distribution_table %}
 			 <table class="table table-bordered table-striped list-products">
 				{% block distribution_table_header %}
@@ -64,7 +77,37 @@
 	{% endblock %}
 	<br/><br/>
 	<b>{{ 'label.distribution_title'|trans({}, 'InodataFloraBundle') }}</b><br/>
-    {{ parent() }}
+	
+	
+	
+	{% set batchactions = admin.batchactions %}
+    {% if admin.datagrid.results|length > 0 %}
+        <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
+            <table class="table table-bordered table-striped">
+            	{% block table_header %}
+            		{{ parent() }}
+            	{% endblock %}
+            	{% block table_body %}
+            		<tbody>
+                        {% for object in admin.datagrid.results %}
+                            <tr class="messenger-order-row" >
+                                {% include admin.getTemplate('inner_list_row') %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            	{% endblock %}
+            	{% block table_footer %}
+            		{{ parent() }}
+            	{% endblock %}
+            
+	 		</table>
+        </form>
+    {% else %}
+        <p class="notice">
+            {{ 'no_result'|trans({}, 'SonataAdminBundle') }}
+        </p>
+    {% endif %}
+	
 	<a href="{{ path('inodata_flora_distribution_list_print') }}" class="btn print_link" title="Imprimir Listado" >
 		{{ 'label.distribution_print'|trans({}, 'InodataFloraBundle') }}
 	</a>

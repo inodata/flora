@@ -21,7 +21,7 @@ class DistributionType extends AbstractType
 					}
 					,
 				'attr' => array(
-					'class' => 'inodata_messenger_list span5 select2-offscreen',
+					'class' => 'inodata_messenger_list span5',
 				)
 			))
 			->add('id', 'genemu_jqueryselect2_entity', array(
@@ -34,7 +34,7 @@ class DistributionType extends AbstractType
 					}
 					,
 				'attr' => array(
-					'class' => 'select2-container inodata_id_list span5',
+					'class' => 'inodata_id_list span2',
 					)
 			))	
 		;

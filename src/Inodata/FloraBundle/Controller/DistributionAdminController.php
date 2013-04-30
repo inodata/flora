@@ -28,7 +28,7 @@ class DistributionAdminController extends Controller
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 		
-        /*
+        
         if( $this->getRequest()->isXmlHttpRequest() ){
         	$render = $this->renderView('SonataAdminBundle:CRUD:list.html.twig', array(
         			'action'   => 'list',
@@ -39,7 +39,7 @@ class DistributionAdminController extends Controller
         			'datagrid' => $datagrid));
         	
         	return new Response($render);
-        }*/
+        }
         
         $render = $this->render($this->admin->getTemplate('list'), array(
         		'action'   => 'list',
@@ -100,6 +100,8 @@ class DistributionAdminController extends Controller
     	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
     	
     	$response = array('messenger' => $orderIds, 'empty_list' => $emptyList);
+    	
+    	$response = array('messenger' => $orderIds, 'empty_list' => $emptyList);
     	return new Response(json_encode($response));    
     }
     
@@ -130,8 +132,27 @@ class DistributionAdminController extends Controller
     
     public function printDistributionAction()
     {
+    	 $messengers = $this->getDoctrine()
+    	 	  				->getRepository('InodataFloraBundle:Employee')
+    	 	  				->findByJobPosition('messenger');
+    	 foreach ( $messengers as $messenger )
+    	 {
+    	 	$orders = $this->getDoctrine()
+    	 	  				->getRepository('InodataFloraBundle:Order')
+    	 	  				->findBy( array('status' => 'intransit',
+    	 	  								'messenger' => $messenger->getId()
+    	 	  						));
+    	 	if( !$orders ){
+    	 		
+    	 	} else {
+    	 		$messenger->setOrders( $orders );
+    	 	}
+    	 }
+    	 
+    	 
     	 $render = $this->render('InodataFloraBundle:Distribution:print_distribution.html.twig', array(
-        	'base_template' => 'SonataAdminBundle:CRUD:base_list.html.twig'
+        	'base_template' => 'SonataAdminBundle:CRUD:base_list.html.twig',
+    	 	'messengers' => $messengers
         ));
         
         return $render;
