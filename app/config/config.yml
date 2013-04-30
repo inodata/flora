@@ -160,5 +160,5 @@ genemu_form:
     date:    ~
 
 fos_js_routing:
-    routes_to_expose: [inodata_flora_order_*, inodata_flora_distribution_*, distribution_list]
+    routes_to_expose: [inodata_flora_order_*, inodata_flora_distribution_*, distribution_list, admin_inodata_flora_customer_edit]
     
