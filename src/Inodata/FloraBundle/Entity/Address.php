@@ -41,6 +41,13 @@ class Address
      * @ORM\Column(name="no_ext", type="string", length=45, nullable=true)
      */
     private $noExt;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=255, nullable=true)
+     */
+    private $reference;
 
     /**
      * @var string
@@ -69,6 +76,13 @@ class Address
      * @ORM\Column(name="neighborhood", type="string", length=255, nullable=true)
      */
     private $neighborhood;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=45, nullable=true)
+     */
+    private $phone;
 
     /**
     *@return string
@@ -254,5 +268,51 @@ class Address
     public function getNeighborhood()
     {
         return $this->neighborhood;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Address
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Address
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+    
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference()
+    {
+        return $this->reference;
     }
 }

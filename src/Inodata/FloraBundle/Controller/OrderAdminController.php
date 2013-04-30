@@ -27,9 +27,9 @@ class OrderAdminController extends Controller
 		$listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig', 
 				array('product' => $product, 'total' => 1));
 		$selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', 
-				array('id' => $product->getId()));
-		$response = array('listField' => $listField, 'selectOption' => $selectOption, 'id' => 'product-'.$id);
+				array('product' => $product, 'total' => 1));
 		
+		$response = array('listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $id);
 		return new Response(json_encode($response));
 	}
 	
@@ -37,47 +37,28 @@ class OrderAdminController extends Controller
 	{
 		$price_subtotal = 0;
 		
-		if($id){
-			$orderProduct = $this->getOrderProductGroupedByProduct($id);
-			$productIds = $orderProduct['productIds'];
+		$order = $this->getDoctrine()
+			->getRepository('InodataFloraBundle:OrderProduct')
+			->findByOrder($id);
+		
+		$listFields="";
+		$selectOptions ="";
+		foreach ($order as $orderProduct){
+			$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
+					array('product' => $orderProduct->getProduct(), 
+						  'total' =>$orderProduct->getQuantity()));	
 			
-			$listFields="";
-			foreach ($productIds as $productId=>$cant){
-				$product = $this->getDoctrine()
-				->getRepository('InodataFloraBundle:Product')
-				->find($productId);
-				
-				$price_subtotal += $product->getPrice()*$cant;
-				
-				$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig', 
-						array('product' => $product, 'total'=>$cant));
-			}
+			$selectOptions .= $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
+					array('product' => $orderProduct->getProduct(),
+						  'total' =>$orderProduct->getQuantity()));
+		
+			$price_subtotal+=($orderProduct->getProduct()->getPrice()*$orderProduct->getQuantity());
 		}
 		
-		$selectOptions = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', array('products' => $orderProduct['order']));
-		
-		$response = array("listFields"=>$listFields, "selectOptions"=>$selectOptions, 
+		$response = array("listFields"=>$listFields, "optionsToSave"=>$selectOptions, 
 						  'totals'=>$this->getTotalsCostAsArray($id, $price_subtotal));
 		
 		return new Response(json_encode($response));
-	}
-	
-	protected function getOrderProductGroupedByProduct($id)
-	{
-		$order = $this->getDoctrine()
-			->getRepository('InodataFloraBundle:OrderProduct')
-			->findByOrderId($id);
-			
-		$productIds = array();
-		foreach ($order as $product){
-			if(isset($productIds[$product->getProductId()])){
-				$productIds[$product->getProductId()]+=1;
-			}else{
-				$productIds[$product->getProductId()]=1;
-			}
-		}
-		
-		return array('order'=>$order, 'productIds' =>$productIds);
 	}
 	
 	/**
@@ -178,6 +159,7 @@ class OrderAdminController extends Controller
 				'name' => $paymentContact->getName(),
 				'emp_number' => $paymentContact->getEmployeeNumber(),
 				'phone' => $paymentContact->getPhone(),
+				'extension' => $paymentContact->getExtension(),
 				'email' => $paymentContact->getEmail(),
 				'department' => $paymentContact->getDepartment()
 		);
@@ -185,26 +167,48 @@ class OrderAdminController extends Controller
 	
 	public function editAction($id = null)
 	{
+		$products = $this->get('request')->get('product');
+		
 		if ($this->getRestMethod() == 'POST'){
-			$this->preUpdate($id);
+			$this->preUpdate($id, $products);
 			$this->updatePaymentContactInfo();
 		}
 		
 		return parent::editAction($id);
 	}
 	
-	protected function preUpdate($id)
+	protected function preUpdate($id, $newProducts=null)
 	{
 		$em = $this->getDoctrine()->getEntityManager();
 		$orderProducts = $em->getRepository('InodataFloraBundle:OrderProduct')
-			->findByOrderId($id);
-		
-		if ($orderProducts)
-		{
+			->findByOrder($id);
+		//Delete all order's products
+		if ($orderProducts){
 			foreach ($orderProducts as $product){
 				$em->remove($product);
 			}
 			
+			$em->flush();
+			$em->clear();
+		}
+		
+		$this->createOrderProducts($id, $newProducts);
+		
+	}
+	
+	public function createOrderProducts($orderId, $products=null)
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+		if ($products){
+			$order = $em->getRepository('InodataFloraBundle:Order')->find($orderId);
+			foreach ($products as $productId => $quantity){
+				$product = $em->getRepository('InodataFloraBundle:Product')->find($productId);
+				$orderProduct = new OrderProduct();
+				$orderProduct->setOrder($order);
+				$orderProduct->setProduct($product);
+				$orderProduct->setQuantity($quantity);
+				$em->persist($orderProduct);
+			}
 			$em->flush();
 			$em->clear();
 		}
@@ -215,12 +219,17 @@ class OrderAdminController extends Controller
 		$uniqid = $this->get('request')->get('uniqid');
 		$request = $this->get('request')->get($uniqid);
 		
-		//btn_create_and_print
+		$create = parent::createAction();
+		
 		if ($this->getRestMethod() == 'POST'){
 			$this->updatePaymentContactInfo();
+			
+			$products = $this->get('request')->get('product');
+			$object = $this->admin->getSubject();
+			$this->createOrderProducts($object->getId(), $products);
 		}
 		
-		return parent::createAction();
+		return $create;
 	}
 	
 	private function updatePaymentContactInfo()
@@ -243,6 +252,7 @@ class OrderAdminController extends Controller
 		$paymentContact->setName($orderArray['contact']['name']);
 		$paymentContact->setEmployeeNumber($orderArray['contact']['employeeNumber']);
 		$paymentContact->setPhone($orderArray['contact']['phone']);
+		$paymentContact->setExtension($orderArray['contact']['extension']);
 		$paymentContact->setEmail($orderArray['contact']['email']);
 		$paymentContact->setDepartment($orderArray['contact']['department']);
 			

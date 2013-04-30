@@ -38,8 +38,6 @@
 	.sonata-bc .container-fluid .row-fluid .span4,
 	.sonata-bc .container-fluid .row-fluid .span2,
 	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
-
-	.no-invoice-msg{ display: none;}
 	
 	/* Reglas de impresion para la tarjeta */
   .card_page{
@@ -333,7 +331,7 @@
   }
   
   .payment-note .header{
-  	height: 108px;
+  	height: 123px;
   }
   
   .payment-note .payment-info{

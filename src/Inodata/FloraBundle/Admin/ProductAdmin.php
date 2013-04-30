@@ -36,7 +36,7 @@ class ProductAdmin extends Admin
 			->add('description')
 			->add('price')
 			->add('stock')
-			->add('categories', 'sonata_type_admin')
+			->add('categories')
 		;
 	}
 	

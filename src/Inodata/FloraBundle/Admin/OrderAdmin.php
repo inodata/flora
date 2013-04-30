@@ -20,28 +20,32 @@ class OrderAdmin extends Admin
 	{
 		$formMapper
 			->add('delivery_date', 'date', array(
-					'label'=> 'label.delivery_date',
-					'widget' => 'single_text',					
-					'attr' => array(
-							'class' => 'inodata_delivery_date'
-					)
+				'label'=> 'label.delivery_date',
+				'widget' => 'single_text',
+				'attr' => array(
+					'class' => 'inodata_delivery_date'
+				)
 			))
 			->add('to', null, array(
 				'label'=> 'label.to',
 				'attr' => array(
-					'class' => 'inodata_to span5'
-					)
+					'class' => 'inodata_to',
+					'style' => 'width:210px'
 				)
-			)
+			))
 			->add('from', null, array(
 				'label' => 'label.from',
 				'attr' => array(
-					'class' => 'inodata_from span5'
-					)
+					'class' => 'inodata_from span5',
+					'style' => 'width:210px'
 				)
-			)
-							
-			->add('shippingAddress', 'inodata_address_form', array('label'=>false))			
+			))				
+			->add('shippingAddress', 'inodata_address_form', array(
+				'label'=>false,
+				'attr' => array(
+					'class' => 'inodata-shipping-address'
+				)
+			))			
 			->add('id', 'hidden', array(
 					'attr' => array('class' => "order-id")
 			))
@@ -101,19 +105,20 @@ class OrderAdmin extends Admin
 				'empty_value' => '',
 				'attr' => array(
 						'placeholder' => $this->trans('label.product_empty_list'),
-						'class'=>'inodata_product', 'style'=>'width:100%')))
+						'class'=>'inodata_product', 'style'=>'width:100%')
+			))
 			->add('hasInvoice', 'checkbox', array(
 					'label' => 'label.has_invoice',
 					'required' => false,
 					'attr'=>array(
 							'class' => 'inodata-has-invoice'
 					)))
-			->add('products', null, array(
+			/*->add('products', null, array(
 					'label' => 'label.product_list',
 					'attr' => array(
 							'class' => 'products-to-buy span5'
 					)
-			))
+			))*/
 			->add('order_notes', null, array('label' => 'label.order_notes',
 					'attr' => array(
 							'class' => 'inodata-order-notes',
@@ -168,7 +173,7 @@ class OrderAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id', null, array("label" => "label.order_number"))
-			->add('product')
+			//->add('firstProduct')
 			->add('createdAt', 'date', array(
 				"label" => "label.created_at",
 				"format" => "dd/mm/yyyy")
@@ -176,7 +181,6 @@ class OrderAdmin extends Admin
 			->add('updatedAt', null, array("label" => "label.updated_at"))
 			->add('_action', 'actions', array(
 				'actions' => array(
-					'view' => array(),
 					'edit' => array(),
 					//'delete' => array(),
 				)
@@ -206,5 +210,18 @@ class OrderAdmin extends Admin
 	            	return parent::getTemplate($name);
 	            break;
 		}
+	}
+	
+	public function setSecurityContext($securityContext) {
+		$this->securityContext = $securityContext;
+	}
+	
+	public function getSecurityContext() {
+		return $this->securityContext;
+	}
+	
+	public function prePersist($order) {
+		$user = $this->getSecurityContext()->getToken()->getUser();
+		$order->setCreator($user);
 	}
 }

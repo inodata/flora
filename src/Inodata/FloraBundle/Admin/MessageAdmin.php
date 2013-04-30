@@ -24,8 +24,12 @@ class MessageAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('category', 'sonata_type_model')			
-            ->add('message', 'ckeditor', array('config_name' => 'inodata_editor'))
+			->add('category', 'sonata_type_model', array('label' => 'label.message_category'))
+			->add('code', null, array('label' => 'label.message_code'))						
+            ->add('message', 'ckeditor', array(
+            	'config_name' => 'inodata_editor',
+            	'label' => 'label.message',
+            	))
             //->add('message2', 'ckeditor', array('mapped' => false))
 		;
 	}

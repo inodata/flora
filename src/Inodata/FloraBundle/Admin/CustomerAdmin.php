@@ -28,6 +28,11 @@ class CustomerAdmin extends Admin
 				->add('fiscalAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('label.payment_address', array('expanded' => true,))
+				->add('useFiscalAddress', 'checkbox', array(
+						'label' => 'label.use_fiscal_address',
+						'mapped' => false,
+						'required' => false,
+						'attr' => array('class'=>'use-fiscal-address')))
 				->add('paymentAddress', 'inodata_address_form', array('label'=>false))
 			->end();
 		;
@@ -87,4 +92,15 @@ class CustomerAdmin extends Admin
 		;		
 	}
 	
+	public function getTemplate($name)
+	{
+		switch ($name) {
+			case 'edit':
+				return 'InodataFloraBundle:Customer:edit.html.twig';
+				break;
+			default:
+				return parent::getTemplate($name);
+				break;
+		}
+	}
 } 

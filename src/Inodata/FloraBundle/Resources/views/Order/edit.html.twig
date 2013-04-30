@@ -1,4 +1,22 @@
 {% extends 'InodataFloraBundle::base_edit.html.twig' %}
+
+{#
+    probar si arregla la inclusion de javascripts utilizados por genemu bundle y otros
+
+    {% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+    {% block javascripts %}
+       {{ parent() }}
+       {% if form is defined %}{{ form_javascript(form) }}{% endif %}
+    {% endblock %}
+
+    {% block stylesheets %}
+       {{ parent() }}
+       {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
+    {% endblock %}
+#}
+
+
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
@@ -15,6 +33,8 @@
 				   "@InodataFloraBundle/Resources/public/js/select2_locale_es.js"
 				   "@InodataFloraBundle/Resources/public/js/order_admin.js"
 				   "@InodataFloraBundle/Resources/public/js/lang/es.js"
+                   "@InodataFloraBundle/Resources/public/js/print.js"
+                   "@InodataFloraBundle/Resources/public/js/customer_admin.js"
 	%}
 	<script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
@@ -32,7 +52,7 @@
                     		{% embed 'InodataFloraBundle:Order:invoice.html.twig' %}{% endembed %}
                     	{% endif %}
                     {% else %}
-                    	<div>Para facturar, primero debe crear la orden.</div>
+                    	<div class="no-invoice-msg">Para facturar, primero debe crear la orden.</div>
                     {% endif %}
                     {% embed 'InodataFloraBundle:Order:card.html.twig' %}{% endembed %}
                 </div>

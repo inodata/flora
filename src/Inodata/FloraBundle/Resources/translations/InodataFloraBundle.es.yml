@@ -1,11 +1,15 @@
+#Message labels
+label.message_code: Número
+
 #Customer labels
 label.general: Datos Generales
 label.fiscal_address: Dirección fiscal
-label.payment_address: Dirección de pago
+label.payment_address: Dirección de cobro
 label.company_name: Nombre / Razón social
 label.business_name: Nombre comercial
 label.rfc: RFC
 label.discount: Descuento
+label.use_fiscal_address: Copiar dirección fiscal
 
 #Order tabs
 tab.customer: Cliente
@@ -24,7 +28,7 @@ label.customer: Nombre Cliente
 label.payment_contact: Ordenó
 label.from: De
 label.to: Para
-label.message_category: Tarjeta
+label.message_category: Categoría
 label.messages_list: Lista de mensajes
 label.message: Mensaje
 label.delivery_date: Fecha de entrega
@@ -58,17 +62,20 @@ label.has_invoice: Requiere Factura
 
 #Address labels
 label.street: Calle
-label.exterior: No. exterior
-label.interior: No. interior
+label.exterior: Número
+label.interior: No. Int.
+label.reference: Entre Calles
 label.postal_code: Código postal
 label.neighborhood: Colonia 
 label.city: Ciudad
 label.state: Estado
+label.delivery_phone: Teléfono de entrega
 
 #PaymentContact labels
 label.department: Departamento
 label.employee_number: No. de empleado
 label.phone: Teléfono
+label.extension: Ext.
 label.email: Correo electrónico
 
 #Distribution labels

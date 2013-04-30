@@ -1,51 +1,65 @@
 <div class="payment-note">
 	<div class="header">
 	</div>
-	
 	<div class="payment-info">
 		<div class="info-row">
-			<div>NOMBRE:</div><div class="info">{{ object.to }}</div>
+			<div>NOMBRE:</div><div class="space-0 info">{{ object.to }}&nbsp;</div>
+			<div class="info">Monterrey, N. L. &nbsp;&nbsp;&nbsp; {{ object.deliveryDate|date("d/m/Y") }}</div>
 		</div>
 		<div class="info-row">
-			<div>COBRAR:</div><div class="space-1 info">{{ object.paymentContact }}</div>
-			<div class="space-2">DEPTO:</div><div class="info">{{ object.paymentContact.department }}</div>
+			<div>COBRAR:</div><div class="space-1 info">{{ object.customer.companyName }}&nbsp;</div>
+			<div class="space-2">DEPTO:</div><div class="info">{{ object.paymentContact.department }}&nbsp;</div>
 		</div>
 		<div class="info-row">
-			<div>DIR. COB:</div><div class="space-1 info">{{ object.customer.paymentAddress }}</div>
-			<div class="space-2">No. TARJETA:</div><div class="space-3 info">{{ object.id }}</div>
-			<div class="space-5">EXT.:</div><div></div>
+			<div>DIR. COB:</div>
+				<div class="space-1 info">{{ object.customer.paymentAddress.street }}&nbsp;</div>
+			<div class="space-2">No. TARJETA:</div><div class="space-3 info">{{ object.paymentContact.employeeNumber}}&nbsp;</div>
+			<div class="space-5">EXT.:</div><div class="info">{{ object.paymentContact.extension}}&nbsp;</div>
 		</div>
 		<div class="info-row">
-			<div>EMPRESA:</div><div class="space-1 info">{{ object.customer.companyName }}</div>
-			<div class="space-2">ORDENO:</div><div class="info">{{ object.paymentContact }}</div>
+			<div>EMPRESA:</div><div class="space-1 info">{{ object.creator }}&nbsp;</div>
+			<div class="space-2">ORDENO:</div><div class="info">{{ object.paymentContact }}&nbsp;</div>
 		</div>
 		<div class="info-row">
-			<div>No. EMP.:</div><div class="space-3 info">{{ object.paymentContact.employeeNumber }}</div>
-			<div class="space-5">TEL:</div><div class="space-4 info">{{ object.paymentContact.phone }}</div>
-			<div class="space-2">EMP. U OBR.:</div><div class="info"></div>
+			<div>No. EMP.:</div><div class="space-3 info"> --- </div>
+			<div class="space-5">TEL:</div><div class="space-4 info">{{ object.paymentContact.phone }}&nbsp;</div>
+			<div class="space-2">EMP. U OBR.:</div><div class="info"> --- </div>
 		</div>
 		<div class="info-row">
-			<div>FACTURA:</div><div class="info">{% if(object.hasInvoice)==1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</div>
+			<div>FACTURA:</div><div class="info">{% if (object.hasInvoice) == 1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</div>
 		</div>
 		<div class="info-row">
-			<div>DE:</div><div class="info">{{ object.from }}</div>
+			<div>DE:</div><div class="info">{{ object.from }}&nbsp;</div>
 		</div>
 	</div>
 	
 	<div class="totals">
-		<div></div><div></div>
+		<div class="products">
+			<table>
+				<thead>
+					<tr><th class="padding"></th></tr>
+				</thead>
+				<tbody>
+				</tbody>
+				<tfoot>
+					<tr><td colspan="4" class="padding"></td></tr>
+					<tr><td colspan="2" class="note-comments">{{ object.orderNotes }}</td>
+					<td colspan="2" class="shipping"></td></tr>
+				</tfoot>
+			</table>
+		</div>
 	</div>
 	<div class="shipping-info">
 		<div class="info-row">
-			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress }}</div>
+			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} {{object.shippingAddress.noExt}} {% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %}</div>
 		</div>
 		<div class="info-row">
-			<div>ENTRE:</div><div class="space-6 info">&nbsp;</div>
-			<div>TEL:</div><div class="info"></div>
+			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.reference }}&nbsp;</div>
+			<div>TEL:</div><div class="info">{{ object.shippingAddress.phone }}&nbsp;</div>
 		</div>
 		<div class="info-row">
-			<div>COLONIA:</div><div class="space-1 info">{{ object.shippingAddress.neighborhood }}</div>
-			<div>MUNICIPIO:</div><div class="info">{{ object.shippingAddress.state}}</div>
+			<div>COLONIA:</div><div class="space-1 info">{{ object.shippingAddress.neighborhood }}&nbsp;</div>
+			<div>MUNICIPIO:</div><div class="info">{{ object.shippingAddress.city}}, {{ object.shippingAddress.state}}</div>
 		</div>
 	</div>
 </div>
