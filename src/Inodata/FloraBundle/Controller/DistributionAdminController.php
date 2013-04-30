@@ -28,7 +28,7 @@ class DistributionAdminController extends Controller
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 		
-        
+        /*
         if( $this->getRequest()->isXmlHttpRequest() ){
         	$render = $this->renderView('SonataAdminBundle:CRUD:list.html.twig', array(
         			'action'   => 'list',
@@ -40,7 +40,7 @@ class DistributionAdminController extends Controller
         	
         	return new Response($render);
         }
-        
+        */
         $render = $this->render($this->admin->getTemplate('list'), array(
         		'action'   => 'list',
         		'form'     => $formView,
@@ -98,8 +98,6 @@ class DistributionAdminController extends Controller
     	$this->addFlash('sonata_flash_success', $transMessage);
     	
     	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
-    	
-    	$response = array('messenger' => $orderIds, 'empty_list' => $emptyList);
     	
     	$response = array('messenger' => $orderIds, 'empty_list' => $emptyList);
     	return new Response(json_encode($response));    

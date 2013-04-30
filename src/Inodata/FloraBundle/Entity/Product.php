@@ -45,7 +45,7 @@ class Product
     /**
      * @var integer
      *
-     * @ORM\Column(name="stock", type="integer", nullable=false)
+     * @ORM\Column(name="stock", type="integer", nullable=true)
      */
     private $stock;
 
