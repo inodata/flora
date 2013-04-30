@@ -26,7 +26,7 @@
 			<div class="space-2">EMP. U OBR.:</div><div class="info"> --- </div>
 		</div>
 		<div class="info-row">
-			<div>FACTURA:</div><div class="info">{% if(object.hasInvoice)==1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</div>
+			<div>FACTURA:</div><div class="info">{% if (object.hasInvoice) == 1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</div>
 		</div>
 		<div class="info-row">
 			<div>DE:</div><div class="info">{{ object.from }}&nbsp;</div>
@@ -51,10 +51,10 @@
 	</div>
 	<div class="shipping-info">
 		<div class="info-row">
-			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} {{object.shippingAddress.noExt}}</div>
+			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} {{object.shippingAddress.noExt}} {% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %}</div>
 		</div>
 		<div class="info-row">
-			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.noInt }}</div>
+			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.reference }}&nbsp;</div>
 			<div>TEL:</div><div class="info">{{ object.shippingAddress.phone }}&nbsp;</div>
 		</div>
 		<div class="info-row">

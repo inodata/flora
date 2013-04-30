@@ -18,7 +18,8 @@ class AddressType extends AbstractType
 			)
 			->add('noInt', null, array(
 				'label' => 'label.interior',)
-			)			
+			)
+			->add('reference', null, array('label' => 'label.reference'))
 			->add('postalCode', null, array(
 				'label' => 'label.postal_code',)
 			)
