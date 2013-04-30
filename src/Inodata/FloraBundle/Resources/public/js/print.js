@@ -3,7 +3,7 @@ function installjsPrintSetup() {
     //if (confirm("You don't have printer plugin.\nDo you want to install the Printer Plugin now?")) {
     if (confirm("No tienes instalado el plugin de la impresora.\nQuieres instalarlo ahora?")) {
         var xpi = new Object();
-        xpi['jsprintsetup'] = '/downloads/jsprintsetup-0.9.2.xpi';
+        xpi['jsprintsetup'] = '/bundles/inodataflora/downloads/jsprintsetup-0.9.2.xpi';
         InstallTrigger.install(xpi);
     }
 }
@@ -12,9 +12,9 @@ function installjsPrintSetup() {
 //39 : {PD:39, PN: 'na_fanfold-us',PWG:'na_fanfold-us_11x14.875in',Name: 'US Std Fanfold', W: 11, H: 14.875, M: kPaperSizeInches}
 function definePaperSizes(){
   //note
-  jsPrintSetup.definePaperSize(99, 99, 'na_fanfold-us', 'na_fanfold-us_24.3x14cm', 'Medium Letter Fanfold', 243, 140, jsPrintSetup.kPaperSizeMillimeters);
+  jsPrintSetup.definePaperSize(2, 2, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
   //card
-  jsPrintSetup.definePaperSize(98, 98, 'na_fanfold-us', 'na_fanfold-us_11x14cm', 'Card Fanfold', 110, 140, jsPrintSetup.kPaperSizeMillimeters);
+  jsPrintSetup.definePaperSize(99, 99, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
 }
 
 function setupGlobalOptions(){
@@ -58,14 +58,15 @@ function setupGlobalOptions(){
 //  jsPrintSetup.print();
 function printCard(){
   setupGlobalOptions();
-  jsPrintSetup.setPrinter('LaserJet-M5035-MFP');
-  jsPrintSetup.setPaperSizeData(98);
+  jsPrintSetup.setPrinter('hpcolor');
+  jsPrintSetup.setPaperSizeData(99);
   jsPrintSetup.print();
 }
 
 function printNote(){
   setupGlobalOptions();
-  jsPrintSetup.setPrinter('LaserJet-M5035-MFP');
-  jsPrintSetup.setPaperSizeData(99);
+  
+  jsPrintSetup.setPrinter('hpcolor');
+  jsPrintSetup.setPaperSizeData(2);
   jsPrintSetup.print();
 }
