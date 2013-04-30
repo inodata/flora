@@ -9,6 +9,7 @@ label.company_name: Nombre / Razón social
 label.business_name: Nombre comercial
 label.rfc: RFC
 label.discount: Descuento
+label.use_fiscal_address: Copiar dirección fiscal
 
 #Order tabs
 tab.customer: Cliente
