@@ -27,9 +27,9 @@ class OrderAdminController extends Controller
 		$listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig', 
 				array('product' => $product, 'total' => 1));
 		$selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', 
-				array('id' => $product->getId()));
-		$response = array('listField' => $listField, 'selectOption' => $selectOption, 'id' => $id);
+				array('product' => $product, 'total' => 1));
 		
+		$response = array('listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $id);
 		return new Response(json_encode($response));
 	}
 	
@@ -37,47 +37,28 @@ class OrderAdminController extends Controller
 	{
 		$price_subtotal = 0;
 		
-		if($id){
-			$orderProduct = $this->getOrderProductGroupedByProduct($id);
-			$productIds = $orderProduct['productIds'];
+		$order = $this->getDoctrine()
+			->getRepository('InodataFloraBundle:OrderProduct')
+			->findByOrder($id);
+		
+		$listFields="";
+		$selectOptions ="";
+		foreach ($order as $orderProduct){
+			$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
+					array('product' => $orderProduct->getProduct(), 
+						  'total' =>$orderProduct->getQuantity()));	
 			
-			$listFields="";
-			foreach ($productIds as $productId=>$cant){
-				$product = $this->getDoctrine()
-				->getRepository('InodataFloraBundle:Product')
-				->find($productId);
-				
-				$price_subtotal += $product->getPrice()*$cant;
-				
-				$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig', 
-						array('product' => $product, 'total'=>$cant));
-			}
+			$selectOptions .= $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
+					array('product' => $orderProduct->getProduct(),
+						  'total' =>$orderProduct->getQuantity()));
+		
+			$price_subtotal+=($orderProduct->getProduct()->getPrice()*$orderProduct->getQuantity());
 		}
 		
-		$selectOptions = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig', array('products' => $orderProduct['order']));
-		
-		$response = array("listFields"=>$listFields, "selectOptions"=>$selectOptions, 
+		$response = array("listFields"=>$listFields, "optionsToSave"=>$selectOptions, 
 						  'totals'=>$this->getTotalsCostAsArray($id, $price_subtotal));
 		
 		return new Response(json_encode($response));
-	}
-	
-	protected function getOrderProductGroupedByProduct($id)
-	{
-		$order = $this->getDoctrine()
-			->getRepository('InodataFloraBundle:OrderProduct')
-			->findByOrderId($id);
-			
-		$productIds = array();
-		foreach ($order as $product){
-			if(isset($productIds[$product->getProductId()])){
-				$productIds[$product->getProductId()]+=1;
-			}else{
-				$productIds[$product->getProductId()]=1;
-			}
-		}
-		
-		return array('order'=>$order, 'productIds' =>$productIds);
 	}
 	
 	/**
@@ -237,14 +218,18 @@ class OrderAdminController extends Controller
 	{
 		$uniqid = $this->get('request')->get('uniqid');
 		$request = $this->get('request')->get($uniqid);
-		$products = $this->get('request')->get('product');
 		
-		//btn_create_and_print
+		$create = parent::createAction();
+		
 		if ($this->getRestMethod() == 'POST'){
 			$this->updatePaymentContactInfo();
+			
+			$products = $this->get('request')->get('product');
+			$object = $this->admin->getSubject();
+			$this->createOrderProducts($object->getId(), $products);
 		}
 		
-		return parent::createAction();
+		return $create;
 	}
 	
 	private function updatePaymentContactInfo()
