@@ -345,10 +345,8 @@ $(document).ready(function() {
 			$('.invoice_page').addClass('hide_template');
 			$('.payment-note').addClass('hide_template');
 			$('.card_page').removeClass('hide_template');			
-			window.print();
+			printCard();
 		}
-		
-
 	});
 
 	// Agrega boton para imprimir tarjeta
@@ -403,7 +401,7 @@ $(document).ready(function() {
 		$('.invoice_page').addClass('hide_template');
 		$('.card_page').addClass('hide_template');
 		$('.payment-note').removeClass('hide_template');
-		window.print();
+		printNote();
 	});
 	
 	$('.btn-print-invoice').click(function(){
