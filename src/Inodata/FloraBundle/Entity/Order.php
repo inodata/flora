@@ -190,11 +190,13 @@ class Order
      */
     private $hasInvoice;
 
+
     /**
      * Constructor
      */
     public function __construct()
     {
+        
     	$this->hasInvoice = false;
         $this->deliveryDate = new \DateTime("NOW");
     }
@@ -212,9 +214,14 @@ class Order
         
         return ''.$orderId;
     }
-
-    
-
+    /*
+    public function getFirstProduct(){
+        $em = $this->kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $repository = $em->getRepository('InodataFloraBundle:OrderProduct');
+        $product    = $repository->findByOrder($this->getId());
+        return $product[0]->getProduct();
+    }
+    */
     /**
      * Get id
      *
