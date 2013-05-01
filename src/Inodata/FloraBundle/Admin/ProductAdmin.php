@@ -55,6 +55,7 @@ class ProductAdmin extends Admin
 			->add('code', null, array('label' => 'label.code'))
 			->add('description', null, array('label' => 'label.description'))
 			->add('categories', null, array('label' => 'label.categories'))
+			->add('price', null, array('label' => 'label.price'))
 		;
 	}
 }
