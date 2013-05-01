@@ -63,7 +63,7 @@ class DistributionAdmin extends Admin
 			->addIdentifier('id', null, array(
 					'label' => 'label.distribution_id',
 				))
-			->add('product', null, array(
+			->add('firstProduct', null, array(
 					'label' => 'label.distribution_product',
 				))
 			->add('deliveryDate', null, array(
