@@ -669,6 +669,10 @@ class Order
      */
     public function getPaymentCondition()
     {
+    	if (!$this->paymentCondition && $this->getId()){
+    		return $this->customer->getPaymentCondition();
+    	}
+    	
         return $this->paymentCondition;
     }
 
