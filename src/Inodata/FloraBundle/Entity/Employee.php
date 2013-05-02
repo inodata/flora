@@ -56,6 +56,24 @@ class Employee
     private $jobPosition;
     
     /**
+     * 
+     * @var array
+     * Desc Si el Employee es de tipo Messenger guarda los pedidos
+     *       que se le han asignado 
+     */
+    private $orders;
+    
+    public function setOrders( $orders )
+    {
+    	$this->orders = $orders;
+    }
+    
+    public function getOrders()
+    {
+    	return $this->orders;
+    }
+    
+    /**
     *@return string
     */
     public function __toString()

@@ -214,14 +214,25 @@ class Order
         
         return ''.$orderId;
     }
-    /*
+    
     public function getFirstProduct(){
-        $em = $this->kernel->getContainer()->get('doctrine.orm.entity_manager');
+    	global $kernel;
+    	
+    	if ('AppCache' == get_class($kernel)) {
+    		$kernel = $kernel->getKernel();
+    	}
+    	
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
         $repository = $em->getRepository('InodataFloraBundle:OrderProduct');
-        $product    = $repository->findByOrder($this->getId());
-        return $product[0]->getProduct();
+        $orderProduct = $repository->findOneByOrder($this->getId());
+        
+        if( $orderProduct ){
+        	return $orderProduct->getProduct();
+        }
+        
+        return "";
     }
-    */
+    
     /**
      * Get id
      *

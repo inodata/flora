@@ -38,14 +38,14 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="decimal", nullable=true)
+     * @ORM\Column(name="price", type="decimal", nullable=false)
      */
     private $price;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="stock", type="integer", nullable=false)
+     * @ORM\Column(name="stock", type="integer", nullable=true)
      */
     private $stock;
 

@@ -10,21 +10,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class ProductAdmin extends Admin
 {
 	/**
-	 * @param Sonata\AdminBundle\Show\ShowMapper $showMapper
-	 *
-	 * @return void
-	 */
-	protected function configureShowField(ShowMapper $showMapper)
-	{
-		$showMapper
-			->add('code')
-			->add('description')
-			->add('price', 'string')
-			->add('stock')
-		;
-	}
-	
-	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
 	 *
 	 * @return void
@@ -32,11 +17,11 @@ class ProductAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('code')
-			->add('description')
-			->add('price')
-			->add('stock')
-			->add('categories')
+			->add('code', null, array('label' => 'label.code'))
+			->add('description', null, array('label' => 'label.description'))
+			->add('price', null, array('label' => 'label.price'))
+			->add('stock', null, array('label' => 'label.stock'))
+			->add('categories', null, array('label' => 'label.categories'))
 		;
 	}
 	
@@ -48,15 +33,13 @@ class ProductAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-		->add('code')
-		->add('description')
-		->add('price')
-		->add('stock')
+		->add('code', null, array('label' => 'label.code'))
+		->add('description',  null, array('label' => 'label.description'))
+		->add('price', null, array('label' => 'label.price'))
+		->add('stock', null, array('label' => 'label.stock'))
 		->add('_action', 'actions', array(
 				'actions' => array(
-						'view' => array(),
 						'edit' => array(),
-						'delete' => array(),
 				)
 		));
 	}
@@ -69,9 +52,10 @@ class ProductAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('code')
-			->add('description')
-			->add('stock')
-			;
+			->add('code', null, array('label' => 'label.code'))
+			->add('description', null, array('label' => 'label.description'))
+			->add('categories', null, array('label' => 'label.categories'))
+			->add('price', null, array('label' => 'label.price'))
+		;
 	}
 }

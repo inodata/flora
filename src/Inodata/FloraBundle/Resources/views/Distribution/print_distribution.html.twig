@@ -1,0 +1,10 @@
+<ul>
+	{% for messenger in messengers %}
+		<li>{{ messenger }}</li>
+		<ul>
+			{% for order in messenger.getOrders %}
+				<li>{{ order }} {{ order.shippingAddress }}</li>
+			{% endfor %}	
+		</ul>
+	{% endfor %}
+</ul>

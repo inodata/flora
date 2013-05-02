@@ -39,8 +39,8 @@ class DistributionAdminController extends Controller
         			'datagrid' => $datagrid));
         	
         	return new Response($render);
-        }*/
-        
+        }
+        */
         $render = $this->render($this->admin->getTemplate('list'), array(
         		'action'   => 'list',
         		'form'     => $formView,
@@ -130,8 +130,27 @@ class DistributionAdminController extends Controller
     
     public function printDistributionAction()
     {
+    	 $messengers = $this->getDoctrine()
+    	 	  				->getRepository('InodataFloraBundle:Employee')
+    	 	  				->findByJobPosition('messenger');
+    	 foreach ( $messengers as $messenger )
+    	 {
+    	 	$orders = $this->getDoctrine()
+    	 	  				->getRepository('InodataFloraBundle:Order')
+    	 	  				->findBy( array('status' => 'intransit',
+    	 	  								'messenger' => $messenger->getId()
+    	 	  						));
+    	 	if( !$orders ){
+    	 		
+    	 	} else {
+    	 		$messenger->setOrders( $orders );
+    	 	}
+    	 }
+    	 
+    	 
     	 $render = $this->render('InodataFloraBundle:Distribution:print_distribution.html.twig', array(
-        	'base_template' => 'SonataAdminBundle:CRUD:base_list.html.twig'
+        	'base_template' => 'SonataAdminBundle:CRUD:base_list.html.twig',
+    	 	'messengers' => $messengers
         ));
         
         return $render;

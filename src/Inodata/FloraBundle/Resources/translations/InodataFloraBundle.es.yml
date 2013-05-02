@@ -66,7 +66,7 @@ label.exterior: Número
 label.interior: No. Int.
 label.reference: Entre Calles
 label.postal_code: Código postal
-label.neighborhood: Colonia 
+label.neighborhood: Colonia
 label.city: Ciudad
 label.state: Estado
 label.delivery_phone: Teléfono de entrega
@@ -93,3 +93,13 @@ label.distribution_assign_empty: No hay pedidos asignados
 label.action_delivered: Entregado
 label.action_closed: Cerrado
 alert.distribution_assigned_success: Se asignaron las órdenes al repartidor messenger
+label.distribution_delivery_status_open: Abierto
+label.distribution_delivery_status_closed: Entregado
+label.distribution_delivery_status_intransit: En tránsito
+
+
+#Product labels
+label.price: Precio
+label.stock: Inventario
+label.categories: Categoría
+

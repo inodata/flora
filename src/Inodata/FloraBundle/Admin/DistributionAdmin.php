@@ -15,6 +15,12 @@ class DistributionAdmin extends Admin
 	protected $baseRouteName = 'distribution';
 	protected $baseRoutePattern = 'distribution';
 	
+	protected $datagridValues = array(
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'messenger'
+    );
+	
+	
 	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
 	 * 
@@ -32,9 +38,7 @@ class DistributionAdmin extends Admin
 				))
 			->add('delivery_date', 'date', array(
 						'label'=> 'label.delivery_date'
-						/*'attr' => array(
-								'class' => 'inodata_delivery_date'
-						)*/
+					
 				))	
 		;
 	}
@@ -49,7 +53,7 @@ class DistributionAdmin extends Admin
 		
 		/* TODO: Agregar comentarios */
 		$listMapper
-			->add('messenger', null, array(
+			->addIdentifier('messenger', null, array(
 					'label' => 'label.distribution_messenger',
 					'query_builder' => function(EntityRepository $er) {
 						return $er->createQueryBuilder('u')
@@ -59,7 +63,7 @@ class DistributionAdmin extends Admin
 			->addIdentifier('id', null, array(
 					'label' => 'label.distribution_id',
 				))
-			->add('product', null, array(
+			->add('firstProduct', null, array(
 					'label' => 'label.distribution_product',
 				))
 			->add('deliveryDate', null, array(
@@ -94,12 +98,15 @@ class DistributionAdmin extends Admin
 			->add('id', null, array(
 					'label' => 'label.distribution_id'
 				))
-			->add('deliveryDate', null, array(
+			->add('deliveryDate', 'doctrine_orm_string', array(
 					'label' => 'label.delivery_date'
 				))
 			->add('status', null, array(
-					'label' => 'label.distribution_status'
-				))
+					'label' => 'label.distribution_status',
+				),  'choice', array( 'translation_domain' => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
+						'choices' => array( 'open' => 'label.distribution_delivery_status_open', 
+											'intransit' => 'label.distribution_delivery_status_intransit',
+											'closed' => 'label.distribution_delivery_status_closed') ) )
 		;		
 	}
 	
@@ -126,6 +133,8 @@ class DistributionAdmin extends Admin
 				break;
 		}
 	}
+	
+	
 	
 	
 } 
