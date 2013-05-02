@@ -34,7 +34,7 @@ class DistributionType extends AbstractType
 					}
 					,
 				'attr' => array(
-					'class' => 'inodata_id_list span2',
+					'class' => 'inodata_id_list span5',
 					)
 			))	
 		;

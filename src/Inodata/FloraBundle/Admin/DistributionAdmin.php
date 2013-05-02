@@ -16,7 +16,7 @@ class DistributionAdmin extends Admin
 	protected $baseRoutePattern = 'distribution';
 	
 	protected $datagridValues = array(
-        '_sort_order' => 'DESC',
+        '_sort_order' => 'ASC',
         '_sort_by' => 'messenger'
     );
 	
@@ -38,7 +38,6 @@ class DistributionAdmin extends Admin
 				))
 			->add('delivery_date', 'date', array(
 						'label'=> 'label.delivery_date'
-					
 				))	
 		;
 	}
@@ -77,7 +76,6 @@ class DistributionAdmin extends Admin
 					'actions' => array(
 						'delivered' => array('template' => 'InodataFloraBundle:Distribution:_delivered_action.html.twig'),
 						'closed'  => array('template' => 'InodataFloraBundle:Distribution:_closed_action.html.twig')
-						//'open'    => array('template' => 'InodataFloraBundle:Distribution:_closed_action.html.twig')
 					) 
 				)
 			);
@@ -93,7 +91,13 @@ class DistributionAdmin extends Admin
 	{
 		$datagridMapper
 			->add('messenger', null, array(
-					'label' => 'label.distribution_messenger'	
+					'label' => 'label.distribution_messenger',
+				), null, array(
+					'query_builder' => function(	 $er) {
+						return $er->createQueryBuilder('u')
+								  ->where('u.jobPosition = :type ')
+								  ->setParameter("type", "Messenger");
+					}	
 				))
 			->add('id', null, array(
 					'label' => 'label.distribution_id'

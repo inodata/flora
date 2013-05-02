@@ -46,6 +46,7 @@ $('document').ready(function(){
 			{
 				$("tbody#messenger_orders").html(data.empty_list);
 			}
+			$('div.inodata_id_list a.select2-choice span').remove();
 			
 		}, 'json' );		
 		

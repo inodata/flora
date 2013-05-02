@@ -212,6 +212,13 @@ class Order
             $orderId = "";
         }
         
+        $product = $this->getFirstProduct();
+        
+        if( $product != "")
+        {
+        	return ''.$orderId.' '.$product;
+        }
+        
         return ''.$orderId;
     }
     

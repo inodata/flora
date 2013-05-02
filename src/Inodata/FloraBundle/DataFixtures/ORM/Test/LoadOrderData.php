@@ -49,6 +49,27 @@ class LoadOrderData extends AbstractFixture implements OrderedFixtureInterface
     	  $manager->persist($order);
     	  $manager->flush();
     	  $this->addReference('order2',$order);
+    	  
+    	  for($i=3; $i<=100; $i++)
+    	  {
+	    	  $order =new Order();
+	    	  $order->setDeliveryDate(new \DateTime('2013-03-02 12:40:50'));
+	    	  $order->setInvoiceNumber('A0004');
+	    	  $order->setShipping('75');
+	    	  $order->setDiscount('40');
+	    	  $order->setCreator($this->getReference('user1'));
+	    	  $order->setCreatedAt(new \DateTime('2013-03-02 12:25:50'));
+	    	  $order->setFrom('Juan');
+	    	  $order->setTo('Maria');
+	    	  $order->setMessage($this->getReference('message5'));
+	    	  $order->setShippingAddress($this->getReference('direccion24'));
+	    	  $order->setCustomer($this->getReference('customer7'));
+	    	  $order->setPaymentContact($this->getReference('paymentcontact7'));
+	    	  $order->setStatus('open');
+	    	  $manager->persist($order);
+	    	  $manager->flush();
+	    	  $this->addReference('order'.$i,$order);
+    	  }
     }
     
 /**
