@@ -44,6 +44,7 @@ class OrderAdminController extends Controller
 		$listFields="";
 		$selectOptions ="";
 		foreach ($order as $orderProduct){
+			$orderProduct->getProduct()->setPrice($orderProduct->getProductPrice());
 			$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
 					array('product' => $orderProduct->getProduct(), 
 						  'total' =>$orderProduct->getQuantity()));	
@@ -238,6 +239,7 @@ class OrderAdminController extends Controller
 				$orderProduct->setOrder($order);
 				$orderProduct->setProduct($product);
 				$orderProduct->setQuantity($quantity);
+				$orderProduct->setProductPrice($product->getPrice());
 				$em->persist($orderProduct);
 			}
 			$em->flush();
@@ -354,42 +356,6 @@ class OrderAdminController extends Controller
 				array('messages'=>$messages)));
 		
 		return new Response(json_encode($response));
-	}
-	
-	public function createInvoiceTotalsAction($orderId)
-	{
-		if ($orderId){
-			$products = array();
-			$subtotal = 0;
-			$orderProduct = $this->getOrderProductGroupedByProduct($orderId);
-			$order=$this->getDoctrine()->getRepository('InodataFloraBundle:Order')->find($orderId);
-			
-			foreach ($orderProduct['productIds'] as $productId => $cant){
-				$product = $this->getDoctrine()
-					->getRepository('InodataFloraBundle:Product')
-					->find($productId);
-				$products[] = array('product' => $product, 'cant'=>$cant);
-				
-				$subtotal+=$cant*$product->getPrice();
-			}
-		}
-		
-		$response = array('inovice_totals' => $this->renderView('InodataFloraBundle:Order:_invoice_products_and_totals.html.twig',
-						array('order'=>$order, 'products'=>$products, 'totals' => $this->getTotalsCostAsArray($orderId, $subtotal))));
-		
-		return new Response(json_encode($response));
-	}
-	
-	public function isPrintRequiredAction()
-	{
-		$isPrint = false;
-		$action = $this->getRequest()->getSession()->get('action');
-		if ($action=="print"){
-			$this->getRequest()->getSession()->set('action', '');
-			$isPrint = true;
-		}
-		
-		return new Response(json_encode(array('isPrint'=>$isPrint)));
 	}
 	
 	//Overwitten function

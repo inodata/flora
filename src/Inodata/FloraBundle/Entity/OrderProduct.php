@@ -46,6 +46,13 @@ class OrderProduct
 	 *@ORM\Column(name="quantity", type="integer", nullable=false)
 	 */
 	private $quantity;
+	
+	/**
+     * @var float
+     *
+     * @ORM\Column(name="product_price", type="decimal", nullable=false)
+     */
+    private $productPrice;
 
     /**
      * Get id
@@ -124,5 +131,28 @@ class OrderProduct
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Set productPrice
+     *
+     * @param float $productPrice
+     * @return OrderProduct
+     */
+    public function setProductPrice($productPrice)
+    {
+        $this->productPrice = $productPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get productPrice
+     *
+     * @return float 
+     */
+    public function getProductPrice()
+    {
+        return $this->productPrice;
     }
 }
