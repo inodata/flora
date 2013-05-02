@@ -68,6 +68,13 @@ class Customer
      * })
      */
     private $paymentAddress;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="payment_condition", type="string", length=255, nullable=true)
+     */
+    private $paymentCondition;
 
     /**
     *Return as string
@@ -235,4 +242,27 @@ class Customer
         return $this->paymentAddress;
     }
     
+
+    /**
+     * Set paymentCondition
+     *
+     * @param string $paymentCondition
+     * @return Customer
+     */
+    public function setPaymentCondition($paymentCondition)
+    {
+        $this->paymentCondition = $paymentCondition;
+    
+        return $this;
+    }
+
+    /**
+     * Get paymentCondition
+     *
+     * @return string 
+     */
+    public function getPaymentCondition()
+    {
+        return $this->paymentCondition;
+    }
 }
