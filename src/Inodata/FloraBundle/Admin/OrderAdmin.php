@@ -97,7 +97,7 @@ class OrderAdmin extends Admin
 					'config_name' => 'inodata_editor',
 					'attr' => array('class' => 'inodata_message span5')
 			))
-			->add('productos', 'genemu_jqueryselect2_entity', array(
+			->add('productos', 'sonata_type_model', array(
 				'label' => 'label.search_product',
 				'class' => 'Inodata\FloraBundle\Entity\Product',
 				'mapped' => false,

@@ -3,6 +3,24 @@
   div.list-products-content .table-1 {float:left; width:80%;}
   div.list-products-content .table-2 { float:right; width: 20%;}
   
+  .create-product-form{
+  	width: 80%;
+  }
+  .create-product-form > div {
+  	float: left;
+  	padding: 0 5px 5px 0;
+  }
+  .create-product-form .product-code input{
+  	width: 70px;
+  }
+  .create-product-form .product-description input{
+  	width: 400px;
+  }
+  .create-product-form .product-price input{
+  	width: 70px;
+  }
+  
+  
   .sonata-ba-collapsed-fields > .control-group:nth-child(13),
   .sonata-ba-collapsed-fields > .control-group:nth-child(14){
   	float: left;

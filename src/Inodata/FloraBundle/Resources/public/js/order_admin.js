@@ -202,32 +202,48 @@ $(document).ready(function() {
 		var id = $(this).val();
 	    var url = Routing.generate('inodata_flora_order_product', {id:id});
 	    $.get(url, function(data){
-	
-	        hideEmptyNotification();
-	        
-	        if($('#product-'+data.id).length==0){
-	        	//Add new new row if product doesn't exist
-	            $(".list-products tbody").append(data.listField);
-	            //Create a hidden to update on DB
-	            $('.list-products-content').append(data.optionsToSave);
-	        }else{
-	            //Update total if exist
-	            var cant = parseInt($('#product-'+data.id+" input").val());
-	        	$('#product-'+data.id+" input").val(cant+1);
-	        	//Update hidden total to insert in DB
-	        	$('#data_product_'+data.id).val(cant+1);
-	        	
-	        	calculateProductImport($('#product-'+data.id));
-	        }
-	
-	        //Clear select
-	        $(".inodata_product").select2('val', '');
-	
-	        //Update totals table
-	        updateAjaxTotalsCost();
-	        
+	    	addProductToList(data);
 	    }, 'json');
 	});
+	
+	$('.create-and-add-product').click(function(){
+		var code = $('.create-product-form .product-code input').val();
+		var description = $('.create-product-form .product-description input').val();
+		var price = $('.create-product-form .product-price input').val();
+		
+		var data = {code:code, description:description, price:price }
+		var url = Routing.generate('inodata_flora_order_product_create_and_add');
+		
+		$.post(url, data, function(data){
+			addProductToList(data);
+		}, 'json');
+	});
+	
+	function addProductToList(data)
+	{
+		hideEmptyNotification();
+        
+        if($('#product-'+data.id).length==0){
+        	//Add new new row if product doesn't exist
+            $(".list-products tbody").append(data.listField);
+            //Create a hidden to update on DB
+            $('.list-products-content').append(data.optionsToSave);
+        }else{
+            //Update total if exist
+            var cant = parseInt($('#product-'+data.id+" input").val());
+        	$('#product-'+data.id+" input").val(cant+1);
+        	//Update hidden total to insert in DB
+        	$('#data_product_'+data.id).val(cant+1);
+        	
+        	calculateProductImport($('#product-'+data.id));
+        }
+
+        //Clear select
+        $(".inodata_product").select2('val', '');
+
+        //Update totals table
+        updateAjaxTotalsCost();
+	}
 	//--------------------------------------------------------------//
 	
 	//-----Delete product from list and select options ----//

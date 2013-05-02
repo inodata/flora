@@ -61,6 +61,31 @@ class OrderAdminController extends Controller
 		return new Response(json_encode($response));
 	}
 	
+	public function addingProductAction()
+	{
+		$code =  $this->get('request')->get('code');
+		$description = $this->get('request')->get('description');
+		$price = $this->get('request')->get('price');
+		
+		$em = $this->getDoctrine()->getEntityManager();
+		$product = new Product();
+		$product->setCode($code);
+		$product->setDescription($description);
+		$product->setPrice($price);
+		$product->setStock("1");
+		
+		$em->persist($product);
+		$em->flush($product);
+		
+		$listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
+				array('product' => $product, 'total' => 1));
+		$selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
+				array('product' => $product, 'total' => 1));
+		
+		$response = array('listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $product->getId());
+		return new Response(json_encode($response));
+	}
+	
 	/**
 	 * Calculate total price for the order
 	 * @return array

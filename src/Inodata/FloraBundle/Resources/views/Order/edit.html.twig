@@ -59,6 +59,14 @@
             {% else %}
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
                     {{ block('sonata_fieldset') }}
+                    <div class="create-product-form">
+                    	<div class="product-code"><label>Clave</label><input type="text" /></div>
+                    	<div class="product-description"><label>Descripción</label></label><input type="text"/></div>
+                    	<div class="product-price"><label>Precio</label><input type="text"/></div>
+                    	<div class="product-action"><label>&nbsp;</label>
+                    		<a href="javascript:void()" class="btn create-and-add-product">Crear y Agregar</a>
+                    	</div>
+                    </div>
                     {% embed 'InodataFloraBundle:Order:products_table.html.twig' %}{% endembed %}
                 </div>
             {% endif %}
