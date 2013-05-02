@@ -211,12 +211,17 @@ $(document).ready(function() {
 		var description = $('.create-product-form .product-description input').val();
 		var price = $('.create-product-form .product-price input').val();
 		
-		var data = {code:code, description:description, price:price }
-		var url = Routing.generate('inodata_flora_order_product_create_and_add');
-		
-		$.post(url, data, function(data){
-			addProductToList(data);
-		}, 'json');
+		if(description.replace(/ /g,'')!="" && price.replace(/ /g,'')!=""){
+			var data = {code:code, description:description, price:price }
+			var url = Routing.generate('inodata_flora_order_product_create_and_add');
+			
+			$.post(url, data, function(data){
+				addProductToList(data);
+				clearNewProductFields();
+			}, 'json');
+		}else{
+			alert("Datos incompletos");
+		}
 	});
 	
 	function addProductToList(data)
@@ -243,6 +248,12 @@ $(document).ready(function() {
 
         //Update totals table
         updateAjaxTotalsCost();
+	}
+	
+	function clearNewProductFields(){
+		$('.create-product-form .product-code input').val('');
+		$('.create-product-form .product-description input').val('');
+		$('.create-product-form .product-price input').val('');
 	}
 	//--------------------------------------------------------------//
 	

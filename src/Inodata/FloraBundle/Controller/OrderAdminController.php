@@ -67,6 +67,10 @@ class OrderAdminController extends Controller
 		$description = $this->get('request')->get('description');
 		$price = $this->get('request')->get('price');
 		
+		if (!$code){
+			$code ="0";
+		}
+		
 		$em = $this->getDoctrine()->getEntityManager();
 		$product = new Product();
 		$product->setCode($code);
@@ -133,13 +137,15 @@ class OrderAdminController extends Controller
 		$numberLetter->setNumero($total);
 		$totalInLetters = $numberLetter->getletras();
 		
+		setlocale(LC_MONETARY, 'es_MX');
+		
 		return array('shipping'=>$shipping, 
 			'discount' =>$discount, 
 			'discount_net' =>round($discountNet,2),
 			'discount_percent'=>$discountPercentLabel, 
-			'iva' =>round($IVA,2), 
-			'subtotal'=>$subtotal, 
-			'total'=>round($total, 2),
+			'iva' =>money_format('%i', $IVA), 
+			'subtotal'=>money_format('%i', $subtotal), 
+			'total'=>money_format('%i', $total),
 			'totalInLetters'=>$totalInLetters);
 	}
 	
