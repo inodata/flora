@@ -109,7 +109,7 @@ class DistributionAdminController extends Controller
     				  ->getRepository('InodataFloraBundle:Order')
     				  ->find( $orderId );
     	$option = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-    			array('id' => $order->getId()));
+    			array('order' => $order));
     	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
     	
     	$response = array( 'isValidToAdd' => ( $order->getStatus() == 'open' && $order->getMessenger() == null) ? 'true' : 'false', 
