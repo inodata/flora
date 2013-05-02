@@ -17,7 +17,7 @@ $('document').ready(function(){
 			var url = Routing.generate('inodata_flora_distribution_add_preview_order_to_messenger', {orderId:id});
 				
 			$.get(url, function(data){
-				alert(data.row);
+				
 				$("tbody#messenger_orders").append(data.row);
 
 				if( $('tbody#messenger_orders').find('tr').length > 1)
