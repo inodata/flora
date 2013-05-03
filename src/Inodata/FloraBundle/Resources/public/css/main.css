@@ -353,6 +353,20 @@
   .payment-note .header{
   	height: 108px;
   }
+  .payment-note .header .info-row{
+  	position:relative;
+  	top: 108px;
+  }
+  .payment-note .header .info-row div.no-order{
+  	width: 20%;
+  }
+  .payment-note .header .no-order span{
+  	font-size: 14px;
+  }
+  .payment-note .header .info-row div.city-date{
+  	width: 75%;
+  	text-align: right;
+  }
   
   .payment-note .payment-info{
   	height: 108px;
@@ -383,9 +397,6 @@
   	width: 9%
   }
   
-   .payment-note .space-0{
-   	width: 60%;
-   }
   .payment-note .space-1{
   	min-width: 48%;
   	max-width: 48%;
