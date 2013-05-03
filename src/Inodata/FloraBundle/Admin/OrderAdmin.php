@@ -108,7 +108,7 @@ class OrderAdmin extends Admin
 						'class'=>'inodata_product', 'style'=>'width:100%')
 			))
 			->add('hasInvoice', 'checkbox', array(
-					'label' => 'label.has_invoice',
+					'label' => 'label.invoice_require',
 					'required' => false,
 					'attr'=>array(
 							'class' => 'inodata-has-invoice'

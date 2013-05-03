@@ -201,9 +201,19 @@ class OrderAdminController extends Controller
 	{
 		$products = $this->get('request')->get('product');
 		
+		$action = $this->getRequest()->getSession()->get('post_save_action');
+		$this->getRequest()->getSession()->set('post_save_action', '');
+		
+		if ($this->getRequest()->getSession()->get('submit_action') == 'submit'){
+			$this->getRequest()->getSession()->set('post_save_action', $action);
+			$this->getRequest()->getSession()->set('submit_action', '');
+		}
+		
 		if ($this->getRestMethod() == 'POST'){
 			$this->preUpdate($id, $products);
 			$this->updatePaymentContactInfo();
+			
+			$this->getRequest()->getSession()->set('submit_action', 'submit');
 		}
 		
 		return parent::editAction($id);
@@ -260,6 +270,8 @@ class OrderAdminController extends Controller
 			$products = $this->get('request')->get('product');
 			$object = $this->admin->getSubject();
 			$this->createOrderProducts($object->getId(), $products);
+			
+			$this->getRequest()->getSession()->set('submit_action', 'submit');
 		}
 		
 		return $create;
@@ -363,8 +375,17 @@ class OrderAdminController extends Controller
 	{
 		$response = parent::redirectTo($object);
 		
-		if ($this->get('request')->get('btn_create_and_print')){
-			$this->getRequest()->getSession()->set('action', 'print');
+		if ($this->get('request')->get('save_and_print_note')){
+			$this->getRequest()->getSession()->set('post_save_action', 'print-note');
+		}
+		if ($this->get('request')->get('save_and_print_invoice')){
+			$this->getRequest()->getSession()->set('post_save_action', 'print-invoice');
+		}
+		if ($this->get('request')->get('btn_update_and_list') ||
+			$this->get('request')->get('btn_create_and_list') ||
+			$this->get('request')->get('btn_create_and_create'))
+		{
+			$this->getRequest()->getSession()->set('post_save_action', '');
 		}
 		
 		return $response;
