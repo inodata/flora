@@ -380,9 +380,9 @@ $(document).ready(function() {
 	var btnPrinCard = $('.btn-print-card');
 	$('.inodata_message').closest('.control-group').append($(btnPrinCard).clone());
 	$(btnPrinCard).remove();
-	//-------------------------------------------------------------------//
+	//-------------------------------------------------------------------------//
 
-	//-------------------------- Print Invoice---------------------------//
+	//----------------------- Load invoice and note data ----------------------//
 	function loadInvoiceOrderProducts(listFields, totals)
 	{
 		$(listFields).each(function(){
@@ -423,21 +423,7 @@ $(document).ready(function() {
 		$('.invoice_page .order-note').text(orderNote);
 		
 	}
-	
-	$('.btn-print-note').click(function(){
-		$('.invoice_page').addClass('hide_template');
-		$('.card_page').addClass('hide_template');
-		$('.payment-note').removeClass('hide_template');
-		printNote();
-	});
-	
-	$('.btn-print-invoice').click(function(){
-		$('.invoice_page').removeClass('hide_template');
-		$('.payment-note').addClass('hide_template');
-		$('.card_page').addClass('hide_template');
-		window.print();
-	});
-	//-------------------------------------------------------------------//
+	//----------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//
 	hideElement($('.products-to-buy'));
@@ -489,5 +475,26 @@ $(document).ready(function() {
 	$('.inodata-has-invoice').click(function(){
 		updateAjaxTotalsCost();
 	});
+	//-----------------------------------------------------
+	
+	//------------- PRINT INVOICE/NOTE ACTIONS ------------
+	if(id){
+		var postSaveAction = $('.post_save_action').val();
+		switch(postSaveAction)
+		{
+			case 'print-note':
+				$('.invoice_page').addClass('hide_template');
+				$('.card_page').addClass('hide_template');
+				$('.payment-note').removeClass('hide_template');
+				printNote();
+			break;
+			case 'print-invoice':
+				$('.invoice_page').removeClass('hide_template');
+				$('.payment-note').addClass('hide_template');
+				$('.card_page').addClass('hide_template');
+				window.print();
+			break;
+		}
+	}
 	//-----------------------------------------------------
 });
