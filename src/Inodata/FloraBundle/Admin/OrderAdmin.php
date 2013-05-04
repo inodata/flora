@@ -191,6 +191,8 @@ class OrderAdmin extends Admin
 	{
 		$datagridMapper
 			->add('id', null, array('label' => 'label.order_number'))
+			->add('to')
+			->add('from')
 			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'doctrine_orm_string', array(
 				'label' => 'label.created_at',
