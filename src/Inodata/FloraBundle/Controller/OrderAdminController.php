@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Inodata\FloraBundle\Entity\Product;
 use Inodata\FloraBundle\Entity\Order;
+use Inodata\FloraBundle\Entity\Customer;
+use Inodata\FloraBundle\Entity\Address;
 use Inodata\FloraBundle\Entity\OrderProduct;
 use Inodata\FloraBundle\Entity\PaymentContact;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
@@ -368,6 +370,68 @@ class OrderAdminController extends Controller
 				array('messages'=>$messages)));
 		
 		return new Response(json_encode($response));
+	}
+	
+	//INVOICE CUSTOMER EDIT IN PLACE
+	public function editInPlaceAction()
+	{
+		$updateAddress= false;
+		
+		$idColumn = explode('-', $this->get('request')->get('id'));
+		
+		$customerId = $idColumn[0];
+		$customerAttr = $idColumn[1]; 
+		$value =  $this->get('request')->get('value');
+		
+		$em = $this->getDoctrine()->getEntityManager();
+		$customer = $em->getRepository('InodataFloraBundle:Customer')
+			->find($customerId);
+		
+		if ($customerAttr!='bussinessName' && $customerAttr!='rfc'){
+			$fiscalAddress = $customer->getFiscalAddress();
+			$updateAddress=true;
+		}
+		
+		switch($customerAttr){
+			case 'bussinessName':
+				$customer->setBusinessName($value);
+			break;
+			case 'rfc':
+				$customer->setRfc($value);
+			break;
+			case 'street':
+				$fiscalAddress->setStreet($value);
+			break;
+			case 'noExt':
+				$fiscalAddress->setNoExt($value);
+			break;
+			case 'noExt':
+				$fiscalAddress->setNoInt($value);
+			break;
+			case 'neighborhood':
+				$fiscalAddress->setNeighborhood($value);
+			break;
+			case 'city':
+				$fiscalAddress->setCity($value);
+			break;
+			case 'state':
+				$fiscalAddress->setState($value);
+			break;
+			case 'zip':
+				$fiscalAddress->setPostalCode($value);
+			break;
+		};
+		
+		if ($updateAddress){
+			$em->persist($fiscalAddress);
+		}else {
+			$em->persist($customer);
+		}
+		
+		$em->flush();
+		$em->clear();
+		
+		return new Response($value);
 	}
 	
 	//Overwitten function

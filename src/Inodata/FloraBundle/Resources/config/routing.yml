@@ -58,6 +58,6 @@ inodata_flora_order_create_inovice_totals:
     pattern: /admin/inodata/flora/order/invoice/totals/{orderId}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:createInvoiceTotals}
 
-inodata_flora_order_is_print_required:
-    pattern: /admin/inodata/flora/order/is/print/required
-    defaults: {_controller: InodataFloraBundle:OrderAdmin:isPrintRequireD}
+inodata_flora_order_invoice_edit_in_place:
+    pattern: /admin/inodata/flora/order/invoice/edit/in/place
+    defaults: {_controller: InodataFloraBundle:OrderAdmin:editInPlace}
