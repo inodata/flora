@@ -34,6 +34,7 @@
 				   "@InodataFloraBundle/Resources/public/js/order_admin.js"
 				   "@InodataFloraBundle/Resources/public/js/lang/es.js"
                    "@InodataFloraBundle/Resources/public/js/print.js"
+                   "@InodataFloraBundle/Resources/public/js/jquery.jeditable.min.js"
                    "@InodataFloraBundle/Resources/public/js/customer_admin.js"
 	%}
 	<script type="text/javascript" src="{{ asset_url }}" ></script>
@@ -75,12 +76,9 @@
 {% endblock %}
 {% block sonata_formactions %}
 	{{ parent() }}
+	<input type="submit" name="save_and_print_note" class="btn btn-print" value="{{ 'button.print_note'|trans({}, 'InodataFloraBundle')}}"/>
+	<input type="submit" name="save_and_print_invoice" class="btn btn-print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle')}}"/>
 	{% if admin.id(object) %}
-		<a class="btn btn-print-note" href="javascript:void()">
-			<i class="icon-print"></i>{{ 'button.print_note'|trans({}, 'InodataFloraBundle') }}
-		</a>
-		<a class="btn btn-print-invoice" href="javascript:void()">
-			<i class="icon-print"></i>{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle') }}
-		</a>
+		<input type="hidden" class="post_save_action" value="{{ app.session.get('post_save_action') }}" />
 	{% endif %}
 {% endblock %}

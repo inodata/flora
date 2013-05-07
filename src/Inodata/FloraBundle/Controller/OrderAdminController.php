@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Inodata\FloraBundle\Entity\Product;
 use Inodata\FloraBundle\Entity\Order;
+use Inodata\FloraBundle\Entity\Customer;
+use Inodata\FloraBundle\Entity\Address;
 use Inodata\FloraBundle\Entity\OrderProduct;
 use Inodata\FloraBundle\Entity\PaymentContact;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
@@ -44,6 +46,7 @@ class OrderAdminController extends Controller
 		$listFields="";
 		$selectOptions ="";
 		foreach ($order as $orderProduct){
+			$orderProduct->getProduct()->setPrice($orderProduct->getProductPrice());
 			$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
 					array('product' => $orderProduct->getProduct(), 
 						  'total' =>$orderProduct->getQuantity()));	
@@ -200,9 +203,19 @@ class OrderAdminController extends Controller
 	{
 		$products = $this->get('request')->get('product');
 		
+		$action = $this->getRequest()->getSession()->get('post_save_action');
+		$this->getRequest()->getSession()->set('post_save_action', '');
+		
+		if ($this->getRequest()->getSession()->get('submit_action') == 'submit'){
+			$this->getRequest()->getSession()->set('post_save_action', $action);
+			$this->getRequest()->getSession()->set('submit_action', '');
+		}
+		
 		if ($this->getRestMethod() == 'POST'){
 			$this->preUpdate($id, $products);
 			$this->updatePaymentContactInfo();
+			
+			$this->getRequest()->getSession()->set('submit_action', 'submit');
 		}
 		
 		return parent::editAction($id);
@@ -238,6 +251,7 @@ class OrderAdminController extends Controller
 				$orderProduct->setOrder($order);
 				$orderProduct->setProduct($product);
 				$orderProduct->setQuantity($quantity);
+				$orderProduct->setProductPrice($product->getPrice());
 				$em->persist($orderProduct);
 			}
 			$em->flush();
@@ -258,6 +272,8 @@ class OrderAdminController extends Controller
 			$products = $this->get('request')->get('product');
 			$object = $this->admin->getSubject();
 			$this->createOrderProducts($object->getId(), $products);
+			
+			$this->getRequest()->getSession()->set('submit_action', 'submit');
 		}
 		
 		return $create;
@@ -356,40 +372,66 @@ class OrderAdminController extends Controller
 		return new Response(json_encode($response));
 	}
 	
-	public function createInvoiceTotalsAction($orderId)
+	//INVOICE CUSTOMER EDIT IN PLACE
+	public function editInPlaceAction()
 	{
-		if ($orderId){
-			$products = array();
-			$subtotal = 0;
-			$orderProduct = $this->getOrderProductGroupedByProduct($orderId);
-			$order=$this->getDoctrine()->getRepository('InodataFloraBundle:Order')->find($orderId);
-			
-			foreach ($orderProduct['productIds'] as $productId => $cant){
-				$product = $this->getDoctrine()
-					->getRepository('InodataFloraBundle:Product')
-					->find($productId);
-				$products[] = array('product' => $product, 'cant'=>$cant);
-				
-				$subtotal+=$cant*$product->getPrice();
-			}
+		$updateAddress= false;
+		
+		$idColumn = explode('-', $this->get('request')->get('id'));
+		
+		$customerId = $idColumn[0];
+		$customerAttr = $idColumn[1]; 
+		$value =  $this->get('request')->get('value');
+		
+		$em = $this->getDoctrine()->getEntityManager();
+		$customer = $em->getRepository('InodataFloraBundle:Customer')
+			->find($customerId);
+		
+		if ($customerAttr!='bussinessName' && $customerAttr!='rfc'){
+			$fiscalAddress = $customer->getFiscalAddress();
+			$updateAddress=true;
 		}
 		
-		$response = array('inovice_totals' => $this->renderView('InodataFloraBundle:Order:_invoice_products_and_totals.html.twig',
-						array('order'=>$order, 'products'=>$products, 'totals' => $this->getTotalsCostAsArray($orderId, $subtotal))));
+		switch($customerAttr){
+			case 'bussinessName':
+				$customer->setBusinessName($value);
+			break;
+			case 'rfc':
+				$customer->setRfc($value);
+			break;
+			case 'street':
+				$fiscalAddress->setStreet($value);
+			break;
+			case 'noExt':
+				$fiscalAddress->setNoExt($value);
+			break;
+			case 'noExt':
+				$fiscalAddress->setNoInt($value);
+			break;
+			case 'neighborhood':
+				$fiscalAddress->setNeighborhood($value);
+			break;
+			case 'city':
+				$fiscalAddress->setCity($value);
+			break;
+			case 'state':
+				$fiscalAddress->setState($value);
+			break;
+			case 'zip':
+				$fiscalAddress->setPostalCode($value);
+			break;
+		};
 		
-		return new Response(json_encode($response));
-	}
-	
-	public function isPrintRequiredAction()
-	{
-		$isPrint = false;
-		$action = $this->getRequest()->getSession()->get('action');
-		if ($action=="print"){
-			$this->getRequest()->getSession()->set('action', '');
-			$isPrint = true;
+		if ($updateAddress){
+			$em->persist($fiscalAddress);
+		}else {
+			$em->persist($customer);
 		}
 		
-		return new Response(json_encode(array('isPrint'=>$isPrint)));
+		$em->flush();
+		$em->clear();
+		
+		return new Response($value);
 	}
 	
 	//Overwitten function
@@ -397,8 +439,17 @@ class OrderAdminController extends Controller
 	{
 		$response = parent::redirectTo($object);
 		
-		if ($this->get('request')->get('btn_create_and_print')){
-			$this->getRequest()->getSession()->set('action', 'print');
+		if ($this->get('request')->get('save_and_print_note')){
+			$this->getRequest()->getSession()->set('post_save_action', 'print-note');
+		}
+		if ($this->get('request')->get('save_and_print_invoice')){
+			$this->getRequest()->getSession()->set('post_save_action', 'print-invoice');
+		}
+		if ($this->get('request')->get('btn_update_and_list') ||
+			$this->get('request')->get('btn_create_and_list') ||
+			$this->get('request')->get('btn_create_and_create'))
+		{
+			$this->getRequest()->getSession()->set('post_save_action', '');
 		}
 		
 		return $response;

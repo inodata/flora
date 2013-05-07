@@ -30,7 +30,8 @@ class AddressType extends AbstractType
 				'label' => 'label.city',)
 			)
 			->add('state', 'inodata_mx_states_type', array(
-				'label' => 'label.state',)
+				'label' => 'label.state',
+				'attr' => array('class'=>'mx_state'))
 			)
 			->add('phone', null, array(
 				'label' => 'label.delivery_phone',)

@@ -61,6 +61,7 @@ function printCard(){
   jsPrintSetup.setGlobalOption('paperWidth', 110);
   jsPrintSetup.setGlobalOption('paperHeight', 140);
   jsPrintSetup.setPrinter('Epson_xp001');
+  jsPrintSetup.setPrinter('PostScript/default');
   jsPrintSetup.setPaperSizeData(99);
   jsPrintSetup.print();
 }
@@ -72,6 +73,7 @@ function printNote(){
   jsPrintSetup.setGlobalOption('paperHeight', 140);
   //alert(jsPrintSetup.getPrintersList());
   jsPrintSetup.setPrinter('Epson_xp002');
+  jsPrintSetup.setPrinter('PostScript/default');
   jsPrintSetup.setPaperSizeData(2);
   jsPrintSetup.print();
 }

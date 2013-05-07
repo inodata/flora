@@ -108,17 +108,11 @@ class OrderAdmin extends Admin
 						'class'=>'inodata_product', 'style'=>'width:100%')
 			))
 			->add('hasInvoice', 'checkbox', array(
-					'label' => 'label.has_invoice',
+					'label' => 'label.invoice_require',
 					'required' => false,
 					'attr'=>array(
 							'class' => 'inodata-has-invoice'
 					)))
-			/*->add('products', null, array(
-					'label' => 'label.product_list',
-					'attr' => array(
-							'class' => 'products-to-buy span5'
-					)
-			))*/
 			->add('order_notes', null, array('label' => 'label.order_notes',
 					'attr' => array(
 							'class' => 'inodata-order-notes',
@@ -173,7 +167,8 @@ class OrderAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id', null, array("label" => "label.order_number"))
-			//->add('firstProduct')
+			->add('firstProduct', null, array("label" => "label.details"))
+			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'date', array(
 				"label" => "label.created_at",
 				"format" => "dd/mm/yyyy")
@@ -182,7 +177,6 @@ class OrderAdmin extends Admin
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'edit' => array(),
-					//'delete' => array(),
 				)
 			)
 		);
@@ -196,8 +190,14 @@ class OrderAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('id')
-		;		
+			->add('id', null, array('label' => 'label.order_number'))
+			->add('to')
+			->add('from')
+			->add('creator', null, array('label' => 'label.capturated'))
+			->add('createdAt', 'doctrine_orm_string', array(
+				'label' => 'label.created_at',
+			))
+			->add('hasInvoice', null, array('label' => 'label.has_invoice'));
 	}
 
 	public function getTemplate($name)
@@ -206,6 +206,9 @@ class OrderAdmin extends Admin
 	        case 'edit':
 	            	return 'InodataFloraBundle:Order:edit.html.twig';
 	            break;
+	        case 'list':
+	        	return 'InodataFloraBundle:Order:list.html.twig';
+	        	break;
 	        default:
 	            	return parent::getTemplate($name);
 	            break;

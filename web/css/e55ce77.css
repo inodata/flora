@@ -1073,3 +1073,8 @@ disabled look for disabled choices in the results dropdown
   
   /* ESCONDE TEMPLATE NO REQUERIDO EN LA IMPRESION*/ 
 }
+
+.label-inline {
+	display: inline-block;
+	padding-right: 37%;
+}

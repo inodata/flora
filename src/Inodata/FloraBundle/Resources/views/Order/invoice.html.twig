@@ -17,12 +17,17 @@
 			<div class="receptor">
 				<div class="div_header">{{ 'tab.customer'|trans({}, 'InodataFloraBundle') }}</div>
             	<div class="div_content">
-                    {{ object.customer.businessName }}<br/>
-                    {{ object.customer.fiscalAddress.street }} No. {{ object.customer.fiscalAddress.noExt }} 
-                    {% if (object.customer.fiscalAddress.noInt!= '') %} Int. {{ object.customer.fiscalAddress.noInt}} {% endif %}, 
-                    {{ object.customer.fiscalAddress.neighborhood }} <br/>
-                    {{ object.customer.fiscalAddress.city }}, {{ object.customer.fiscalAddress.state }}, C.P. {{ object.customer.fiscalAddress.postalCode }} <br/><br/>
-                    R.F.C. {{ object.customer.rfc }}
+                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-bussinessName">{{ object.customer.businessName }}</span><br/>
+                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-street">{{ object.customer.fiscalAddress.street }}</span>No. 
+                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-noExt">{{ object.customer.fiscalAddress.noExt }} </span>
+                    {% if (object.customer.fiscalAddress.noInt!= '') %} Int. 
+                    	<span class="customer-edit-in-place" id="{{ object.customer.id }}-noInt">{{ object.customer.fiscalAddress.noInt}} </span>
+                    {% endif %}, 
+                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-neighborhood">{{ object.customer.fiscalAddress.neighborhood }}</span><br/>
+                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-city">{{ object.customer.fiscalAddress.city }}</span>, 
+                    <span class="customer-select-state" id="{{ object.customer.id }}-state">{{ object.customer.fiscalAddress.state }}</span>, C.P. 
+                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-zip">{{ object.customer.fiscalAddress.postalCode }}</span><br/><br/>
+                    R.F.C. <span class="customer-edit-in-place" id="{{ object.customer.id }}-rfc">{{ object.customer.rfc }}</span>
                 </div>
 			</div>
 			<div class="divisor-w"></div>

@@ -58,6 +58,9 @@ label.import: Importe
 label.subtotal: Subtotal
 label.total: Total
 label.has_invoice: Requiere Factura
+label.capturated: Capturó
+label.invoice_require: ¿Requiere factura?
+label.has_invoice: ¿Tiene Factura?
 
 
 #Address labels

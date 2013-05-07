@@ -103,20 +103,20 @@ class DistributionAdminController extends Controller
     	
     }
     
-    public function verifyOrderStatusAction($orderId)
+    public function updateOrdersAvailableAction()
     {
-    	$order = $this->getDoctrine()
-    				  ->getRepository('InodataFloraBundle:Order')
-    				  ->find( $orderId );
-    	$option = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-    			array('order' => $order));
-    	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
+    	//Pedidos preasignados a repartidor
+    	$ordersPreAsigned = array_filter($this->get('request')->get('orders'));
     	
-    	$response = array( 'isValidToAdd' => ( $order->getStatus() == 'open' && $order->getMessenger() == null) ? 'true' : 'false', 
-    			           'option' => $option ,
-    					   'empty_list' => $emptyList
-    					);
-    	return new Response(json_encode($response));    	
+    	$orders = $this->getDoctrine()->getRepository('InodataFloraBundle:Order')
+    		->createQueryBuilder('o')
+    		->where("o.status = 'open'")->andWhere('o.messenger IS NULL')
+    		->getQuery()->getResult();
+    	
+    	$orderOptions =  $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
+    			array('orders' => $orders, 'preAsigned'=>$ordersPreAsigned));
+    	
+    	return new Response(json_encode(array('orderOptions'=>$orderOptions)));
     }
     
     public function configure()
