@@ -14,18 +14,21 @@ class DistributionType extends AbstractType
 		$builder
 			->add('messenger', 'genemu_jqueryselect2_entity', array(
 				'required' => false,
+				'empty_value' => '',	
             	'class' => 'Inodata\FloraBundle\Entity\Employee',
 				'query_builder' => function(EntityRepository $er) {
 						return $er->createQueryBuilder('u')
 								  ->where('u.jobPosition = \'Messenger\'');
-					}
-					,
+				},
 				'attr' => array(
 					'class' => 'inodata_messenger_list span5',
+					'placeholder' => 'Selecciona un repartidor',
+					'enabled' => 'enabled'
 				)
 			))
 			->add('id', 'genemu_jqueryselect2_entity', array(
 				'required' => false,
+				'empty_value' => '',
 				'class' => 'Inodata\FloraBundle\Entity\Order',
 				'query_builder' => function(EntityRepository $er) {
 						return $er->createQueryBuilder('u')
@@ -35,7 +38,8 @@ class DistributionType extends AbstractType
 					,
 				'attr' => array(
 					'class' => 'inodata_id_list span5',
-					)
+					'placeholder' => 'selecciona una orden'
+				)
 			))	
 		;
 	}
