@@ -50,7 +50,7 @@ class LoadOrderData extends AbstractFixture implements OrderedFixtureInterface
     	  $manager->flush();
     	  $this->addReference('order2',$order);
     	  
-    	  for($i=3; $i<=100; $i++)
+    	  for($i=3; $i<=20; $i++)
     	  {
 	    	  $order =new Order();
 	    	  $order->setDeliveryDate(new \DateTime('2013-03-02 12:40:50'));

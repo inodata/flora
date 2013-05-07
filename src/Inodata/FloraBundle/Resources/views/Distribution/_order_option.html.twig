@@ -1,1 +1,6 @@
-<option value="{{ order.id }}">{{ order.id }} {{ order.firstProduct }}</option>
+<option value=""></option>
+{% for order in orders%}
+	{% if preAsigned[order.id] is not defined %}
+		<option value="{{ order.id }}">{{ order.id }} {{ order.firstProduct }}</option>
+	{% endif %}
+{% endfor %}

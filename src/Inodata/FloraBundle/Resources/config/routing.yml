@@ -45,10 +45,9 @@ inodata_flora_distribution_add_orders_to_messenger:
 inodata_flora_distribution_add_preview_order_to_messenger: 
     pattern: /admin/inodata/flora/distribution/add/preview/order/to/messenger/{orderId}
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:addPreviewOrderToMessenger}
-
-inodata_flora_distribution_verify_order_status: 
-    pattern: /admin/inodata/flora/distribution/verfy/order/status/{orderId}
-    defaults: {_controller: InodataFloraBundle:DistributionAdmin:verifyOrderStatus}
+inodata_flora_distribution_update_orders_available: 
+    pattern: /admin/inodata/flora/distribution/update/orders/available
+    defaults: {_controller: InodataFloraBundle:DistributionAdmin:updateOrdersAvailable}
     
 inodata_flora_distribution_list_print: 
     pattern: /admin/inodata/flora/distribution/list/print
