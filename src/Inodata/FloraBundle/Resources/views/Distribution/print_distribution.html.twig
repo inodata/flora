@@ -1,10 +1,53 @@
-<ul>
-	{% for messenger in messengers %}
-		<li>{{ messenger }}</li>
-		<ul>
-			{% for order in messenger.getOrders %}
-				<li>{{ order }} {{ order.shippingAddress }}</li>
-			{% endfor %}	
-		</ul>
-	{% endfor %}
-</ul>
+<html>
+	<head>
+		{% stylesheets 
+				'@InodataFloraBundle/Resources/public/css/distribution.css' %}
+				<link rel="stylesheet" href="{{ asset_url }}" />
+		{% endstylesheets %} 
+		
+		{% javascripts '@InodataFloraBundle/Resources/public/js/print.js' %}
+			<script type="text/javascript" src="{{ asset_url }}" ></script>
+		{% endjavascripts %}
+		
+		<script type="text/javascript">
+			window.onload = function(){
+				printDistributionList();
+			}
+		</script>
+	</head>
+	<body>
+		{% for messenger in messengers %}
+		<div class="messenger-page" >
+			<div class="logo"></div>
+			<div class="right-block">
+				<b>Repartidor:</b> <i>{{ messenger }}</i><br/>
+				<b>Fecha: </b> <i>{{ date | date('d-m-Y')}}</i>
+			</div>
+			<br/>
+			<table class="print_table">
+				<thead>
+					<tr>
+						<td>Pedido</td>
+						<td>Descripción/Dirección</td>
+						<td>Quien recibe</td>
+						<td>Firma</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for order in messenger.orders %}
+						<tr>
+							<td>{{ order.id }}</td>
+							<td>{{ order.firstProduct }}<br/>{{ order.shipping }}</td>
+							<td>{{ order.to }}</td>
+							<td><hr/></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% if loop.last != true %}
+				<div class="page-break"></div>
+			{% endif %}
+		</div>
+		{% endfor %}
+	</body>
+</html>

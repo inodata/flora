@@ -1,4 +1,52 @@
-.label-inline {
-	display: inline-block;
-	padding-right: 37%;
+@media print {
+	
+	body {
+		padding: 10%;
+	}
+	
+	.page-break	{ display: block; page-break-before: always; }
+	
+	.print_table {
+	
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 13px;
+		font-weight: normal;
+		line-height: 18px;
+		color: #404040;
+		
+		width: 100%;
+		margin-bottom: 20px;
+		
+		max-width: 100%;
+		background-color: transparent;
+		border-spacing: 1;
+		
+		margin: 0;
+		padding: 0;
+		border: solid 1px black;
+		
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 13px;
+		font-weight: normal;
+		line-height: 18px;
+		color: #404040;
+	}
+	
+	.print_table thead {
+		vertical-align: middle;
+	}
+	
+	.print_table td {	
+		vertical-align: middle;
+		border: solid 1px black;
+		padding: 0;
+		margin: 0;
+	}
+	
+	.logo{
+	  	height: 70px;
+	  	#background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+	  	width: 35%;
+  	}
 }
+

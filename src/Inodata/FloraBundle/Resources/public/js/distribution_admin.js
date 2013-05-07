@@ -48,9 +48,7 @@ $('document').ready(function(){
 			}
 			$('div.inodata_id_list a.select2-choice span').remove();
 			
-		}, 'json' );		
-		
-		
+		}, 'json' );	
 	});
 	
 	$('.add_link').live('click', function(){
@@ -83,9 +81,9 @@ $('document').ready(function(){
 		} else {
 			removeFlash('no-messenger');
 		}
-
-		var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger', { messengerId:messengerId, orderIds:orderIds } );
 	
+		var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger', { messengerId:messengerId, orderIds:orderIds } );
+		
 		$.get(url, function(data){
 			
 			$('#messenger_orders > tr').each(function(){
@@ -96,8 +94,6 @@ $('document').ready(function(){
 		}, 'json');
 		
 		//refreshOrderList();
-		
-		
 	}); 
 	
 	function removeFlash(id)

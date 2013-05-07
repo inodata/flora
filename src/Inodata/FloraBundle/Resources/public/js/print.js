@@ -75,3 +75,10 @@ function printNote(){
   jsPrintSetup.setPaperSizeData(2);
   jsPrintSetup.print();
 }
+
+function printDistributionList(){
+	setupGlobalOptions();
+	jsPrintSetup.setPrinter('PostScript/default');
+	jsPrintSetup.print();
+	//window.close();
+}
