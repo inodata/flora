@@ -153,6 +153,10 @@
   	text-align:left;
   }
   
+  .invoice_page .customer-edit-in-place, .invoice_page .customer-select-state{
+  	background: #C3D9FF;
+  }
+  
   .issuing h3{
   	font-size: 13px;
   	line-height: 0px;

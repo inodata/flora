@@ -18,7 +18,7 @@
 				<div class="div_header">{{ 'tab.customer'|trans({}, 'InodataFloraBundle') }}</div>
             	<div class="div_content">
                     <span class="customer-edit-in-place" id="{{ object.customer.id }}-bussinessName">{{ object.customer.businessName }}</span><br/>
-                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-street">{{ object.customer.fiscalAddress.street }}</span>No. 
+                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-street">{{ object.customer.fiscalAddress.street }}</span> No. 
                     <span class="customer-edit-in-place" id="{{ object.customer.id }}-noExt">{{ object.customer.fiscalAddress.noExt }} </span>
                     {% if (object.customer.fiscalAddress.noInt!= '') %} Int. 
                     	<span class="customer-edit-in-place" id="{{ object.customer.id }}-noInt">{{ object.customer.fiscalAddress.noInt}} </span>
