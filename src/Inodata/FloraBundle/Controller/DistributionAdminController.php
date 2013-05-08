@@ -65,15 +65,19 @@ class DistributionAdminController extends Controller
     	return new Response(json_encode($response));
     }
     
-    public function addOrdersToMessengerAction($messengerId, $orderIds)
+    public function addOrdersToMessengerAction()
     {
-    	$orderIds = explode("+", $orderIds);
-    	unset( $orderIds[ count($orderIds)-1 ]);
+    	/* Obtiene los valores por post */
+    	$messengerId = $this->get('request')->get('messenger_id');
+    	$orderIds = $this->get('request')->get('order_ids');
     	
+    	/* Encuentra el Messenger */
     	$messenger = $this->getDoctrine()
     	    			  ->getRepository('InodataFloraBundle:Employee')
     					  ->find( $messengerId );
-    	
+    	if( !$messenger ){
+    		return new Response( json_encode( array ( 'status' => 'messenger_not_found') ) );
+    	}
     	
     	foreach( $orderIds as $orderId)
     	{
@@ -98,9 +102,8 @@ class DistributionAdminController extends Controller
     	
     	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
     	
-    	$response = array('messenger' => $orderIds, 'empty_list' => $emptyList);
-    	return new Response(json_encode($response));    
-    	
+    	$response = array('status' => 'success' );
+    	return new Response(json_encode($response));
     }
     
     public function updateOrdersAvailableAction()
