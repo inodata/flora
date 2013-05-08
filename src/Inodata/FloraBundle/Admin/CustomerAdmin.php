@@ -28,6 +28,12 @@ class CustomerAdmin extends Admin
 						))
 			->end()
 			->with('label.fiscal_address', array('expanded' => false,))
+				->add('usePasymentAddress', 'checkbox', array(
+					'label' => 'label.use_payment_address',
+					'mapped' => false,
+					'required' => false,
+					'attr' => array('class' => 'use-payment-address')	
+				))
 				->add('fiscalAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('label.payment_address', array('expanded' => true,))

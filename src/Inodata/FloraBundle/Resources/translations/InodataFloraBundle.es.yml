@@ -9,7 +9,8 @@ label.company_name: Nombre / Razón social
 label.business_name: Nombre comercial
 label.rfc: RFC
 label.discount: Descuento
-label.use_fiscal_address: Copiar dirección fiscal
+label.use_fiscal_address: Usar dirección fiscal
+label.use_payment_address: Usar dirección de cobro
 
 #Order tabs
 tab.customer: Cliente
@@ -57,7 +58,6 @@ label.unit_price: Precio Unit.
 label.import: Importe
 label.subtotal: Subtotal
 label.total: Total
-label.has_invoice: Requiere Factura
 label.capturated: Capturó
 label.invoice_require: ¿Requiere factura?
 label.has_invoice: ¿Tiene Factura?
