@@ -75,7 +75,7 @@ class DistributionAdmin extends Admin
 					'label' => 'label.distribution_actions',
 					'actions' => array(
 						'delivered' => array('template' => 'InodataFloraBundle:Distribution:_delivered_action.html.twig'),
-						'closed'  => array('template' => 'InodataFloraBundle:Distribution:_closed_action.html.twig')
+						'closed'  => array('template' => 'InodataFloraBundle:Distribution:_closed_action.html.twig' )
 					) 
 				)
 			);
@@ -110,6 +110,7 @@ class DistributionAdmin extends Admin
 				),  'choice', array( 'translation_domain' => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
 						'choices' => array( 'open' => 'label.distribution_delivery_status_open', 
 											'intransit' => 'label.distribution_delivery_status_intransit',
+											'delivered' => 'label.distribution_delivery_status_delivered',
 											'closed' => 'label.distribution_delivery_status_closed') ) )
 		;		
 	}
@@ -136,6 +137,20 @@ class DistributionAdmin extends Admin
 				return parent::getTemplate($name);
 				break;
 		}
+	}
+	
+	public function getBatchActions()
+	{
+		$actions = parent::getBatchActions();
+		
+		if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
+			$actions['deliveredAll'] = array(
+					'label'            => 'Entregados',
+					'ask_confirmation' => true 
+			);
+		}
+		
+		return $actions;
 	}
 	
 	

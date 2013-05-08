@@ -73,6 +73,10 @@
 		<a class="btn add_link" title="Edit" >
 			{{ 'label.distribution_assign_button'|trans({}, 'InodataFloraBundle') }}
 		</a>
+		<a target="_blank" href="{{ path('inodata_flora_distribution_list_print') }}" class="btn print_link" title="Imprimir Listado" >
+			<i class="icon-print" ></i>
+			{{ 'label.distribution_print'|trans({}, 'InodataFloraBundle') }}
+		</a>
 		</form>
 	{% endblock %}
 	<br/><br/>
@@ -107,8 +111,4 @@
             {{ 'no_result'|trans({}, 'SonataAdminBundle') }}
         </p>
     {% endif %}
-	{#
-	<a href="{{ path('inodata_flora_distribution_list_print') }}" class="btn print_link" title="Imprimir Listado" >
-		{{ 'label.distribution_print'|trans({}, 'InodataFloraBundle') }}
-	</a> #}
 {% endblock %}

@@ -49,44 +49,37 @@ $('document').ready(function(){
 	$('.add_link').live('click', function(){
 		
 		var messengerId = $('#inodata_distribution_type_form_messenger').val();
-		var orderIds = "";
+		var orderIds = [];
+		var hasOne = false;
 		
-		$('#messenger_orders tr.item').each(function(){
-			if( $(this).attr('id') == 'no_orders' ){
-				rapidFlash(trans('alert.distribution_no_orders'), 'error', 'no-order', 5000);
-				return;
-			} else {
-				removeFlash();
-				orderIds = orderIds + $(this).attr('order_id');
-				orderIds = orderIds+"+";
-			}
+		$('#messenger_orders tr.item').each(function(index){
 			
+			var id = $(this).attr('order_id');
+			orderIds[index] = id;
+			hasOne = true;
 		});
-
-		if(orderIds == ''){
-			rapidFlash(trans('alert.distribution_no_orders'), 'error', 'no-order', 5000);
-			return;
-		} else{
-			removeFlash('no-order');
-		}
-
+		
+		/* Valida que exista un Messenger a quien asignarle las ordenes */
 		if( messengerId == '' ){
 			rapidFlash(trans('alert.distribution_no_messenger'), 'error', 'no-messenger', 5000);
 			return;
 		} else {
 			removeFlash('no-messenger');
 		}
-
-		var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger', { messengerId:messengerId, orderIds:orderIds } );
-	
-		$.get(url, function(data){
-			
-			$('#messenger_orders > tr').each(function(){
-				$(this).remove();
-			});
-			$('#messenger_orders').html( data.empty_list);
-				window.location.reload();
+		
+		/* Valida que cuando menos exista una orden para asignar */
+		if( hasOne == false){
+			rapidFlash(trans('alert.distribution_no_orders'), 'error', 'no-order', 5000);
+			return;
+		} else {
+			removeFlash('no-order');
+		}
+		
+		var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger' );
+		$.post(url, { messenger_id:messengerId, order_ids:orderIds }, function(data){
+			window.location.reload();
 		}, 'json');
+		
 	}); 
 	
 	function showEmptyNotification(){

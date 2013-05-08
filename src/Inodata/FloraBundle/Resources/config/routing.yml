@@ -39,7 +39,7 @@ inodata_flora_distribution_filter_order_by_messenger:
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:ordersByMessengerId}
 
 inodata_flora_distribution_add_orders_to_messenger: 
-    pattern: /admin/inodata/flora/distribution/add/order/to/messenger/{messengerId}/{orderIds}
+    pattern: /admin/inodata/flora/distribution/add/order/to/messenger
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrdersToMessenger}
 
 inodata_flora_distribution_add_preview_order_to_messenger: 

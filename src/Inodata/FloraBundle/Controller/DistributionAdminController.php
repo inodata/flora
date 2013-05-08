@@ -24,7 +24,7 @@ class DistributionAdminController extends Controller
         
         $order = new Order();
         $distributionFormView = $this->createForm(new DistributionType(), $order)->createView();
-
+		
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 		
@@ -65,16 +65,19 @@ class DistributionAdminController extends Controller
     	return new Response(json_encode($response));
     }
     
-    public function addOrdersToMessengerAction($messengerId, $orderIds)
+    public function addOrdersToMessengerAction()
     {
+    	/* Obtiene los valores por post */
+    	$messengerId = $this->get('request')->get('messenger_id');
+    	$orderIds = $this->get('request')->get('order_ids');
     	
-    	$orderIds = explode("+", $orderIds);
-    	unset( $orderIds[ count($orderIds)-1 ]);
-    	
+    	/* Encuentra el Messenger */
     	$messenger = $this->getDoctrine()
     	    			  ->getRepository('InodataFloraBundle:Employee')
     					  ->find( $messengerId );
-    	
+    	if( !$messenger ){
+    		return new Response( json_encode( array ( 'status' => 'messenger_not_found') ) );
+    	}
     	
     	foreach( $orderIds as $orderId)
     	{
@@ -99,8 +102,8 @@ class DistributionAdminController extends Controller
     	
     	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
     	
-    	$response = array('messenger' => $orderIds, 'empty_list' => $emptyList);
-    	return new Response(json_encode($response));    
+    	$response = array('status' => 'success' );
+    	return new Response(json_encode($response));
     }
     
     public function updateOrdersAvailableAction()
@@ -133,6 +136,9 @@ class DistributionAdminController extends Controller
     	 $messengers = $this->getDoctrine()
     	 	  				->getRepository('InodataFloraBundle:Employee')
     	 	  				->findByJobPosition('messenger');
+    	 
+    	 $filterMessenger = array();
+    	 
     	 foreach ( $messengers as $messenger )
     	 {
     	 	$orders = $this->getDoctrine()
@@ -140,17 +146,17 @@ class DistributionAdminController extends Controller
     	 	  				->findBy( array('status' => 'intransit',
     	 	  								'messenger' => $messenger->getId()
     	 	  						));
-    	 	if( !$orders ){
-    	 		
-    	 	} else {
+    	 	if( $orders ){
     	 		$messenger->setOrders( $orders );
+    	 		array_push($filterMessenger, $messenger);
     	 	}
     	 }
     	 
     	 
     	 $render = $this->render('InodataFloraBundle:Distribution:print_distribution.html.twig', array(
         	'base_template' => 'SonataAdminBundle:CRUD:base_list.html.twig',
-    	 	'messengers' => $messengers
+    	 	'messengers' => $filterMessenger,
+    	 	'date' => new \DateTime('NOW')
         ));
         
         return $render;
@@ -158,23 +164,27 @@ class DistributionAdminController extends Controller
     
     public function deliveredAction()
     {
-    	return $this->setOrderStatus('delivered');
+    	$id = $this->get('request')->get('id');
+    	$this->setOrderStatus('delivered', $id);
+    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
     
     public function closedAction()
     {
-    	return $this->setOrderStatus('closed');
+    	$id = $this->get('request')->get('id');
+    	$this->setOrderStatus('closed', $id);
+    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
     
     public function openAction()
     {
-		return $this->setOrderStatus('open');
+    	$id = $this->get('request')->get('id');
+		$this->setOrderStatus('open', $id);
+		return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
     
-    private function setOrderStatus($status)
+    private function setOrderStatus($status, $id)
     {
-    	$id = $this->get('request')->get('id');
-    	
     	if( isset($id))
     	{
     		$order =  $this->getDoctrine()
@@ -182,7 +192,7 @@ class DistributionAdminController extends Controller
     			->find( $id );
     	
     		if( $order == null ){
-    			//TODO: Flash Object Not Found
+    			// TODO: No se cambia el status
     		} else{
     			$order->setStatus($status);
     			$em = $this->getDoctrine()->getEntityManager();
@@ -190,8 +200,18 @@ class DistributionAdminController extends Controller
     			$em->flush();
     		}
     	}
+    }
+    
+    public function batchActionDeliveredAll()
+    {
+    	$orderIds = $this->get('request')->get('idx', array());
+    		
+    	foreach( $orderIds as $orderId )
+    	{
+    		$this->setOrderStatus('delivered', $orderId);
+    	} 
     	
-    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));    	
+    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
     
 }
