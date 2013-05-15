@@ -1,7 +1,7 @@
 <div class="payment-note">
 	<div class="header">
 		<div class="info-row">
-			<div class="info no-order">No. Pedido:&nbsp;&nbsp;&nbsp;<span>{{ object.id}}</span></div>
+			<div class="info no-order"><span>{{ object.id}}</span></div>
 			<div class="info city-date">Monterrey, N. L. &nbsp;&nbsp; {{ object.deliveryDate|date("d/m/Y") }}</div>
 		</div>
 	</div>
@@ -54,7 +54,7 @@
 	</div>
 	<div class="shipping-info">
 		<div class="info-row">
-			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} {{object.shippingAddress.noExt}} {% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %}</div>
+			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} #{{object.shippingAddress.noExt}} {% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %}</div>
 		</div>
 		<div class="info-row">
 			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.reference }}&nbsp;</div>

@@ -20,7 +20,6 @@
   	width: 70px;
   }
   
-  
   .sonata-ba-collapsed-fields > .control-group:nth-child(13),
   .sonata-ba-collapsed-fields > .control-group:nth-child(14){
   	float: left;
@@ -240,7 +239,7 @@
   
   .issuing-container .logo{
   	height: 70px;
-  	#background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+  	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
   	width: 35%;
   }
   .issuing-container .issuing{
@@ -354,21 +353,23 @@
   	margin-bottom: 15px;
   }
   
-  .payment-note .header{
+  .payment-note .header{	
   	height: 108px;
   }
   .payment-note .header .info-row{
   	position:relative;
-  	top: 108px;
+  	top: 67px;
   }
   .payment-note .header .info-row div.no-order{
-  	width: 20%;
+  	width: 95%;
+  	text-align: right;
+  	padding-bottom: 20px;
   }
   .payment-note .header .no-order span{
-  	font-size: 14px;
+  	font-size: 32px;
   }
   .payment-note .header .info-row div.city-date{
-  	width: 75%;
+  	width: 95%;
   	text-align: right;
   }
   
