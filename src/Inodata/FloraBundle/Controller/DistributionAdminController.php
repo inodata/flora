@@ -41,11 +41,27 @@ class DistributionAdminController extends Controller
         	return new Response($render);
         }
         */
+        
+        $messengers = $this->getDoctrine()
+        				->getRepository('InodataFloraBundle:Employee')
+        				->findByJobPosition('Messenger');
+        $firstTab = 0;
+        $lastTab = 0;
+        
+        if($messengers){
+        	$firstTab = $messengers[0]->getId();
+        	$lastTab = $messengers[count($messengers)-1]->getId();
+        }
+         
         $render = $this->render($this->admin->getTemplate('list'), array(
         		'action'   => 'list',
         		'form'     => $formView,
         		'distribution_form' => $distributionFormView,
-        		'datagrid' => $datagrid
+        		'datagrid' => $datagrid,
+        		'messengers' => $messengers,
+        		'first_tab' => $firstTab,
+        		'last_tab' => $lastTab,
+        		'selected_messenger' => $this->getSelectedMessenger($messengers[0]->getId())
         ));
         
         return $render;
@@ -214,4 +230,17 @@ class DistributionAdminController extends Controller
     	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
     
+    protected function setSelectedMessenger($idMessenger)
+    {
+    	$this->getRequest()->getSession()->set('messenger_selected', $idMessenger);
+    }
+    protected function getSelectedMessenger($idDefault)
+    {
+    	$idMessenger = $this->getRequest()->getSession()->get('messenger_selected');
+    	if (!$idMessenger){
+    		return $idDefault;
+    	}
+    	
+    	return $idMessenger;
+    }
 }

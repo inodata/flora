@@ -54,117 +54,92 @@
 					<a href="#" class="st_next" style="display: block;">next</a>
 					<div class="st_tabs_wrap" style="overflow: hidden;">
 						<ul class="st_tabs_ul" style="margin-left: 0px;">
-							<li class="st_li_first st_li_active">
-								<a href="#tab-1" rel="tab-1" class="st_tab st_tab_1 st_tab_first st_tab_active">Aliquantum</a>
-							</li>
-							<li class="">
-								<a href="#tab-2" rel="tab-2" class="st_tab st_tab_2">Beneficium</a>
-							</li>
-							<li class="">
-								<a href="#tab-3" rel="tab-3" class="st_tab st_tab_3">Elementum</a>
-							</li>
-							<li class="">
-								<a href="#tab-4" rel="tab-4" class="st_tab st_tab_4">Eiusmod Proident</a>
-							</li>
-							<li class="">
-								<a href="#tab-5" rel="tab-5" class="st_tab st_tab_5">Exercitation</a>
-							</li>
-							<li class="">
-								<a href="#tab-6" rel="tab-6" class="st_tab st_tab_6">Adipisicing et Elit</a>
-							</li>
-							<li class="">
-								<a href="#tab-7" rel="tab-7" class="st_tab st_tab_7">Voluptate Velit</a>
-							</li>
-							<li class="">
-								<a href="#tab-8" rel="tab-8" class="st_tab st_tab_8">Sodales a Magna</a>
-							</li>
-							<li class="st_li_last">
-								<a href="#tab-9" rel="tab-9" class="st_tab st_tab_9 st_tab_last">Fermentum</a>
-							</li>
+							{% for messenger in messengers %}
+								<li class="{% if messenger.id == first_tab%} st_li_first st_li_active{% elseif messenger.id == last_tab%} st_li_last {% endif %}">
+									<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" class="st_tab st_tab_{{ messenger.id }}">{{ messenger }}</a>
+								</li>
+							{% endfor %}
 						</ul>
 					</div>
 				</div>
 				<div class="st_views" style="height: 386px; overflow: hidden;">
-					<div class="tab-1 st_view st_view_first st_view_active" style="position: absolute; left: 0px; height: auto;">
+				{% for messenger in messengers %}
+					<div class="{% if messenger.id == first_tab %}st_view_first st_view_active {% endif %} 
+						tab-{{ messenger.id }} st_view" style="
+							{% if messenger.id == first_tab %}position: absolute; left: 0px; height: auto;
+							{% else %} position: absolute; left: 2560px; height: auto;{% endif %}">
 						<div class="st_view_inner" style="height: auto;">
-							<div class="label-inline" >
-								{{ form_label(distribution_form['id'], 'label.distribution_id'|trans({}, 'InodataFloraBundle') ) }}
-							</div>
-							<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-								{{ form_widget(distribution_form.id)}}
-							</div>
+							{# {% block distribution_table %}
+								 <table class="table table-bordered table-striped list-products">
+									{% block distribution_table_header %}
+										<thead>
+											<tr class="sonata-ba-list-field-header">
+												{% spaceless %}
+						                        	<th class="sonata-ba-list-field-header-text" >
+						                            	{{ 'label.distribution_id'|trans({}, 'InodataFloraBundle') }}
+						                        	</th>
+						                        	<th class="sonata-ba-list-field-header-text" >
+						                            	{{ 'label.distribution_details'|trans({}, 'InodataFloraBundle') }}
+						                        	</th>
+						                        	<th class="sonata-ba-list-field-header-text" >
+						                            	{{ 'label.distribution_actions'|trans({}, 'InodataFloraBundle') }}
+						                        	</th>
+						                    	{% endspaceless %}
+											</tr>
+										</thead>
+									{% endblock %}
+									{% block distribution_table_body %}
+										<tbody id="messenger_orders" >
+											{% include 'InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig' %}      
+								     	 </tbody>
+									{% endblock %}
+									{% block distribution_table_footer %}
+									{% endblock %}
+								</table>
+							{% endblock %}#}
+							{% if messenger.id == selected_messenger %}
+								<div class="label-inline" >
+									{{ form_label(distribution_form['id'], 'label.distribution_id'|trans({}, 'InodataFloraBundle') ) }}
+								</div>
+								<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+									{{ form_widget(distribution_form.id)}}
+								</div>
+								<br/><br/>
+							{% endif %}
+							
+							{% set batchactions = admin.batchactions %}
+						    {% if admin.datagrid.results|length > 0 %}
+						        <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
+						            <table class="table table-bordered table-striped">
+						            	{% block table_header %}
+						            		{{ parent() }}
+						            	{% endblock %}
+						            	{% if messenger.id == selected_messenger %}
+							            	{% block table_body %}
+							            		<tbody>
+							                        {% for object in admin.datagrid.results %}
+							                            <tr class="messenger-order-row" >
+							                                {% include admin.getTemplate('inner_list_row') %}
+							                            </tr>
+							                        {% endfor %}
+							                    </tbody>
+							            	{% endblock %}
+							            	{% block table_footer %}
+							            		{{ parent() }}
+							            	{% endblock %}
+							            {% endif %}
+							 		</table>
+						        </form>
+						    {% else %}
+						        <p class="notice">
+						            {{ 'no_result'|trans({}, 'SonataAdminBundle') }}
+						        </p>
+						    {% endif %}
 						</div>
 					</div>
-					<div class="tab-2 st_view" style="position: absolute; left: 2560px; height: auto;">
-						<div class="st_view_inner" style="height: auto;">
-							#pane 2
-						</div>
-					</div>
-					<div class="tab-3 st_view" style="position: absolute; left: 2560px;">
-						<div class="st_view_inner">
-							#pane 3
-						</div>
-					</div>
-					<div class="tab-4 st_view" style="position: absolute; left: 2560px; height: auto;">
-						<div class="st_view_inner" style="height: auto;">
-							#pane 4
-						</div>
-					</div>
-					<div class="tab-5 st_view" style="position: absolute; left: 2560px; height: auto;">
-						<div class="st_view_inner" style="height: auto;">
-							#pane 4
-						</div>
-					</div>
-					<div class="tab-6 st_view" style="position: absolute; left: 2560px; height: auto;">
-						<div class="st_view_inner" style="height: auto;">
-							#pane 5
-						</div>
-					</div>
-					<div class="tab-7 st_view" style="position: absolute; left: 2560px; height: auto;">
-						<div class="st_view_inner" style="height: auto;">
-							#pane 6
-						</div>
-					</div>
-					<div class="tab-8 st_view" style="position: absolute; left: 2560px;">
-						<div class="st_view_inner">
-							#pane 7
-						</div>
-					</div>
-					<div class="tab-9 st_view" style="position: absolute; left: 2560px;">
-						<div class="st_view_inner">
-							#pane 8
-						</div>
-					</div>
+				{% endfor %}
 				</div>
 			</div>			
-		{% endblock %}
-		{% block distribution_table %}
-			 <table class="table table-bordered table-striped list-products">
-				{% block distribution_table_header %}
-					<thead>
-						<tr class="sonata-ba-list-field-header">
-							{% spaceless %}
-	                        	<th class="sonata-ba-list-field-header-text" >
-	                            	{{ 'label.distribution_id'|trans({}, 'InodataFloraBundle') }}
-	                        	</th>
-	                        	<th class="sonata-ba-list-field-header-text" >
-	                            	{{ 'label.distribution_details'|trans({}, 'InodataFloraBundle') }}
-	                        	</th>
-	                        	<th class="sonata-ba-list-field-header-text" >
-	                            	{{ 'label.distribution_actions'|trans({}, 'InodataFloraBundle') }}
-	                        	</th>
-	                    	{% endspaceless %}
-						</tr>
-					</thead>
-				{% endblock %}
-				{% block distribution_table_body %}
-					<tbody id="messenger_orders" >
-						{% include 'InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig' %}      
-			     	 </tbody>
-				{% endblock %}
-				{% block distribution_table_footer %}
-				{% endblock %}
-			</table>
 		{% endblock %}
 		
 		<a class="btn add_link" title="Edit" >
@@ -178,34 +153,4 @@
 	{% endblock %}
 	<br/><br/>
 	<b>{{ 'label.distribution_title'|trans({}, 'InodataFloraBundle') }}</b><br/>
-	
-	
-	
-	{% set batchactions = admin.batchactions %}
-    {% if admin.datagrid.results|length > 0 %}
-        <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
-            <table class="table table-bordered table-striped">
-            	{% block table_header %}
-            		{{ parent() }}
-            	{% endblock %}
-            	{% block table_body %}
-            		<tbody>
-                        {% for object in admin.datagrid.results %}
-                            <tr class="messenger-order-row" >
-                                {% include admin.getTemplate('inner_list_row') %}
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-            	{% endblock %}
-            	{% block table_footer %}
-            		{{ parent() }}
-            	{% endblock %}
-            
-	 		</table>
-        </form>
-    {% else %}
-        <p class="notice">
-            {{ 'no_result'|trans({}, 'SonataAdminBundle') }}
-        </p>
-    {% endif %}
 {% endblock %}
