@@ -55,8 +55,11 @@
 					<div class="st_tabs_wrap" style="overflow: hidden;">
 						<ul class="st_tabs_ul" style="margin-left: 0px;">
 							{% for messenger in messengers %}
-								<li class="{% if messenger.id == first_tab%} st_li_first st_li_active{% elseif messenger.id == last_tab%} st_li_last {% endif %}">
-									<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" class="st_tab st_tab_{{ messenger.id }}">{{ messenger }}</a>
+								<li class="
+								{% if messenger.id == first_tab%}st_li_first{% endif %}
+								{% if messenger.id == selected_messenger %} st_li_active{% endif %}
+								{% if messenger.id == last_tab%} st_li_last{% endif %}">
+									<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" class="messenger-tab st_tab st_tab_{{ messenger.id }}">{{ messenger }}</a>
 								</li>
 							{% endfor %}
 						</ul>
@@ -114,6 +117,12 @@
 						            	{% block table_header %}
 						            		{{ parent() }}
 						            	{% endblock %}
+						            	{% block table_body %}
+						            		<tbody>
+						            			
+						            		</tbody>
+						            	{% endblock %}
+						            	{#
 						            	{% if messenger.id == selected_messenger %}
 							            	{% block table_body %}
 							            		<tbody>
@@ -128,6 +137,7 @@
 							            		{{ parent() }}
 							            	{% endblock %}
 							            {% endif %}
+							            #}
 							 		</table>
 						        </form>
 						    {% else %}

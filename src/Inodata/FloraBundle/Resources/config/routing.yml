@@ -52,6 +52,10 @@ inodata_flora_distribution_update_orders_available:
 inodata_flora_distribution_list_print: 
     pattern: /admin/inodata/flora/distribution/list/print
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:printDistribution }
+
+inodata_flora_distribution_orders_by_messenger: 
+    pattern: /admin/inodata/flora/distribution/messenger/{id}/orders
+    defaults: {_controller: InodataFloraBundle:DistributionAdmin:loadOrdersByMessenger }
     
 inodata_flora_order_create_inovice_totals:
     pattern: /admin/inodata/flora/order/invoice/totals/{orderId}

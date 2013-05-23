@@ -53,6 +53,9 @@ class DistributionAdminController extends Controller
         	$lastTab = $messengers[count($messengers)-1]->getId();
         }
          
+        
+        print_r($this->getSelectedMessenger($messengers[0]->getId())); //exit();
+        
         $render = $this->render($this->admin->getTemplate('list'), array(
         		'action'   => 'list',
         		'form'     => $formView,
@@ -230,16 +233,37 @@ class DistributionAdminController extends Controller
     	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
     
+    /**MODIFICADO EN LA SEGUNDA VERSION**/
+    
+    public function loadOrdersByMessengerAction($id)
+    {
+    	$this->setSelectedMessenger($id);
+    	
+    	$orders = $this->getDoctrine()
+    		->getRepository('InodataFloraBundle:Order')
+    		->createQueryBuilder('o')
+    		->where("o.messenger=:id AND (o.status='intransit' OR o.status='delivered')")
+    		->orderBy('o.status', 'ASC')
+    		->setParameter('id', $id)
+    		->getQuery()->getResult();
+    	
+    	$response = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', array('orders' => $orders));
+    	
+    	return new Response(json_encode(array('orders'=>$response, 'id'=>$id)));
+    }
+    
     protected function setSelectedMessenger($idMessenger)
     {
     	$this->getRequest()->getSession()->set('messenger_selected', $idMessenger);
     }
-    protected function getSelectedMessenger($idDefault)
+    
+    protected function getSelectedMessenger($idDefault=null)
     {
     	$idMessenger = $this->getRequest()->getSession()->get('messenger_selected');
-    	if (!$idMessenger){
+    	/*if (!$idMessenger){
+    		$this->setSelectedMessenger($idDefault);
     		return $idDefault;
-    	}
+    	}*/
     	
     	return $idMessenger;
     }

@@ -1,0 +1,17 @@
+{% for order in orders %}
+<tr class="messenger-order-row" >
+	<td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="{{ order.id }}"> <input name="idx[]" value="1" type="checkbox"></td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-integer" objectid="{{ order.id }}"><a href="/app_dev.php/admin/distribution/1/edit">{{ order.id }}</a></td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">{{ order.firstProduct }}</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-datetime" objectid="{{ order.id }}">{{ order.deliveryDate|date("m/d/Y") }}</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">{{ order.status }}</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-actions" objectid="{{ order.id }}">
+		<a href="/app_dev.php/admin/distribution/delivered?id={{ order.id }}" class="btn" title="Entregado">
+    		<img src="/bundles/sonataadmin/famfamfam/accept.png" alt="Entregado">Entregado
+		</a>
+		<a href="/app_dev.php/admin/distribution/closed?id={{ order.id }}" class="btn" title="Cancelado">
+			<img src="/bundles/sonataadmin/famfamfam/cancel.png" alt="Cancelado">Cancelado
+		</a>
+	</td>  
+</tr>   
+{% endfor %}

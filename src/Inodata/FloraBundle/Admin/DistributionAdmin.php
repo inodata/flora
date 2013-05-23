@@ -52,13 +52,6 @@ class DistributionAdmin extends Admin
 		
 		/* TODO: Agregar comentarios */
 		$listMapper
-			->addIdentifier('messenger', null, array(
-					'label' => 'label.distribution_messenger',
-					'query_builder' => function(EntityRepository $er) {
-						return $er->createQueryBuilder('u')
-								  ->where('u.messenger IS NULL');
-					}
-				))
 			->addIdentifier('id', null, array(
 					'label' => 'label.distribution_id',
 				))

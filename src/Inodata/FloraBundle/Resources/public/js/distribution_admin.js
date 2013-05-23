@@ -118,4 +118,21 @@ $('document').ready(function(){
 			$(this).remove();
 		});
 	}
+	
+	/** CREADO EN SEGUNDA VERSION */
+	//Parametro '0' inalida messenger, hace que el controller detecte al messenger por default
+	//loadMessengerOrders(0);
+	
+	$('.messenger-tab').click(function(){
+		var id = $(this).attr('href').replace('#tab-', '');
+		loadMessengerOrders(id);
+	});
+	
+	function loadMessengerOrders(id){
+		var url = Routing.generate('inodata_flora_distribution_orders_by_messenger', {id:id});
+		
+		$.get(url, function(data){
+			$('.st_view.tab-'+data.id).find('tbody').html(data.orders);
+		}, 'json');
+	}
 });
