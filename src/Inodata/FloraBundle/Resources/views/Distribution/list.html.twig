@@ -46,7 +46,7 @@
 	<b>{{ 'label.distribution_assign'|trans({}, 'InodataFloraBundle') }}</b>
 	<br/><br/>
 	{% block distribution_form %}
-		<form method="post" action="{{ path('inodata_flora_distribution_add_orders_to_messenger', { 'messengerId': '2', 'orderIds': '1+3+' } ) }}" {{ form_enctype(form) }}>
+		<form method="post" action="#" {{ form_enctype(form) }}>
 		{% block user_sliding %}
 			<div id="slidingtabs" class="clean_rounded clean_rounded-horizontal sliding-tabs st_sliding_active">
 				<div class="st_tabs">
@@ -55,11 +55,10 @@
 					<div class="st_tabs_wrap" style="overflow: hidden;">
 						<ul class="st_tabs_ul" style="margin-left: 0px;">
 							{% for messenger in messengers %}
-								<li class="
-								{% if messenger.id == first_tab%}st_li_first{% endif %}
-								{% if messenger.id == selected_messenger %} st_li_active{% endif %}
-								{% if messenger.id == last_tab%} st_li_last{% endif %}">
-									<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" class="messenger-tab st_tab st_tab_{{ messenger.id }}">{{ messenger }}</a>
+								<li class="{% if messenger.id == selected_messenger %} st_li_active{% endif %}">
+									<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" 
+										class="messenger-tab st_tab st_tab_{{ messenger.id }} 
+										{% if messenger.id ==  selected_messenger%} st_tab_active{% endif %}">{{ messenger }}</a>
 								</li>
 							{% endfor %}
 						</ul>
@@ -67,9 +66,9 @@
 				</div>
 				<div class="st_views" style="height: 386px; overflow: hidden;">
 				{% for messenger in messengers %}
-					<div class="{% if messenger.id == first_tab %}st_view_first st_view_active {% endif %} 
+					<div class="{% if messenger.id == first_tab %}st_view_first {% endif %} 
 						tab-{{ messenger.id }} st_view" style="
-							{% if messenger.id == first_tab %}position: absolute; left: 0px; height: auto;
+							{% if messenger.id == selected_messenger %}position: absolute; left: 0px; height: auto;
 							{% else %} position: absolute; left: 2560px; height: auto;{% endif %}">
 						<div class="st_view_inner" style="height: auto;">
 							{# {% block distribution_table %}
@@ -101,13 +100,15 @@
 								</table>
 							{% endblock %}#}
 							{% if messenger.id == selected_messenger %}
-								<div class="label-inline" >
-									{{ form_label(distribution_form['id'], 'label.distribution_id'|trans({}, 'InodataFloraBundle') ) }}
+								<div class="inner-filters">
+									<div class="label-inline" >
+										{{ form_label(distribution_form['id'], 'label.distribution_id'|trans({}, 'InodataFloraBundle') ) }}
+									</div>
+									<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+										{{ form_widget(distribution_form.id)}}
+									</div>
+									<br/><br/>
 								</div>
-								<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-									{{ form_widget(distribution_form.id)}}
-								</div>
-								<br/><br/>
 							{% endif %}
 							
 							{% set batchactions = admin.batchactions %}

@@ -54,7 +54,7 @@ class DistributionAdminController extends Controller
         }
          
         
-        print_r($this->getSelectedMessenger($messengers[0]->getId())); //exit();
+        print_r($this->getSelectedMessenger($messengers[0]->getId()));
         
         $render = $this->render($this->admin->getTemplate('list'), array(
         		'action'   => 'list',
@@ -68,20 +68,6 @@ class DistributionAdminController extends Controller
         ));
         
         return $render;
-    }
-    
-    public function addPreviewOrderToMessengerAction($orderId)
-    {
-    	$order = $this->getDoctrine()
-				    	->getRepository('InodataFloraBundle:Order')
-				    	->find( $orderId );
-    	
-    	$row = $this->renderView('InodataFloraBundle:Distribution:_order_item.html.twig',
-    			array('order' => $order));
-    
-    	$response = array('row' => $row);
-    	
-    	return new Response(json_encode($response));
     }
     
     public function addOrdersToMessengerAction()
@@ -233,11 +219,43 @@ class DistributionAdminController extends Controller
     	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
     }
     
+    public function addOrderToMessengerAction()
+    {
+    	/* Obtiene los valores por post */
+    	$messengerId = $this->get('request')->get('messenger_id');
+    	$orderId = $this->get('request')->get('order_id');
+    	 
+    	/* Encuentra el Messenger */
+    	$messenger = $this->getDoctrine()->getRepository('InodataFloraBundle:Employee')
+    		->find( $messengerId );
+    	 
+    	$em = $this->getDoctrine()->getEntityManager();
+    	
+    	$order = $this->getDoctrine()->getRepository('InodataFloraBundle:Order')
+    		->find( $orderId );
+    	 
+    	if( $order != null ){
+    		$order->setStatus('intransit');
+    		$order->setMessenger($messenger);
+    		 
+    		$em->persist($order);
+    		$em->flush();
+    	}
+    	 
+    	/*$row = $this->renderView('InodataFloraBundle:Distribution:_order_item.html.twig',
+    			array('order' => $order));*/
+    	$row = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', 
+    			array('orders' => array(0=>$order)));
+    	 
+    	return new Response(json_encode(array('order'=>$row, 'id'=>$messengerId)));
+    }
+    
     /**MODIFICADO EN LA SEGUNDA VERSION**/
     
     public function loadOrdersByMessengerAction($id)
     {
     	$this->setSelectedMessenger($id);
+    	$id = $this->getSelectedMessenger();
     	
     	$orders = $this->getDoctrine()
     		->getRepository('InodataFloraBundle:Order')
@@ -247,23 +265,26 @@ class DistributionAdminController extends Controller
     		->setParameter('id', $id)
     		->getQuery()->getResult();
     	
-    	$response = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', array('orders' => $orders));
+    	$response = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', 
+    			array('orders' => $orders));
     	
     	return new Response(json_encode(array('orders'=>$response, 'id'=>$id)));
     }
     
     protected function setSelectedMessenger($idMessenger)
     {
-    	$this->getRequest()->getSession()->set('messenger_selected', $idMessenger);
+    	if ($idMessenger!=0){
+    		$this->getRequest()->getSession()->set('messenger_selected', $idMessenger);
+    	}
     }
     
     protected function getSelectedMessenger($idDefault=null)
     {
     	$idMessenger = $this->getRequest()->getSession()->get('messenger_selected');
-    	/*if (!$idMessenger){
+    	if (!$idMessenger){
     		$this->setSelectedMessenger($idDefault);
     		return $idDefault;
-    	}*/
+    	}
     	
     	return $idMessenger;
     }

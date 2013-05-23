@@ -9,20 +9,28 @@ $('document').ready(function(){
 		$(this).remove();
 	});
 
+	/* MODIFICADO PARA LA SEGUNDA VERSIO*/
 	$('#inodata_distribution_type_form_id').change(function(){
-		var id = $(this).val()!=''?id=$(this).val():id=0;
+		var orderId = $(this).val()!=''?id=$(this).val():id=0;
+		var messengerId = $('.messenger-tab.st_tab_active').attr('href').replace('#tab-', '');
+		
+		var data = {messenger_id:messengerId, order_id:orderId}
 		
 		if( id != 0){
-			var url = Routing.generate('inodata_flora_distribution_add_preview_order_to_messenger', {orderId:id});
-				
-			$.get(url, function(data){
+			//var url = Routing.generate('inodata_flora_distribution_add_preview_order_to_messenger', {orderId:id});
+			var url = Routing.generate('inodata_flora_distribution_add_order_to_messenger');
+			/*$.get(url, function(data){
 				$("tbody#messenger_orders").append(data.row);
 				$('.inodata_id_list').select2('val', '');
 				hideEmptyNotification();
 				updateOrderSelectOptions();
-			}, 'json');
+			}, 'json');*/
+			$.post(url, data, function(response){
+				$('.st_view.tab-'+response.id).find('tbody').prepend(data.order); alert("hola mundo");
+			},'json');
 		}
 	});
+	/* -----------------------------------*/
 	
 	$('.delete_link').live('click', function(){
 		$(this).closest('tr').remove();
@@ -121,14 +129,18 @@ $('document').ready(function(){
 	
 	/** CREADO EN SEGUNDA VERSION */
 	//Parametro '0' inalida messenger, hace que el controller detecte al messenger por default
-	//loadMessengerOrders(0);
+	var updated = false;
+	loadMessengerOrders(0);
 	
 	$('.messenger-tab').click(function(){
+		/* Pasar el selector*/
 		var id = $(this).attr('href').replace('#tab-', '');
 		loadMessengerOrders(id);
+		$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
 	});
 	
-	function loadMessengerOrders(id){
+	function loadMessengerOrders(id)
+	{
 		var url = Routing.generate('inodata_flora_distribution_orders_by_messenger', {id:id});
 		
 		$.get(url, function(data){

@@ -38,13 +38,11 @@ inodata_flora_distribution_filter_order_by_messenger:
     pattern: /admin/inodata/flora/distribution/filter/order/by/messenger/{messengerId}
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:ordersByMessengerId}
 
-inodata_flora_distribution_add_orders_to_messenger: 
-    pattern: /admin/inodata/flora/distribution/add/order/to/messenger
-    defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrdersToMessenger}
+#inodata_flora_distribution_add_orders_to_messenger: 
+#    pattern: /admin/inodata/flora/distribution/add/order/to/messenger
+#    defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrdersToMessenger}
 
-inodata_flora_distribution_add_preview_order_to_messenger: 
-    pattern: /admin/inodata/flora/distribution/add/preview/order/to/messenger/{orderId}
-    defaults: {_controller: InodataFloraBundle:DistributionAdmin:addPreviewOrderToMessenger}
+
 inodata_flora_distribution_update_orders_available: 
     pattern: /admin/inodata/flora/distribution/update/orders/available
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:updateOrdersAvailable}
@@ -52,10 +50,15 @@ inodata_flora_distribution_update_orders_available:
 inodata_flora_distribution_list_print: 
     pattern: /admin/inodata/flora/distribution/list/print
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:printDistribution }
-
+#New
 inodata_flora_distribution_orders_by_messenger: 
     pattern: /admin/inodata/flora/distribution/messenger/{id}/orders
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:loadOrdersByMessenger }
+#Reused    
+inodata_flora_distribution_add_order_to_messenger: 
+    pattern: /admin/inodata/flora/distribution/add/order/to/messenger
+    defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrderToMessenger}
+    
     
 inodata_flora_order_create_inovice_totals:
     pattern: /admin/inodata/flora/order/invoice/totals/{orderId}
