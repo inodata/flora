@@ -2,7 +2,7 @@ $('document').ready(function(){
 
 	$('#filter_deliveryDate_value').datepicker({ dateFormat: "yy-mm-dd" });
 	$('.inodata_messenger_list').select2({allowClear:true});
-	$('.inodata_id_list').select2({allowClear:true, closeOnSelect:false});
+	$('.inodata_id_list').select2({allowClear:true});
 	
 	/* Refactorizar esta funcion */
 	$('div.alert-success').fadeOut(5000, function(){
@@ -26,7 +26,8 @@ $('document').ready(function(){
 				updateOrderSelectOptions();
 			}, 'json');*/
 			$.post(url, data, function(response){
-				$('.st_view.tab-'+response.id).find('tbody').prepend(data.order); alert("hola mundo");
+				$('.st_view.tab-'+response.id).find('tbody').prepend(response.order);
+				$('select.inodata_id_list').html(response.orderOptions).select2({allowClear:true});
 			},'json');
 		}
 	});

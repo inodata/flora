@@ -246,8 +246,17 @@ class DistributionAdminController extends Controller
     			array('order' => $order));*/
     	$row = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', 
     			array('orders' => array(0=>$order)));
+    	
+    	//Cargar View con estos datos
+    	$ordersOpened = $this->getDoctrine()
+    		->getRepository('InodataFloraBundle:Order')
+    		->findByStatus('open');
+    	
+    	$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig', 
+    			array('orders' => $ordersOpened));
     	 
-    	return new Response(json_encode(array('order'=>$row, 'id'=>$messengerId)));
+    	return new Response(json_encode(array('order'=>$row, 
+    			'id'=>$messengerId, 'orderOptions'=>$orderOptions)));
     }
     
     /**MODIFICADO EN LA SEGUNDA VERSION**/
