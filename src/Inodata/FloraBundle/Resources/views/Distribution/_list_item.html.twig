@@ -6,12 +6,21 @@
 	<td class="sonata-ba-list-field sonata-ba-list-field-datetime" objectid="{{ order.id }}">{{ order.deliveryDate|date("m/d/Y") }}</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">{{ order.status }}</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-actions" objectid="{{ order.id }}">
-		<a href="/app_dev.php/admin/distribution/delivered?id={{ order.id }}" class="btn" title="Entregado">
-    		<img src="/bundles/sonataadmin/famfamfam/accept.png" alt="Entregado">Entregado
-		</a>
-		<a href="/app_dev.php/admin/distribution/closed?id={{ order.id }}" class="btn" title="Cancelado">
-			<img src="/bundles/sonataadmin/famfamfam/cancel.png" alt="Cancelado">Cancelado
-		</a>
+		{% if order.status == "intransit"%}
+			<a href="javascript:void()" class="btn order-action deliver" title="Entregado" orderid="{{ order.id }}">
+	    		<img src="/bundles/sonataadmin/famfamfam/accept.png" alt="Entregado">Entregar
+			</a>
+			<a href="javascript:void()" class="btn order-action cancel" title="Cancelado" orderid="{{ order.id }}">
+				<img src="/bundles/sonataadmin/famfamfam/cancel.png" alt="Cancelado">Quitar
+			</a>
+		{% else %}
+			<a href="javascript:void()" class="btn order-action intransit" title="Entregado" orderid="{{ order.id }}">
+	    		<img src="/bundles/sonataadmin/famfamfam/accept.png" alt="En transito">En Transito
+			</a>
+			<a href="javascript:void()" class="btn order-action cancel" title="Cancelado" orderid="{{ order.id }}">
+				<img src="/bundles/sonataadmin/famfamfam/cancel.png" alt="Cancelado">Quitar
+			</a>
+		{% endif %}
 	</td>  
 </tr>   
 {% endfor %}

@@ -27,20 +27,6 @@ class DistributionAdminController extends Controller
 		
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
-		
-        /*
-        if( $this->getRequest()->isXmlHttpRequest() ){
-        	$render = $this->renderView('SonataAdminBundle:CRUD:list.html.twig', array(
-        			'action'   => 'list',
-        			'base_template' => $this->getBaseTemplate(),
-        			'admin' => $this->admin,
-        			'form'     => $formView,
-        			'distribution_form' => $distributionFormView,
-        			'datagrid' => $datagrid));
-        	
-        	return new Response($render);
-        }
-        */
         
         $messengers = $this->getDoctrine()
         				->getRepository('InodataFloraBundle:Employee')
@@ -52,9 +38,6 @@ class DistributionAdminController extends Controller
         	$firstTab = $messengers[0]->getId();
         	$lastTab = $messengers[count($messengers)-1]->getId();
         }
-         
-        
-        print_r($this->getSelectedMessenger($messengers[0]->getId()));
         
         $render = $this->render($this->admin->getTemplate('list'), array(
         		'action'   => 'list',
@@ -167,25 +150,24 @@ class DistributionAdminController extends Controller
         return $render;
     }
     
-    public function deliveredAction()
+    public function changeOrderStatusAction()
     {
-    	$id = $this->get('request')->get('id');
-    	$this->setOrderStatus('delivered', $id);
-    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
-    }
-    
-    public function closedAction()
-    {
-    	$id = $this->get('request')->get('id');
-    	$this->setOrderStatus('closed', $id);
-    	return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
-    }
-    
-    public function openAction()
-    {
-    	$id = $this->get('request')->get('id');
-		$this->setOrderStatus('open', $id);
-		return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
+    	$id = $this->get('request')->get('orderId');
+    	$status = $this->get('request')->get('action');
+    	$orderOptions = null;
+    	
+    	$this->setOrderStatus($status, $id);
+    	
+    	if ($status == 'open'){
+    		$ordersOpened = $this->getDoctrine()
+    		->getRepository('InodataFloraBundle:Order')
+    		->findByStatus('open');
+    		
+    		$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
+    				array('orders' => $ordersOpened));
+    	}
+    	
+    	return new Response(json_encode(array('success'=>$status, 'orderOptions'=>$orderOptions)));
     }
     
     private function setOrderStatus($status, $id)
@@ -194,12 +176,15 @@ class DistributionAdminController extends Controller
     	{
     		$order =  $this->getDoctrine()
     			->getRepository('InodataFloraBundle:Order')
-    			->find( $id );
+    			->find($id);
     	
     		if( $order == null ){
     			// TODO: No se cambia el status
     		} else{
     			$order->setStatus($status);
+    			if ($status=='open'){
+    				$order->setMessenger(null);
+    			}
     			$em = $this->getDoctrine()->getEntityManager();
     			$em->persist($order);
     			$em->flush();

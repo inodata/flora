@@ -54,6 +54,10 @@ inodata_flora_distribution_list_print:
 inodata_flora_distribution_orders_by_messenger: 
     pattern: /admin/inodata/flora/distribution/messenger/{id}/orders
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:loadOrdersByMessenger }
+#New    
+inodata_flora_distribution_order_action: 
+    pattern: /admin/inodata/flora/distribution/change/order/status
+    defaults: {_controller: InodataFloraBundle:DistributionAdmin:changeOrderStatus }
 #Reused    
 inodata_flora_distribution_add_order_to_messenger: 
     pattern: /admin/inodata/flora/distribution/add/order/to/messenger

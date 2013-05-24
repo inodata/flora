@@ -8,29 +8,6 @@ $('document').ready(function(){
 	$('div.alert-success').fadeOut(5000, function(){
 		$(this).remove();
 	});
-
-	/* MODIFICADO PARA LA SEGUNDA VERSIO*/
-	$('#inodata_distribution_type_form_id').change(function(){
-		var orderId = $(this).val()!=''?id=$(this).val():id=0;
-		var messengerId = $('.messenger-tab.st_tab_active').attr('href').replace('#tab-', '');
-		
-		var data = {messenger_id:messengerId, order_id:orderId}
-		
-		if( id != 0){
-			//var url = Routing.generate('inodata_flora_distribution_add_preview_order_to_messenger', {orderId:id});
-			var url = Routing.generate('inodata_flora_distribution_add_order_to_messenger');
-			/*$.get(url, function(data){
-				$("tbody#messenger_orders").append(data.row);
-				$('.inodata_id_list').select2('val', '');
-				hideEmptyNotification();
-				updateOrderSelectOptions();
-			}, 'json');*/
-			$.post(url, data, function(response){
-				$('.st_view.tab-'+response.id).find('tbody').prepend(response.order);
-				$('select.inodata_id_list').html(response.orderOptions).select2({allowClear:true});
-			},'json');
-		}
-	});
 	/* -----------------------------------*/
 	
 	$('.delete_link').live('click', function(){
@@ -133,12 +110,36 @@ $('document').ready(function(){
 	var updated = false;
 	loadMessengerOrders(0);
 	
+	/* MODIFICADO PARA LA SEGUNDA VERSIO*/
+	$('#inodata_distribution_type_form_id').change(function(){
+		var orderId = $(this).val()!=''?id=$(this).val():id=0;
+		var messengerId = $('.messenger-tab.st_tab_active').attr('href').replace('#tab-', '');
+		
+		var data = {messenger_id:messengerId, order_id:orderId}
+		
+		if( id != 0){
+			var url = Routing.generate('inodata_flora_distribution_add_order_to_messenger');
+			$.post(url, data, function(response){
+				$('.st_view.tab-'+response.id).find('tbody').prepend(response.order);
+				updateOrdersOptions(response.orderOptions);
+			},'json');
+		}
+	});
+	
+	function updateOrdersOptions(orderOptions)
+	{
+		$('select.inodata_id_list').html(orderOptions)
+			.select2({allowClear:true});
+	}
+	
 	$('.messenger-tab').click(function(){
 		/* Pasar el selector*/
 		var id = $(this).attr('href').replace('#tab-', '');
 		loadMessengerOrders(id);
 		$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
 	});
+	
+	loadSlidingTabsEfects();
 	
 	function loadMessengerOrders(id)
 	{
@@ -147,5 +148,44 @@ $('document').ready(function(){
 		$.get(url, function(data){
 			$('.st_view.tab-'+data.id).find('tbody').html(data.orders);
 		}, 'json');
+	}
+	
+	$('.order-action').live('click', function(){
+		var orderId = $(this).attr('orderid');
+		
+		if($(this).hasClass('deliver')){
+			action="delivered";
+		}
+		if($(this).hasClass('intransit')){
+			action="intransit";
+		}
+		if($(this).hasClass('cancel')){
+			action="open";
+		}
+		
+		var url = Routing.generate('inodata_flora_distribution_order_action');
+		var data = {orderId:orderId, action:action};
+		
+		$.post(url, data, function(response){
+			loadMessengerOrders(0);
+			if(response.success == 'open'){
+				updateOrdersOptions(response.orderOptions);
+				$("#slidingtabs").slidingTabs().setContentHeight();
+			}
+		}, 'json');
+	});
+	
+	function loadSlidingTabsEfects(){
+		$("#slidingtabs").slidingTabs({ 
+			//tabActive:1,
+			responsive:true, 
+			touchSupport:true, 
+			tabsAlignment:"align_top", 
+			autoHeight:true, 
+			autoHeightSpeed:300, 
+			textConversion:"pb", 
+			contentEasing:"easeInOutQuart", 
+			orientation:"horizontal",
+		});
 	}
 });

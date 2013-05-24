@@ -23,9 +23,9 @@
 		<script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
 	<script type="text/javascript">
-		$(document).ready(function() {
+		/*$(document).ready(function() {
 			$("#slidingtabs").slidingTabs({ 
-				tabActive:1, 
+				//tabActive:1, 
 				responsive:true, 
 				touchSupport:true, 
 				tabsAlignment:"align_top", 
@@ -35,7 +35,7 @@
 				contentEasing:"easeInOutQuart", 
 				orientation:"horizontal"
 			});
-		});
+		});*/
 	</script>
 {% endblock %}
 
@@ -152,10 +152,6 @@
 				</div>
 			</div>			
 		{% endblock %}
-		
-		<a class="btn add_link" title="Edit" >
-			{{ 'label.distribution_assign_button'|trans({}, 'InodataFloraBundle') }}
-		</a>
 		<a target="_blank" href="{{ path('inodata_flora_distribution_list_print') }}" class="btn print_link" title="Imprimir Listado" >
 			<i class="icon-print" ></i>
 			{{ 'label.distribution_print'|trans({}, 'InodataFloraBundle') }}
