@@ -17,26 +17,9 @@
 				   	 '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
 				   	 '@InodataFloraBundle/Resources/public/js/distribution_admin.js'
 				   	 '@InodataFloraBundle/Resources/public/js/lang/es.js'
-				   	 '@InodataFloraBundle/Resources/public/js/sliding/jquery.flashblue-plugins.js'
-				   	 '@InodataFloraBundle/Resources/public/js/sliding/jquery.sliding-tabs-touch.js'
-				   	 '@InodataFloraBundle/Resources/public/js/sliding/jquery.sliding-tabs.js'%}
+				   	 '@InodataFloraBundle/Resources/public/js/sliding/jquery.slidetabs.min.js'%}
 		<script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
-	<script type="text/javascript">
-		/*$(document).ready(function() {
-			$("#slidingtabs").slidingTabs({ 
-				//tabActive:1, 
-				responsive:true, 
-				touchSupport:true, 
-				tabsAlignment:"align_top", 
-				autoHeight:true, 
-				autoHeightSpeed:300, 
-				textConversion:"pb", 
-				contentEasing:"easeInOutQuart", 
-				orientation:"horizontal"
-			});
-		});*/
-	</script>
 {% endblock %}
 
 {% block actions %}
@@ -48,26 +31,33 @@
 	{% block distribution_form %}
 		<form method="post" action="#" {{ form_enctype(form) }}>
 		{% block user_sliding %}
-			<div id="slidingtabs" class="clean_rounded clean_rounded-horizontal sliding-tabs st_sliding_active">
+			<div id="slidetabs" class="slidetabs clean_rounded clean_rounded-horizontal align_top st_sliding_active">
 				<div class="st_tabs">
-					<a href="#" class="st_prev st_btn_disabled" style="display: block;">prev</a>
-					<a href="#" class="st_next" style="display: block;">next</a>
-					<div class="st_tabs_wrap" style="overflow: hidden;">
-						<ul class="st_tabs_ul" style="margin-left: 0px;">
+					<a style="display: block;" href="#" class="st_prev">prev</a>
+					<a style="display: block;" href="#" class="st_next st_btn_disabled">next</a>
+						<div style="overflow: hidden;" class="st_tabs_wrap">
+							<ul style="" class="st_tabs_ul">
 							{% for messenger in messengers %}
-								<li class="{% if messenger.id == selected_messenger %} st_li_active{% endif %}">
-									<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" 
+								<li class="{% if messenger.id == first_tab %} st_li_first{% endif %}">
+									{#<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" 
 										class="messenger-tab st_tab st_tab_{{ messenger.id }} 
-										{% if messenger.id ==  selected_messenger%} st_tab_active{% endif %}">{{ messenger }}</a>
+										{% if messenger.id ==  selected_messenger%} st_tab_active{% endif %}">{{ messenger }}</a>#}
+										
+									<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" 
+										class="messenger-tab st_tab st_tab_{{ messenger.id }}
+										{% if messenger.id == first_tab %} st_tab_first{% endif %}
+										{% if messenger.id ==  selected_messenger%} st_tab_active{% endif %}
+										{% if messenger.id ==  last_tab%} st_tab_last{% endif %}">{{ messenger }}</a>
 								</li>
 							{% endfor %}
 						</ul>
 					</div>
 				</div>
-				<div class="st_views" style="height: 386px; overflow: hidden;">
+				<div class="st_views">{{ selected_messenger }}
 				{% for messenger in messengers %}
-					<div class="{% if messenger.id == first_tab %}st_view_first {% endif %} 
-						tab-{{ messenger.id }} st_view" style="
+					<div class="{% if messenger.id == first_tab %}st_view_first {% endif %}
+								{% if messenger.id == selected_messenger %} st_view_active{% endif %} 
+								tab-{{ messenger.id }} st_view" style="
 							{% if messenger.id == selected_messenger %}position: absolute; left: 0px; height: auto;
 							{% else %} position: absolute; left: 2560px; height: auto;{% endif %}">
 						<div class="st_view_inner" style="height: auto;">
