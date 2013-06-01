@@ -22,4 +22,6 @@ $('document').ready(function(){
 		$(targetForm).eq(8).children().val($(sourceForm).eq(8).children().val());
 		$(targetForm).eq(9).children().val($(sourceForm).eq(9).children().val());
 	}
+	
+	
 });

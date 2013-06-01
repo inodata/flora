@@ -121,6 +121,7 @@ $('document').ready(function(){
 			var url = Routing.generate('inodata_flora_distribution_add_order_to_messenger');
 			$.post(url, data, function(response){
 				$('.st_view.tab-'+response.id).find('tbody').prepend(response.order);
+				$('#num-pendings').html(response.num_orders);
 				updateOrdersOptions(response.orderOptions);
 			},'json');
 		}
@@ -134,15 +135,7 @@ $('document').ready(function(){
 		
 	}
 	
-	$('.messenger-tab').click(function(){
-		/* Pasar el selector*/
-		var id = $(this).attr('href').replace('#tab-', '');
-		loadMessengerOrders(id);
-		$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
-	});
-	
 	loadSlidingTabsEfects();
-	//$('#slidetabs').slidetabs();
 	
 	function loadMessengerOrders(id)
 	{
@@ -151,6 +144,7 @@ $('document').ready(function(){
 		$.get(url, function(data){
 			$('.st_view.tab-'+data.id).find('tbody').html(data.orders);
 			$('#slidetabs').slidetabs().setContentHeight();
+			$('#num-pendings').html(data.num_orders);
 		}, 'json');
 	}
 	
@@ -180,15 +174,32 @@ $('document').ready(function(){
 	
 	function loadSlidingTabsEfects(){
 		$("#slidetabs").slidetabs({ 
-			//tabActive:1,
 			responsive:true, 
 			touchSupport:true, 
-			//tabsAlignment:"align_top", 
 			autoHeight:true, 
 			autoHeightSpeed:300, 
-			//textConversion:"pb", 
-			contentEasing:"easeInOutQuart", 
-			//orientation:"horizontal",
+			contentEasing:"easeInOutQuart",
+			onTabClick: function(){
+				var id = $(this).attr('href').replace('#tab-', '');
+				
+				$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
+				loadMessengerOrders(id);
+			}
 		});
 	}
+	
+	//Edit in place employee information
+	$(".st_tabs_ul li").each(function(){
+		$(this).children('a').append($(this).children('div').clone().removeClass('editable-form'));
+	});
+	
+	var url = Routing.generate('inodata_flora_distribution_messenger_edit_in_place');
+	$('.editable-form .edit-employee').editable(url, {
+		width:'100px', height:'20px',
+		indicator : 'Guardando...',
+		callback: function(value, settings){
+			var column = $(this).attr('column');
+			var el= $('.st_tabs_ul a > div .'+column).text(value);
+		}
+	});
 });

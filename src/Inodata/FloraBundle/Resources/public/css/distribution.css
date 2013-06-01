@@ -50,3 +50,129 @@
   	}
 }
 
+@media screen{
+	
+	/* STYLE FOR EDIT IN PLACE ON DISTRIBUTIONS TABS*/ 
+	.st_tabs_ul li p{
+		float: left;
+		margin: 0;
+		padding-left: 4px;
+		height: 15px;
+		color: inherit;
+		font-family: Arial,Helvetica,sans-serif;
+		font-weight: bold;
+	}
+	.st_tabs_ul li p.new-line{
+		clear:left;
+	}
+	
+	.st_tabs_ul li a > div{
+		position:relative;
+		top: -7px;
+	}
+	.st_tabs_ul li > div{
+		position:relative;
+		top: -41px;
+		padding: 0 22px;
+	}
+	.st_tabs_ul li.st_li_active > div p{
+		color: #0088cc;
+	}
+	
+	.st_tabs_ul li > div {
+		visibility: hidden;
+	}
+	.st_tabs_ul li.st_li_active > div{
+		visibility: visible;
+	}
+	.st_tabs_ul li.st_li_active a > div{
+		visibility: hidden;
+	}
+	/* ---------------------------------- */
+	
+	/*--------- CONTENT HEADER----------- */
+	.inner-filters > div{
+		float:left;
+	}
+	
+	div#s2id_inodata_distribution_type_form_id{
+		width: 300px;
+	}
+	
+	.sonata-ba-field #s2id_inodata_distribution_type_form_id .select2-choice > span{
+		color: #444;
+	}
+	.select2-results li div{
+		color: #000;
+	}
+	.select2-results li.select2-highlighted div{
+		color: #FFF;
+	}
+	
+	.boxes, .lamps{
+		position: relative;
+		padding-left: 0px; 
+	}
+	
+	.boxes .num-box{
+		position: absolute;
+		background: url("../../../bundles/inodataflora/img/box.png") no-repeat;
+		background-size: 100%;
+		width: 65px;
+		height: 60px;
+		top: -30px;
+		left: 25px;
+		font-size: 45px;
+		font-weight: bold;
+		line-height: 45px;
+		color: #444;
+		text-align: center;
+		z-index: -1;
+	}
+	.boxes > div, .lamps > div {
+		float: left;
+	}
+	.boxes > div a, .lamps > div a{
+		font-size: 50px;
+		padding: 0 16px;
+		height: 100%;
+	}
+	
+	.lamps .num-lamps {
+		position: absolute;
+		background: url("../../../bundles/inodataflora/img/lamp.png") no-repeat;
+		background-size: 100%;
+		width: 65px;
+		height: 60px;
+		top: -30px;
+		left: 25px;
+		font-size: 45px;
+		font-weight: bold;
+		line-height: 45px;
+		color: #444;
+		text-align: center;
+		z-index: -1;
+	}
+	
+	.in-transit{
+		position: relative;
+		width: 70px;
+		height: 30px;
+		top: -6px;
+		padding-left: 20px;
+	}
+	.in-transit > div{
+		position: relative;
+		color: #444;
+		font-weight: bold;
+		width: 100%;
+		text-align: center;
+		
+	}
+	.in-transit > div:first-child{
+		top: -10px;
+		font-size: 45px;
+	}
+	/*----------------------------------------*/
+}
+

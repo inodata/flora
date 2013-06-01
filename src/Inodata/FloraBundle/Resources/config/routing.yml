@@ -62,7 +62,10 @@ inodata_flora_distribution_order_action:
 inodata_flora_distribution_add_order_to_messenger: 
     pattern: /admin/inodata/flora/distribution/add/order/to/messenger
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrderToMessenger}
-    
+#new    
+inodata_flora_distribution_messenger_edit_in_place:
+    pattern: /admin/inodata/flora/distribution/messenger/edit/in/place
+    defaults: {_controller: InodataFloraBundle:DistributionAdmin:editInPlace}    
     
 inodata_flora_order_create_inovice_totals:
     pattern: /admin/inodata/flora/order/invoice/totals/{orderId}

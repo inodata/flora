@@ -56,6 +56,20 @@ class Employee
     private $jobPosition;
     
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="lamps", type="integer", nullable=true)
+     */
+    private $lamps;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="boxes", type="integer", nullable=true)
+     */
+    private $boxes;
+    
+    /**
      * 
      * @var array
      * Desc Si el Employee es de tipo Messenger guarda los pedidos
@@ -208,5 +222,51 @@ class Employee
     public function getJobPosition()
     {
         return $this->jobPosition;
+    }
+
+    /**
+     * Set lamps
+     *
+     * @param integer $lamps
+     * @return Employee
+     */
+    public function setLamps($lamps)
+    {
+        $this->lamps = $lamps;
+    
+        return $this;
+    }
+
+    /**
+     * Get lamps
+     *
+     * @return integer 
+     */
+    public function getLamps()
+    {
+        return $this->lamps;
+    }
+
+    /**
+     * Set boxes
+     *
+     * @param integer $boxes
+     * @return Employee
+     */
+    public function setBoxes($boxes)
+    {
+        $this->boxes = $boxes;
+    
+        return $this;
+    }
+
+    /**
+     * Get boxes
+     *
+     * @return integer 
+     */
+    public function getBoxes()
+    {
+        return $this->boxes;
     }
 }

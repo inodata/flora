@@ -239,9 +239,11 @@ class DistributionAdminController extends Controller
     	
     	$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig', 
     			array('orders' => $ordersOpened));
+    	
+    	$numOrders = $this->getNOrdersInTransit($messengerId);
     	 
     	return new Response(json_encode(array('order'=>$row, 
-    			'id'=>$messengerId, 'orderOptions'=>$orderOptions)));
+    			'id'=>$messengerId, 'orderOptions'=>$orderOptions, 'num_orders'=>$numOrders)));
     }
     
     /**MODIFICADO EN LA SEGUNDA VERSION**/
@@ -259,10 +261,58 @@ class DistributionAdminController extends Controller
     		->setParameter('id', $id)
     		->getQuery()->getResult();
     	
+    	$numOrders = $this->getNOrdersInTransit($id);
+    	
     	$response = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', 
     			array('orders' => $orders));
     	
-    	return new Response(json_encode(array('orders'=>$response, 'id'=>$id)));
+    	return new Response(json_encode(array('orders'=>$response, 'id'=>$id, 'num_orders'=>$numOrders)));
+    }
+    
+    private function getNOrdersInTransit($id)
+    {
+    	$nOrders = $this->getDoctrine()
+    		->getRepository('InodataFloraBundle:Order')
+    		->createQueryBuilder('o')
+    		->select('COUNT(o.id)')
+    		->where("o.messenger=:id AND o.status='intransit'")
+    		->setParameter('id', $id)
+    		->getQuery()->getSingleScalarResult();
+    	
+    	return $nOrders;
+    }
+    
+    //Messenger edit in place
+    public function editInPlaceAction()
+    {
+    	$idColumn = explode('-', $this->get('request')->get('id'));
+    
+    	$employeeId = $idColumn[0];
+    	$employeeAttr = $idColumn[1];
+    	$value =  $this->get('request')->get('value');
+    
+    	$em = $this->getDoctrine()->getEntityManager();
+    	$employee = $em->getRepository('InodataFloraBundle:Employee')
+    	->find($employeeId);
+    	
+    	switch($employeeAttr){
+    		case 'name':
+    			$employee->setName($value);
+    			break;
+    		case 'lastname':
+    			$employee->setLastname($value);
+    			break;
+    		case 'phone':
+    			$employee->setPhone($value);
+    			break;
+    	};
+    
+    	$em->persist($employee);
+    
+    	$em->flush();
+    	$em->clear();
+    
+    	return new Response($value);
     }
     
     protected function setSelectedMessenger($idMessenger)
