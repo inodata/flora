@@ -39,6 +39,9 @@ class DistributionAdminController extends Controller
         	$lastTab = $messengers[count($messengers)-1]->getId();
         }
         
+
+        isset($messengers[0])==true? $firsMessenger = $messengers[0]->getId():$firsMessenger=0;
+        
         $render = $this->render($this->admin->getTemplate('list'), array(
         		'action'   => 'list',
         		'form'     => $formView,
@@ -47,7 +50,7 @@ class DistributionAdminController extends Controller
         		'messengers' => $messengers,
         		'first_tab' => $firstTab,
         		'last_tab' => $lastTab,
-        		'selected_messenger' => $this->getSelectedMessenger($messengers[0]->getId())
+        		'selected_messenger' => $this->getSelectedMessenger($firsMessenger)
         ));
         
         return $render;
