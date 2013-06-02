@@ -145,6 +145,9 @@ $('document').ready(function(){
 			$('.st_view.tab-'+data.id).find('tbody').html(data.orders);
 			$('#slidetabs').slidetabs().setContentHeight();
 			$('#num-pendings').html(data.num_orders);
+			
+			$('.num-boxes').html(data.boxes);
+			$('.num-lamps').html(data.lamps);
 		}, 'json');
 	}
 	
@@ -202,4 +205,21 @@ $('document').ready(function(){
 			var el= $('.st_tabs_ul a > div .'+column).text(value);
 		}
 	});
+	
+	//more/less objects
+	$('.boxes a').click(function(){
+		changeObjects('boxes', $(this).text());
+	});
+	$('.lamps a').click(function(){
+		changeObjects('lamps', $(this).text());
+	});
+	
+	function changeObjects(object, action){
+		var data = {object:object, action:action};
+		var url = Routing.generate('inodata_flora_distribution_objects_edit');
+		
+		$.post(url, data, function(response){
+			$('.num-'+response.object).html(response.value);
+		}, 'json');
+	}
 });

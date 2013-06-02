@@ -77,6 +77,10 @@ class Employee
      */
     private $orders;
     
+    public function __construct(){
+    	$this->boxes = 0; $this->lamps = 0;
+    }
+    
     public function setOrders( $orders )
     {
     	$this->orders = $orders;

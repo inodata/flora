@@ -264,12 +264,18 @@ class DistributionAdminController extends Controller
     		->setParameter('id', $id)
     		->getQuery()->getResult();
     	
+    	$messenger = $this->getDoctrine()
+    		->getRepository('InodataFloraBundle:Employee')
+    		->find($id);
+    	
     	$numOrders = $this->getNOrdersInTransit($id);
     	
     	$response = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', 
     			array('orders' => $orders));
     	
-    	return new Response(json_encode(array('orders'=>$response, 'id'=>$id, 'num_orders'=>$numOrders)));
+    	return new Response(json_encode(array('orders'=>$response, 
+    			'id'=>$id, 'num_orders'=>$numOrders,
+    			'boxes'=>$messenger->getBoxes(), 'lamps'=>$messenger->getLamps())));
     }
     
     private function getNOrdersInTransit($id)
@@ -316,6 +322,55 @@ class DistributionAdminController extends Controller
     	$em->clear();
     
     	return new Response($value);
+    }
+    
+    //Modify objects total (lamps, boxes)
+    public function editObjectsAction()
+    {
+    	$object = $this->get('request')->get('object');
+    	$action = $this->get('request')->get('action');
+    	$messengerId = $this->getSelectedMessenger();
+    	
+    	$em = $this->getDoctrine()->getEntityManager();
+    	
+    	$messenger = $em->getRepository('InodataFloraBundle:Employee')
+    		->find($messengerId);
+    	
+    	if($object=='boxes'){
+    		$nBoxes = $messenger->getBoxes();
+    		if (!$nBoxes){
+    			$nBoxes = 0;
+    		}
+    		if ($action == '-' && $nBoxes > 0){
+    			$nBoxes--;
+    		}
+    		if($action == '+'){
+    			$nBoxes++;
+    		}
+    		
+    		$messenger->setBoxes($nBoxes);
+    	}
+    	
+    	if ($object == 'lamps'){
+    		$nLamps = $messenger->getLamps();
+    		if(!$nLamps){
+    			$nLamps = 0;
+    		}
+    		if ($action=='-' && $nLamps > 0){
+    			$nLamps--;
+    		}
+    		if($action=='+'){
+    			$nLamps++;
+    		}
+    		$messenger->setLamps($nLamps);
+    	}
+    	
+    	$em->persist($messenger);
+    	$em->flush();
+    	
+    	$object =='boxes'? $newValue=$messenger->getBoxes():$newValue=$messenger->getLamps();
+    	
+    	return new Response(json_encode(array('object'=>$object, 'value'=>$newValue)));
     }
     
     protected function setSelectedMessenger($idMessenger)
