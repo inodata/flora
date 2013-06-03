@@ -121,7 +121,8 @@ $('document').ready(function(){
 			var url = Routing.generate('inodata_flora_distribution_add_order_to_messenger');
 			$.post(url, data, function(response){
 				$('.st_view.tab-'+response.id).find('tbody').prepend(response.order);
-				$('#num-pendings').html(response.num_orders);
+				$('#num-pendings').html(response.n_in_transit);
+				$('#num-delivered').html(response.n_delivered);
 				updateOrdersOptions(response.orderOptions);
 			},'json');
 		}
@@ -144,7 +145,9 @@ $('document').ready(function(){
 		$.get(url, function(data){
 			$('.st_view.tab-'+data.id).find('tbody').html(data.orders);
 			$('#slidetabs').slidetabs().setContentHeight();
-			$('#num-pendings').html(data.num_orders);
+			
+			$('#num-delivered').html(data.n_delivered);
+			$('#num-pendings').html(data.n_in_transit);
 			
 			$('.num-boxes').html(data.boxes);
 			$('.num-lamps').html(data.lamps);
@@ -162,6 +165,9 @@ $('document').ready(function(){
 		}
 		if($(this).hasClass('cancel')){
 			action="open";
+		}
+		if($(this).hasClass('deliver-all')){
+			action="deliver-all";
 		}
 		
 		var url = Routing.generate('inodata_flora_distribution_order_action');

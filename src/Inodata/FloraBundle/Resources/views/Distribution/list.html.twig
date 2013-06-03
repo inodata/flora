@@ -27,7 +27,7 @@
 {% endblock %} 
 
 {% block list_table %}
-	<b>{{ 'label.distribution_assign'|trans({}, 'InodataFloraBundle') }}</b>
+	<b>{{ 'label.distribution_title'|trans({}, 'InodataFloraBundle') }}</b>
 	<br/><br/>
 	{% block distribution_form %}
 		<form method="post" action="#" {{ form_enctype(form) }}>
@@ -104,8 +104,16 @@
 									<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
 										{{ form_widget(distribution_form.id)}}
 									</div>
+									<div class="deliver-all">
+										<a class="btn order-action deliver-all" orderid="0" href="#"><img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
+										{{ 'label.deliver_all'|trans({}, 'InodataFloraBundle') }}</a>
+									</div>
+									<div class="is-delivered">
+										<div id="num-delivered">0</div>
+										<div>Entregados</div>
+									</div>
 									<div class="in-transit">
-										<div id="num-pendings"></div>
+										<div id="num-pendings">0</div>
 										<div>Pendientes</div>
 									</div>
 									<div class="boxes">
@@ -130,7 +138,6 @@
 						            	{% endblock %}
 						            	{% block table_body %}
 						            		<tbody>
-						            			
 						            		</tbody>
 						            	{% endblock %}
 						            	{#
@@ -168,6 +175,4 @@
 		</a>
 		</form>
 	{% endblock %}
-	<br/><br/>
-	<b>{{ 'label.distribution_title'|trans({}, 'InodataFloraBundle') }}</b><br/>
 {% endblock %}

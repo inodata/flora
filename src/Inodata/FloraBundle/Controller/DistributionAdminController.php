@@ -157,10 +157,19 @@ class DistributionAdminController extends Controller
     {
     	$id = $this->get('request')->get('orderId');
     	$status = $this->get('request')->get('action');
+    	
+    	if($status =="deliver-all"){
+    		$orders = $this->getDoctrine()->getRepository('InodataFloraBundle:Order')
+    			->findBy(array('messenger'=>$this->getSelectedMessenger(), 'status'=>'intransit'));
+    		
+    		foreach ($orders as $order){
+    			$this->setOrderStatus('delivered', $order->getId());
+    		}
+    	}else{
+    		$this->setOrderStatus($status, $id);
+    	}
+    	
     	$orderOptions = null;
-    	
-    	$this->setOrderStatus($status, $id);
-    	
     	if ($status == 'open'){
     		$ordersOpened = $this->getDoctrine()
     		->getRepository('InodataFloraBundle:Order')
@@ -229,9 +238,7 @@ class DistributionAdminController extends Controller
     		$em->persist($order);
     		$em->flush();
     	}
-    	 
-    	/*$row = $this->renderView('InodataFloraBundle:Distribution:_order_item.html.twig',
-    			array('order' => $order));*/
+    	
     	$row = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', 
     			array('orders' => array(0=>$order)));
     	
@@ -243,10 +250,12 @@ class DistributionAdminController extends Controller
     	$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig', 
     			array('orders' => $ordersOpened));
     	
-    	$numOrders = $this->getNOrdersInTransit($messengerId);
+    	$nInTransit = $this->getNOrdersInStatus('intransit', $messengerId);
+    	$nDelivered = $this->getNOrdersInStatus('delivered', $messengerId);
     	 
     	return new Response(json_encode(array('order'=>$row, 
-    			'id'=>$messengerId, 'orderOptions'=>$orderOptions, 'num_orders'=>$numOrders)));
+    			'id'=>$messengerId, 'orderOptions'=>$orderOptions,
+    			'n_delivered'=>$nDelivered, 'n_in_transit'=>$nInTransit)));
     }
     
     /**MODIFICADO EN LA SEGUNDA VERSION**/
@@ -268,25 +277,34 @@ class DistributionAdminController extends Controller
     		->getRepository('InodataFloraBundle:Employee')
     		->find($id);
     	
-    	$numOrders = $this->getNOrdersInTransit($id);
+    	//$numOrders = $this->getNOrdersInTransit($id);
+    	$nOrdersInTransit = $this->getNOrdersInStatus('intransit', $id);
+    	$nOrdersDelivered = $this->getNOrdersInStatus('delivered', $id);
     	
     	$response = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig', 
     			array('orders' => $orders));
     	
     	return new Response(json_encode(array('orders'=>$response, 
-    			'id'=>$id, 'num_orders'=>$numOrders,
+    			'id'=>$id, 'n_in_transit'=>$nOrdersInTransit, 'n_delivered' => $nOrdersDelivered,
     			'boxes'=>$messenger->getBoxes(), 'lamps'=>$messenger->getLamps())));
     }
     
-    private function getNOrdersInTransit($id)
+    private function getNOrdersInStatus($status, $messengerId)
     {
-    	$nOrders = $this->getDoctrine()
+    	$query = $this->getDoctrine()
     		->getRepository('InodataFloraBundle:Order')
     		->createQueryBuilder('o')
     		->select('COUNT(o.id)')
-    		->where("o.messenger=:id AND o.status='intransit'")
-    		->setParameter('id', $id)
-    		->getQuery()->getSingleScalarResult();
+    		->where("o.messenger=:id AND o.status=:status")
+    		->setParameters(array('id'=>$messengerId, 'status'=>$status));
+    	
+    	if ($status == 'delivered'){
+    		$today = date("Y-m-d");
+    		$query->andWhere("o.deliveryDate=:today")
+    			->setParameter('today', $today);
+    	}
+
+    	$nOrders = $query->getQuery()->getSingleScalarResult();
     	
     	return $nOrders;
     }

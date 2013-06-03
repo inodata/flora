@@ -40,7 +40,7 @@ class DistributionType extends AbstractType
 					'class' => 'inodata_id_list span5',
 					'placeholder' => 'selecciona una orden'
 				)
-			))	
+			))
 		;
 	}
 

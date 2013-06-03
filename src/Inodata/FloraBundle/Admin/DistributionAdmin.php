@@ -30,7 +30,7 @@ class DistributionAdmin extends Admin
 	{
 		$formMapper
 			->add('id')
-			->add('messenger', 'genemu_jqueryselect2_entity', array( 
+			->add('messenger', 'sonata_type_model', array( 
 					'class' => 'Inodata\FloraBundle\Entity\Employee',
 					'attr' => array(
 						'class' => 'inodata_messenger span5'

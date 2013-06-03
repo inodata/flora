@@ -91,12 +91,17 @@
 	/* ---------------------------------- */
 	
 	/*--------- CONTENT HEADER----------- */
+	.inner-filters{width: 100%; height: 10px;}
 	.inner-filters > div{
 		float:left;
+		padding-left: 10px;
 	}
 	
+	.inner-filters .sonata-ba-field{
+		width:25%;
+	}
 	div#s2id_inodata_distribution_type_form_id{
-		width: 300px;
+		width: 100%;
 	}
 	
 	.sonata-ba-field #s2id_inodata_distribution_type_form_id .select2-choice > span{
@@ -134,7 +139,7 @@
 	}
 	.boxes > div a, .lamps > div a{
 		font-size: 50px;
-		padding: 0 16px;
+		padding: 0 11px;
 		height: 100%;
 	}
 	
@@ -154,14 +159,14 @@
 		z-index: -1;
 	}
 	
-	.in-transit{
+	.in-transit, .is-delivered{
 		position: relative;
 		width: 70px;
 		height: 30px;
 		top: -6px;
 		padding-left: 20px;
 	}
-	.in-transit > div{
+	.in-transit > div, .is-delivered > div{
 		position: relative;
 		color: #444;
 		font-weight: bold;
@@ -169,10 +174,20 @@
 		text-align: center;
 		
 	}
-	.in-transit > div:first-child{
+	.in-transit > div:first-child, .is-delivered > div:first-child{
 		top: -10px;
 		font-size: 45px;
 	}
 	/*----------------------------------------*/
+	
+	/*------Change color of order status------*/
+	.messenger-order-row .order-delivered{
+		font-weight: bold;
+		color: #00B945;
+	}
+	.messenger-order-row .order-intransit{
+		#font-weight: bold;
+		color: #0088CC;
+	}
 }
 
