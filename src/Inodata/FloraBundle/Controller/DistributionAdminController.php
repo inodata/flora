@@ -18,6 +18,8 @@ class DistributionAdminController extends Controller
         if (false === $this->admin->isGranted('LIST')) {
             throw new AccessDeniedException();
         }
+        
+        $this->setFilters($this->get('request')->get('filter'));
 
         $datagrid = $this->admin->getDatagrid();
         $formView = $datagrid->getForm()->createView();
@@ -54,6 +56,21 @@ class DistributionAdminController extends Controller
         ));
         
         return $render;
+    }
+    
+    private function setFilters($request)
+    {
+    	if (!$request && $this->getRequest()->get('filters')){
+    		$this->setDateSelected('');
+    	}else
+    	{
+    		if ($request['deliveryDate']['value']){
+    			$this->setDateSelected($request['deliveryDate']['value']);
+    		}
+    		if ($request['messenger']['value']){
+    			$this->setSelectedMessenger($request['messenger']['value']);
+    		}
+    	}
     }
     
     public function addOrdersToMessengerAction()
@@ -104,7 +121,8 @@ class DistributionAdminController extends Controller
     	
     	$orders = $this->getDoctrine()->getRepository('InodataFloraBundle:Order')
     		->createQueryBuilder('o')
-    		->where("o.status = 'open'")->andWhere('o.messenger IS NULL')
+    		->where("o.status = 'open'")
+    		->andWhere('o.messenger IS NULL')
     		->getQuery()->getResult();
     	
     	$orderOptions =  $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
@@ -269,8 +287,9 @@ class DistributionAdminController extends Controller
     		->getRepository('InodataFloraBundle:Order')
     		->createQueryBuilder('o')
     		->where("o.messenger=:id AND (o.status='intransit' OR o.status='delivered')")
+    		->andWhere('o.deliveryDate=:date')
     		->orderBy('o.status', 'ASC')
-    		->setParameter('id', $id)
+    		->setParameters(array('id'=>$id, 'date'=>$this->getDateSelected()))
     		->getQuery()->getResult();
     	
     	$messenger = $this->getDoctrine()
@@ -289,22 +308,20 @@ class DistributionAdminController extends Controller
     			'boxes'=>$messenger->getBoxes(), 'lamps'=>$messenger->getLamps())));
     }
     
+    /**
+     * @TODO validar filtro por fechapara ambos  casos
+     */
     private function getNOrdersInStatus($status, $messengerId)
     {
-    	$query = $this->getDoctrine()
+    	$nOrders = $this->getDoctrine()
     		->getRepository('InodataFloraBundle:Order')
     		->createQueryBuilder('o')
     		->select('COUNT(o.id)')
     		->where("o.messenger=:id AND o.status=:status")
-    		->setParameters(array('id'=>$messengerId, 'status'=>$status));
-    	
-    	if ($status == 'delivered'){
-    		$today = date("Y-m-d");
-    		$query->andWhere("o.deliveryDate=:today")
-    			->setParameter('today', $today);
-    	}
-
-    	$nOrders = $query->getQuery()->getSingleScalarResult();
+    		->andWhere("o.deliveryDate=:date")
+    		->setParameters(array('id'=>$messengerId, 'status'=>$status, 
+    				'date'=>$this->getDateSelected()))
+    		->getQuery()->getSingleScalarResult();
     	
     	return $nOrders;
     }
@@ -407,5 +424,20 @@ class DistributionAdminController extends Controller
     	}
     	
     	return $idMessenger;
+    }
+    
+    protected function setDateSelected($date)
+    {
+    	$this->getRequest()->getSession()->set('delivery_date', $date);
+    }
+    
+    protected function getDateSelected()
+    {
+    	$date = $this->getRequest()->getSession()->get('delivery_date');
+    	if (!$date){ //By default return TODAY
+    		return date("Y-m-d");
+    	}
+    	
+    	return $date;
     }
 }
