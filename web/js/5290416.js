@@ -81,6 +81,16 @@ function printNote(){
   setTimeout('jsPrintSetup.print()', 3000);
 }
 
+function printNote(){
+  setupGlobalOptions();
+  jsPrintSetup.setPaperSizeData(1);
+  //jsPrintSetup.setPrinter('Epson_xp002');
+  jsPrintSetup.setPrinter('EPSONLX300');
+  //jsPrintSetup.setPrinter('PostScript/default');
+  //add a delay to render correctly all elements fetched via AJAX
+  setTimeout('jsPrintSetup.print()', 3000);
+}
+
 //FIXME: Revisar la impresion de esta lista y seleccionar impresora.
 function printDistributionList(){
 	setupGlobalOptions();
