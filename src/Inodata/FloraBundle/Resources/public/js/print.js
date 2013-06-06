@@ -8,6 +8,7 @@ function installjsPrintSetup() {
     }
 }
 
+//This function was useless handling medium letter size.
 //Define paper size 
 //39 : {PD:39, PN: 'na_fanfold-us',PWG:'na_fanfold-us_11x14.875in',Name: 'US Std Fanfold', W: 11, H: 14.875, M: kPaperSizeInches}
 function definePaperSizes(){
@@ -73,14 +74,12 @@ function printNote(){
   //jsPrintSetup.setPrinter('Epson_xp002');
   jsPrintSetup.setPrinter('EPSONLX300');
   //jsPrintSetup.setPrinter('PostScript/default');
-  //this fuction was useless with paper size
-  //jsPrintSetup.setPaperSizeData(2);
   //add a delay to render correctly all elements fetched via AJAX
   setTimeout('jsPrintSetup.print()', 3000);
 }
 
+//FIXME: Revisar la impresion de esta lista y seleccionar impresora.
 function printDistributionList(){
 	setupGlobalOptions();
 	setTimeout('jsPrintSetup.print()', 3000);
-	jsPrintSetup.print();
 }
