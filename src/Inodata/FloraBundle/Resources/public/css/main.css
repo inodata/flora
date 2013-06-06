@@ -101,7 +101,20 @@
 
   .btn-print-card {visibility: hidden;}
   /* Terina la impresion de tarjeta */
-
+  
+  	.invoice_page{
+  		position: relative;
+  		left: -10px;
+  		z-index: 1000;
+  	}
+  	
+  	.invoice_page .receptor{
+  		padding-right: 5px;
+  	}
+  	.invoice_page .receptor, .other-details {
+  		font-size: 11px;
+  	}
+  	
 	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA FACTURA*/
 	.invoice_page .issuing-container { visibility:hidden; }
 	.invoice_page .div_header { visibility:hidden; }
