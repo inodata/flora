@@ -231,14 +231,14 @@
   /* -----------------------*/
   .issuing-container{
   	width:100%;
-  	height: 115px;
+  	height: 100px;
   }
   .issuing-container > div{
   	float:left;
   }
   
   .issuing-container .logo{
-  	height: 105px;
+  	height: 100px;
   	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
   	width: 35%;
   }
