@@ -283,6 +283,10 @@
   	padding-top: 3px;
   }
   
+  .expedition .div_content{
+  	text-align: center;
+  }
+  
   td.import, td.invoice-discount, td.invoice-shipping{
   	text-align: right;
   }
