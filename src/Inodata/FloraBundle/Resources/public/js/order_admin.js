@@ -492,7 +492,7 @@ $(document).ready(function() {
 				$('.invoice_page').removeClass('hide_template');
 				$('.payment-note').addClass('hide_template');
 				$('.card_page').addClass('hide_template');
-				window.print();
+				printInvoice();
 			break;
 		}
 	}

@@ -105,9 +105,9 @@ delivered: Entregado
 label.delivered: Entregado
 label.remove: Quitar
 label.deliver_all: Entregar todo
-label.detailed_list: Lista Detallada
-label.quick_distribution: Distribución Rápida
-label.messenger: repartidor
+label.detailed_list: Ver Lista Detallada
+label.quick_distribution: Ver Distribución Rápida
+label.messenger: Repartidor
 
 #Product labels
 label.price: Precio
