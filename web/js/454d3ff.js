@@ -3182,9 +3182,9 @@ $(document).ready(function() {
 	var btnPrinCard = $('.btn-print-card');
 	$('.inodata_message').closest('.control-group').append($(btnPrinCard).clone());
 	$(btnPrinCard).remove();
-	//-------------------------------------------------------------------//
+	//-------------------------------------------------------------------------//
 
-	//-------------------------- Print Invoice---------------------------//
+	//----------------------- Load invoice and note data ----------------------//
 	function loadInvoiceOrderProducts(listFields, totals)
 	{
 		$(listFields).each(function(){
@@ -3225,21 +3225,7 @@ $(document).ready(function() {
 		$('.invoice_page .order-note').text(orderNote);
 		
 	}
-	
-	$('.btn-print-note').click(function(){
-		$('.invoice_page').addClass('hide_template');
-		$('.card_page').addClass('hide_template');
-		$('.payment-note').removeClass('hide_template');
-		printNote();
-	});
-	
-	$('.btn-print-invoice').click(function(){
-		$('.invoice_page').removeClass('hide_template');
-		$('.payment-note').addClass('hide_template');
-		$('.card_page').addClass('hide_template');
-		window.print();
-	});
-	//-------------------------------------------------------------------//
+	//----------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//
 	hideElement($('.products-to-buy'));
@@ -3292,6 +3278,50 @@ $(document).ready(function() {
 		updateAjaxTotalsCost();
 	});
 	//-----------------------------------------------------
+	
+	//------------- PRINT INVOICE/NOTE ACTIONS ------------
+	if(id){
+		var postSaveAction = $('.post_save_action').val();
+		switch(postSaveAction)
+		{
+			case 'print-note':
+				$('.invoice_page').addClass('hide_template');
+				$('.card_page').addClass('hide_template');
+				$('.payment-note').removeClass('hide_template');
+				printNote();
+			break;
+			case 'print-invoice':
+				$('.invoice_page').removeClass('hide_template');
+				$('.payment-note').addClass('hide_template');
+				$('.card_page').addClass('hide_template');
+				window.print();
+			break;
+		}
+	}
+	//-----------------------------------------------------
+	
+	// ------------------- INOVICCE EDIT IN PLACE ----------------//
+	var url = Routing.generate('inodata_flora_order_invoice_edit_in_place');
+	$('.customer-edit-in-place').editable(url, {
+		width:'300px', height:'20px',
+		indicator : 'Guardando...'
+	});
+	
+	var data='{';
+	$('.inodata-shipping-address .mx_state option').each(function(){
+		var val = $(this).val();
+		var text = $(this).text();
+		
+		data+='"'+val+'":"'+text+'", ';
+	});
+	data+='}';
+	
+	$('.customer-select-state').editable(url, {
+		data: data,
+		type: "select",
+		submit: 'OK'
+	});
+	//------------------------------------------------------------//
 });
 
 //-------------------------- Translate messages ---------------------//
@@ -3315,13 +3345,14 @@ function installjsPrintSetup() {
     }
 }
 
+//This function was useless handling medium letter size.
 //Define paper size 
 //39 : {PD:39, PN: 'na_fanfold-us',PWG:'na_fanfold-us_11x14.875in',Name: 'US Std Fanfold', W: 11, H: 14.875, M: kPaperSizeInches}
 function definePaperSizes(){
   //note
-  jsPrintSetup.definePaperSize(2, 2, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
+  jsPrintSetup.definePaperSize(98, 98, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
   //card
-  jsPrintSetup.definePaperSize(99, 99, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
+  jsPrintSetup.definePaperSize(99, 99, 'na_letter', 'na_letter_4.7x5.5in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
 }
 
 function setupGlobalOptions(){
@@ -3348,7 +3379,7 @@ function setupGlobalOptions(){
     jsPrintSetup.setOption('footerStrCenter', '');
     jsPrintSetup.setOption('footerStrRight', '');
 
-    definePaperSizes();
+    //definePaperSizes();
 
     // clears user preferences always silent print value
     // to enable using 'printSilent' option
@@ -3365,38 +3396,54 @@ function setupGlobalOptions(){
 //  jsPrintSetup.print();
 function printCard(){
   setupGlobalOptions();
-  jsPrintSetup.setGlobalOption('paperWidth', 110);
+  jsPrintSetup.setGlobalOption('paperWidth', 100);
   jsPrintSetup.setGlobalOption('paperHeight', 140);
-  jsPrintSetup.setPrinter('Epson_xp001');
-  jsPrintSetup.setPrinter('PostScript/default');
-  jsPrintSetup.setPaperSizeData(99);
-  jsPrintSetup.print();
+  //jsPrintSetup.setPrinter('Epson_xp001');
+  jsPrintSetup.setPrinter('EPSONLX300');
+  setTimeout('jsPrintSetup.print()', 3000);
 }
 
 function printNote(){
-  
   setupGlobalOptions();
   jsPrintSetup.setGlobalOption('paperWidth', 216);
   jsPrintSetup.setGlobalOption('paperHeight', 140);
   //alert(jsPrintSetup.getPrintersList());
-  jsPrintSetup.setPrinter('Epson_xp002');
-  jsPrintSetup.setPrinter('PostScript/default');
-  jsPrintSetup.setPaperSizeData(2);
-  jsPrintSetup.print();
+  //jsPrintSetup.setPrinter('Epson_xp002');
+  jsPrintSetup.setPrinter('EPSONLX300');
+  //jsPrintSetup.setPrinter('PostScript/default');
+  //add a delay to render correctly all elements fetched via AJAX
+  setTimeout('jsPrintSetup.print()', 3000);
+}
+
+//FIXME: Revisar la impresion de esta lista y seleccionar impresora.
+function printDistributionList(){
+	setupGlobalOptions();
+	setTimeout('jsPrintSetup.print()', 3000);
 }
 $('document').ready(function(){
-	$('.use-fiscal-address').live('click', function(){
+	$('.use-fiscal-address, .use-payment-address').live('click', function(){
 		var fiscalForm = $('.use-fiscal-address').closest('.tab-pane').prev().find('.controls');
 		var paymentForm = $('.use-fiscal-address').closest('.tab-pane').find('.controls');
-
-		$(paymentForm).eq(1).children().val($(fiscalForm).eq(0).children().val());
-		$(paymentForm).eq(2).children().val($(fiscalForm).eq(1).children().val());
-		$(paymentForm).eq(3).children().val($(fiscalForm).eq(2).children().val());
-		$(paymentForm).eq(4).children().val($(fiscalForm).eq(3).children().val());
-		$(paymentForm).eq(5).children().val($(fiscalForm).eq(4).children().val());
-		$(paymentForm).eq(6).children().val($(fiscalForm).eq(5).children().val());
-		$(paymentForm).eq(7).children().val($(fiscalForm).eq(6).children().val());
-		$(paymentForm).eq(8).children().val($(fiscalForm).eq(7).children().val());
-		$(paymentForm).eq(9).children().val($(fiscalForm).eq(8).children().val());
+		
+		if($(this).hasClass('use-fiscal-address')){
+			loadAddress(fiscalForm, paymentForm);
+		}else{
+			loadAddress(paymentForm, fiscalForm);
+		}
 	});
+	
+	function loadAddress(sourceForm, targetForm)
+	{
+		$(targetForm).eq(1).children().val($(sourceForm).eq(1).children().val());
+		$(targetForm).eq(2).children().val($(sourceForm).eq(2).children().val());
+		$(targetForm).eq(3).children().val($(sourceForm).eq(3).children().val());
+		$(targetForm).eq(4).children().val($(sourceForm).eq(4).children().val());
+		$(targetForm).eq(5).children().val($(sourceForm).eq(5).children().val());
+		$(targetForm).eq(6).children().val($(sourceForm).eq(6).children().val());
+		$(targetForm).eq(7).children().val($(sourceForm).eq(7).children().val());
+		$(targetForm).eq(8).children().val($(sourceForm).eq(8).children().val());
+		$(targetForm).eq(9).children().val($(sourceForm).eq(9).children().val());
+	}
+	
+	
 });

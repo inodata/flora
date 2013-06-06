@@ -676,7 +676,7 @@ disabled look for disabled choices in the results dropdown
 	
 	/* Reglas de impresion para la tarjeta */
   .card_page{
-    width: 100%;
+    width: 15cm;
     height: 100%;
     
     border: 1px solid white;

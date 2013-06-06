@@ -2800,236 +2800,528 @@ the specific language governing permissions and limitations under the Apache Lic
         formatSearching: function () { return "Buscando..."; }
     });
 })(jQuery);
-$('document').ready(function(){	
-
-	$('#filter_deliveryDate_value').datepicker({ dateFormat: "yy-mm-dd" });
-	$('.inodata_messenger_list').select2({allowClear:true});
-	$('.inodata_id_list').select2({allowClear:true});
+$(document).ready(function() { 
+	var isEnteredInModal = false;
+	var isCustomerToSelect2 = false;
+	var isEditingCustomer = false;
 	
-	/* Refactorizar esta funcion */
-	$('div.alert-success').fadeOut(5000, function(){
-		$(this).remove();
+	$(".inodata_customer, " +
+	  ".inodata_payment_contact, " +
+	  ".inodata_product, " +
+	  ".inodata_category_day, " +
+	  ".inodata_messages"
+	).select2({ allowClear: true });
+	
+	$('.inodata_delivery_date').datepicker({ dateFormat: "yy-mm-dd" });
+	
+	//Mueve el elemento de orservaciones en el pedido al final.
+	var notesContainer = $('.inodata-order-notes').closest('div.control-group');
+	$('.list-products-content .table-1').append($(notesContainer).clone());
+	$(notesContainer).remove();
+	
+	//---Reactiva el widget de Select2 al crear nuevo Customer desde la ventana modal---//
+	var element = $('.inodata_customer').closest('.sonata-ba-field-standard-natural');
+	
+	$(element).bind('DOMNodeInserted', function(){
+	    if(!isCustomerToSelect2){
+	    	if(isEditingCustomer){
+	    		var selected = $('select.inodata_customer option:selected').val();
+	    	}else{
+	    		var selected = $('select.inodata_customer option:last').val();
+	    	}
+	        $('.inodata_customer').select2({ allowClear: true});
+	        $('.inodata_customer').select2('val', selected);
+	        updateEditCustomerButton();
+	    }
+	    isCustomerToSelect2 = true;
 	});
-	/* -----------------------------------*/
 	
-	$('.delete_link').live('click', function(){
-		$(this).closest('tr').remove();
-		updateOrderSelectOptions();
-		showEmptyNotification();
+	$(element).bind('DOMNodeRemoved', function(){
+	    isCustomerToSelect2 = false;
+	});
+	//---------------------------------------------------------------------------------//
+	
+	//--- TRUCO PARA RESOLVER EL PROBLEMA CON LOS TABS EN LA VENTANA MODAL ---//
+	$('.ui-dialog').live('mouseenter', function(){
+		if(!isEnteredInModal){
+		    $(this).find('.nav-tabs li').each(function(){
+		        var element = $(this).find('a:first');
+		        var href = $(element).attr('href');
+		        var title = $(element).text();
+		        
+		        $(this).append('<a href="javascript:void()" tabId="'+href+'">'+title+'</a>');
+		        $(element).remove();
+		    });
+		    
+		    isEnteredInModal = true;
+		}
 	});
 	
-	function updateOrderSelectOptions()
+	$('.ui-dialog .nav-tabs li > a').live('click', function(event){
+		$(this).closest('ul').children().removeClass('active');
+		$(this).parent().addClass('active');
+	
+		var tabId = $(this).attr('tabId');
+	
+		$('.ui-dialog .tab-content > div').removeClass('active');
+		$(tabId).addClass('active');
+	});
+	
+	$('select.inodata_customer').closest('.control-group').mouseenter(function(){
+		isEnteredInModal = false;
+	});
+	
+	$('.sonata-ba-action').live('mouseenter', function(){
+		isEditingCustomer = false;
+	});
+	$('.btn_edit_customer').live('mouseenter', function(){
+		isEditingCustomer = true;
+	});
+	//--------------------------------------------------------------------------//
+	
+	//----------------Fila de seleccion de cliente en la orden------------------//
+	$('.inodata_customer').live('change', function(){
+		$(this).val()!=''?id=$(this).val():id=0;
+	    var url = Routing.generate('inodata_flora_order_filter_contact_by_customer', {customerId:id });
+	    
+	    $.get(url, function(data){
+	    	$("select.inodata_payment_contact option").remove();
+	    	$("select.inodata_payment_contact").append(data.contacts);
+	    	$(".inodata_payment_contact").select2('val','');
+	    	
+	    	$('.order-discount').eq(0).val(data.customer_discount);
+	    	updateAjaxTotalsCost();
+	    	updateEditCustomerButton();
+	    	
+	    }, 'json');
+	});
+	
+	updateEditCustomerButton();
+	
+	function updateEditCustomerButton()
 	{
-		var orders=[];
-		var url = Routing.generate('inodata_flora_distribution_update_orders_available');
+		var id = $('select.inodata_customer option:selected').val();
+		var url = Routing.generate('admin_inodata_flora_customer_edit', {id:id});
 		
-		$('#messenger_orders tr').each(function(){
-			var id = $(this).attr('order_id');
-			orders[id] = true;
-		});
-		
-		$.post(url, {orders:orders}, function(data){
-			$('#inodata_distribution_type_form_id').html(data.orderOptions);
+		if(id){
+			if($('.btn_edit_customer').length<1){
+				createEditCustomerButton(url);
+			}else{
+				$('.btn_edit_customer').attr('href', url);
+			}
+		}else{
+			$('.btn_edit_customer').remove();
+		}
+	}
+	
+	function createEditCustomerButton(url)
+	{	
+		var button = $('select.inodata_customer').parent().next().children(':first-child').children().clone();
+		$(button).attr('href', url).removeClass('sonata-ba-action').addClass('edit_link btn_edit_customer')
+			.attr('title', 'Editar').html('<i class="icon-edit"></i>Editar').css('margin', '0 4px 0 4px');
+		$('select.inodata_customer').parent().next().children(':first-child').prepend(button);
+	}
+	//--------------------------------------------------------------------------//
+	
+	// ---------------- Select a contact an load information ----------------//
+	var paymentContactId = $(".inodata_payment_contact option:selected").val();
+	if(paymentContactId!=""){
+		loadPaymentContactInfo(paymentContactId);
+	}
+	
+	$(".inodata_payment_contact").change(function(){
+	    loadPaymentContactInfo($(this).val());
+	});
+	
+	function loadPaymentContactInfo(id)
+	{
+		var url = Routing.generate('inodata_flora_order_payment_contact', {id:id});
+	
+		$.get(url, function(contact){
+			setPContactDataOnInputs(contact);
+		}, 'json');
+	}
+
+	function setPContactDataOnInputs(contact)
+	{
+		$('.payment_contact_form input').eq(0).val(contact.name);
+		$('.payment_contact_form input').eq(1).val(contact.department);
+		$('.payment_contact_form input').eq(2).val(contact.emp_number);
+		$('.payment_contact_form input').eq(3).val(contact.phone);
+                $('.payment_contact_form input').eq(4).val(contact.extension);
+		$('.payment_contact_form input').eq(5).val(contact.email);
+	}
+	
+	// CREA EL PAYMENT CONTACT SI NO EXISTE
+	$('.inodata_payment_contact').prev().find('input[type="text"]').keyup(function(event){
+		if(event.which == 13){
+			if($('.select2-results li:first').attr('class')=="select2-no-results" ){
+				var url = Routing.generate('inodata_flora_order_payment_contact_create');
+				var name = $(this).val();
+	
+				$.post(url, {'contactName' : name}, function(contact){
+					$('select.inodata_payment_contact option:selected').removeAttr("selected");
+					$('select.inodata_payment_contact')
+						.append('<option value="'+contact.id+'" selected="selected">'+contact.name+'</option>');
+						setPContactDataOnInputs(contact);
+						$(".inodata_payment_contact").select2('val', contact.id);
+						$(".inodata_payment_contact").select2('close');
+					}, 'json');
+				}
+		}
+	});
+	//--------------------------------------------------------------------//
+	
+	// ------------------------ Messages --------------------------//
+	filterMessagesList($('.inodata_category_day').val());
+	
+	$('.inodata_category_day').change(function(){
+		filterMessagesList($(this).val());
+	});
+	
+	function filterMessagesList(val)
+	{
+		val!=''?id=val:id=0;
+		var url = Routing.generate('inodata_flora_order_filter_message_by_category', {categoryId:id });
+	
+		$.get(url, function(data){
+			$('select.inodata_messages option').remove();
+			$('select.inodata_messages').append(data.messages);
+			$('.inodata_messages').select2('val', '');
 		}, 'json');
 	}
 	
+	$('.inodata_messages').change(function(){
+		var message = $(this).children(':selected').attr('content');
+		if(message!=''){
+			$('iframe').contents().find('body').html(message);
+	    }
+	});
+	//-------------------------------------------------------------//
 	
-	$('.add_link').live('click', function(){
+	//-- Select a product and insert to select-options and list  --//
+	$(".inodata_product").change(function(){
+		var id = $(this).val();
+	    var url = Routing.generate('inodata_flora_order_product', {id:id});
+	    $.get(url, function(data){
+	    	addProductToList(data);
+	    }, 'json');
+	});
+	
+	$('.create-and-add-product').click(function(){
+		var code = $('.create-product-form .product-code input').val();
+		var description = $('.create-product-form .product-description input').val();
+		var price = $('.create-product-form .product-price input').val();
 		
-		var messengerId = $('#inodata_distribution_type_form_messenger').val();
-		var orderIds = [];
-		var hasOne = false;
-		
-		$('#messenger_orders tr.item').each(function(index){
+		if(description.replace(/ /g,'')!="" && price.replace(/ /g,'')!=""){
+			var data = {code:code, description:description, price:price }
+			var url = Routing.generate('inodata_flora_order_product_create_and_add');
 			
-			var id = $(this).attr('order_id');
-			orderIds[index] = id;
-			hasOne = true;
-		});
-		
-		/* Valida que exista un Messenger a quien asignarle las ordenes */
-		if( messengerId == '' ){
-			rapidFlash(trans('alert.distribution_no_messenger'), 'error', 'no-messenger', 5000);
-			return;
-		} else {
-			removeFlash('no-messenger');
+			$.post(url, data, function(data){
+				addProductToList(data);
+				clearNewProductFields();
+			}, 'json');
+		}else{
+			alert("Datos incompletos");
 		}
-		
-		/* Valida que cuando menos exista una orden para asignar */
-		if( hasOne == false){
-			rapidFlash(trans('alert.distribution_no_orders'), 'error', 'no-order', 5000);
-			return;
-		} else {
-			removeFlash('no-order');
-		}
-		
-		var url = Routing.generate('inodata_flora_distribution_add_orders_to_messenger' );
-		$.post(url, { messenger_id:messengerId, order_ids:orderIds }, function(data){
-			window.location.reload();
-		}, 'json');
-		
-	}); 
+	});
+	
+	function addProductToList(data)
+	{
+		hideEmptyNotification();
+        
+        if($('#product-'+data.id).length==0){
+        	//Add new new row if product doesn't exist
+            $(".list-products tbody").append(data.listField);
+            //Create a hidden to update on DB
+            $('.list-products-content').append(data.optionsToSave);
+        }else{
+            //Update total if exist
+            var cant = parseInt($('#product-'+data.id+" input").val());
+        	$('#product-'+data.id+" input").val(cant+1);
+        	//Update hidden total to insert in DB
+        	$('#data_product_'+data.id).val(cant+1);
+        	
+        	calculateProductImport($('#product-'+data.id));
+        }
+
+        //Clear select
+        $(".inodata_product").select2('val', '');
+
+        //Update totals table
+        updateAjaxTotalsCost();
+	}
+	
+	function clearNewProductFields(){
+		$('.create-product-form .product-code input').val('');
+		$('.create-product-form .product-description input').val('');
+		$('.create-product-form .product-price input').val('');
+	}
+	//--------------------------------------------------------------//
+	
+	//-----Delete product from list and select options ----//
+	$(".delete_link").live('click', function(){
+	    var id = $(this).closest("tr").attr('product_id');
+	    
+		//Remove from list
+	    $(this).closest("tr").remove();
+	    //Remove from imput for save
+	    $("#data_product_"+id).remove();
+	
+	    updateAjaxTotalsCost();
+	    showEmptyNotification();
+	});
+	//-----------------------------------------------------//
+	
+	//----------Load initial data for edit order ----------//
+	var id = $(".order-id").val();
+	
+	if(id!=''){
+		var url = Routing.generate('inodata_flora_order_products', {id:id});
+	    
+	    $.get(url, function(data){
+	    	$(".list-products tbody").append(data.listFields);
+	    	$(".list-products-content").append(data.optionsToSave);
+	    	hideEmptyNotification();
+	    	//Load price totals for the order editing
+	    	loadPriceTotals(data.totals);
+	    	loadInvoiceOrderProducts($(data.listFields).clone(), data.totals);
+	    }, 'json');
+	}
+	//----------------------------------------//
+	
 	
 	function showEmptyNotification(){
-		if($(".item").length==0){
-	    	$("#no_orders").css('display', 'table-row'); 
+		if($(".product").length==0){
+	    	$("#no_products").css('display', 'table-row'); 
 	    }
 	}
 	
 	function hideEmptyNotification(){
-		if($("#no_orders").length>0){
-	        $("#no_orders").css('display', 'none'); 
+		if($("#no_products").length>0){
+	        $("#no_products").css('display', 'none'); 
 	    }
 	}
 	
-	function removeFlash(id)
-	{
-		$('div#'+id).remove();
-	}
+	//Update product list, select-option and prices when amount is change
+	$('.product-total').live('keydown', function(event){
+	    if(event.which==13){
+	    	validateProductsTotalChange(this);
+	    	return false;
+	    }
+	}).live('blur', function(){
+			validateProductsTotalChange(this);
+	});
 	
-	function addFlash(msg, type, id)
+	function validateProductsTotalChange(element)
 	{
-		var alertClass = 'alert alert-'+type+' '+id;
-
-		if( $('.sonata-bc > div.container-fluid').children(0).attr('class') != alertClass )
+		if($(element).val().match('^(0|[0-9][0-9]*)$') && $(element).val()!='0')
 		{
-			$('.sonata-bc > div.container-fluid')
-				.prepend('<div id="'+id+'" class="'+alertClass+'">'+msg+'</div>');
+			var id = $(element).closest('tr').attr('product_id');
+			var cant = parseInt($(element).val());
+			$('#data_product_'+id).val(cant);
+			calculateProductImport($(element).closest('tr'));
+			updateAjaxTotalsCost();
+		}else{
+			alert('Cantidad invalida');
 		}
 	}
 	
-	function rapidFlash(msg, type, id, time)
+	function calculateProductImport(element){
+		var cant = parseInt($(element).find('input').val());
+		var price = parseFloat($(element).find('.price').text());
+		
+		$(element).find('.import').text(cant*price);
+	}
+	//------------------------------------------------------------//
+	
+	//-----Update prices when shipping or discount changes -----//
+	$('.order-shipping, .order-discount').live('keypress', function(event){
+		if(event.which==13){
+			validateShippingOrDiscountChange(this, 'key');
+			return false;
+		}
+	}).live('blur', function(){
+		validateShippingOrDiscountChange(this, null);
+	});
+	
+	function validateShippingOrDiscountChange(element, event)
 	{
-		addFlash(msg, type, id);
+		if($(element).val().match('[0-9]+(\.[0-9][0-9]?)?')){
+			if((event=='key') && ($(element).attr('class')=='order-discount')){
+				$('.order-discount:first').val($(element).val());
+			}
+			updateAjaxTotalsCost();
+		}else{
+			alert('Cantidad invalida');
+			$(element).val('0');
+		}
+	}
+	//-------------------------------------------------------------------//
 
-		$('div#'+id).fadeOut(time, function(){
-			$(this).remove();
-		});
-	}
-	
-	/** CREADO EN SEGUNDA VERSION */
-	//Parametro '0' inalida messenger, hace que el controller detecte al messenger por default
-	var updated = false;
-	loadMessengerOrders(0);
-	
-	/* MODIFICADO PARA LA SEGUNDA VERSIO*/
-	$('#inodata_distribution_type_form_id').change(function(){
-		var orderId = $(this).val()!=''?id=$(this).val():id=0;
-		var messengerId = $('.messenger-tab.st_tab_active').attr('href').replace('#tab-', '');
-		
-		var data = {messenger_id:messengerId, order_id:orderId}
-		
-		if( id != 0){
-			var url = Routing.generate('inodata_flora_distribution_add_order_to_messenger');
-			$.post(url, data, function(response){
-				$('.st_view.tab-'+response.id).find('tbody').prepend(response.order);
-				$('#num-pendings').html(response.n_in_transit);
-				$('#num-delivered').html(response.n_delivered);
-				updateOrdersOptions(response.orderOptions);
-			},'json');
+	//-------------------------- Print Card -----------------------------//
+	$('.btn-print-card').live('click', function(){
+		var from = $('.inodata_from').val();
+		var to = $('.inodata_to').val();
+		var message = $('iframe').contents().find('body>p').html();
+		if( from == "" || to == "" || message == "<br>"){
+			alert(trans("alert.card_missing_fields"));
+		}else{
+			$(".card_from").html(from);
+			$(".card_to").html(to);
+			$(".card_message").html($('iframe').contents().find('body>p').html());
+
+			$('.invoice_page').addClass('hide_template');
+			$('.payment-note').addClass('hide_template');
+			$('.card_page').removeClass('hide_template');			
+			printCard();
 		}
 	});
-	
-	function updateOrdersOptions(orderOptions)
+
+	// Agrega boton para imprimir tarjeta
+	var btnPrinCard = $('.btn-print-card');
+	$('.inodata_message').closest('.control-group').append($(btnPrinCard).clone());
+	$(btnPrinCard).remove();
+	//-------------------------------------------------------------------------//
+
+	//----------------------- Load invoice and note data ----------------------//
+	function loadInvoiceOrderProducts(listFields, totals)
 	{
-		$('select.inodata_id_list').html(orderOptions)
-			.select2({allowClear:true});
-		$('#slidetabs').slidetabs().setContentHeight();
-		
-	}
-	
-	loadSlidingTabsEfects();
-	
-	function loadMessengerOrders(id)
-	{
-		var url = Routing.generate('inodata_flora_distribution_orders_by_messenger', {id:id});
-		
-		$.get(url, function(data){
-			$('.st_view.tab-'+data.id).find('tbody').html(data.orders);
-			$('#slidetabs').slidetabs().setContentHeight();
-			
-			$('#num-delivered').html(data.n_delivered);
-			$('#num-pendings').html(data.n_in_transit);
-			
-			$('.num-boxes').html(data.boxes);
-			$('.num-lamps').html(data.lamps);
-		}, 'json');
-	}
-	
-	$('.order-action').live('click', function(){
-		var orderId = $(this).attr('orderid');
-		
-		if($(this).hasClass('deliver')){
-			action="delivered";
-		}
-		if($(this).hasClass('intransit')){
-			action="intransit";
-		}
-		if($(this).hasClass('cancel')){
-			action="open";
-		}
-		if($(this).hasClass('deliver-all')){
-			action="deliver-all";
-		}
-		
-		var url = Routing.generate('inodata_flora_distribution_order_action');
-		var data = {orderId:orderId, action:action};
-		
-		$.post(url, data, function(response){
-			loadMessengerOrders(0);
-			if(response.success == 'open'){
-				updateOrdersOptions(response.orderOptions);
-			}
-		}, 'json');
-	});
-	
-	function loadSlidingTabsEfects(){
-		$("#slidetabs").slidetabs({ 
-			responsive:true, 
-			touchSupport:true, 
-			autoHeight:true, 
-			autoHeightSpeed:300, 
-			contentEasing:"easeInOutQuart",
-			onTabClick: function(){
-				var id = $(this).attr('href').replace('#tab-', '');
-				
-				$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
-				loadMessengerOrders(id);
-			}
+		$(listFields).each(function(){
+			var cant = $(this).children('td:first').find('input').val();
+			$(this).children('td:first').html(cant);
+			$(this).children('td:last').remove();
+			$(this).attr('id', '').removeClass('product')
 		});
+		
+		$('.invoice_page table > tbody').append(listFields);
+		
+		var listForNote = $(listFields).clone();
+		
+		$('.payment-note .totals table > tbody').append(listForNote);
+		$('.payment-note .totals .shipping').text(totals.shipping);
+		
+		//Load totals
+		$('.invoice-subtotal').append(totals.subtotal);
+		$('.invoice-iva').append(totals.iva);
+		$('.invoice-total').append(totals.total);
+		$('.invoice-shipping').append(totals.shipping);
+		$('.invoice-discount').append(totals.discount_net);
+		$('.ammount_in_words .div_content').text(totals.totalInLetters);
+		
+		var invoiceNumber = $('.inodata-invoice-number');
+		$('.folio-container .div_content').append($(invoiceNumber).clone().attr('type', 'text'));
+		$(invoiceNumber).remove();
+		
+		var inovicePCondition = $('.inodata-payment-condition');
+		$('.payment-condition .div_content').append($(inovicePCondition).clone().attr('type', 'text'));
+		$(inovicePCondition).remove();
+		
+		var invoiceComment = $('.inodata-invoice-comment');
+		$('.comments .div_content').append($(invoiceComment).clone().attr('type', 'text'));
+		$(invoiceComment).remove();
+		
+		var orderNote = $('.inodata-order-notes').val();
+		$('.invoice_page .order-note').text(orderNote);
+		
+	}
+	//----------------------------------------------------------------------//
+	
+	//---------------- Hide select-option fields -----------------//
+	hideElement($('.products-to-buy'));
+	hideElement($('.order-shipping:first'));
+	hideElement($('.order-discount:first'));
+	
+	function hideElement(element){
+		$(element).closest('.control-group').css('display', 'none');
+	}
+	//------------------------------------------------------------//
+	
+	function loadPriceTotals(price)
+	{
+		$(".order-subtotal").text(price.subtotal);
+		$(".order-shipping").val(price.shipping);
+		$(".order-discount").eq(0).val(price.discount);
+		$(".order-discount").eq(1).val(price.discount_net);
+		$(".order-iva").text(price.iva);
+		$(".order-total").text(price.total);
+		$('.order-discount-percent').text(price.discount_percent);
 	}
 	
-	//Edit in place employee information
-	$(".st_tabs_ul li").each(function(){
-		$(this).children('a').append($(this).children('div').clone().removeClass('editable-form'));
-	});
-	
-	var url = Routing.generate('inodata_flora_distribution_messenger_edit_in_place');
-	$('.editable-form .edit-employee').editable(url, {
-		width:'100px', height:'20px',
-		indicator : 'Guardando...',
-		callback: function(value, settings){
-			var column = $(this).attr('column');
-			var el= $('.st_tabs_ul a > div .'+column).text(value);
-		}
-	});
-	
-	//more/less objects
-	$('.boxes a').click(function(){
-		changeObjects('boxes', $(this).text());
-	});
-	$('.lamps a').click(function(){
-		changeObjects('lamps', $(this).text());
-	});
-	
-	function changeObjects(object, action){
-		var data = {object:object, action:action};
-		var url = Routing.generate('inodata_flora_distribution_objects_edit');
+	// ---- Update costs via Ajax -----//
+	function updateAjaxTotalsCost(){
+		var url = Routing.generate('inodata_flora_order_update_totals_cost');
+		var products = [];
+		var shipping = $('.order-shipping').eq(1).val();
+		var discount = $('.order-discount').eq(0).val();
+		var hasInvoice = $('.inodata-has-invoice:checked').val();
 		
+		if(!hasInvoice){
+			hasInvoice = 0;
+		}
+		
+		$('.product').each(function(){
+			var productId = $(this).attr('product_id');
+			var amount = $(this).find('.product-total').val();
+			products.push({'id':productId, 'amount':amount});
+		});
+		
+		var data = {'products':products, 'shipping':shipping, 'discount':discount, 'hasInvoice':hasInvoice};
 		$.post(url, data, function(response){
-			$('.num-'+response.object).html(response.value);
+			loadPriceTotals(response.prices);
 		}, 'json');
 	}
+	//------------------------------------------------//
+	
+	//-------------- Is inovoice require -----------------/
+	$('.inodata-has-invoice').click(function(){
+		updateAjaxTotalsCost();
+	});
+	//-----------------------------------------------------
+	
+	//------------- PRINT INVOICE/NOTE ACTIONS ------------
+	if(id){
+		var postSaveAction = $('.post_save_action').val();
+		switch(postSaveAction)
+		{
+			case 'print-note':
+				$('.invoice_page').addClass('hide_template');
+				$('.card_page').addClass('hide_template');
+				$('.payment-note').removeClass('hide_template');
+				printNote();
+			break;
+			case 'print-invoice':
+				$('.invoice_page').removeClass('hide_template');
+				$('.payment-note').addClass('hide_template');
+				$('.card_page').addClass('hide_template');
+				window.print();
+			break;
+		}
+	}
+	//-----------------------------------------------------
+	
+	// ------------------- INOVICCE EDIT IN PLACE ----------------//
+	var url = Routing.generate('inodata_flora_order_invoice_edit_in_place');
+	$('.customer-edit-in-place').editable(url, {
+		width:'300px', height:'20px',
+		indicator : 'Guardando...'
+	});
+	
+	var data='{';
+	$('.inodata-shipping-address .mx_state option').each(function(){
+		var val = $(this).val();
+		var text = $(this).text();
+		
+		data+='"'+val+'":"'+text+'", ';
+	});
+	data+='}';
+	
+	$('.customer-select-state').editable(url, {
+		data: data,
+		type: "select",
+		submit: 'OK'
+	});
+	//------------------------------------------------------------//
 });
 
 //-------------------------- Translate messages ---------------------//
@@ -3043,3 +3335,166 @@ var lang = {
 	"alert.distribution_no_orders": "Seleccione al menos un pedido"	,
 	"alert.distribution_no_messenger": "Seleccione un repartidor"
 };
+// Install JSPrintSetup
+function installjsPrintSetup() {
+    //if (confirm("You don't have printer plugin.\nDo you want to install the Printer Plugin now?")) {
+    if (confirm("No tienes instalado el plugin de la impresora.\nQuieres instalarlo ahora?")) {
+        var xpi = new Object();
+        xpi['jsprintsetup'] = '/bundles/inodataflora/downloads/jsprintsetup-0.9.2.xpi';
+        InstallTrigger.install(xpi);
+    }
+}
+
+//This function was useless handling medium letter size.
+//Define paper size 
+//39 : {PD:39, PN: 'na_fanfold-us',PWG:'na_fanfold-us_11x14.875in',Name: 'US Std Fanfold', W: 11, H: 14.875, M: kPaperSizeInches}
+function definePaperSizes(){
+  //note
+  jsPrintSetup.definePaperSize(98, 98, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
+  //card
+  jsPrintSetup.definePaperSize(99, 99, 'na_letter_card', 'na_letter_4.7x5.5in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
+}
+
+function setupGlobalOptions(){
+  //check if jsPrintSetup is installed
+  if (typeof(jsPrintSetup) == 'undefined') {
+          installjsPrintSetup();
+  } else {
+    // set page orientation.
+    jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
+    //jsPrintSetup.setOption('orientation', jsPrintSetup.kLandscapeOrientation);
+
+    // set margins (in millimeters, firefox defaults 12.7mm).
+    jsPrintSetup.setOption('marginTop', 0);
+    jsPrintSetup.setOption('marginBottom', 0);
+    jsPrintSetup.setOption('marginLeft', 0);
+    jsPrintSetup.setOption('marginRight', 0);
+
+    // set page header
+    jsPrintSetup.setOption('headerStrLeft', '');
+    jsPrintSetup.setOption('headerStrCenter', '');
+    jsPrintSetup.setOption('headerStrRight', '');
+    // set empty page footer
+    jsPrintSetup.setOption('footerStrLeft', '');
+    jsPrintSetup.setOption('footerStrCenter', '');
+    jsPrintSetup.setOption('footerStrRight', '');
+
+    //definePaperSizes();
+
+    // clears user preferences always silent print value
+    // to enable using 'printSilent' option
+    jsPrintSetup.clearSilentPrint();
+    // Suppress print dialog (for this context only)
+    jsPrintSetup.setOption('printSilent', 1);
+
+  }
+}
+
+// Do Print 
+// When print is submitted it is executed asynchronous and
+// script flow continues after print independently of completetion of print process! 
+//  jsPrintSetup.print();
+function printCard(){
+  setupGlobalOptions();
+  //jsPrintSetup.setPaperSizeData(99);
+  jsPrintSetup.setGlobalOption('paperWidth', 110);
+  jsPrintSetup.setGlobalOption('paperHeight', 140);
+  //jsPrintSetup.setPrinter('Epson_xp001');
+  //jsPrintSetup.setPrinter('PostScript/default');
+  jsPrintSetup.setPrinter('EPSONLX300');
+  
+  setTimeout('jsPrintSetup.print()', 3000);
+}
+
+function printNote(){
+  setupGlobalOptions();
+  jsPrintSetup.setGlobalOption('paperWidth', 216);
+  jsPrintSetup.setGlobalOption('paperHeight', 140);
+  //alert(jsPrintSetup.getPrintersList());
+  //jsPrintSetup.setPrinter('Epson_xp002');
+  jsPrintSetup.setPrinter('EPSONLX300');
+  //jsPrintSetup.setPrinter('PostScript/default');
+  //add a delay to render correctly all elements fetched via AJAX
+  setTimeout('jsPrintSetup.print()', 3000);
+}
+
+function printNote(){
+  setupGlobalOptions();
+  jsPrintSetup.setPaperSizeData(1);
+  //jsPrintSetup.setPrinter('Epson_xp002');
+  jsPrintSetup.setPrinter('EPSONLX300');
+  //jsPrintSetup.setPrinter('PostScript/default');
+  //add a delay to render correctly all elements fetched via AJAX
+  setTimeout('jsPrintSetup.print()', 3000);
+}
+
+//FIXME: Revisar la impresion de esta lista y seleccionar impresora.
+function printDistributionList(){
+	setupGlobalOptions();
+	setTimeout('jsPrintSetup.print()', 3000);
+}
+
+(function($){$.fn.editable=function(target,options){if('disable'==target){$(this).data('disabled.editable',true);return;}
+if('enable'==target){$(this).data('disabled.editable',false);return;}
+if('destroy'==target){$(this).unbind($(this).data('event.editable')).removeData('disabled.editable').removeData('event.editable');return;}
+var settings=$.extend({},$.fn.editable.defaults,{target:target},options);var plugin=$.editable.types[settings.type].plugin||function(){};var submit=$.editable.types[settings.type].submit||function(){};var buttons=$.editable.types[settings.type].buttons||$.editable.types['defaults'].buttons;var content=$.editable.types[settings.type].content||$.editable.types['defaults'].content;var element=$.editable.types[settings.type].element||$.editable.types['defaults'].element;var reset=$.editable.types[settings.type].reset||$.editable.types['defaults'].reset;var callback=settings.callback||function(){};var onedit=settings.onedit||function(){};var onsubmit=settings.onsubmit||function(){};var onreset=settings.onreset||function(){};var onerror=settings.onerror||reset;if(settings.tooltip){$(this).attr('title',settings.tooltip);}
+settings.autowidth='auto'==settings.width;settings.autoheight='auto'==settings.height;return this.each(function(){var self=this;var savedwidth=$(self).width();var savedheight=$(self).height();$(this).data('event.editable',settings.event);if(!$.trim($(this).html())){$(this).html(settings.placeholder);}
+$(this).bind(settings.event,function(e){if(true===$(this).data('disabled.editable')){return;}
+if(self.editing){return;}
+if(false===onedit.apply(this,[settings,self])){return;}
+e.preventDefault();e.stopPropagation();if(settings.tooltip){$(self).removeAttr('title');}
+if(0==$(self).width()){settings.width=savedwidth;settings.height=savedheight;}else{if(settings.width!='none'){settings.width=settings.autowidth?$(self).width():settings.width;}
+if(settings.height!='none'){settings.height=settings.autoheight?$(self).height():settings.height;}}
+if($(this).html().toLowerCase().replace(/(;|")/g,'')==settings.placeholder.toLowerCase().replace(/(;|")/g,'')){$(this).html('');}
+self.editing=true;self.revert=$(self).html();$(self).html('');var form=$('<form />');if(settings.cssclass){if('inherit'==settings.cssclass){form.attr('class',$(self).attr('class'));}else{form.attr('class',settings.cssclass);}}
+if(settings.style){if('inherit'==settings.style){form.attr('style',$(self).attr('style'));form.css('display',$(self).css('display'));}else{form.attr('style',settings.style);}}
+var input=element.apply(form,[settings,self]);var input_content;if(settings.loadurl){var t=setTimeout(function(){input.disabled=true;content.apply(form,[settings.loadtext,settings,self]);},100);var loaddata={};loaddata[settings.id]=self.id;if($.isFunction(settings.loaddata)){$.extend(loaddata,settings.loaddata.apply(self,[self.revert,settings]));}else{$.extend(loaddata,settings.loaddata);}
+$.ajax({type:settings.loadtype,url:settings.loadurl,data:loaddata,async:false,success:function(result){window.clearTimeout(t);input_content=result;input.disabled=false;}});}else if(settings.data){input_content=settings.data;if($.isFunction(settings.data)){input_content=settings.data.apply(self,[self.revert,settings]);}}else{input_content=self.revert;}
+content.apply(form,[input_content,settings,self]);input.attr('name',settings.name);buttons.apply(form,[settings,self]);$(self).append(form);plugin.apply(form,[settings,self]);$(':input:visible:enabled:first',form).focus();if(settings.select){input.select();}
+input.keydown(function(e){if(e.keyCode==27){e.preventDefault();reset.apply(form,[settings,self]);}});var t;if('cancel'==settings.onblur){input.blur(function(e){t=setTimeout(function(){reset.apply(form,[settings,self]);},500);});}else if('submit'==settings.onblur){input.blur(function(e){t=setTimeout(function(){form.submit();},200);});}else if($.isFunction(settings.onblur)){input.blur(function(e){settings.onblur.apply(self,[input.val(),settings]);});}else{input.blur(function(e){});}
+form.submit(function(e){if(t){clearTimeout(t);}
+e.preventDefault();if(false!==onsubmit.apply(form,[settings,self])){if(false!==submit.apply(form,[settings,self])){if($.isFunction(settings.target)){var str=settings.target.apply(self,[input.val(),settings]);$(self).html(str);self.editing=false;callback.apply(self,[self.innerHTML,settings]);if(!$.trim($(self).html())){$(self).html(settings.placeholder);}}else{var submitdata={};submitdata[settings.name]=input.val();submitdata[settings.id]=self.id;if($.isFunction(settings.submitdata)){$.extend(submitdata,settings.submitdata.apply(self,[self.revert,settings]));}else{$.extend(submitdata,settings.submitdata);}
+if('PUT'==settings.method){submitdata['_method']='put';}
+$(self).html(settings.indicator);var ajaxoptions={type:'POST',data:submitdata,dataType:'html',url:settings.target,success:function(result,status){if(ajaxoptions.dataType=='html'){$(self).html(result);}
+self.editing=false;callback.apply(self,[result,settings]);if(!$.trim($(self).html())){$(self).html(settings.placeholder);}},error:function(xhr,status,error){onerror.apply(form,[settings,self,xhr]);}};$.extend(ajaxoptions,settings.ajaxoptions);$.ajax(ajaxoptions);}}}
+$(self).attr('title',settings.tooltip);return false;});});this.reset=function(form){if(this.editing){if(false!==onreset.apply(form,[settings,self])){$(self).html(self.revert);self.editing=false;if(!$.trim($(self).html())){$(self).html(settings.placeholder);}
+if(settings.tooltip){$(self).attr('title',settings.tooltip);}}}};});};$.editable={types:{defaults:{element:function(settings,original){var input=$('<input type="hidden"></input>');$(this).append(input);return(input);},content:function(string,settings,original){$(':input:first',this).val(string);},reset:function(settings,original){original.reset(this);},buttons:function(settings,original){var form=this;if(settings.submit){if(settings.submit.match(/>$/)){var submit=$(settings.submit).click(function(){if(submit.attr("type")!="submit"){form.submit();}});}else{var submit=$('<button type="submit" />');submit.html(settings.submit);}
+$(this).append(submit);}
+if(settings.cancel){if(settings.cancel.match(/>$/)){var cancel=$(settings.cancel);}else{var cancel=$('<button type="cancel" />');cancel.html(settings.cancel);}
+$(this).append(cancel);$(cancel).click(function(event){if($.isFunction($.editable.types[settings.type].reset)){var reset=$.editable.types[settings.type].reset;}else{var reset=$.editable.types['defaults'].reset;}
+reset.apply(form,[settings,original]);return false;});}}},text:{element:function(settings,original){var input=$('<input />');if(settings.width!='none'){input.width(settings.width);}
+if(settings.height!='none'){input.height(settings.height);}
+input.attr('autocomplete','off');$(this).append(input);return(input);}},textarea:{element:function(settings,original){var textarea=$('<textarea />');if(settings.rows){textarea.attr('rows',settings.rows);}else if(settings.height!="none"){textarea.height(settings.height);}
+if(settings.cols){textarea.attr('cols',settings.cols);}else if(settings.width!="none"){textarea.width(settings.width);}
+$(this).append(textarea);return(textarea);}},select:{element:function(settings,original){var select=$('<select />');$(this).append(select);return(select);},content:function(data,settings,original){if(String==data.constructor){eval('var json = '+data);}else{var json=data;}
+for(var key in json){if(!json.hasOwnProperty(key)){continue;}
+if('selected'==key){continue;}
+var option=$('<option />').val(key).append(json[key]);$('select',this).append(option);}
+$('select',this).children().each(function(){if($(this).val()==json['selected']||$(this).text()==$.trim(original.revert)){$(this).attr('selected','selected');}});}}},addInputType:function(name,input){$.editable.types[name]=input;}};$.fn.editable.defaults={name:'value',id:'id',type:'text',width:'auto',height:'auto',event:'click.editable',onblur:'cancel',loadtype:'GET',loadtext:'Loading...',placeholder:'Click to edit',loaddata:{},submitdata:{},ajaxoptions:{}};})(jQuery);
+$('document').ready(function(){
+	$('.use-fiscal-address, .use-payment-address').live('click', function(){
+		var fiscalForm = $('.use-fiscal-address').closest('.tab-pane').prev().find('.controls');
+		var paymentForm = $('.use-fiscal-address').closest('.tab-pane').find('.controls');
+		
+		if($(this).hasClass('use-fiscal-address')){
+			loadAddress(fiscalForm, paymentForm);
+		}else{
+			loadAddress(paymentForm, fiscalForm);
+		}
+	});
+	
+	function loadAddress(sourceForm, targetForm)
+	{
+		$(targetForm).eq(1).children().val($(sourceForm).eq(1).children().val());
+		$(targetForm).eq(2).children().val($(sourceForm).eq(2).children().val());
+		$(targetForm).eq(3).children().val($(sourceForm).eq(3).children().val());
+		$(targetForm).eq(4).children().val($(sourceForm).eq(4).children().val());
+		$(targetForm).eq(5).children().val($(sourceForm).eq(5).children().val());
+		$(targetForm).eq(6).children().val($(sourceForm).eq(6).children().val());
+		$(targetForm).eq(7).children().val($(sourceForm).eq(7).children().val());
+		$(targetForm).eq(8).children().val($(sourceForm).eq(8).children().val());
+		$(targetForm).eq(9).children().val($(sourceForm).eq(9).children().val());
+	}
+	
+	
+});
