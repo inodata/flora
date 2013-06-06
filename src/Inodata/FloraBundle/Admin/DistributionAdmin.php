@@ -33,12 +33,13 @@ class DistributionAdmin extends Admin
 			->add('messenger', 'sonata_type_model', array( 
 					'class' => 'Inodata\FloraBundle\Entity\Employee',
 					'attr' => array(
-						'class' => 'inodata_messenger span5'
+						'class' => '	 span5'
 					)
 				))
 			->add('delivery_date', 'date', array(
 						'label'=> 'label.delivery_date'
 				))	
+			->add('status', null)
 		;
 	}
 	
@@ -52,6 +53,9 @@ class DistributionAdmin extends Admin
 		
 		/* TODO: Agregar comentarios */
 		$listMapper
+			->add('messenger', null, array(
+					'label' => 'label.messenger'
+				))
 			->addIdentifier('id', null, array(
 					'label' => 'label.distribution_id',
 				))
@@ -63,12 +67,13 @@ class DistributionAdmin extends Admin
 				))
 			->add('status', null, array(
 					'label' => 'label.distribution_status',
+					'attr' => array('class'=>'status')
 				))
 			->add('_action', 'actions', array(
 					'label' => 'label.distribution_actions',
 					'actions' => array(
 						'delivered' => array('template' => 'InodataFloraBundle:Distribution:_delivered_action.html.twig'),
-						'closed'  => array('template' => 'InodataFloraBundle:Distribution:_closed_action.html.twig' )
+						'remove'  => array('template' => 'InodataFloraBundle:Distribution:_closed_action.html.twig' )
 					) 
 				)
 			);
@@ -111,7 +116,6 @@ class DistributionAdmin extends Admin
 	protected function configureRoutes(RouteCollection $collection)
 	{
 		$collection->add('delivered');
-		$collection->add('closed');
 		$collection->add('open');
 		$collection->add('print');
 		$collection->remove('create');

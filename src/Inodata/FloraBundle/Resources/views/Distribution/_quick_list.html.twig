@@ -1,0 +1,163 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+		{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
+	                  '@InodataFloraBundle/Resources/public/css/main.css'
+	                  '@InodataFloraBundle/Resources/public/css/distribution.css'
+	                  '@InodataFloraBundle/Resources/public/css/sliding/preview.css'
+	                  '@InodataFloraBundle/Resources/public/css/sliding/template.css'%}
+			<link rel="stylesheet" href="{{ asset_url }}" />
+		{% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}	
+		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+		<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+		{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
+					   	 '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
+					   	 '@InodataFloraBundle/Resources/public/js/distribution_admin.js'
+					   	 '@InodataFloraBundle/Resources/public/js/lang/es.js'
+					   	 "@InodataFloraBundle/Resources/public/js/jquery.jeditable.min.js"
+					   	 '@InodataFloraBundle/Resources/public/js/sliding/jquery.slidetabs.min.js'%}
+			<script type="text/javascript" src="{{ asset_url }}" ></script>
+		{% endjavascripts %}
+{% endblock %}
+
+{% block actions %}
+	<div class="sonata-actions btn-group">
+        <a class="btn sonata-action-element" href="{{ path('distribution_list', {view:'normal'}) }}">
+        	{{ 'label.detailed_list'|trans({}, 'InodataFloraBundle') }}
+        </a>
+    </div>
+{% endblock %} 
+
+{% block list_table %}
+<b>{{ 'label.distribution_title'|trans({}, 'InodataFloraBundle') }}</b>
+	<br/><br/>
+	{% block distribution_form %}
+		<form method="post" action="#" {{ form_enctype(form) }}>
+		{% block user_sliding %}
+			<div id="slidetabs" class="slidetabs clean_rounded clean_rounded-horizontal align_top st_sliding_active">
+				<div class="st_tabs">
+					<a style="display: block;" href="#" class="st_prev">prev</a>
+					<a style="display: block;" href="#" class="st_next st_btn_disabled">next</a>
+					<div style="overflow: hidden;" class="st_tabs_wrap">
+						<ul style="" class="st_tabs_ul">
+						{% for messenger in messengers %}
+							<li class="{% if messenger.id == first_tab %} st_li_first{% endif %}">
+								<a href="#tab-{{ messenger.id }}" rel="tab-{{ messenger.id }}" 
+									class="messenger-tab st_tab st_tab_{{ messenger.id }}
+									{% if messenger.id == first_tab %} st_tab_first{% endif %}
+									{% if messenger.id ==  selected_messenger%} st_tab_active{% endif %}
+									{% if messenger.id ==  last_tab%} st_tab_last{% endif %}">
+								</a>
+								<div class="editable-form">
+									<p>({{ messenger.code}})</p>
+									<p class="edit-employee {{ messenger.id }}-name" column="{{ messenger.id }}-name" id="{{ messenger.id }}-name">{{ messenger.name }}</p>
+									<p class="edit-employee {{ messenger.id }}-lastname" column="{{ messenger.id }}-lastname" id ="{{ messenger.id }}-lastname">{{ messenger.lastname }}</p>
+									<p class="edit-employee {{ messenger.id }}-phone new-line" column="{{ messenger.id }}-phone" id="{{ messenger.id }}-phone">{{ messenger.phone }}</p>
+								</div>
+							</li>
+						{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<div class="st_views">
+				{% for messenger in messengers %}
+					<div class="{% if messenger.id == first_tab %}st_view_first {% endif %}
+								{% if messenger.id == selected_messenger %} st_view_active{% endif %} 
+								tab-{{ messenger.id }} st_view" style="
+							{% if messenger.id == selected_messenger %}position: absolute; left: 0px; height: auto;
+							{% else %} position: absolute; left: 2560px; height: auto;{% endif %}">
+						<div class="st_view_inner" style="height: auto;">
+							{% if messenger.id == selected_messenger %}
+								<div class="inner-filters">
+									<div class="label-inline" >
+										{{ form_label(distribution_form['id'], 'label.distribution_id'|trans({}, 'InodataFloraBundle') ) }}
+									</div>
+									<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+										{{ form_widget(distribution_form.id)}}
+									</div>
+									<div class="deliver-all">
+										<a class="btn order-action deliver-all" orderid="0" href="#"><img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
+										{{ 'label.deliver_all'|trans({}, 'InodataFloraBundle') }}</a>
+									</div>
+									<div class="is-delivered">
+										<div id="num-delivered">0</div>
+										<div>Entregados</div>
+									</div>
+									<div class="in-transit">
+										<div id="num-pendings">0</div>
+										<div>Pendientes</div>
+									</div>
+									<div class="boxes">
+										<div class="more"><a href="javascript:void()">+</a></div>
+										<div class="num-boxes"></div>
+										<div class="less"><a href="javascript:void()">-</a></div>
+									</div>
+									<div class="lamps">
+										<div class="more"><a href="javascript:void()">+</a></div>
+										<div class="num-lamps"></div>
+										<div class="less"><a href="javascript:void()">-</a></div>
+									</div>
+								</div>
+							{% endif %}
+							<br><br>
+							{% set batchactions = admin.batchactions %}
+						        <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
+						            <table class="table table-bordered table-striped">
+						            	{% block table_header %}
+						            		<thead>
+						            			<tr class="sonata-ba-list-field-header">
+						            				<th class="sonata-ba-list-field-header sonata-ba-list-field-header-batch">
+						            					<input id="list_batch_checkbox" type="checkbox">
+						            					</input>
+						            				</th>
+							            			<th class="sonata-ba-list-field-header-integer  sonata-ba-list-field-header-order-asc ">
+							            				<a href="/app_dev.php/admin/distribution/list?filter%5B_sort_order%5D=ASC&filter%5B_sort_by%5D=id&filter%5B_page%5D=1&filter%5B_per_page%5D=25">
+	                                                  		{{ 'label.distribution_id'|trans({}, 'InodataFloraBundle') }}
+	                                                  	</a>
+	                                                </th>
+	                                                <th class="sonata-ba-list-field-header-text ">
+	                                                	{{ 'label.distribution_product'|trans({}, 'InodataFloraBundle') }}
+	                                                </th>
+	                                                <th class="sonata-ba-list-field-header-datetime  sonata-ba-list-field-header-order-asc ">
+	                                                	<a href="/app_dev.php/admin/distribution/list?filter%5B_sort_order%5D=ASC&filter%5B_sort_by%5D=deliveryDate&filter%5B_page%5D=1&filter%5B_per_page%5D=25">
+	                                                		{{ 'label.delivery_date'|trans({}, 'InodataFloraBundle') }}
+	                                                  	</a>
+	                                                </th>
+	                                                <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc ">
+	                                                	<a href="/app_dev.php/admin/distribution/list?filter%5B_sort_order%5D=ASC&filter%5B_sort_by%5D=status&filter%5B_page%5D=1&filter%5B_per_page%5D=25">
+	                                                  		{{ 'label.distribution_status'|trans({}, 'InodataFloraBundle') }}
+	                                                  	</a>
+	                                                </th>
+	                                                <th class="sonata-ba-list-field-header-actions ">
+	                                                	{{ 'label.distribution_actions'|trans({}, 'InodataFloraBundle') }}
+	                                                </th>
+    											</tr>
+						            		</thead>
+						            	{% endblock %}
+						            	{% block table_body %}
+						            		<tbody>
+						            			{% if admin.datagrid.results|length == 0 %}
+							            			<tr>
+							            				<td colspan="6"><p class="notice">{{ 'no_result'|trans({}, 'SonataAdminBundle') }}</p></td>
+							            			</tr>
+						            			{% endif %}
+						            		</tbody>
+						            	{% endblock %}
+							 		</table>
+						        </form>
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+			</div>			
+		{% endblock %}
+		<a target="_blank" href="{{ path('inodata_flora_distribution_list_print') }}" class="btn print_link" title="Imprimir Listado" >
+			<i class="icon-print" ></i>
+			{{ 'label.distribution_print'|trans({}, 'InodataFloraBundle') }}
+		</a>
+		</form>
+	{% endblock %}
+{% endblock %}

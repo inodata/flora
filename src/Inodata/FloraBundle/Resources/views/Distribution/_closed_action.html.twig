@@ -1,6 +1,6 @@
-{% if admin.isGranted('EDIT', object) and admin.hasRoute('edit') %}
-<a href="{{ admin.generateObjectUrl('closed', object) }}" class="btn" title="{{ 'label.action_closed'|trans({}, 'InodataFloraBundle') }}">
-    <img src="{{ asset('bundles/sonataadmin/famfamfam/cancel.png') }}" alt="{{ 'label.action_closed'|trans({}, 'InodataFloraBundle') }}" />
-	{{ 'label.action_closed'|trans({}, 'InodataFloraBundle') }}
+{% if admin.isGranted('EDIT', object) and admin.hasRoute('edit') and object.status == 'intransit'%}
+<a href="{{ path('inodata_flora_distribution_order_action', {orderId:object.id, action:'open' }) }}" class="btn" title="{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}">
+    <img src="{{ asset('bundles/sonataadmin/famfamfam/cancel.png') }}" alt="{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}" />
+	{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}
 </a>
 {% endif %}

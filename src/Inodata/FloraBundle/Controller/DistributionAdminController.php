@@ -19,6 +19,10 @@ class DistributionAdminController extends Controller
             throw new AccessDeniedException();
         }
         
+        if ($this->getRequest()->get('view')){
+        	$this->setListView($this->getRequest()->get('view'));
+        }
+        
         $this->setFilters($this->get('request')->get('filter'));
 
         $datagrid = $this->admin->getDatagrid();
@@ -52,7 +56,8 @@ class DistributionAdminController extends Controller
         		'messengers' => $messengers,
         		'first_tab' => $firstTab,
         		'last_tab' => $lastTab,
-        		'selected_messenger' => $this->getSelectedMessenger($firsMessenger)
+        		'selected_messenger' => $this->getSelectedMessenger($firsMessenger),
+        		'list_view' => $this->getListeView()
         ));
         
         return $render;
@@ -62,13 +67,17 @@ class DistributionAdminController extends Controller
     {
     	if (!$request && $this->getRequest()->get('filters')){
     		$this->setDateSelected('');
+    		$this->setStatusSelected(null);
     	}else
     	{
-    		if ($request['deliveryDate']['value']){
+    		if (isset($request['deliveryDate']['value'])){
     			$this->setDateSelected($request['deliveryDate']['value']);
     		}
-    		if ($request['messenger']['value']){
+    		if (isset($request['messenger']['value'])){	
     			$this->setSelectedMessenger($request['messenger']['value']);
+    		}
+    		if (isset($request['status']['value'])){
+    			$this->setStatusSelected($request['status']['value']);
     		}
     	}
     }
@@ -187,17 +196,23 @@ class DistributionAdminController extends Controller
     		$this->setOrderStatus($status, $id);
     	}
     	
-    	$orderOptions = null;
-    	if ($status == 'open'){
-    		$ordersOpened = $this->getDoctrine()
-    		->getRepository('InodataFloraBundle:Order')
-    		->findByStatus('open');
+    	if($this->isXmlHttpRequest())
+    	{
+    		$orderOptions = null;
+    		if ($status == 'open'){
+    			$ordersOpened = $this->getDoctrine()
+    			->getRepository('InodataFloraBundle:Order')
+    			->findByStatus('open');
     		
-    		$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-    				array('orders' => $ordersOpened));
+    			$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
+    					array('orders' => $ordersOpened));
+    		}
+    		 
+    		return new Response(json_encode(array('success'=>$status, 'orderOptions'=>$orderOptions)));
     	}
     	
-    	return new Response(json_encode(array('success'=>$status, 'orderOptions'=>$orderOptions)));
+    	return new RedirectResponse($this->generateUrl('distribution_list'));
+    	
     }
     
     private function setOrderStatus($status, $id)
@@ -282,12 +297,20 @@ class DistributionAdminController extends Controller
     {
     	$this->setSelectedMessenger($id);
     	$id = $this->getSelectedMessenger();
+    	$status = $this->getStatusSelected();
+    	
+    	if (!$status){
+    		$status = "o.status='intransit' OR o.status='delivered'";
+    	}else{
+    		$status = "o.status='".$status."'";
+    	}
     	
     	$orders = $this->getDoctrine()
     		->getRepository('InodataFloraBundle:Order')
     		->createQueryBuilder('o')
-    		->where("o.messenger=:id AND (o.status='intransit' OR o.status='delivered')")
-    		->andWhere('o.deliveryDate=:date')
+    		->where("o.messenger=:id")
+    		->andWhere($status)
+    		->andWhere('o.deliveryDate >= :date')
     		->orderBy('o.status', 'ASC')
     		->setParameters(array('id'=>$id, 'date'=>$this->getDateSelected()))
     		->getQuery()->getResult();
@@ -318,7 +341,7 @@ class DistributionAdminController extends Controller
     		->createQueryBuilder('o')
     		->select('COUNT(o.id)')
     		->where("o.messenger=:id AND o.status=:status")
-    		->andWhere("o.deliveryDate=:date")
+    		->andWhere("o.deliveryDate >=:date")
     		->setParameters(array('id'=>$messengerId, 'status'=>$status, 
     				'date'=>$this->getDateSelected()))
     		->getQuery()->getSingleScalarResult();
@@ -439,5 +462,36 @@ class DistributionAdminController extends Controller
     	}
     	
     	return $date;
+    }
+    
+    protected function setStatusSelected($status){
+    	$this->getRequest()->getSession()->set('status_selectecd', $status);
+    }
+    
+    protected function getStatusSelected($default=null){
+    	$status = $this->getRequest()->getSession()->get('status_selectecd');
+    	if (!$status){
+    		return $default;
+    	}
+    	
+    	return $status;
+    }
+    
+    /**
+     * @TODO permitir mostrar asignacion rapida y listado detallado en la misma pagina
+     */
+    protected function setListView($view)
+    {
+    	$this->getRequest()->getSession()->set('list_view', $view);
+    }
+    
+    protected function getListeView()
+    {
+    	$listView = $this->getRequest()->getSession()->get('list_view');
+    	if (!$listView) {
+    		$this->setListView('quick');
+    		return 'quick';
+    	}
+    	return $listView;
     }
 }

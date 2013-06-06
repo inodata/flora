@@ -181,11 +181,11 @@
 	/*----------------------------------------*/
 	
 	/*------Change color of order status------*/
-	.messenger-order-row .order-delivered{
+	td.order-delivered{
 		font-weight: bold;
 		color: #00B945;
 	}
-	.messenger-order-row .order-intransit{
+	td.order-intransit{
 		#font-weight: bold;
 		color: #0088CC;
 	}
