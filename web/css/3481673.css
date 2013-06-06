@@ -636,7 +636,6 @@ disabled look for disabled choices in the results dropdown
   	width: 70px;
   }
   
-  
   .sonata-ba-collapsed-fields > .control-group:nth-child(13),
   .sonata-ba-collapsed-fields > .control-group:nth-child(14){
   	float: left;
@@ -677,7 +676,7 @@ disabled look for disabled choices in the results dropdown
 	
 	/* Reglas de impresion para la tarjeta */
   .card_page{
-    width: 100%;
+    width: 15cm;
     height: 100%;
     
     border: 1px solid white;
@@ -769,6 +768,10 @@ disabled look for disabled choices in the results dropdown
   	text-align:left;
   }
   
+  .invoice_page .customer-edit-in-place, .invoice_page .customer-select-state{
+  	background: #C3D9FF;
+  }
+  
   .issuing h3{
   	font-size: 13px;
   	line-height: 0px;
@@ -852,7 +855,7 @@ disabled look for disabled choices in the results dropdown
   
   .issuing-container .logo{
   	height: 70px;
-  	#background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+  	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
   	width: 35%;
   }
   .issuing-container .issuing{
@@ -966,8 +969,24 @@ disabled look for disabled choices in the results dropdown
   	margin-bottom: 15px;
   }
   
-  .payment-note .header{
+  .payment-note .header{	
   	height: 108px;
+  }
+  .payment-note .header .info-row{
+  	position:relative;
+  	top: 67px;
+  }
+  .payment-note .header .info-row div.no-order{
+  	width: 95%;
+  	text-align: right;
+  	padding-bottom: 20px;
+  }
+  .payment-note .header .no-order span{
+  	font-size: 32px;
+  }
+  .payment-note .header .info-row div.city-date{
+  	width: 95%;
+  	text-align: right;
   }
   
   .payment-note .payment-info{
@@ -999,9 +1018,6 @@ disabled look for disabled choices in the results dropdown
   	width: 9%
   }
   
-   .payment-note .space-0{
-   	width: 60%;
-   }
   .payment-note .space-1{
   	min-width: 48%;
   	max-width: 48%;
@@ -1070,6 +1086,13 @@ disabled look for disabled choices in the results dropdown
   	text-align: center;
   }
   
+  /******** INOVOICE EDIT IN PLACE *********/
+  .invoice_page .customer-edit-in-place form{
+  	margin: 0px 0px;
+  	padding: 0px 0px;
+  }
   
-  /* ESCONDE TEMPLATE NO REQUERIDO EN LA IMPRESION*/ 
+  .invoice_page .customer-edit-in-place input{
+  	background: #FFCCCC
+  }
 }
