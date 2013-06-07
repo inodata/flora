@@ -22,11 +22,11 @@
                     <span class="customer-edit-in-place" id="{{ object.customer.id }}-noExt">{{ object.customer.fiscalAddress.noExt }} </span>
                     {% if (object.customer.fiscalAddress.noInt!= '') %} Int. 
                     	<span class="customer-edit-in-place" id="{{ object.customer.id }}-noInt">{{ object.customer.fiscalAddress.noInt}} </span>
-                    {% endif %}, 
+                    {% endif %}<br/>
                     <span class="customer-edit-in-place" id="{{ object.customer.id }}-neighborhood">{{ object.customer.fiscalAddress.neighborhood }}</span><br/>
                     <span class="customer-edit-in-place" id="{{ object.customer.id }}-city">{{ object.customer.fiscalAddress.city }}</span>, 
                     <span class="customer-select-state" id="{{ object.customer.id }}-state">{{ object.customer.fiscalAddress.state }}</span>, C.P. 
-                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-zip">{{ object.customer.fiscalAddress.postalCode }}</span><br/><br/>
+                    <span class="customer-edit-in-place" id="{{ object.customer.id }}-zip">{{ object.customer.fiscalAddress.postalCode }}</span><br/>
                     R.F.C. <span class="customer-edit-in-place" id="{{ object.customer.id }}-rfc">{{ object.customer.rfc }}</span>
                 </div>
 			</div>
@@ -35,14 +35,14 @@
 				<div class="expedition">
 					<div class="div_header">{{ 'label.expedition_place'|trans({}, 'InodataFloraBundle') }}</div>
 	                <div class="div_content">
-	                    Monterrey Nuevo León.
+	                    MONTERREY, N.L.
 	                </div>
 				</div>
 				<div class="divisor-w"></div>
 				<div class="date">
 					<div class="div_header">{{ 'label.date'|trans({}, 'InodataFloraBundle') }}</div>
 					<div class="div_content">
-	                    {{ object.createdAt|date("m/d/Y") }}
+	                    {{ object.createdAt|date("d/m/Y") }}
 	                </div>
 				</div>
 				<div class="payment-condition">
