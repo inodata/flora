@@ -39,44 +39,6 @@ $(document).ready(function() {
 	});
 	//---------------------------------------------------------------------------------//
 	
-	//--- TRUCO PARA RESOLVER EL PROBLEMA CON LOS TABS EN LA VENTANA MODAL ---//
-	$('.ui-dialog').live('mouseenter', function(){
-		if(!isEnteredInModal){
-		    $(this).find('.nav-tabs li').each(function(){
-		        var element = $(this).find('a:first');
-		        var href = $(element).attr('href');
-		        var title = $(element).text();
-		        
-		        $(this).append('<a href="javascript:void()" tabId="'+href+'">'+title+'</a>');
-		        $(element).remove();
-		    });
-		    
-		    isEnteredInModal = true;
-		}
-	});
-	
-	$('.ui-dialog .nav-tabs li > a').live('click', function(event){
-		$(this).closest('ul').children().removeClass('active');
-		$(this).parent().addClass('active');
-	
-		var tabId = $(this).attr('tabId');
-	
-		$('.ui-dialog .tab-content > div').removeClass('active');
-		$(tabId).addClass('active');
-	});
-	
-	$('select.inodata_customer').closest('.control-group').mouseenter(function(){
-		isEnteredInModal = false;
-	});
-	
-	$('.sonata-ba-action').live('mouseenter', function(){
-		isEditingCustomer = false;
-	});
-	$('.btn_edit_customer').live('mouseenter', function(){
-		isEditingCustomer = true;
-	});
-	//--------------------------------------------------------------------------//
-	
 	//----------------Fila de seleccion de cliente en la orden------------------//
 	$('.inodata_customer').live('change', function(){
 		$(this).val()!=''?id=$(this).val():id=0;

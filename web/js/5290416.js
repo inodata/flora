@@ -81,7 +81,7 @@ function printNote(){
   setTimeout('jsPrintSetup.print()', 3000);
 }
 
-function printNote(){
+function printInvoice(){
   setupGlobalOptions();
   jsPrintSetup.setPaperSizeData(1);
   //jsPrintSetup.setPrinter('Epson_xp002');
