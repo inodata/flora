@@ -2841,44 +2841,6 @@ $(document).ready(function() {
 	});
 	//---------------------------------------------------------------------------------//
 	
-	//--- TRUCO PARA RESOLVER EL PROBLEMA CON LOS TABS EN LA VENTANA MODAL ---//
-	$('.ui-dialog').live('mouseenter', function(){
-		if(!isEnteredInModal){
-		    $(this).find('.nav-tabs li').each(function(){
-		        var element = $(this).find('a:first');
-		        var href = $(element).attr('href');
-		        var title = $(element).text();
-		        
-		        $(this).append('<a href="javascript:void()" tabId="'+href+'">'+title+'</a>');
-		        $(element).remove();
-		    });
-		    
-		    isEnteredInModal = true;
-		}
-	});
-	
-	$('.ui-dialog .nav-tabs li > a').live('click', function(event){
-		$(this).closest('ul').children().removeClass('active');
-		$(this).parent().addClass('active');
-	
-		var tabId = $(this).attr('tabId');
-	
-		$('.ui-dialog .tab-content > div').removeClass('active');
-		$(tabId).addClass('active');
-	});
-	
-	$('select.inodata_customer').closest('.control-group').mouseenter(function(){
-		isEnteredInModal = false;
-	});
-	
-	$('.sonata-ba-action').live('mouseenter', function(){
-		isEditingCustomer = false;
-	});
-	$('.btn_edit_customer').live('mouseenter', function(){
-		isEditingCustomer = true;
-	});
-	//--------------------------------------------------------------------------//
-	
 	//----------------Fila de seleccion de cliente en la orden------------------//
 	$('.inodata_customer').live('change', function(){
 		$(this).val()!=''?id=$(this).val():id=0;
@@ -3350,9 +3312,9 @@ function installjsPrintSetup() {
 //39 : {PD:39, PN: 'na_fanfold-us',PWG:'na_fanfold-us_11x14.875in',Name: 'US Std Fanfold', W: 11, H: 14.875, M: kPaperSizeInches}
 function definePaperSizes(){
   //note
-  jsPrintSetup.definePaperSize(98, 98, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
+  jsPrintSetup.definePaperSize(50, 50, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
   //card
-  jsPrintSetup.definePaperSize(99, 99, 'na_letter_card', 'na_letter_4.7x5.5in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
+  jsPrintSetup.definePaperSize(51, 51, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
 }
 
 function setupGlobalOptions(){
@@ -3379,7 +3341,7 @@ function setupGlobalOptions(){
     jsPrintSetup.setOption('footerStrCenter', '');
     jsPrintSetup.setOption('footerStrRight', '');
 
-    //definePaperSizes();
+    definePaperSizes();
 
     // clears user preferences always silent print value
     // to enable using 'printSilent' option
@@ -3396,24 +3358,17 @@ function setupGlobalOptions(){
 //  jsPrintSetup.print();
 function printCard(){
   setupGlobalOptions();
-  //jsPrintSetup.setPaperSizeData(99);
-  jsPrintSetup.setGlobalOption('paperWidth', 110);
-  jsPrintSetup.setGlobalOption('paperHeight', 140);
-  //jsPrintSetup.setPrinter('Epson_xp001');
-  //jsPrintSetup.setPrinter('PostScript/default');
-  jsPrintSetup.setPrinter('EPSONLX300');
-  
+  jsPrintSetup.setPaperSizeData(51);
+  jsPrintSetup.setPrinter('PostScript/default');
+  alert(jsPrintSetup.getPaperMeasure());
   setTimeout('jsPrintSetup.print()', 3000);
 }
 
 function printNote(){
   setupGlobalOptions();
-  jsPrintSetup.setGlobalOption('paperWidth', 216);
-  jsPrintSetup.setGlobalOption('paperHeight', 140);
-  //alert(jsPrintSetup.getPrintersList());
-  //jsPrintSetup.setPrinter('Epson_xp002');
-  jsPrintSetup.setPrinter('EPSONLX300');
-  //jsPrintSetup.setPrinter('PostScript/default');
+  jsPrintSetup.setPaperSizeData(50);
+  jsPrintSetup.setPrinter('PostScript/default');
+  alert(jsPrintSetup.getPaperMeasure());
   //add a delay to render correctly all elements fetched via AJAX
   setTimeout('jsPrintSetup.print()', 3000);
 }
@@ -3421,9 +3376,7 @@ function printNote(){
 function printInvoice(){
   setupGlobalOptions();
   jsPrintSetup.setPaperSizeData(1);
-  //jsPrintSetup.setPrinter('Epson_xp002');
-  jsPrintSetup.setPrinter('EPSONLX300');
-  //jsPrintSetup.setPrinter('PostScript/default');
+  jsPrintSetup.setPrinter('PostScript/default');
   //add a delay to render correctly all elements fetched via AJAX
   setTimeout('jsPrintSetup.print()', 3000);
 }
