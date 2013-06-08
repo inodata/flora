@@ -1,6 +1,9 @@
-inodata_flora_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: InodataFloraBundle:Default:index }
+homepage:
+    pattern:  /
+    defaults: 
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /admin/dashboard
+        permanent: true
 
 inodata_flora_order_product:
     pattern: /admin/inodata/flora/order/product/{id}
@@ -9,7 +12,7 @@ inodata_flora_order_product:
 inodata_flora_order_products:
     pattern: /admin/inodata/flora/order/{id}/products
     defaults: {_controller: InodataFloraBundle:OrderAdmin:orderProducts}
-    
+
 inodata_flora_order_product_create_and_add:
     pattern: /admin/inodata/flora/order/adding/product
     defaults: {_controller: InodataFloraBundle:OrderAdmin:addingProduct}
@@ -46,7 +49,7 @@ inodata_flora_distribution_filter_order_by_messenger:
 inodata_flora_distribution_update_orders_available: 
     pattern: /admin/inodata/flora/distribution/update/orders/available
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:updateOrdersAvailable}
-    
+
 inodata_flora_distribution_list_print: 
     pattern: /admin/inodata/flora/distribution/list/print
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:printDistribution }
@@ -71,7 +74,7 @@ inodata_flora_distribution_messenger_edit_in_place:
 inodata_flora_distribution_objects_edit:
     pattern: /admin/inodata/flora/distribution/objects/edit
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:editObjects} 
-    
+
 inodata_flora_order_create_inovice_totals:
     pattern: /admin/inodata/flora/order/invoice/totals/{orderId}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:createInvoiceTotals}

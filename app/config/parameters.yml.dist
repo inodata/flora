@@ -15,6 +15,7 @@ parameters:
     secret:            ChangeThisSecret!
     database_path:     ~
     
+    #Inodata Parameters
     order_shipping:    65
     
     issuing_name:       ~
@@ -28,3 +29,7 @@ parameters:
     issuing_cp:         ~
     issuing_phone:      ~
     issuing_phone2:     ~
+
+    #Printers configuration
+    card_printer:       EPSONLX300
+    note_printer:       EPSONLX300
