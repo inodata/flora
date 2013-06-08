@@ -57,29 +57,32 @@ function setupGlobalOptions(){
 // When print is submitted it is executed asynchronous and
 // script flow continues after print independently of completetion of print process! 
 //  jsPrintSetup.print();
+var print_delay = 3000;
+
 function printCard(){
   setupGlobalOptions();
   jsPrintSetup.setPaperSizeData(51);
   jsPrintSetup.setPrinter('PostScript/default');
-  alert(jsPrintSetup.getPaperMeasure());
-  setTimeout('jsPrintSetup.print()', 3000);
+  //alert(jsPrintSetup.getPaperMeasure());
+  setTimeout('jsPrintSetup.print()', print_delay);
 }
 
 function printNote(){
   setupGlobalOptions();
   jsPrintSetup.setPaperSizeData(50);
   jsPrintSetup.setPrinter('PostScript/default');
-  alert(jsPrintSetup.getPaperMeasure());
+  //alert(jsPrintSetup.getPaperMeasure());
   //add a delay to render correctly all elements fetched via AJAX
-  setTimeout('jsPrintSetup.print()', 3000);
+  setTimeout('jsPrintSetup.print()', print_delay);
 }
 
 function printInvoice(){
   setupGlobalOptions();
   jsPrintSetup.setPaperSizeData(1);
   jsPrintSetup.setPrinter('PostScript/default');
+  //alert(jsPrintSetup.getPaperMeasure());
   //add a delay to render correctly all elements fetched via AJAX
-  setTimeout('jsPrintSetup.print()', 3000);
+  setTimeout('jsPrintSetup.print()', print_delay);
 }
 
 //FIXME: Revisar la impresion de esta lista y seleccionar impresora.

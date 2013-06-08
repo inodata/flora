@@ -3377,6 +3377,7 @@ function printInvoice(){
   setupGlobalOptions();
   jsPrintSetup.setPaperSizeData(1);
   jsPrintSetup.setPrinter('PostScript/default');
+  alert(jsPrintSetup.getPaperMeasure());
   //add a delay to render correctly all elements fetched via AJAX
   setTimeout('jsPrintSetup.print()', 3000);
 }
