@@ -19,8 +19,8 @@ class CustomerAdmin extends Admin
 	{
 		$formMapper
 			->with('label.general', array('expanded' => true,))
-				->add('companyName', null, array('label' => 'label.company_name'))
 				->add('businessName', null, array('label' => 'label.business_name'))
+				->add('companyName', null, array('label' => 'label.company_name'))
 				->add('rfc', null, array('label' => 'label.rfc'))
 				->add('discount', null, array('label' => 'label.discount'))
 				->add('paymentCondition', 'text', array('label' => 'label.payment_condition',

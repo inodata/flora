@@ -86,11 +86,16 @@ class Customer
         if(!empty($this->companyName))
         {
             $companyName = $this->companyName;
-            if(!empty($this->rfc))
-            {
-                $companyName .= " (".$this->rfc.")";
-            }
         }
+        
+        if ($companyName=="" && !empty($this->businessName)){
+        	$companyName = $this->businessName;
+        }
+        
+        if (!empty($this->rfc)){
+        	$companyName .= " (".$this->rfc.")";
+        }
+        
         return $companyName;
     }
 

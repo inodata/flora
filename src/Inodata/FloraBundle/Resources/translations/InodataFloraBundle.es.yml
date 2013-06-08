@@ -5,8 +5,8 @@ label.message_code: Número
 label.general: Datos Generales
 label.fiscal_address: Dirección fiscal
 label.payment_address: Dirección de cobro
-label.company_name: Nombre / Razón social
-label.business_name: Nombre comercial
+label.company_name: Nombre comercial
+label.business_name: Nombre / Razón social
 label.rfc: RFC
 label.discount: Descuento
 label.use_fiscal_address: Usar dirección fiscal
