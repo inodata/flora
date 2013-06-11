@@ -45,7 +45,7 @@
     <div class="tab-content">
         {% for name, form_group in admin.formgroups %}            
             {% if name == "tab.invoice" %}
-                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
                     {{ block('sonata_fieldset') }}
                     {% if admin.id(object) %}
                     	{% embed 'InodataFloraBundle:Order:payment_note.html.twig' %}{% endembed %}
@@ -58,7 +58,7 @@
                     {% embed 'InodataFloraBundle:Order:card.html.twig' %}{% endembed %}
                 </div>
             {% else %}
-                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
                     {{ block('sonata_fieldset') }}
                     <div class="create-product-form">
                     	<div class="product-code"><label>Clave</label><input type="text" /></div>
