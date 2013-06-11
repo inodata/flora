@@ -199,6 +199,7 @@ class Order
         
     	$this->hasInvoice = false;
         $this->deliveryDate = new \DateTime("NOW");
+        $this->status = "open";
     }
     
     /**
