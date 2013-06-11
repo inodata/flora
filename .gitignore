@@ -12,6 +12,8 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
+web/css/*
+web/js/*
 *.php~
 
 # Configuration files
