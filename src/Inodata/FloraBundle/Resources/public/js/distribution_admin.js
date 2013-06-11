@@ -226,6 +226,7 @@ $('document').ready(function(){
 		
 		$.post(url, data, function(response){
 			$('.num-'+response.object).html(response.value);
+
 		}, 'json');
 	}
 });

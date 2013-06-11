@@ -98,7 +98,7 @@ class DistributionAdminController extends Controller
     	
     	foreach( $orderIds as $orderId)
     	{
-    		$em = $this->getDoctrine()->getEntityManager();
+    		$em = $this->getDoctrine()->getManager();
     		$order = $this->getDoctrine()
     					  ->getRepository('InodataFloraBundle:Order')
     		   			  ->find( $orderId );
@@ -230,7 +230,7 @@ class DistributionAdminController extends Controller
     			if ($status=='open'){
     				$order->setMessenger(null);
     			}
-    			$em = $this->getDoctrine()->getEntityManager();
+    			$em = $this->getDoctrine()->getManager();
     			$em->persist($order);
     			$em->flush();
     		}
@@ -259,7 +259,7 @@ class DistributionAdminController extends Controller
     	$messenger = $this->getDoctrine()->getRepository('InodataFloraBundle:Employee')
     		->find( $messengerId );
     	 
-    	$em = $this->getDoctrine()->getEntityManager();
+    	$em = $this->getDoctrine()->getManager();
     	
     	$order = $this->getDoctrine()->getRepository('InodataFloraBundle:Order')
     		->find( $orderId );
@@ -358,7 +358,7 @@ class DistributionAdminController extends Controller
     	$employeeAttr = $idColumn[1];
     	$value =  $this->get('request')->get('value');
     
-    	$em = $this->getDoctrine()->getEntityManager();
+    	$em = $this->getDoctrine()->getManager();
     	$employee = $em->getRepository('InodataFloraBundle:Employee')
     	->find($employeeId);
     	
@@ -389,7 +389,7 @@ class DistributionAdminController extends Controller
     	$action = $this->get('request')->get('action');
     	$messengerId = $this->getSelectedMessenger();
     	
-    	$em = $this->getDoctrine()->getEntityManager();
+    	$em = $this->getDoctrine()->getManager();
     	
     	$messenger = $em->getRepository('InodataFloraBundle:Employee')
     		->find($messengerId);
