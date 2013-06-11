@@ -4,6 +4,7 @@ namespace Inodata\FloraBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AddressType extends AbstractType
 {
@@ -44,11 +45,11 @@ class AddressType extends AbstractType
 		return 'inodata_address_form';
 	}
 
-	public function getDefaultOptions(array $options)
+	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
-		return array(
-			'data_class' => 'Inodata\FloraBundle\Entity\Address',
-			'translation_domain' => 'InodataFloraBundle'
-		);
+		$resolver->setDefaults(array(
+				'data_class' => 'Inodata\FloraBundle\Entity\Address',
+				'translation_domain' => 'InodataFloraBundle'
+		));
 	}
 }

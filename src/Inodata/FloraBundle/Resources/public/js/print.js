@@ -8,16 +8,6 @@ function installjsPrintSetup() {
     }
 }
 
-//This function was useless handling medium letter size.
-//Define paper size 
-//39 : {PD:39, PN: 'na_fanfold-us',PWG:'na_fanfold-us_11x14.875in',Name: 'US Std Fanfold', W: 11, H: 14.875, M: kPaperSizeInches}
-function definePaperSizes(){
-  //note
-  jsPrintSetup.definePaperSize(50, 50, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
-  //card
-  jsPrintSetup.definePaperSize(51, 51, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
-}
-
 function setupGlobalOptions(){
   //check if jsPrintSetup is installed
   if (typeof(jsPrintSetup) == 'undefined') {
@@ -51,6 +41,16 @@ function setupGlobalOptions(){
     jsPrintSetup.setOption('printSilent', 1);
 
   }
+}
+
+//This function was useless handling medium letter size.
+//Define paper size 
+//39 : {PD:39, PN: 'na_fanfold-us',PWG:'na_fanfold-us_11x14.875in',Name: 'US Std Fanfold', W: 11, H: 14.875, M: kPaperSizeInches}
+function definePaperSizes(){
+  //note
+  jsPrintSetup.definePaperSize(50, 50, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
+  //card
+  jsPrintSetup.definePaperSize(51, 51, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
 }
 
 // Do Print 

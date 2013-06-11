@@ -4,6 +4,7 @@ namespace Inodata\FloraBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PaymentContactType extends AbstractType
 {
@@ -35,11 +36,11 @@ class PaymentContactType extends AbstractType
 		return 'inodata_payment_contact_form';
 	}
 
-	public function getDefaultOptions(array $options)
+	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
-		return array(
-			'data_class' => 'Inodata\FloraBundle\Entity\PaymentContact',
-			'translation_domain' => 'InodataFloraBundle'
-		);
+		$resolver->setDefaults(array(
+				'data_class' => 'Inodata\FloraBundle\Entity\PaymentContact',
+				'translation_domain' => 'InodataFloraBundle'
+		));
 	}
 }
