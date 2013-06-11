@@ -37,6 +37,12 @@ $(document).ready(function() {
 	$(element).bind('DOMNodeRemoved', function(){
 	    isCustomerToSelect2 = false;
 	});
+	$('.sonata-ba-action').live('mouseenter', function(){
+		isEditingCustomer = false;
+	});
+	$('.btn_edit_customer').live('mouseenter', function(){
+		isEditingCustomer = true;
+	});
 	//---------------------------------------------------------------------------------//
 	
 	//----------------Fila de seleccion de cliente en la orden------------------//

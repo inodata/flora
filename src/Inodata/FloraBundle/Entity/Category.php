@@ -28,19 +28,14 @@ class Category
      */
     private $description;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="category")
-     */
-    private $product;
+    
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+        
     }
     
     /**
@@ -89,36 +84,4 @@ class Category
         return $this->description;
     }
 
-    /**
-     * Add product
-     *
-     * @param \Inodata\FloraBundle\Entity\Product $product
-     * @return Category
-     */
-    public function addProduct(\Inodata\FloraBundle\Entity\Product $product)
-    {
-        $this->product[] = $product;
-    
-        return $this;
-    }
-
-    /**
-     * Remove product
-     *
-     * @param \Inodata\FloraBundle\Entity\Product $product
-     */
-    public function removeProduct(\Inodata\FloraBundle\Entity\Product $product)
-    {
-        $this->product->removeElement($product);
-    }
-
-    /**
-     * Get product
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getProduct()
-    {
-        return $this->product;
-    }
 }

@@ -50,16 +50,10 @@ class Product
     private $stock;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="product", cascade={"persist"})
-     * @ORM\JoinTable(name="ino_product_category",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     *   }
+     * @ORM\ManyToMany(targetEntity="Category", cascade={"persist"})
+     * @ORM\JoinTable(name="ino_products_categories",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
      * )
      */
     private $categories;
@@ -161,62 +155,6 @@ class Product
     }
 
     /**
-     * Add category
-     *
-     * @param \Inodata\FloraBundle\Entity\Category $category
-     * @return Product
-     */
-    public function addCategory(\Inodata\FloraBundle\Entity\Category $category)
-    {
-        $this->categories[] = $category;
-    
-        return $this;
-    }
-
-    /**
-     * Remove category
-     *
-     * @param \Inodata\FloraBundle\Entity\Category $category
-     */
-    public function removeCategory(\Inodata\FloraBundle\Entity\Category $category)
-    {
-        $this->categories->removeElement($category);
-    }
-
-    /**
-     * Get categories
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * Add categories
-     *
-     * @param \Inodata\FloraBundle\Entity\Category $categories
-     * @return Product
-     */
-    public function addCategories(\Inodata\FloraBundle\Entity\Category $categories)
-    {
-        $this->categories[] = $categories;
-    
-        return $this;
-    }
-
-    /**
-     * Remove categories
-     *
-     * @param \Inodata\FloraBundle\Entity\Category $categories
-     */
-    public function removeCategorie(\Inodata\FloraBundle\Entity\Category $categories)
-    {
-        $this->categories->removeElement($categories);
-    }
-
-    /**
      * Set code
      *
      * @param integer $code
@@ -259,5 +197,38 @@ class Product
         $letters = array('A','B','C','D','E','F','G','H','I','J');
         $numbers = array('1','2','3','4','5','6','7','8','9','0');
         return str_replace($numbers, $letters, $this->price);
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Inodata\FloraBundle\Entity\Category $categories
+     * @return Product
+     */
+    public function addCategory(\Inodata\FloraBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Inodata\FloraBundle\Entity\Category $categories
+     */
+    public function removeCategory(\Inodata\FloraBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

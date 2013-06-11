@@ -74,7 +74,7 @@ class OrderAdminController extends Controller
 			$code ="0";
 		}
 		
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$product = new Product();
 		$product->setCode($code);
 		$product->setDescription($description);
@@ -223,7 +223,7 @@ class OrderAdminController extends Controller
 	
 	protected function preUpdate($id, $newProducts=null)
 	{
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$orderProducts = $em->getRepository('InodataFloraBundle:OrderProduct')
 			->findByOrder($id);
 		//Delete all order's products
@@ -242,7 +242,7 @@ class OrderAdminController extends Controller
 	
 	public function createOrderProducts($orderId, $products=null)
 	{
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		if ($products){
 			$order = $em->getRepository('InodataFloraBundle:Order')->find($orderId);
 			foreach ($products as $productId => $quantity){
@@ -284,7 +284,7 @@ class OrderAdminController extends Controller
 		$orderArray = $this->get('request')->get($this->get('request')->get('uniqid'));
 		$paymentContactId = $orderArray['paymentContact'];
 			
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$paymentContact = $em->getRepository('InodataFloraBundle:PaymentContact')
 			->find($paymentContactId);
 		
@@ -312,7 +312,7 @@ class OrderAdminController extends Controller
 	{
 		$name = $this->get('request')->get('contactName');
 		
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$paymentContact = new PaymentContact();
 		$paymentContact->setName($name);
 		
@@ -383,7 +383,7 @@ class OrderAdminController extends Controller
 		$customerAttr = $idColumn[1]; 
 		$value =  $this->get('request')->get('value');
 		
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$customer = $em->getRepository('InodataFloraBundle:Customer')
 			->find($customerId);
 		
