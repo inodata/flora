@@ -214,6 +214,8 @@ class OrderAdminController extends Controller
 		if ($this->getRestMethod() == 'POST'){
 			$this->preUpdate($id, $products);
 			$this->updatePaymentContactInfo();
+			//Try to create the invoice if not exist
+			$this->createInvoice($id);
 			
 			$this->getRequest()->getSession()->set('submit_action', 'submit');
 		}
@@ -239,6 +241,20 @@ class OrderAdminController extends Controller
 		$this->createOrderProducts($id, $newProducts);
 		
 	}
+	
+	/**
+	 * CONSTRUCTING
+	 * @param unknown_type $id
+	 */
+	private function createInvoice($id)
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+		$order = $em->getEntityManager('InodataFloraBundle:Invoice')
+			->findByOrder($id);
+		
+		
+	}
+	/** --------------------------------*/
 	
 	public function createOrderProducts($orderId, $products=null)
 	{
