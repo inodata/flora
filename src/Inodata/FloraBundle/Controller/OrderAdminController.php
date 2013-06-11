@@ -248,11 +248,9 @@ class OrderAdminController extends Controller
 	 */
 	private function createInvoice($id)
 	{
-		$em = $this->getDoctrine()->getEntityManager();
-		$order = $em->getEntityManager('InodataFloraBundle:Invoice')
-			->findByOrder($id);
-		
-		
+		$em = $this->getDoctrine()->getManager();
+		$order = $em->getRepository('InodataFloraBundle:Invoice')
+			->findByOrder($id);	
 	}
 	/** --------------------------------*/
 	
