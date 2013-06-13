@@ -383,6 +383,8 @@ $(document).ready(function() {
 		$('.payment-condition .div_content').append($(inovicePCondition).clone().attr('type', 'text'));
 		$(inovicePCondition).remove();
 		
+		$('.read-only input').attr('readonly', 'readonly');
+		
 		var invoiceComment = $('.inodata-invoice-comment');
 		$('.comments .div_content').append($(invoiceComment).clone().attr('type', 'text'));
 		$(invoiceComment).remove();

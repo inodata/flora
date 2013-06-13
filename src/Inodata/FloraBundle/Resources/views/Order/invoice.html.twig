@@ -10,7 +10,7 @@
 			</div>
 			<div class="folio-container">
 				<div class="div_header">{{ 'label.folio'|trans({}, 'InodataFloraBundle') }}</div>
-				<div class="div_content editable"></div>
+				<div class="div_content {% if object.invoiceNumber == "" %}editable{%else%}read-only{% endif %}"></div>
 			</div>
 		</div>
 		<div class="sub-header">

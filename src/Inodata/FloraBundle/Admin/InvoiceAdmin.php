@@ -27,7 +27,6 @@ class InvoiceAdmin extends Admin
 			->add('isCanceled', null, array('label' => 'label.is_canceled'))
 			->add('comment', 'text', array('label' => 'label.comment'))
 			->add('canceledBy', null, array('label' => 'label.canceled_by'))
-			->add('updatedAt', null, array('label' => 'label.canceled_at'))
 			;
 	}
 	
@@ -62,10 +61,8 @@ class InvoiceAdmin extends Admin
 			->add('comment', 'text', array('label' => 'label.comment'))
 			->add('canceledBy', null, array('label' => 'label.canceled_by'))
 			->add('createdAt', null, array('label' => 'label.created_at'))
-			->add('updatedAt', null, array('label' => 'label.canceled_at'))
 			->add('_action', 'actions', array(
 					'actions' => array(
-							'view' => array(),
 							'edit' => array(),
 					)
 			));
@@ -80,12 +77,27 @@ class InvoiceAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('number', null, array('label' => 'label.number'))
-			->add('order', null, array('label' => 'label.order'))
+			->add('number', null, array('label' => 'label.invoice_number'))
+			->add('order.id', null, array('label' => 'label.order'))
 			->add('creator', null, array('label' => 'label.creator'))
 			->add('isCanceled', null, array('label' => 'label.is_canceled'))
 			->add('canceledBy', null, array('label' => 'label.canceled_by'))
 		;
+	}
+	
+	public function getTemplate($name)
+	{
+		switch ($name) {
+			case 'list':
+				return 'InodataFloraBundle:Invoice:list.html.twig';
+			break;
+			case 'edit':
+				return 'InodataFloraBundle:Invoice:edit.html.twig';
+			break;
+			default:
+				return parent::getTemplate($name);
+				break;
+		}
 	}
 	
 	protected function configureRoutes(RouteCollection $collection)

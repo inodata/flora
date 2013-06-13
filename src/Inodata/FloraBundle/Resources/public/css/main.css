@@ -220,12 +220,15 @@
   	height: 34px
   }
   
-  .sonata-bc .editable input{
+  .sonata-bc .editable input, .sonata-bc .read-only input{
   	border: none;
   	padding: 4px 0px 4px 6px;
   	height: 24px;
   	text-align: center;
   	border-radius:10px;
+  }
+  .sonata-bc .read-only input{
+  	readonly: true;
   }
   
   #invoice_order_products .amount{ width: 7%; }

@@ -116,9 +116,12 @@ label.categories: Categoría
 
 #Invoice labels
 label.number: Número
+label.invoice_number: Número de factura
 label.order: Pedido
 label.creator: Creado Por
 label.is_canceled: Cancelado
 label.comment: Comentario
 label.canceled_by: Cancelado por
 label.canceled_at: Cancelado el
+button.cancel: Cancelar Factura
+button.back_to_list: Regresar a la lista

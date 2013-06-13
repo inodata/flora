@@ -1,0 +1,25 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}	
+	<script>
+		$('document').ready(function(){
+			$('.invoice-canceled').each(function(){
+				$(this).find('.btn.edit_link').remove();
+			});
+			
+			$('tr .btn.edit_link').html('<i class="icon-remove"></i>Cancelar');
+		});
+	</script>
+{% endblock %}
+{% block table_body %}
+	<tbody>
+		{% for object in admin.datagrid.results %}
+			<tr class="{% if object.isCanceled %}invoice-canceled{% endif %}">
+				{% include admin.getTemplate('inner_list_row') %}
+			</tr>
+		{% endfor %}
+	</tbody>
+{% endblock %}

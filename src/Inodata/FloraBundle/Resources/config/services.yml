@@ -46,7 +46,7 @@ services:
         class: Inodata\FloraBundle\Admin\InvoiceAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Facturas }
-        arguments: [ null, Inodata\FloraBundle\Entity\Invoice, SonataAdminBundle:CRUD ]
+        arguments: [ null, Inodata\FloraBundle\Entity\Invoice, InodataFloraBundle:InvoiceAdmin ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
             - [ setSecurityContext, [ @security.context ] ]

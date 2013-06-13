@@ -82,3 +82,8 @@ inodata_flora_order_create_inovice_totals:
 inodata_flora_order_invoice_edit_in_place:
     pattern: /admin/inodata/flora/order/invoice/edit/in/place
     defaults: {_controller: InodataFloraBundle:OrderAdmin:editInPlace}
+
+#Invoice routes
+#inodata_flora_order_invoice_cancel:
+#    pattern: /admin/inodata/flora/invoice/{id}/cancel
+#    defaults: {_controller: InodataFloraBundle:InvoiceAdmin:cancel}

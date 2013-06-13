@@ -1,0 +1,5 @@
+{% extends 'InodataFloraBundle::base_edit.html.twig' %}
+
+{% block sonata_formactions %}
+	<input type="submit" class="btn btn-danger" name="btn_update_and_list" value="{{ 'button.cancel'|trans({}, 'InodataFloraBundle') }}"/>
+{% endblock %}
