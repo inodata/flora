@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class InvoiceAdmin extends Admin
 {
@@ -18,14 +19,15 @@ class InvoiceAdmin extends Admin
 	protected function configureShowField(ShowMapper $showMapper)
 	{
 		$showMapper
-			->add('number')
-			->add('order')
-			->add('creator')
-			->add('isCanceled')
-			->add('comment')
-			->add('canceledBy')
-			//->add('createdAt')
-			//->add('updatedAt')
+			->add('number', null, array(
+					'label' => 'label.number'))
+			->add('order', null, array('label' => 'label.order'))
+			->add('creator', null, array('label' => 'label.creator'))
+			->add('createdAt', null, array('label' => 'label.created_at'))
+			->add('isCanceled', null, array('label' => 'label.is_canceled'))
+			->add('comment', 'text', array('label' => 'label.comment'))
+			->add('canceledBy', null, array('label' => 'label.canceled_by'))
+			->add('updatedAt', null, array('label' => 'label.canceled_at'))
 			;
 	}
 	
@@ -37,15 +39,12 @@ class InvoiceAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('number')
-			->add('order')
-			->add('creator')
-			->add('isCanceled')
-			->add('comment')
-			->add('canceledBy')
-			//->add('createdAt')
-			//->add('updatedAt')
-			;
+			->add('isCanceled', null, array(
+					'label' => 'label.is_canceled',
+					'required'=>true,
+					'attr' => array('checked' => 'checked')
+			))
+			->add('comment', 'textarea', array('label' => 'label.comment'));
 	}
 	
 	/**
@@ -56,14 +55,20 @@ class InvoiceAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->add('number')
-			->add('order')
-			->add('creator')
-			->add('isCanceled')
-			->add('comment')
-			->add('canceledBy')
-			//->add('createdAt')
-			//->add('updatedAt')
+			->add('number', null, array('label' => 'label.number'))
+			->add('order', null, array('label' => 'label.order'))
+			->add('creator', null, array('label' => 'label.creator'))
+			->add('isCanceled', null, array('label' => 'label.is_canceled'))
+			->add('comment', 'text', array('label' => 'label.comment'))
+			->add('canceledBy', null, array('label' => 'label.canceled_by'))
+			->add('createdAt', null, array('label' => 'label.created_at'))
+			->add('updatedAt', null, array('label' => 'label.canceled_at'))
+			->add('_action', 'actions', array(
+					'actions' => array(
+							'view' => array(),
+							'edit' => array(),
+					)
+			));
 		;
 	}
 	
@@ -75,15 +80,20 @@ class InvoiceAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('number')
-			->add('order')
-			->add('creator')
-			->add('isCanceled')
-			->add('comment')
-			->add('canceledBy')
-			//->add('createdAt')
-			//->add('updatedAt')
+			->add('number', null, array('label' => 'label.number'))
+			->add('order', null, array('label' => 'label.order'))
+			->add('creator', null, array('label' => 'label.creator'))
+			->add('isCanceled', null, array('label' => 'label.is_canceled'))
+			->add('canceledBy', null, array('label' => 'label.canceled_by'))
 		;
+	}
+	
+	protected function configureRoutes(RouteCollection $collection)
+	{
+		$collection
+			->remove('create')
+			->remove('delete');
+	
 	}
 	
 	public function setSecurityContext($securityContext) {

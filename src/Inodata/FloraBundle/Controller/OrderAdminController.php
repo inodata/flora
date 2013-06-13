@@ -2,6 +2,8 @@
 
 namespace Inodata\FloraBundle\Controller;
 
+use Inodata\FloraBundle\Entity\Invoice;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Inodata\FloraBundle\Entity\Product;
@@ -248,9 +250,34 @@ class OrderAdminController extends Controller
 	 */
 	private function createInvoice($id)
 	{
+		$uniqid = $this->get('request')->get('uniqid');
+		$request = $this->get('request')->get($uniqid);
+		
 		$em = $this->getDoctrine()->getManager();
-		$order = $em->getRepository('InodataFloraBundle:Invoice')
-			->findByOrder($id);	
+		$invoiceGenerated = $request['invoiceNumber'];
+		
+		if ($invoiceGenerated)
+		{
+			$invoice = $em->getRepository('InodataFloraBundle:Invoice')
+				->findBy(array('order'=>$id, 'isCanceled'=>false));
+			
+			if (!$invoice){
+				$order = $em->getRepository('InodataFloraBundle:Order')
+					->find($id);
+				
+				$user = $em->getRepository('\Application\Sonata\UserBundle\Entity\User')
+					->find($this->getUser()->getId());
+				
+				$invoice = new Invoice();
+				$invoice->setNumber($invoiceGenerated);
+				$invoice->setOrder($order);
+				$invoice->setCreator($user);
+				
+				$em->persist($invoice);
+				$em->flush();
+				$em->clear();
+			}
+		}
 	}
 	/** --------------------------------*/
 	
@@ -275,8 +302,8 @@ class OrderAdminController extends Controller
 	
 	public function createAction()
 	{
-		$uniqid = $this->get('request')->get('uniqid');
-		$request = $this->get('request')->get($uniqid);
+		//$uniqid = $this->get('request')->get('uniqid');
+		//$request = $this->get('request')->get($uniqid);
 		
 		$create = parent::createAction();
 		

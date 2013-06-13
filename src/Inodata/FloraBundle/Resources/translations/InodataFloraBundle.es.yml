@@ -114,3 +114,11 @@ label.price: Precio
 label.stock: Inventario
 label.categories: Categoría
 
+#Invoice labels
+label.number: Número
+label.order: Pedido
+label.creator: Creado Por
+label.is_canceled: Cancelado
+label.comment: Comentario
+label.canceled_by: Cancelado por
+label.canceled_at: Cancelado el

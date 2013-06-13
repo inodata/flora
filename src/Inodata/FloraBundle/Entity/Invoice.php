@@ -93,6 +93,11 @@ class Invoice
 	{
 		$this->isCanceled = false;
 	}
+	
+	public function __toString()
+	{
+		return $this->number;
+	}
 
     /**
      * Get id
