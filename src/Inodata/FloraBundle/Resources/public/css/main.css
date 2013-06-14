@@ -60,6 +60,7 @@
 	
 	/* Reglas de impresion para la tarjeta */
   .card_page{
+  	margin-top: 20px;
     width: 15cm;
     height: 100%;
     
@@ -366,7 +367,7 @@
   /*---------STYLE FOR PAYMENT NOTE----------*/
   .payment-note{
   	position: relative;
-  	top: 15px;
+  	top: 14px;
   }
   .payment-note > div{
   	border: solid 1px #000;
