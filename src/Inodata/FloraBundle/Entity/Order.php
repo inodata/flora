@@ -208,16 +208,14 @@ class Order
     public function __toString()
     {
         $orderId = $this->id;
-        if(empty($this->id))
-        {
+        if(empty($this->id)){
             $orderId = "";
         }
         
         $product = $this->getFirstProduct();
         
-        if( $product != "")
-        {
-        	return ''.$orderId.' '.$product;
+        if( $product != ""){
+        	return ''.$orderId.' - '.$product->getDescription();
         }
         
         return ''.$orderId;
