@@ -367,7 +367,7 @@
   /*---------STYLE FOR PAYMENT NOTE----------*/
   .payment-note{
   	position: relative;
-  	top: 14px;
+  	top: 19px;
   }
   .payment-note > div{
   	border: solid 1px #000;
