@@ -245,7 +245,6 @@ class OrderAdminController extends Controller
 	}
 	
 	/**
-	 * CONSTRUCTING
 	 * @param unknown_type $id
 	 */
 	private function createInvoice($id)
@@ -254,7 +253,10 @@ class OrderAdminController extends Controller
 		$request = $this->get('request')->get($uniqid);
 		
 		$em = $this->getDoctrine()->getManager();
-		$invoiceGenerated = $request['invoiceNumber'];
+		$invoiceGenerated = null;
+		if (isset($request['invoiceNumber'])){
+			$invoiceGenerated = $request['invoiceNumber'];
+		}
 		
 		if ($invoiceGenerated)
 		{

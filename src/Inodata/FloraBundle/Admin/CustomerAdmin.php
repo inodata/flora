@@ -55,12 +55,12 @@ class CustomerAdmin extends Admin
 	protected function configureShowField(ShowMapper $showMapper)
 	{
 		$showMapper
-			->add('company_name')
-			->add('business_name')
-			->add('rfc')
-			->add('discount')
-			->add('fiscal_address')
-			->add('payment_address')
+			->add('company_name', null, array('label' => 'label.company_name'))
+			->add('business_name', null, array('label' => 'label.business_name'))
+			->add('rfc', null, array('label' => 'label.rfc'))
+			->add('discount', null, array('label' => 'label.discount'))
+			->add('fiscal_address', null, array('label' => 'label.fiscal_address'))
+			->add('payment_address', null, array('label' => 'label.payment_address'))
 		;
 	}
 	
@@ -72,11 +72,11 @@ class CustomerAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->add('companyName')
-			->add('businessName')
-			->add('rfc')
-			->add('discount')
-			->add('_action', 'actions', array(
+			->add('companyName', null, array('label' => 'label.company_name'))
+			->add('businessName', null, array('label' => 'label.business_name'))
+			->add('rfc', null, array('label' => 'label.rfc'))
+			->add('discount', null, array('label' => 'label.discount'))
+			->add('_action', 'actions', array('label'=> 'label.actions',
 				'actions' => array(
 					'view' => array(),
 					'edit' => array(),
@@ -95,9 +95,9 @@ class CustomerAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('companyName')
-			->add('businessName')
-			->add('rfc')
+			->add('companyName', null, array('label' => 'label.company_name'))
+			->add('businessName', null, array('label' => 'label.business_name'))
+			->add('rfc', null, array('label' => 'label.rfc'))
 		;		
 	}
 	

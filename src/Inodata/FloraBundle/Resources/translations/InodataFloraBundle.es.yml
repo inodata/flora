@@ -100,7 +100,7 @@ label.distribution_delivery_status_open: Abierto
 label.distribution_delivery_status_delivered: Entregado
 label.distribution_delivery_status_closed: Cancelado
 label.distribution_delivery_status_intransit: En tránsito
-intransit: En Transito
+intransit: En tránsito
 delivered: Entregado
 label.delivered: Entregado
 label.remove: Quitar
@@ -125,3 +125,4 @@ label.canceled_by: Cancelado por
 label.canceled_at: Cancelado el
 button.cancel: Cancelar Factura
 button.back_to_list: Regresar a la lista
+label.actions: Acciones

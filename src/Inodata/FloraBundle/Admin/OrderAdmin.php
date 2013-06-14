@@ -171,9 +171,11 @@ class OrderAdmin extends Admin
 			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'date', array(
 				"label" => "label.created_at",
-				"format" => "dd/mm/yyyy")
+				"format" => "d/M/Y")
 			)
-			->add('updatedAt', null, array("label" => "label.updated_at"))
+			->add('updatedAt', null, array(
+					"label" => "label.updated_at",
+					"format" => "d/M/Y"))
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'edit' => array(),

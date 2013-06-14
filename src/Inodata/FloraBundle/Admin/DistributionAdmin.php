@@ -33,8 +33,7 @@ class DistributionAdmin extends Admin
 			->add('messenger', 'sonata_type_model', array( 
 					'class' => 'Inodata\FloraBundle\Entity\Employee',
 					'attr' => array(
-						'class' => '	 span5'
-					)
+						'class' => '	 span5')
 				))
 			->add('delivery_date', 'date', array(
 						'label'=> 'label.delivery_date'
@@ -63,7 +62,8 @@ class DistributionAdmin extends Admin
 					'label' => 'label.distribution_product',
 				))
 			->add('deliveryDate', null, array(
-					'label' => 'label.delivery_date'
+					'label' => 'label.delivery_date',
+					'format' => 'd/M/Y'
 				))
 			->add('status', null, array(
 					'label' => 'label.distribution_status',

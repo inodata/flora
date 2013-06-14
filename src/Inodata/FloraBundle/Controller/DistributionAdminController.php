@@ -304,7 +304,6 @@ class DistributionAdminController extends Controller
     	}else{
     		$status = "o.status='".$status."'";
     	}
-    	
     	$orders = $this->getDoctrine()
     		->getRepository('InodataFloraBundle:Order')
     		->createQueryBuilder('o')

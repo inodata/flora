@@ -27,9 +27,14 @@
 					var content = $(this).text().trim();
 					if(content=='intransit'){
 						$(this).addClass('order-intransit');
+						$(this).text("En tránsito");
 					}
 					if(content=='delivered'){
 						$(this).addClass('order-delivered');
+						$(this).text("Entregado");
+					}
+					if(content=='open'){
+						$(this).text("Abierto");
 					}
 				});
 			});

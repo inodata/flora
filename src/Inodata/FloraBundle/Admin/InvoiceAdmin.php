@@ -23,7 +23,8 @@ class InvoiceAdmin extends Admin
 					'label' => 'label.number'))
 			->add('order', null, array('label' => 'label.order'))
 			->add('creator', null, array('label' => 'label.creator'))
-			->add('createdAt', null, array('label' => 'label.created_at'))
+			->add('createdAt', null, array(
+					'label' => 'label.created_at'))
 			->add('isCanceled', null, array('label' => 'label.is_canceled'))
 			->add('comment', 'text', array('label' => 'label.comment'))
 			->add('canceledBy', null, array('label' => 'label.canceled_by'))
@@ -60,7 +61,9 @@ class InvoiceAdmin extends Admin
 			->add('isCanceled', null, array('label' => 'label.is_canceled'))
 			->add('comment', 'text', array('label' => 'label.comment'))
 			->add('canceledBy', null, array('label' => 'label.canceled_by'))
-			->add('createdAt', null, array('label' => 'label.created_at'))
+			->add('createdAt', null, array(
+					'label' => 'label.created_at',
+					"format" => "d/M/Y"))
 			->add('_action', 'actions', array(
 					'actions' => array(
 							'edit' => array(),
