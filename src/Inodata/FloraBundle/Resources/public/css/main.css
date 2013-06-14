@@ -364,6 +364,10 @@
   
   
   /*---------STYLE FOR PAYMENT NOTE----------*/
+  .payment-note{
+  	position: relative;
+  	top: 15px;
+  }
   .payment-note > div{
   	border: solid 1px #000;
   	border-radius: 5px;
