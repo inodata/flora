@@ -60,7 +60,7 @@
 	
 	/* Reglas de impresion para la tarjeta */
   .card_page{
-  	margin-top: 20px;
+  	margin-top: 1px;
     width: 15cm;
     height: 100%;
     
