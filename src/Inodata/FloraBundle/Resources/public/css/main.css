@@ -389,6 +389,8 @@
   	width: 95%;
   	text-align: right;
   	padding-bottom: 20px;
+  	/*REMOVER SI SE NECESITA IMPRIMIR EL NUMERO DE ORDEN*/
+  	visibility:hidden;
   }
   .payment-note .header .no-order span{
   	font-size: 32px;
