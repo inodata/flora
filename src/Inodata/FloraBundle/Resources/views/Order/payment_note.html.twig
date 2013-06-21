@@ -2,7 +2,7 @@
 	<div class="header">
 		<div class="info-row">
 			<div class="info no-order"><span>{{ object.id}}</span></div>
-			<div class="info city-date">Monterrey, N. L. &nbsp;&nbsp; {{ object.deliveryDate|date("d/m/Y") }}</div>
+			<div class="info city-date">MONTERREY, N. L. &nbsp;&nbsp; {{ object.deliveryDate|date("d/m/Y") }}</div>
 		</div>
 	</div>
 	<div class="payment-info">
@@ -15,7 +15,10 @@
 		</div>
 		<div class="info-row">
 			<div>DIR. COB:</div>
-				<div class="space-1 info">{{ object.customer.paymentAddress.street }}&nbsp;</div>
+				<div class="space-1 info">
+					{{ object.customer.paymentAddress.street }}&nbsp;
+					{{ object.customer.paymentAddress.noExt }}&nbsp;
+					{{ object.customer.paymentAddress.neighborhood }}&nbsp;</div>
 			<div class="space-2">No. TARJETA:</div><div class="space-3 info">{{ object.paymentContact.employeeNumber}}&nbsp;</div>
 			<div class="space-5">EXT.:</div><div class="info">{{ object.paymentContact.extension}}&nbsp;</div>
 		</div>
