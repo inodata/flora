@@ -73,7 +73,26 @@ class OrderAdminController extends Controller
 		$price = $this->get('request')->get('price');
 		
 		if (!$code){
-			$code ="0";
+			$products = $this->getDoctrine()
+				->getRepository("InodataFloraBundle:Product")
+				->createQueryBuilder('p')
+				->where("p.code LIKE '%X%'")
+				->getQuery()
+				->getResult();
+			
+			if($products){
+				$code = 0;
+				foreach ($products as $product){
+					$newCode=str_replace("X", "", $product->getCode());
+					if ($code<$newCode){
+						$code = $newCode;
+					}
+				}
+				$code="X".(++$code);
+			}else{
+				$code="X1";
+			}
+			
 		}
 		
 		$em = $this->getDoctrine()->getManager();
