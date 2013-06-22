@@ -10,6 +10,22 @@
 	<script type="text/javascript">
 		$('document').ready(function(){
 			$("#filter_createdAt_value").datepicker({ dateFormat: "yy-mm-dd" });
+			$("#filter_deliveryDate_value").datepicker({ dateFormat: "yy-mm-dd" });
 		});
 	</script>
 {% endblock %}
+
+{% block actions %}
+	<div class="sonata-actions btn-group">
+		{% if(view == 'details') %}
+	        <a class="btn sonata-action-element" href="{{ path('admin_inodata_flora_order_list', {view:'normal'}) }}">
+				{{ 'label.normal_list'|trans({}, 'InodataFloraBundle') }}
+	        </a>
+	    {% else %}
+	        <a class="btn sonata-action-element" href="{{ path('admin_inodata_flora_order_list', {view:'details'}) }}">
+				{{ 'label.detailed_list'|trans({}, 'InodataFloraBundle') }}
+	        </a>
+	    {% endif %}
+    </div>
+    {{ parent() }}
+{% endblock %} 

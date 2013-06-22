@@ -525,4 +525,85 @@ class OrderAdminController extends Controller
 			parent::configure();
 		}
 	}
+	
+	/**
+	 * return the Response object associated to the list action
+	 *
+	 * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+	 *
+	 * @return Response
+	 */
+	public function listAction()
+	{
+		if (false === $this->admin->isGranted('LIST')) {
+			throw new AccessDeniedException();
+		}
+		
+		$view = $this->get('request')->get('view');
+		if ($view){
+			$this->setListType($view);
+		}
+		$this->admin->list_view = $this->getListType();
+		
+		$datagrid = $this->admin->getDatagrid();
+		$formView = $datagrid->getForm()->createView();
+	
+		// set the theme for the current Admin Form
+		$this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
+	
+		return $this->render($this->admin->getTemplate('list'), array(
+				'action'   => 'list',
+				'form'     => $formView,
+				'datagrid' => $datagrid,
+				'view' 	   => $this->getListType()
+		));
+	}
+	
+	public function exportAction(Request $request)
+    {
+    	$fields = array('collector', 'firstProduct', 'firstProduct.price',
+    			 'shipping', 'customer.companyName', 'deliveryDate',
+    			'paymentContact', 'messenger');
+    	
+        if (false === $this->admin->isGranted('EXPORT')) {
+            throw new AccessDeniedException();
+        }
+
+        $format = $request->get('format');
+
+        $allowedExportFormats = (array) $this->admin->getExportFormats();
+
+        if (!in_array($format, $allowedExportFormats) ) {
+            throw new \RuntimeException(sprintf('Export in format `%s` is not allowed for class: `%s`. Allowed formats are: `%s`', $format, $this->admin->getClass(), implode(', ', $allowedExportFormats)));
+        }
+
+        $filename = sprintf('export_%s_%s.%s',
+            strtolower(substr($this->admin->getClass(), strripos($this->admin->getClass(), '\\') + 1)),
+            date('Y_m_d_H_i_s', strtotime('now')),
+            $format
+        );
+        
+        $datagrid = $this->admin->getDatagrid();
+        $datagrid->buildPager();
+        
+        $flick =  $this->admin->getModelManager()->getDataSourceIterator($datagrid, $fields);
+
+        return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $flick);
+    }
+    
+    protected function setListType($listType)
+    {
+    	$this->get('session')->set('order.list_type', $listType);
+    }
+    
+    protected function getListType()
+    {
+    	$listType = $this->get('session')->get('order.list_type');
+    	
+    	if (!$listType){
+    		return "normal";
+    	}
+    	
+    	return $listType;
+    }
 }

@@ -61,6 +61,8 @@ label.total: Total
 label.capturated: Capturó
 label.invoice_require: ¿Requiere factura?
 label.has_invoice: ¿Tiene Factura?
+label.normal_list: Ver Lista Normal
+label.collector: Cobrador
 
 
 #Address labels

@@ -239,6 +239,17 @@ class Order
         return "";
     }
     
+    public function getFirstProductPrice()
+    {
+    	$firstProduct = $this->getFirstProduct();
+    	
+    	if (!$firstProduct){
+    		return 0;
+    	}
+    	
+    	return $firstProduct->getPrice();
+    }
+    
     /**
      * Get id
      *

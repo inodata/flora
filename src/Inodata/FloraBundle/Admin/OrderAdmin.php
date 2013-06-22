@@ -165,23 +165,48 @@ class OrderAdmin extends Admin
 	 */
 	protected function configureListFields(ListMapper $listMapper)
 	{
-		$listMapper
+		if (!isset($this->list_view)){
+			$this->list_view = "normal";
+		}
+		
+		if ($this->list_view!="details")
+		{
+			$listMapper
 			->addIdentifier('id', null, array("label" => "label.order_number"))
 			->add('firstProduct', null, array("label" => "label.details"))
 			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'date', array(
-				"label" => "label.created_at",
-				"format" => "d/M/Y")
+					"label" => "label.created_at",
+					"format" => "d/M/Y")
 			)
-			->add('updatedAt', null, array(
-					"label" => "label.updated_at",
+			->add('deliveryDate', null, array(
+					"label" => "label.delivery_date",
 					"format" => "d/M/Y"))
+					->add('_action', 'actions', array(
+							'actions' => array(
+									'edit' => array(),
+							)
+					)
+					);
+		}
+		else{
+			$listMapper
+			->addIdentifier('id', null, array("label" => "label.order_number"))
+			->add('collector', null, array('label' => 'label.collector'))
+			->add('firstProduct', null, array("label" => "label.details"))
+			->add('firstProductPrice', null, array('label'=>'label.price'))
+			->add('shipping', null, array('label'=>'label.shipping'))
+			->add('customer.companyName', null, array('label'=>'label.customer'))
+			->add('deliveryDate', null, array(
+					"label" => "label.delivery_date",
+					"format" => "d/M/Y"))
+			->add('paymentContact', null, array('label' => 'label.payment_contact'))
+			->add('messenger', null, array('label' => 'label.messenger'))
 			->add('_action', 'actions', array(
-				'actions' => array(
-					'edit' => array(),
-				)
-			)
-		);
+					'actions' => array(
+							'edit' => array(),
+			)));
+		}
 	}
 	
 	/**
@@ -199,6 +224,9 @@ class OrderAdmin extends Admin
 			->add('createdAt', 'doctrine_orm_string', array(
 				'label' => 'label.created_at',
 			))
+			->add('deliveryDate', 'doctrine_orm_string', array(
+					'label' => 'label.delivery_date',
+			))
 			->add('hasInvoice', null, array('label' => 'label.has_invoice'));
 	}
 
@@ -215,6 +243,16 @@ class OrderAdmin extends Admin
 	            	return parent::getTemplate($name);
 	            break;
 		}
+	}
+	
+	public function setExportFields()
+	{
+		$results = $this->getModelManager()->getExportFields($this->getClass());
+	
+		// Need to add again our foreign key field here
+		$results[] = 'id'; 
+	
+		return $results;
 	}
 	
 	public function setSecurityContext($securityContext) {
