@@ -91,6 +91,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Empleados }
         arguments: [ null, Inodata\FloraBundle\Entity\Employee, SonataAdminBundle:CRUD ]
+        calls: 
+            - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.product:
         class: Inodata\FloraBundle\Admin\ProductAdmin
         tags:

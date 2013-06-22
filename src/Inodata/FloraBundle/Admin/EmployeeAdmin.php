@@ -17,11 +17,11 @@ class EmployeeAdmin extends Admin
 	protected function configureShowField(ShowMapper $showMapper)
 	{
 		$showMapper
-			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position')
+			->add('code', null, array('label'=>'label.code'))
+			->add('name', null, array('label'=>'label.name'))
+			->add('lastname', null, array('label'=>'label.lastname'))
+			->add('phone', null, array('label'=>'label.phone'))
+			->add('job_position', null, array('label'=>'label.job_position'))
 			;
 	}
 	
@@ -33,11 +33,11 @@ class EmployeeAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position', 'inodata_emp_positions_type')
+			->add('code', null, array('label'=>'label.code'))
+			->add('name', null, array('label'=>'label.name'))
+			->add('lastname', null, array('label'=>'label.lastname'))
+			->add('phone', null, array('label'=>'label.phone'))
+			->add('job_position', 'inodata_emp_positions_type', array('label'=>'label.job_position'))
 			;
 	}
 	
@@ -49,12 +49,13 @@ class EmployeeAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->add('code')
-			->add('name')
-			->add('lastname')
-			->add('phone')
-			->add('job_position')
+			->add('code', null, array('label'=>'label.code'))
+			->add('name', null, array('label'=>'label.name'))
+			->add('lastname', null, array('label'=>'label.lastname'))
+			->add('phone', null, array('label'=>'label.phone'))
+			->add('job_position', 'inodata_emp_positions_type', array('label'=>'label.job_position'))
 			->add('_action', 'actions', array(
+				'label' => 'label.actions',
 				'actions' => array(
 						'view' => array(),
 						'edit' => array(),
@@ -71,9 +72,9 @@ class EmployeeAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('name')
-			->add('lastname')
-			->add('jobPosition', 'doctrine_orm_choice', array('label' => 'Job Position',
+			->add('name', null, array('label'=>'label.name'))
+			->add('lastname', null, array('label'=>'label.lastname'))
+			->add('jobPosition', 'doctrine_orm_choice', array('label' => 'label.job_position',
                     'field_options' => array(
                         'required' => false,
                         'choices' => array("Messenger" => "Messenger", "Collector" => "Collector")
