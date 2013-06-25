@@ -36,6 +36,13 @@ class Order
      * @ORM\Column(name="invoice_number", type="string", length=15, nullable=true)
      */
     private $invoiceNumber;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="invoice_date", type="datetime", nullable=true)
+     */
+    private $invoiceDate;
 
     /**
      * @var boolean
@@ -199,6 +206,7 @@ class Order
         
     	$this->hasInvoice = false;
         $this->deliveryDate = new \DateTime("NOW");
+        $this->invoiceDate = new \DateTime("NOW");
         $this->status = "open";
     }
     
@@ -760,5 +768,28 @@ class Order
     public function getHasInvoice()
     {
         return $this->hasInvoice;
+    }
+
+    /**
+     * Set invoiceDate
+     *
+     * @param \DateTime $invoiceDate
+     * @return Order
+     */
+    public function setInvoiceDate($invoiceDate)
+    {
+        $this->invoiceDate = $invoiceDate;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceDate
+     *
+     * @return \DateTime 
+     */
+    public function getInvoiceDate()
+    {
+        return $this->invoiceDate;
     }
 }

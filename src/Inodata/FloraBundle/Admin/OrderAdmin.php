@@ -22,6 +22,7 @@ class OrderAdmin extends Admin
 			->add('delivery_date', 'date', array(
 				'label'=> 'label.delivery_date',
 				'widget' => 'single_text',
+				'format' => 'd/MM/y',
 				'attr' => array(
 					'class' => 'inodata_delivery_date'
 				)
@@ -152,6 +153,14 @@ class OrderAdmin extends Admin
 						'attr' => array(
 								'class' => 'inodata-invoice-comment',
 								'style' => 'width:100%'
+						)
+				))
+				->add('invoice_date', 'date', array(
+						'label'=> 'label.delivery_date',
+						'widget' => 'single_text',
+						'format' => 'd/MM/y',
+						'attr' => array(
+								'class' => 'inodata_invoice_date'
 						)
 				))
 			->end()

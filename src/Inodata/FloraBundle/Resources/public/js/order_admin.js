@@ -10,7 +10,7 @@ $(document).ready(function() {
 	  ".inodata_messages"
 	).select2({ allowClear: true });
 	
-	$('.inodata_delivery_date').datepicker({ dateFormat: "yy-mm-dd" });
+	$('.inodata_delivery_date').datepicker({ dateFormat: "dd/mm/yy" });
 	
 	//Mueve el elemento de orservaciones en el pedido al final.
 	var notesContainer = $('.inodata-order-notes').closest('div.control-group');
@@ -394,6 +394,12 @@ $(document).ready(function() {
 		var invoiceNumber = $('.inodata-invoice-number');
 		$('.folio-container .div_content').append($(invoiceNumber).clone().attr('type', 'text'));
 		$(invoiceNumber).remove();
+		
+		var invoiceDate = $('.inodata_invoice_date');
+		$('.date .div_content').append($(invoiceDate)
+				.clone().datepicker({ dateFormat: "dd/mm/yy" }));
+		$(invoiceDate).remove();
+		$('div.payment-note').prev().remove();
 		
 		var inovicePCondition = $('.inodata-payment-condition');
 		$('.payment-condition .div_content').append($(inovicePCondition).clone().attr('type', 'text'));
