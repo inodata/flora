@@ -11,7 +11,7 @@ class MxStatesType extends AbstractType
 	{
 		$resolver->setDefaults(array(
 			'choices' => array(
-				"DIF" => "Distrito Federal",
+				"DF" => "Distrito Federal",
 				"AGS" => "Aguascalientes",
 				"BCN" => "Baja California",
 				"BCS" => "Baja California Sur",
@@ -29,7 +29,7 @@ class MxStatesType extends AbstractType
 				"MIC" => "Michoacán de Ocampo",
 				"MOR" => "Morelos",
 				"NAY" => "Nayarit",
-				"NLE" => "Nuevo León",
+				"NL"  => "Nuevo León",
 				"OAX" => "Oaxaca",
 				"PUE" => "Puebla",
 				"QRO" => "Querétaro",
@@ -43,7 +43,8 @@ class MxStatesType extends AbstractType
 				"VER" => "Veracruz de Ignacio de la Llave",
 				"YUC" => "Yucatán",
 				"ZAC" => "Zacatecas"
-			)
+			),
+			'data' => "NL"
 		));
 	}
 
