@@ -10,7 +10,7 @@ inodata_flora_order_product:
     defaults: {_controller: InodataFloraBundle:OrderAdmin:product}
 
 inodata_flora_order_product_by_code:
-    pattern: /admin/inodata/flora/order/{code}/product
+    pattern: /admin/inodata/flora/order/find/product/{code}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:productByCode}
 
 inodata_flora_order_products:
