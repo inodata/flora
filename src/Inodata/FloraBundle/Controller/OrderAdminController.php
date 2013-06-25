@@ -37,6 +37,27 @@ class OrderAdminController extends Controller
 		return new Response(json_encode($response));
 	}
 	
+	public function productByCodeAction($code)
+	{
+		$products = $this->getDoctrine()
+		->getRepository('InodataFloraBundle:Product')
+		->findByCode($code);
+		
+		if ($products){
+			$product = $products[0];
+			
+			$listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
+					array('product' => $product, 'total' => 1));
+			$selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
+					array('product' => $product, 'total' => 1));
+			
+			$response = array('listField' => $listField, 'optionsToSave' => $selectOption, 'id' =>$product->getId() );
+			return new Response(json_encode($response));
+		}
+		
+		return new Response(json_encode(array('id'=>-1)));
+	}
+	
 	public function orderProductsAction($id = null, $isForInvoice = false)
 	{
 		$price_subtotal = 0;

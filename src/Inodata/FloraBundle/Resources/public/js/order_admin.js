@@ -174,6 +174,22 @@ $(document).ready(function() {
 	    }, 'json');
 	});
 	
+	$('.product-code input').keypress(function(event){
+		if (event.which == 13){
+			var code = $(this).val(); $(this).val("");
+			
+		    var url = Routing.generate('inodata_flora_order_product_by_code', {code:code});
+		    $.get(url, function(data){
+		    	if(data.id!=-1){
+		    		addProductToList(data);
+		    	}else{
+		    		alert('El producto con el codigo "'+code+'" no existe.');
+		    	}
+		    }, 'json');
+			return false;
+		}
+	});
+	
 	$('.create-and-add-product').click(function(){
 		var code = $('.create-product-form .product-code input').val();
 		var description = $('.create-product-form .product-description input').val();
