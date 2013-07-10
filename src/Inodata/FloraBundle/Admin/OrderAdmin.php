@@ -156,7 +156,7 @@ class OrderAdmin extends Admin
 						)
 				))
 				->add('invoice_date', 'date', array(
-						'label'=> 'label.delivery_date',
+						'label'=> 'label.inovice_date',
 						'widget' => 'single_text',
 						'format' => 'd/MM/y',
 						'attr' => array(

@@ -26,7 +26,7 @@
   	width: 50%;
   }
   
-  .invoice_page .editable, .sonata-bc .invoice_page .editable input{
+  .invoice_page .input-container, .sonata-bc .invoice_page .input-container input{
   	background: #FFCCCC;
   }
   
@@ -55,7 +55,14 @@
 	.sonata-bc .container-fluid .row-fluid .span4,
 	.sonata-bc .container-fluid .row-fluid .span2,
 	.navbar, .nav, .tab-pane, .form-actions, .alert {display:none;}
-
+	
+	.invoice_page .items_container .sonata-ba-list-field .editable-empty{display:none;}
+	.invoice_page .items_container .sonata-ba-list-field .product-x-editable {
+		border:none;
+		padding-right: 10px;
+		background: none;
+	}
+	
 	.no-invoice-msg{ display: none;}
 	
 	/* Reglas de impresion para la tarjeta */
@@ -121,7 +128,7 @@
 	.invoice_page .div_header { visibility:hidden; }
 	.invoice_page .div_content { border: solid 1px #FFF; }
 	.invoice_page .taxes_content { border: solid 1px #FFF; }
-	.sonata-bc .editable input { box-shadow: none; }
+	.sonata-bc .input-container input { box-shadow: none; }
 	
 	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA NOTA*/
 	.payment-note > div{ visibility:hidden; }
@@ -130,6 +137,8 @@
 	
 	.invoice_page thead { visibility: hidden; }
 	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
+	
+  	##.invoice_page .items_container .sonata-ba-list-field .editable-empty{display:none;}
 	
 	.hide_template{ display: none; }
 	
@@ -168,6 +177,12 @@
   
   .invoice_page .customer-edit-in-place, .invoice_page .customer-select-state{
   	background: #C3D9FF;
+  }
+  
+  .invoice_page a.editable{
+  	padding: 0;
+  	background: #C3D9FF;
+  	border:none;
   }
   
   .issuing h3{
@@ -216,12 +231,12 @@
     -khtml-border-radius-bottomrights: 0px;
   }
   
-  .editable{
+  .input-container{
   	padding-top: 0px;
   	height: 34px
   }
   
-  .sonata-bc .editable input, .sonata-bc .read-only input{
+  .sonata-bc .input-container input, .sonata-bc .read-only input{
   	border: none;
   	padding: 4px 0px 4px 6px;
   	height: 24px;
@@ -462,6 +477,14 @@
   
   .payment-note .info{
   	padding-left: 5px;
+  }
+  
+  .payment-note .order-id{
+  	position: absolute;
+  	top: 235px;
+  	left: 30px;
+  	font-size: 11px;
+  	font-weight: bold;
   }
   
   .payment-note .totals .products{

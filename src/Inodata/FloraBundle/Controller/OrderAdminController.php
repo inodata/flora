@@ -66,13 +66,18 @@ class OrderAdminController extends Controller
 			->getRepository('InodataFloraBundle:OrderProduct')
 			->findByOrder($id);
 		
-		$listFields="";
+		$listFields=""; $listInvoiceFields;
 		$selectOptions ="";
 		foreach ($order as $orderProduct){
 			$orderProduct->getProduct()->setPrice($orderProduct->getProductPrice());
 			$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
 					array('product' => $orderProduct->getProduct(), 
 						  'total' =>$orderProduct->getQuantity()));	
+			
+			//List using for Invoice with two extra columns (unit and date)
+			$listInvoiceFields.=$this->renderView('InodataFloraBundle:Order:_invoice_product_item.html.twig',
+					array('orderProduct' => $orderProduct, 
+						  'total' =>$orderProduct->getQuantity()));
 			
 			$selectOptions .= $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
 					array('product' => $orderProduct->getProduct(),
@@ -81,7 +86,7 @@ class OrderAdminController extends Controller
 			$price_subtotal+=($orderProduct->getProduct()->getPrice()*$orderProduct->getQuantity());
 		}
 		
-		$response = array("listFields"=>$listFields, "optionsToSave"=>$selectOptions, 
+		$response = array("listFields"=>$listFields, "listForInvoice"=>$listInvoiceFields, "optionsToSave"=>$selectOptions, 
 						  'totals'=>$this->getTotalsCostAsArray($id, $price_subtotal));
 		
 		return new Response(json_encode($response));
@@ -254,7 +259,11 @@ class OrderAdminController extends Controller
 		}
 		
 		if ($this->getRestMethod() == 'POST'){
-			$this->preUpdate($id, $products);
+			
+			if (!$this->get('request')->get('save_and_print_invoice')){
+				$this->preUpdate($id, $products);
+			}
+			
 			$this->updatePaymentContactInfo();
 			//Try to create the invoice if not exist
 			$this->createInvoice($id);
@@ -458,63 +467,112 @@ class OrderAdminController extends Controller
 	//INVOICE CUSTOMER EDIT IN PLACE
 	public function editInPlaceAction()
 	{
-		$updateAddress= false;
+		$module = $this->get('request')->get('module');
 		
-		$idColumn = explode('-', $this->get('request')->get('id'));
-		
-		$customerId = $idColumn[0];
-		$customerAttr = $idColumn[1]; 
-		$value =  $this->get('request')->get('value');
+		$pk = $this->get('request')->get('pk');
+		$columnName = $this->get('request')->get('name');
+		$value = $this->get('request')->get('value');
 		
 		$em = $this->getDoctrine()->getManager();
-		$customer = $em->getRepository('InodataFloraBundle:Customer')
-			->find($customerId);
 		
-		if ($customerAttr!='bussinessName' && $customerAttr!='rfc'){
-			$fiscalAddress = $customer->getFiscalAddress();
-			$updateAddress=true;
+		if ($module=="orderProduct"){
+			$object = $this->orderProductEdit($em, $pk, $columnName, $value);
 		}
 		
-		switch($customerAttr){
+		if ($module=="customer"){
+			$object = $this->customerEdit($em, $pk, $columnName, $value);
+		}
+		
+		if ($module=="address"){
+			$object = $this->addressEdit($em, $pk, $columnName, $value);
+		}
+		
+		$em->persist($object);
+		$em->flush();
+		
+		return new Response(json_encode(array("success"=>true)));
+	}
+	
+	private function addressEdit($em, $id, $columnName, $value)
+	{
+		$address = $em->getRepository('InodataFloraBundle:Address')
+			->find($id);
+	
+		if (!$address){
+			return new Response(json_encode(array("success"=>false, "msg"=>"Error")));
+		}
+	
+		switch($columnName){
+			case 'street':
+				$address->setStreet($value);
+				break;
+			case 'noExt':
+				$address->setNoExt($value);
+				break;
+			case 'noInt':
+				$address->setNoInt($value);
+				break;
+			case 'neighborhood':
+				$address->setNeighborhood($value);
+				break;
+			case 'city':
+				$address->setCity($value);
+				break;
+			case 'state':
+				$address->setState($value);
+				break;
+			case 'zip':
+				$address->setPostalCode($value);
+				break;
+		}
+	
+		return $address;
+	}
+	
+	private function orderProductEdit($em, $id, $columnName, $value)
+	{
+		$orderProduct = $em->getRepository("InodataFloraBundle:OrderProduct")
+			->find($id);
+		
+		if (!$orderProduct){
+			return new Response(json_encode(array("success"=>false, "msg"=>"Error")));
+		}
+		
+		switch ($columnName){
+			case "unit":
+				$orderProduct->setUnit($value);
+				break;
+			case "date":
+				if ($value==""){
+					$orderProduct->setInvoiceDate(null);
+				}else{
+					$orderProduct->setInvoiceDate(new \DateTime($value));
+				}
+				break;
+		}
+		
+		return $orderProduct;
+	}
+	
+	private function customerEdit($em, $id, $columnName, $value)
+	{
+		$customer = $em->getRepository('InodataFloraBundle:Customer')
+			->find($id);
+		
+		if(!$customer){
+			return new Response(json_encode(array("success"=>false, "msg"=>"Error")));
+		}
+		
+		switch($columnName){
 			case 'bussinessName':
 				$customer->setBusinessName($value);
-			break;
+				break;
 			case 'rfc':
 				$customer->setRfc($value);
-			break;
-			case 'street':
-				$fiscalAddress->setStreet($value);
-			break;
-			case 'noExt':
-				$fiscalAddress->setNoExt($value);
-			break;
-			case 'noExt':
-				$fiscalAddress->setNoInt($value);
-			break;
-			case 'neighborhood':
-				$fiscalAddress->setNeighborhood($value);
-			break;
-			case 'city':
-				$fiscalAddress->setCity($value);
-			break;
-			case 'state':
-				$fiscalAddress->setState($value);
-			break;
-			case 'zip':
-				$fiscalAddress->setPostalCode($value);
-			break;
+				break;
 		};
 		
-		if ($updateAddress){
-			$em->persist($fiscalAddress);
-		}else {
-			$em->persist($customer);
-		}
-		
-		$em->flush();
-		$em->clear();
-		
-		return new Response($value);
+		return $customer;
 	}
 	
 	//Overwitten function

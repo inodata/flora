@@ -231,4 +231,14 @@ class Product
     {
         return $this->categories;
     }
+
+    /**
+     * Remove categories
+     *
+     * @param \Inodata\FloraBundle\Entity\Category $categories
+     */
+    public function removeCategorie(\Inodata\FloraBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
 }

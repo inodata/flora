@@ -128,6 +128,7 @@ label.canceled_at: Cancelado el
 button.cancel: Cancelar Factura
 button.back_to_list: Regresar a la lista
 label.actions: Acciones
+label.unit: Unidad
 
 #Employee
 label.name: Nombre

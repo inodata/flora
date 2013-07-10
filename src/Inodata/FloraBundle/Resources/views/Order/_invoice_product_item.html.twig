@@ -1,0 +1,27 @@
+<tr product_id={{ orderProduct.id }}>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
+		{{total}}
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text">
+		<a href="#" class="product-x-editable" data-name="unit" data-type="text" data-pk="{{ orderProduct.id}}">
+			{{ orderProduct.unit}}
+		</a>
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text">
+		<a href="#" class="product-x-editable" data-name="date" data-type="date" data-pk="{{ orderProduct.id}}"
+			data-viewformat="dd/mm/yyyy">
+			{% if orderProduct.invoiceDate !=""%}
+				{{ orderProduct.invoiceDate|date("d/m/Y")}}
+			{% endif %}
+		</a>
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text details" >
+		{{ orderProduct.product }} ({{ orderProduct.product.priceInLetters }})
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text price" >
+		{{ orderProduct.product.price }}
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text import" >
+		{{ orderProduct.product.price * total}}
+	</td>
+</tr>

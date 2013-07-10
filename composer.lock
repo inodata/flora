@@ -59,7 +59,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1244,12 +1244,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "a37dd71f914247b3c24fbb90fe826d1140c20a4f"
+                "reference": "fdc054248223b3049523d703256d4c0d8f30c68a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/a37dd71f914247b3c24fbb90fe826d1140c20a4f",
-                "reference": "a37dd71f914247b3c24fbb90fe826d1140c20a4f",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/fdc054248223b3049523d703256d4c0d8f30c68a",
+                "reference": "fdc054248223b3049523d703256d4c0d8f30c68a",
                 "shasum": ""
             },
             "require": {
@@ -1310,7 +1310,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-06-24 16:53:42"
+            "time": "2013-06-25 15:01:21"
         },
         {
             "name": "sonata-project/block-bundle",

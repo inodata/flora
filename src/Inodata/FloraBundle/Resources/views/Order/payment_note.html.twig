@@ -38,7 +38,7 @@
 			<div>DE:</div><div class="info">{{ object.from }}&nbsp;</div>
 		</div>
 	</div>
-	
+	<span class="order-id">{{ object.idInLetters }}</span>
 	<div class="totals">
 		<div class="products">
 			<table>
@@ -57,7 +57,9 @@
 	</div>
 	<div class="shipping-info">
 		<div class="info-row">
-			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} #{{object.shippingAddress.noExt}} {% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %}</div>
+			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} 
+			{% if object.shippingAddress.noExt!='' %}#{{object.shippingAddress.noExt}}{% endif %}
+			{% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %}</div>
 		</div>
 		<div class="info-row">
 			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.reference }}&nbsp;</div>
