@@ -53,6 +53,20 @@ class OrderProduct
      * @ORM\Column(name="product_price", type="decimal", nullable=false)
      */
     private $productPrice;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unit", type="string", length=50, nullable=true)
+     */
+    private $unit;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="invoice_date", type="datetime", nullable=true)
+     */
+    private $invoiceDate;
 
     /**
      * Get id
@@ -154,5 +168,51 @@ class OrderProduct
     public function getProductPrice()
     {
         return $this->productPrice;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param string $unit
+     * @return OrderProduct
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+    
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Set invoiceDate
+     *
+     * @param \DateTime $invoiceDate
+     * @return OrderProduct
+     */
+    public function setInvoiceDate($invoiceDate)
+    {
+        $this->invoiceDate = $invoiceDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get invoiceDate
+     *
+     * @return \DateTime 
+     */
+    public function getInvoiceDate()
+    {
+        return $this->invoiceDate;
     }
 }

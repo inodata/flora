@@ -20,7 +20,8 @@
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
-                   '@InodataFloraBundle/Resources/public/css/main.css' %}
+                   '@InodataFloraBundle/Resources/public/css/main.css'
+                   '@InodataFloraBundle/Resources/public/css/x-editable/bootstrap-editable.css'%}
 		<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
 
@@ -36,7 +37,7 @@
                    "@InodataFloraBundle/Resources/public/js/print.js"
                    "@InodataFloraBundle/Resources/public/js/jquery.jeditable.min.js"
                    "@InodataFloraBundle/Resources/public/js/customer_admin.js"
-	%}
+                   "@InodataFloraBundle/Resources/public/js/x-editable/bootstrap-editable.min.js"%}
 	<script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
 {% endblock %}

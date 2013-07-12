@@ -11,6 +11,7 @@ $(document).ready(function() {
 	).select2({ allowClear: true });
 	
 	$('.inodata_delivery_date').datepicker({ dateFormat: "dd/mm/yy" });
+	$(".inodata_invoice_date").closest('fieldset').css('display','none');
 	
 	//Mueve el elemento de orservaciones en el pedido al final.
 	var notesContainer = $('.inodata-order-notes').closest('div.control-group');
@@ -267,7 +268,7 @@ $(document).ready(function() {
 	    	hideEmptyNotification();
 	    	//Load price totals for the order editing
 	    	loadPriceTotals(data.totals);
-	    	loadInvoiceOrderProducts($(data.listFields).clone(), data.totals);
+	    	loadInvoiceOrderProducts($(data.listFields).clone(), data.listForInvoice, data.totals);
 	    }, 'json');
 	}
 	//----------------------------------------//
@@ -367,7 +368,7 @@ $(document).ready(function() {
 	//-------------------------------------------------------------------------//
 
 	//----------------------- Load invoice and note data ----------------------//
-	function loadInvoiceOrderProducts(listFields, totals)
+	function loadInvoiceOrderProducts(listFields, listForInvoice, totals)
 	{
 		$(listFields).each(function(){
 			var cant = $(this).children('td:first').find('input').val();
@@ -376,12 +377,11 @@ $(document).ready(function() {
 			$(this).attr('id', '').removeClass('product')
 		});
 		
-		$('.invoice_page table > tbody').append(listFields);
-		
-		var listForNote = $(listFields).clone();
-		
-		$('.payment-note .totals table > tbody').append(listForNote);
+		$('.payment-note .totals table > tbody').append(listFields);
 		$('.payment-note .totals .shipping').text(totals.shipping);
+		
+		$('.invoice_page table > tbody').append(listForInvoice);
+		createProductXEditable();
 		
 		//Load totals
 		$('.invoice-subtotal').append(totals.subtotal);
@@ -399,7 +399,6 @@ $(document).ready(function() {
 		$('.date .div_content').append($(invoiceDate)
 				.clone().datepicker({ dateFormat: "dd/mm/yy" }));
 		$(invoiceDate).remove();
-		$('div.payment-note').prev().remove();
 		
 		var inovicePCondition = $('.inodata-payment-condition');
 		$('.payment-condition .div_content').append($(inovicePCondition).clone().attr('type', 'text'));
@@ -411,9 +410,10 @@ $(document).ready(function() {
 		$('.comments .div_content').append($(invoiceComment).clone().attr('type', 'text'));
 		$(invoiceComment).remove();
 		
-		var orderNote = $('.inodata-order-notes').val();
-		$('.invoice_page .order-note').text(orderNote);
+		//var orderNote = $('.inodata-order-notes').val();
+		//$('.invoice_page .order-note').text(orderNote);
 		
+		$('div.payment-note').prev().remove();
 	}
 	//----------------------------------------------------------------------//
 	
@@ -491,10 +491,28 @@ $(document).ready(function() {
 	//-----------------------------------------------------
 	
 	// ------------------- INOVICCE EDIT IN PLACE ----------------//
-	var url = Routing.generate('inodata_flora_order_invoice_edit_in_place');
-	$('.customer-edit-in-place').editable(url, {
-		width:'300px', height:'20px',
-		indicator : 'Guardando...'
+	$.fn.editable.defaults.mode = "inline";
+	
+	var edit_url = Routing.generate('inodata_flora_order_invoice_edit_in_place', {module:"customer"});
+	$('.customer-edit-in-place').editable({
+		url:edit_url,
+		success: function(response, newValue){
+			if(!response.success){
+				return response.msg;
+			}
+		},
+		emptytext: '-----'
+	});
+	
+	var edit_url = Routing.generate('inodata_flora_order_invoice_edit_in_place', {module:"address"});
+	$('.adress-edit-in-place').editable({
+		url:edit_url,
+		success: function(response, newValue){
+			if(!response.success){
+				return response.msg;
+			}
+		},
+		emptytext: '-----'
 	});
 	
 	var data='{';
@@ -506,10 +524,32 @@ $(document).ready(function() {
 	});
 	data+='}';
 	
-	$('.customer-select-state').editable(url, {
-		data: data,
-		type: "select",
-		submit: 'OK'
+	$('.address-select-state').editable({
+		source:data,
+		url: edit_url,
+		success: function(response, newValue){
+			if(!response.success){
+				return response.msg;
+			}
+		},
+		emptytext: '-----'
 	});
+	
+	function createProductXEditable()
+	{
+		var edit_url = Routing.generate('inodata_flora_order_invoice_edit_in_place', {module:"orderProduct"});
+		
+		$.fn.editable.defaults.mode = "inline";
+		$('.product-x-editable').editable({
+			url:edit_url,
+			success: function(response, newValue){
+				if(!response.success){
+					return response.msg;
+				}
+			},
+			emptytext: '-----'
+		});
+	}
+	
 	//------------------------------------------------------------//
 });
