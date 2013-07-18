@@ -403,10 +403,19 @@ class OrderAdminController extends Controller
 	public function createPaymentContactAction()
 	{
 		$name = $this->get('request')->get('contactName');
+		$customerId = $this->get('request')->get('customerId');
 		
 		$em = $this->getDoctrine()->getManager();
+		
 		$paymentContact = new PaymentContact();
 		$paymentContact->setName($name);
+		
+		$customer = $em->getRepository("InodataFloraBundle:Customer")
+			->find($customerId);
+		
+		if ($customer){
+			$paymentContact->setCustomer($customer);
+		}
 		
 		$em->persist($paymentContact);
 		$em->flush();
