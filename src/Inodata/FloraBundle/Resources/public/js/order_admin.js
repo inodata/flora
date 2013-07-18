@@ -124,9 +124,10 @@ $(document).ready(function() {
 		if(event.which == 13){
 			if($('.select2-results li:first').attr('class')=="select2-no-results" ){
 				var url = Routing.generate('inodata_flora_order_payment_contact_create');
+				var customerId = $('select.inodata_customer option:selected').val();
 				var name = $(this).val();
 	
-				$.post(url, {'contactName' : name}, function(contact){
+				$.post(url, {'contactName':name, "customerId":customerId}, function(contact){
 					$('select.inodata_payment_contact option:selected').removeAttr("selected");
 					$('select.inodata_payment_contact')
 						.append('<option value="'+contact.id+'" selected="selected">'+contact.name+'</option>');
@@ -550,6 +551,11 @@ $(document).ready(function() {
 			emptytext: '-----'
 		});
 	}
+	
+	 var reasigning = false;
+	 $('.reasign').live('click', function(){
+		 alert("Click");
+	 });
 	
 	//------------------------------------------------------------//
 });
