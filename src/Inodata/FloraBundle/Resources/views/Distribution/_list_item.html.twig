@@ -14,9 +14,15 @@
 				<img src="/bundles/sonataadmin/famfamfam/cancel.png" alt="Cancelado">{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}
 			</a>
 		{% else %}
-			<a href="javascript:void()" class="btn order-action reasign" title="Reasignar" orderid="{{ order.id }}">
-				<img src="/bundles/sonataadmin/famfamfam/cancel.png" alt="Reasignar">Reasignar
+			<a href="#" class="btn order-action reasign" title="Reasignar" orderid="{{ order.id }}">
+				Reasignar
 			</a>
+			<a href="javascript:void()" class="btn order-action cancel-reasign" title="Cancelar" orderid="{{ order.id }}">
+				{{ 'label.cancel'|trans({}, 'InodataFloraBundle') }}
+			</a>
+			<div class="msg-to-reasign">
+				Selecciona el repartidor en las pestañas superiores.
+			</div>
 		{% endif %}
 	</td>  
 </tr>   

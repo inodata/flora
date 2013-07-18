@@ -552,10 +552,5 @@ $(document).ready(function() {
 		});
 	}
 	
-	 var reasigning = false;
-	 $('.reasign').live('click', function(){
-		 alert("Click");
-	 });
-	
 	//------------------------------------------------------------//
 });

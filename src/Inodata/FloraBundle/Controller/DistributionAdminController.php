@@ -237,6 +237,24 @@ class DistributionAdminController extends Controller
     	}
     }
     
+    public function reasignOrderAction()
+    {
+    	$messengerId = $this->get('request')->get('messengerId');
+    	$orderId = $this->get('request')->get('orderId');
+    	
+    	$em = $this->getDoctrine()->getManager();
+    	$order = $em->getRepository("InodataFloraBundle:Order")
+    		->find($orderId);
+    	$messenger = $em->getRepository("InodataFloraBundle:Employee")
+    		->find($messengerId);
+    	
+    	$order->setMessenger($messenger);
+    	$em->persist($order);
+    	$em->flush();
+    	
+    	return new Response(json_encode(array("success"=>true)));
+    }
+    
     public function batchActionDeliveredAll()
     {
     	$orderIds = $this->get('request')->get('idx', array());

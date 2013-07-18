@@ -189,5 +189,28 @@
 		#font-weight: bold;
 		color: #0088CC;
 	}
+	
+	/*Mostrar y ocultar mensaje de reasignar orden*/
+	##.sonata-ba-list-field-actions{position: relative;}
+	.sonata-ba-list-field-actions > .msg-to-reasign{
+		position: absolute;
+		border: solid 2px #0064CC;
+		border-radius: 5px;
+		padding: 5px 3px;
+		background: #0088CC;
+		color: #FFF;
+		line-height:13px;
+		font-size: 12px;
+		font-weight:bold;
+		text-align: center;
+		display:none;
+		z-index:2000;
+	}
+	.msg-to-reasign.selected{
+		display: block;
+	}
+	.sonata-ba-list-field-actions a.cancel-reasign{
+		display:none;
+	}
 }
 

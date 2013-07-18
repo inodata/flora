@@ -106,6 +106,7 @@ intransit: En tránsito
 delivered: Entregado
 label.delivered: Entregado
 label.remove: Quitar
+label.cancel: Cancelar
 label.deliver_all: Entregar todo
 label.detailed_list: Ver Lista Detallada
 label.quick_distribution: Ver Distribución Rápida

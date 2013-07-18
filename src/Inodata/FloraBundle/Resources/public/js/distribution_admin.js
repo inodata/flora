@@ -1,4 +1,6 @@
 $('document').ready(function(){	
+	
+	var reAsigning = 0;
 
 	$('#filter_deliveryDate_value').datepicker({ dateFormat: "yy-mm-dd" });
 	$('.inodata_messenger_list').select2({allowClear:true});
@@ -154,22 +156,32 @@ $('document').ready(function(){
 		}, 'json');
 	}
 	
+	var reasigning = false;
+	
 	$('.order-action').live('click', function(){
 		var orderId = $(this).attr('orderid');
 		
 		if($(this).hasClass('deliver')){
-			action="delivered";
+			changeOrderStatus(orderId, "delivered");
 		}
 		if($(this).hasClass('intransit')){
-			action="intransit";
+			changeOrderStatus(orderId, "intransit");
 		}
 		if($(this).hasClass('cancel')){
-			action="open";
+			changeOrderStatus(orderId, "open");
 		}
 		if($(this).hasClass('deliver-all')){
-			action="deliver-all";
+			changeOrderStatus(orderId, "deliver-all");
 		}
-		
+		if($(this).hasClass('reasign')){
+			preReasignOrder(orderId, this);
+		}
+		if($(this).hasClass('cancel-reasign')){
+			preReasignOrder(0, this);
+		}
+	});
+	
+	function changeOrderStatus(orderId, action){
 		var url = Routing.generate('inodata_flora_distribution_order_action');
 		var data = {orderId:orderId, action:action};
 		
@@ -179,7 +191,30 @@ $('document').ready(function(){
 				updateOrdersOptions(response.orderOptions);
 			}
 		}, 'json');
-	});
+	}
+	
+	function preReasignOrder(orderId, button){
+		reAsigning = orderId;
+		
+		$(button).css('display', 'none');
+		if($(button).hasClass("reasign")){
+			$(button).next().css("display", "inline");
+			$(button).next().next().addClass("selected");
+		}else{
+			$(button).prev().css("display", "inline");
+			$(button).next().removeClass("selected");
+		}
+	}
+	
+	function reasignOrder(messengerId){
+		var url = Routing.generate("inodata_flora_distribution_reasign_order");
+		var data={orderId:reAsigning, messengerId:messengerId};
+		
+		$.post(url, data, function(response){
+		}, 'json');
+		
+		reAsigning=0;
+	}
 	
 	function loadSlidingTabsEfects(){
 		$("#slidetabs").slidetabs({ 
@@ -190,6 +225,10 @@ $('document').ready(function(){
 			contentEasing:"easeInOutQuart",
 			onTabClick: function(){
 				var id = $(this).attr('href').replace('#tab-', '');
+				
+				if(reAsigning!=0){
+					reasignOrder(id);
+				}
 				
 				$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
 				loadMessengerOrders(id);
