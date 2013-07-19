@@ -135,3 +135,7 @@ label.unit: Unidad
 label.name: Nombre
 label.lastname: Apellido
 label.job_position: Puesto
+
+#GuiaRoji
+label.map: Plano
+label.coordinate: Coordenada

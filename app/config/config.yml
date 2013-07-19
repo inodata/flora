@@ -106,8 +106,8 @@ sonata_user:
     manager_type: orm
 
 sonata_admin:
-    title:  Flora Project
-    title_logo: /bundles/sonataadmin/logo_title.png
+    title:  Proyecto Flora
+    title_logo: /bundles/inodataflora/img/logo_mini.png
     templates:
         # default global templates
         layout:  SonataAdminBundle::standard_layout.html.twig
@@ -120,7 +120,24 @@ sonata_admin:
     dashboard:
         blocks:
             # display a dashboard block
-            - { position: left, type: sonata.admin.block.admin_list }
+            - { position: left, type: sonata.block.service.text, settings: { content: "<h2>Bienvenido al sistema Flora</h2> <p>Aquí puedes administrar pedidos, facturas y catálogos.</p> <br />"} }
+            - { position: left, type: sonata.admin.block.admin_list, settings: { groups: [pedidos]}}
+            - { position: right, type: sonata.admin.block.admin_list, settings: { groups: [catalogos, sonata_user] } }
+            # - { position: right, type: sonata.block.service.rss, settings: { title: Feed demo, url: http://feeds.feedburner.com/symfony/blog }}
+        groups:
+            pedidos:
+                label: Pedidos
+                items: ~
+            catalogos:
+                label: Catalogos
+                items: ~
+            sonata_user:
+                label: Administracion de usuarios
+                items:
+                    - sonata.user.admin.user
+                    - sonata.user.admin.group
+    # set to true to persist filter settings per admin module in the user's session
+    persist_filters: true
 
 sonata_cache:
     caches:

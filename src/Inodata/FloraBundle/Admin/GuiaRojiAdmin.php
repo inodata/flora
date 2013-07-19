@@ -17,11 +17,11 @@ class GuiaRojiAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('neighborhood')
-			->add('city')
-			->add('postal_code')
-			->add('map')
-			->add('coordinate')
+			->add('neighborhood', null, array("label" => "label.neighborhood"))
+			->add('city', null, array("label" => "label.city"))
+			->add('postal_code', null, array("label" => "label.postal_code"))
+			->add('map', null, array("label" => "label.map"))
+			->add('coordinate', null, array("label" => "label.coordinate"))
 		;
 	}
 
@@ -34,11 +34,11 @@ class GuiaRojiAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id')
-			->add('neighborhood')
-			->add('city')
-			->add('postal_code')
-			->add('map')
-			->add('coordinate')
+			->add('neighborhood', null, array("label" => "label.neighborhood"))
+			->add('city', null, array("label" => "label.city"))
+			->add('postal_code', null, array("label" => "label.postal_code"))
+			->add('map', null, array("label" => "label.map"))
+			->add('coordinate', null, array("label" => "label.coordinate"))
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'edit' => array(),
@@ -55,11 +55,11 @@ class GuiaRojiAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('neighborhood')
-			->add('city')
-			->add('postal_code')
-			->add('map')
-			->add('coordinate')
+			->add('neighborhood', null, array("label" => "label.neighborhood"))
+			->add('city', null, array("label" => "label.city"))
+			->add('postal_code', null, array("label" => "label.postal_code"))
+			->add('map', null, array("label" => "label.map"))
+			->add('coordinate', null, array("label" => "label.coordinate"))
 		;		
 	}
 } 
