@@ -30,7 +30,7 @@ services:
     admin.distribution:
         class: Inodata\FloraBundle\Admin\DistributionAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Reparto }
+            - { name: sonata.admin, manager_type: orm, group: pedidos, label: Reparto }
         arguments: [ null, Inodata\FloraBundle\Entity\Order, InodataFloraBundle:DistributionAdmin ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
@@ -44,7 +44,7 @@ services:
     admin.order:
         class: Inodata\FloraBundle\Admin\OrderAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Pedidos }
+            - { name: sonata.admin, manager_type: orm, group: pedidos, label: Pedidos }
         arguments: [ null, Inodata\FloraBundle\Entity\Order, InodataFloraBundle:OrderAdmin ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
@@ -52,7 +52,7 @@ services:
     admin.invoice:
         class: Inodata\FloraBundle\Admin\InvoiceAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Facturas }
+            - { name: sonata.admin, manager_type: orm, group: pedidos, label: Facturas }
         arguments: [ null, Inodata\FloraBundle\Entity\Invoice, InodataFloraBundle:InvoiceAdmin ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
@@ -60,64 +60,64 @@ services:
     admin.category:
         class: Inodata\FloraBundle\Admin\CategoryAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Categorías }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Categorías }
         arguments: [ null, Inodata\FloraBundle\Entity\Category, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.guiaroji:
         class: Inodata\FloraBundle\Admin\GuiaRojiAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Guía Roji }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Guía Roji }
         arguments: [ null, Inodata\FloraBundle\Entity\GuiaRoji, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.message:
         class: Inodata\FloraBundle\Admin\MessageAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Mensajes }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Mensajes }
         arguments: [ null, Inodata\FloraBundle\Entity\Message, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.paymentcontact:
         class: Inodata\FloraBundle\Admin\PaymentContactAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Contacto de pago }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Contacto de pago }
         arguments: [ null, Inodata\FloraBundle\Entity\PaymentContact, SonataAdminBundle:CRUD ]
     admin.customer:
         class: Inodata\FloraBundle\Admin\CustomerAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Cliente }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Cliente }
         arguments: [ null, Inodata\FloraBundle\Entity\Customer, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.address:
         class: Inodata\FloraBundle\Admin\AddressAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Dirección }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Dirección }
         arguments: [ null, Inodata\FloraBundle\Entity\Address, SonataAdminBundle:CRUD ]
     admin.partner:
         class: Inodata\FloraBundle\Admin\PartnerAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Proveedores }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Proveedores }
         arguments: [ null, Inodata\FloraBundle\Entity\Partner, SonataAdminBundle:CRUD ]
     admin.employee:
         class: Inodata\FloraBundle\Admin\EmployeeAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Empleados }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Empleados }
         arguments: [ null, Inodata\FloraBundle\Entity\Employee, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.product:
         class: Inodata\FloraBundle\Admin\ProductAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Productos }
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Productos }
         arguments: [ null, Inodata\FloraBundle\Entity\Product, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.product_log:
         class: Inodata\FloraBundle\Admin\ProductLogAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Catálogos, label: Control de inventario}
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Control de inventario}
         arguments: [ null, Inodata\FloraBundle\Entity\ProductLog, SonataAdminBundle:CRUD ]
 
     # KernelRequest listener
