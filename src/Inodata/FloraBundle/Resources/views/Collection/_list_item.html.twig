@@ -1,0 +1,26 @@
+{% for order in orders %}
+<tr class="collector-order-row" >
+	<td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="{{ order.id }}">
+		<input name="idx[]" value="1" type="checkbox">
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-integer" objectid="{{ order.id }}">
+		<a href="{{ path('admin_inodata_flora_order_edit', {id:order.id}) }}">{{ order.id }}</a>
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">
+		{{ order.customerAndContact() }}
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-datetime" objectid="{{ order.id }}">
+		{{ order.deliveryDate|date("d/M/Y") }}
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">
+		{{ order.orderPayments }}
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">
+		{{ order.orderTotals }}
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-actions" objectid="{{ order.id }}">
+		{% include 'InodataFloraBundle:Collection:_boxcut_action.html.twig' %}
+		{% include 'InodataFloraBundle:Collection:_remove_action.html.twig' %}
+	</td>                            
+</tr>   
+{% endfor %}

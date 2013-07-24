@@ -135,3 +135,6 @@ label.unit: Unidad
 label.name: Nombre
 label.lastname: Apellido
 label.job_position: Puesto
+
+#Collection
+label.collector_boxcut: Corte

@@ -82,47 +82,6 @@ class DistributionAdminController extends Controller
     	}
     }
     
-    public function addOrdersToMessengerAction()
-    {
-    	/* Obtiene los valores por post */
-    	$messengerId = $this->get('request')->get('messenger_id');
-    	$orderIds = $this->get('request')->get('order_ids');
-    	
-    	/* Encuentra el Messenger */
-    	$messenger = $this->getDoctrine()
-    	    			  ->getRepository('InodataFloraBundle:Employee')
-    					  ->find( $messengerId );
-    	if( !$messenger ){
-    		return new Response( json_encode( array ( 'status' => 'messenger_not_found') ) );
-    	}
-    	
-    	foreach( $orderIds as $orderId)
-    	{
-    		$em = $this->getDoctrine()->getManager();
-    		$order = $this->getDoctrine()
-    					  ->getRepository('InodataFloraBundle:Order')
-    		   			  ->find( $orderId );
-    		
-    		if( $order != null )
-    		{
-	    		$order->setStatus('intransit');
-	    		$order->setMessenger($messenger);	 
-	    		
-	    		$em->persist($order);
-	    		$em->flush();
-    		}
-    	}
-    	
-    	$messengerFullName = $messenger->getName().' '.$messenger->getLastName();
-    	$transMessage = $this->get('translator')->trans('alert.distribution_assigned_success', array( 'messenger' => $messengerFullName), 'InodataFloraBundle');
-    	$this->addFlash('sonata_flash_success', $transMessage);
-    	
-    	$emptyList = $this->renderView('InodataFloraBundle:Distribution:_distribution_assign_empty_list.html.twig', array());
-    	
-    	$response = array('status' => 'success' );
-    	return new Response(json_encode($response));
-    }
-    
     public function updateOrdersAvailableAction()
     {
     	//Pedidos preasignados a repartidor

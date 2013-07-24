@@ -801,4 +801,68 @@ class Order
     	$numbers = array('1','2','3','4','5','6','7','8','9','0');
     	return str_replace($numbers, $letters, $this->id);
     }
+    
+    /**
+     * funciones para el modulo de cobranza
+     */
+    
+    public function getCustomerAndContact(){
+    	$customer = $this->getCustomer()->getCompanyName();
+    	if (!$customer){
+    		$customer =  $this->getCustomer()->getBusinessName();
+    	}
+    	$contact = $this->getPaymentContact()->getName();
+    	
+    	if ($contact){
+    		$contact=' - '.$contact;
+    	}
+    	
+    	return $customer.$contact;
+    }
+    
+    public function getOrderPayments(){
+    	global $kernel;
+    	 
+    	if ('AppCache' == get_class($kernel)) {
+    		$kernel = $kernel->getKernel();
+    	}
+    	 
+    	$em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+    	$repository = $em->getRepository('InodataFloraBundle:OrderPayment');
+    	$orderPayments = $repository->findByOrder($this->getId());
+   
+    	$total = 0;
+    	if(!$orderPayments){
+    		return $total;
+    	}
+    	
+    	foreach ($orderPayments as $orderPayment){
+    		$total+=$orderPayment->getDeposit();
+    	}
+    
+    	return $total;
+    }
+    
+    public function getOrderTotals(){
+    	global $kernel;
+    
+    	if ('AppCache' == get_class($kernel)) {
+    		$kernel = $kernel->getKernel();
+    	}
+    
+    	$em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+    	$repository = $em->getRepository('InodataFloraBundle:OrderProduct');
+    	$orderProducts = $repository->findByOrder($this->getId());
+    	 
+    	$total = 0; setlocale(LC_MONETARY, 'es_MX');
+    	if(!$orderProducts){
+    		return '$ '.money_format('%i', $total);
+    	}
+    	 
+    	foreach ($orderProducts as $orderProduct){
+    		$total+=($orderProduct->getProductPrice()*$orderProduct->getQuantity());
+    	}
+    
+    	return '$ '.money_format('%i', $total);
+    }
 }

@@ -70,7 +70,7 @@ inodata_flora_distribution_reasign_order:
     pattern: /admin/inodata/flora/distribution/reasign/order
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:reasignOrder }
     
-#Reused    
+#New   
 inodata_flora_distribution_add_order_to_messenger: 
     pattern: /admin/inodata/flora/distribution/add/order/to/messenger
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrderToMessenger}
@@ -92,7 +92,11 @@ inodata_flora_order_invoice_edit_in_place:
     pattern: /admin/inodata/flora/order/invoice/edit/in/place
     defaults: {_controller: InodataFloraBundle:OrderAdmin:editInPlace}
 
-#Invoice routes
-#inodata_flora_order_invoice_cancel:
-#    pattern: /admin/inodata/flora/invoice/{id}/cancel
-#    defaults: {_controller: InodataFloraBundle:InvoiceAdmin:cancel}
+#New
+inodata_flora_collection_orders_by_collector: 
+    pattern: /admin/inodata/flora/collection/collector/{id}/orders
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:loadOrdersByCollector}
+#ew   
+inodata_flora_collection_add_order_to_collector: 
+    pattern: /admin/inodata/flora/collection/add/order/to/collector
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:addOrderToCollector}

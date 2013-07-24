@@ -1,0 +1,5 @@
+{% if list_view == 'quick' %}
+	{% include 'InodataFloraBundle:Collection:_quick_list.html.twig' %}
+{% else %}
+	{% include 'InodataFloraBundle:Collection:_normal_list.html.twig' %}
+{% endif %}

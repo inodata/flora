@@ -1,0 +1,50 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+		{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
+	                  '@InodataFloraBundle/Resources/public/css/main.css'
+	                  '@InodataFloraBundle/Resources/public/css/distribution.css'
+	                  '@InodataFloraBundle/Resources/public/css/sliding/preview.css'
+	                  '@InodataFloraBundle/Resources/public/css/sliding/template.css'%}
+			<link rel="stylesheet" href="{{ asset_url }}" />
+		{% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}	
+		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+		<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+		{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
+					   	 '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
+					   	 '@InodataFloraBundle/Resources/public/js/distribution_admin.js'
+					   	 '@InodataFloraBundle/Resources/public/js/lang/es.js'
+					   	 "@InodataFloraBundle/Resources/public/js/jquery.jeditable.min.js"
+					   	 '@InodataFloraBundle/Resources/public/js/sliding/jquery.slidetabs.min.js'%}
+			<script type="text/javascript" src="{{ asset_url }}" ></script>
+		{% endjavascripts %}
+		<script>
+			$('document').ready(function(){
+				$('td.sonata-ba-list-field-text').each(function(){
+					var content = $(this).text().trim();
+					if(content=='intransit'){
+						$(this).addClass('order-intransit');
+						$(this).text("En tránsito");
+					}
+					if(content=='delivered'){
+						$(this).addClass('order-delivered');
+						$(this).text("Entregado");
+					}
+					if(content=='open'){
+						$(this).text("Abierto");
+					}
+				});
+			});
+		</script>
+{% endblock %}
+
+{% block actions %}
+	<div class="sonata-actions btn-group">
+        <a class="btn sonata-action-element" href="{{ path('collection_list', {view:'quick'}) }}">
+        	{{ 'label.quick_distribution'|trans({}, 'InodataFloraBundle') }}
+        </a>
+    </div>
+{% endblock %} 

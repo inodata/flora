@@ -140,7 +140,7 @@ $('document').ready(function(){
 	
 	loadSlidingTabsEfects();
 	
-	function loadMessengerOrders(id)
+	function loadMessengerOrders(id)// ya
 	{
 		var url = Routing.generate('inodata_flora_distribution_orders_by_messenger', {id:id});
 		
@@ -216,7 +216,7 @@ $('document').ready(function(){
 		reAsigning=0;
 	}
 	
-	function loadSlidingTabsEfects(){
+	function loadSlidingTabsEfects(){// YA
 		$("#slidetabs").slidetabs({ 
 			responsive:true, 
 			touchSupport:true, 
@@ -247,7 +247,7 @@ $('document').ready(function(){
 		indicator : 'Guardando...',
 		callback: function(value, settings){
 			var column = $(this).attr('column');
-			var el= $('.st_tabs_ul a > div .'+column).text(value);
+			$('.st_tabs_ul a > div .'+column).text(value);
 		}
 	});
 	
