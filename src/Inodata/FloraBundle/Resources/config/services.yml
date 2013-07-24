@@ -37,7 +37,7 @@ services:
     admin.collection:
         class: Inodata\FloraBundle\Admin\CollectionAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Pedidos, label: Cobranza }
+            - { name: sonata.admin, manager_type: orm, group: pedidos, label: Cobranza }
         arguments: [ null, Inodata\FloraBundle\Entity\Order, InodataFloraBundle:CollectionAdmin ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]

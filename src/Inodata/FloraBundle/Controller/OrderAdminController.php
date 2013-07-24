@@ -66,7 +66,7 @@ class OrderAdminController extends Controller
 			->getRepository('InodataFloraBundle:OrderProduct')
 			->findByOrder($id);
 		
-		$listFields=""; $listInvoiceFields;
+		$listFields=""; $listInvoiceFields="";
 		$selectOptions ="";
 		foreach ($order as $orderProduct){
 			$orderProduct->getProduct()->setPrice($orderProduct->getProductPrice());
