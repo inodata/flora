@@ -55,9 +55,8 @@ class EmployeeAdmin extends Admin
 			->add('phone', null, array('label'=>'label.phone'))
 			->add('job_position', 'inodata_emp_positions_type', array('label'=>'label.job_position'))
 			->add('_action', 'actions', array(
-				'label' => 'label.actions',
+				'label' => 'label.action',
 				'actions' => array(
-						'view' => array(),
 						'edit' => array(),
 						'delete' => array(),
 				)
@@ -77,7 +76,8 @@ class EmployeeAdmin extends Admin
 			->add('jobPosition', 'doctrine_orm_choice', array('label' => 'label.job_position',
                     'field_options' => array(
                         'required' => false,
-                        'choices' => array("Messenger" => "Messenger", "Collector" => "Collector")
+                        'choices' => array("Messenger" => "Messenger", "Collector" => "Collector"),
+                        'translation_domain' => 'InodataFloraBundle'
                     ),
                     'field_type' => 'choice'
                 ));

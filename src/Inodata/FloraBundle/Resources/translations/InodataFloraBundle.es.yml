@@ -1,3 +1,31 @@
+#General (Sonata labels and more)
+label.action: Acción
+
+#Custom picklists
+Messenger: Repartidor
+Collector: Cobrador
+
+#knp menu (breadcrumbs)
+Category List: Lista de Categorías
+Product List: Lista de Productos
+Message List: Lista de mensajes
+Customer List: Lista de Clientes
+Partner List: Lista de Proveedores
+Employee List: Lista de Empleados
+Guia Roji List: Lista Guía Roji
+Payment Contact List: Lista Contactos de Empresa
+Address List: Lista de Direcciones
+Invoice List: List de Facturas
+
+#Payment Contact
+label.customer: Cliente/Empresa
+label.name: Nombre de contacto
+label.department: Departamento
+label.employee_number: No. de empleado
+label.phone: Teléfono
+label.payment_contact.extension: Extensión
+
+
 #Message labels
 label.message_code: Número
 
@@ -67,6 +95,7 @@ label.collector: Cobrador
 
 
 #Address labels
+label.address: Dirección
 label.street: Calle
 label.exterior: Número
 label.interior: No. Int.

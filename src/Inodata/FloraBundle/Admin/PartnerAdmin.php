@@ -10,22 +10,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class PartnerAdmin extends Admin
 {
 	/**
-	 * @param Sonata\AdminBundle\Show\ShowMapper $showMapper
-	 *
-	 * @return void
-	 */
-	protected function configureShowField(ShowMapper $showMapper)
-	{
-		$showMapper
-			->add('code')
-			->add('name')
-			->add('phone')
-			->add('email')
-			->add('address')
-			;
-	}
-	
-	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
 	 *
 	 * @return void
@@ -33,12 +17,12 @@ class PartnerAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('code')
-			->add('name')
-			->add('phone')
-			->add('email')
-			->with('Dirección', array('collapsed'=>false))
-				->add('address', 'inodata_address_form')
+			->add('code', null, array('label' => 'label.code'))
+			->add('name', null, array('label' => 'label.name'))
+			->add('phone', null, array('label' => 'label.phone'))
+			->add('email', null, array('label' => 'label.email'))
+			->with('label.address', array('collapsed'=>false, 'label' => 'label.address'))
+				->add('address', 'inodata_address_form', array('label' => 'label.address'))
 			->end()
 			;
 	}
@@ -51,10 +35,10 @@ class PartnerAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->add('code')
-			->add('name')
-			->add('phone')
-			->add('email')
+			->add('code', null, array('label' => 'label.code'))
+			->add('name', null, array('label' => 'label.name'))
+			->add('phone', null, array('label' => 'label.phone'))
+			->add('email', null, array('label' => 'label.email'))
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'view' => array(),
@@ -72,8 +56,8 @@ class PartnerAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('code')
-			->add('name')
+			->add('code', null, array('label' => 'label.code'))
+			->add('name', null, array('label' => 'label.name'))
 		;		
 	}
 }
