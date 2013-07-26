@@ -26,6 +26,7 @@ button.print_note: Imprimir Nota
 
 #Order labels
 label.customer: Nombre Cliente
+label.purchase_order: Orden de compra (cliente)
 label.payment_contact: Ordenó
 label.from: De
 label.to: Para

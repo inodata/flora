@@ -36,6 +36,13 @@ class Order
      * @ORM\Column(name="invoice_number", type="string", length=15, nullable=true)
      */
     private $invoiceNumber;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="purchase_order", type="string", length=32, nullable=true)
+     */
+    private $purchaseOrder;
     
     /**
      * @var \DateTime
@@ -864,5 +871,28 @@ class Order
     	}
     
     	return '$ '.money_format('%i', $total);
+    }
+
+    /**
+     * Set purchaseOrder
+     *
+     * @param integer $purchaseOrder
+     * @return Order
+     */
+    public function setPurchaseOrder($purchaseOrder)
+    {
+        $this->purchaseOrder = $purchaseOrder;
+    
+        return $this;
+    }
+
+    /**
+     * Get purchaseOrder
+     *
+     * @return integer 
+     */
+    public function getPurchaseOrder()
+    {
+        return $this->purchaseOrder;
     }
 }

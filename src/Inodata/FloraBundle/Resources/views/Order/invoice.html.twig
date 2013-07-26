@@ -110,9 +110,16 @@
 								</tr>
 							</thead>
 							<tbody>
+								<!-- El listado de productos se copia con javascript del formulario de edición -->
 							</tbody>
 							<tfoot>
-								<tr><td class="space" colspan="4"></td></tr>
+								<tr>
+									<td class="space" colspan="4">
+										{% if object.purchaseOrder %}
+											{{ 'label.purchase_order'|trans({}, 'InodataFloraBundle') }}: {{ object.purchaseOrder }}
+										{% endif %}
+									</td>
+								</tr>
 								<tr>
 									<td class="td-label" colspan="5">{{ 'label.discount'|trans({}, 'InodataFloraBundle') }}</td>
 									<td class="invoice-discount">- </td>

@@ -57,6 +57,9 @@ class OrderAdmin extends Admin
 							'class' => 'inodata_customer span5',
 							'placeholder' => 'Buscar Cliente')
 					))
+			->add('purchaseOrder', null, array(
+					'label' => 'label.purchase_order')
+			)
 			->add('paymentContact', 'genemu_jqueryselect2_entity',array(
 					'label' => 'label.payment_contact',
 					'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
@@ -98,7 +101,11 @@ class OrderAdmin extends Admin
 					'config_name' => 'inodata_editor',
 					'attr' => array('class' => 'inodata_message span5')
 			))
-			->add('productos', 'sonata_type_model', array(
+			/**
+		 	* Si se agrega un elemento antes de este item, actualizar main.css
+			* para no romper el acomodo de acuerdo al index
+			*/
+			->add('products', 'sonata_type_model', array(
 				'label' => 'label.search_product',
 				'class' => 'Inodata\FloraBundle\Entity\Product',
 				'mapped' => false,
@@ -156,6 +163,7 @@ class OrderAdmin extends Admin
 						)
 				))
 				->add('invoice_date', 'date', array(
+						'required' => false,
 						'label'=> 'label.invoice_date',
 						'widget' => 'single_text',
 						'format' => 'd/MM/y',
