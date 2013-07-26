@@ -225,7 +225,13 @@ class Employee
      */
     public function getJobPosition()
     {
-        return $this->jobPosition;
+        if($this->jobPosition == 'Messenger'){
+            return "Repartidor";
+        }elseif ($this->jobPosition == "Collector") {
+            return "Cobrador";
+        }else{
+            return $this->jobPosition;
+        }
     }
 
     /**

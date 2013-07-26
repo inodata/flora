@@ -13,7 +13,8 @@ class EmpPositionsType extends AbstractType
 			'choices' => array(
 				"Messenger" => "Messenger",
 				"Collector" => "Collector",
-			)
+			),
+			'translation_domain' => 'InodataFloraBundle'
 		));
 	}
 

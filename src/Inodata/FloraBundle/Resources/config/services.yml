@@ -83,6 +83,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: catalogos, label: Contacto de pago }
         arguments: [ null, Inodata\FloraBundle\Entity\PaymentContact, SonataAdminBundle:CRUD ]
+        calls: 
+            - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.customer:
         class: Inodata\FloraBundle\Admin\CustomerAdmin
         tags:
@@ -95,11 +97,15 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: catalogos, label: Dirección }
         arguments: [ null, Inodata\FloraBundle\Entity\Address, SonataAdminBundle:CRUD ]
+        calls: 
+            - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.partner:
         class: Inodata\FloraBundle\Admin\PartnerAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: catalogos, label: Proveedores }
         arguments: [ null, Inodata\FloraBundle\Entity\Partner, SonataAdminBundle:CRUD ]
+        calls: 
+            - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.employee:
         class: Inodata\FloraBundle\Admin\EmployeeAdmin
         tags:

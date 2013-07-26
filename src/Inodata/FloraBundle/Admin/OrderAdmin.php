@@ -199,12 +199,13 @@ class OrderAdmin extends Admin
 			->add('deliveryDate', null, array(
 					"label" => "label.delivery_date",
 					"format" => "d/M/Y"))
-					->add('_action', 'actions', array(
-							'actions' => array(
-									'edit' => array(),
-							)
-					)
-					);
+			->add('_action', 'actions', array(
+				'label' => 'label.action',
+				'actions' => array(
+						'edit' => array(),
+				)
+			)
+			);
 		}
 		else{
 			$listMapper
@@ -220,6 +221,7 @@ class OrderAdmin extends Admin
 			->add('paymentContact', null, array('label' => 'label.payment_contact'))
 			->add('messenger', null, array('label' => 'label.messenger'))
 			->add('_action', 'actions', array(
+					'label' => 'label.action',
 					'actions' => array(
 							'edit' => array(),
 			)));
@@ -235,8 +237,8 @@ class OrderAdmin extends Admin
 	{
 		$datagridMapper
 			->add('id', null, array('label' => 'label.order_number'))
-			->add('to')
-			->add('from')
+			->add('to', null, array('label' => 'label.to'))
+			->add('from', null, array('label' => 'label.from'))
 			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'doctrine_orm_string', array(
 				'label' => 'label.created_at',

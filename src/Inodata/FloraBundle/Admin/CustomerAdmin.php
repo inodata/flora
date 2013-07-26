@@ -76,9 +76,8 @@ class CustomerAdmin extends Admin
 			->add('businessName', null, array('label' => 'label.business_name'))
 			->add('rfc', null, array('label' => 'label.rfc'))
 			->add('discount', null, array('label' => 'label.discount'))
-			->add('_action', 'actions', array('label'=> 'label.actions',
+			->add('_action', 'actions', array('label'=> 'label.action',
 				'actions' => array(
-					'view' => array(),
 					'edit' => array(),
 					'delete' => array(),
 				)
