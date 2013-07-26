@@ -10,7 +10,7 @@
 			<div>NOMBRE:</div><div class="info">{{ object.to }}&nbsp;</div>
 		</div>
 		<div class="info-row">
-			<div>COBRAR:</div><div class="space-1 info">{{ object.customer.companyName }}&nbsp;</div>
+			<div>COBRAR:</div><div class="space-1 info">{{ object.customer.companyName }}&nbsp; {% if object.purchaseOrder %}(Orden {{ object.purchaseOrder}}){% endif %}</div>
 			<div class="space-2">DEPTO:</div><div class="info">{{ object.paymentContact.department }}&nbsp;</div>
 		</div>
 		<div class="info-row">

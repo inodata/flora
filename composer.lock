@@ -572,12 +572,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "528391d511159c98e88336f7b409eaad38ffe972"
+                "reference": "9662cee48b2abe5d3805e52f8973718c7144c0c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/528391d511159c98e88336f7b409eaad38ffe972",
-                "reference": "528391d511159c98e88336f7b409eaad38ffe972",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/9662cee48b2abe5d3805e52f8973718c7144c0c9",
+                "reference": "9662cee48b2abe5d3805e52f8973718c7144c0c9",
                 "shasum": ""
             },
             "require": {
@@ -644,7 +644,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2013-07-18 21:04:34"
+            "time": "2013-07-21 15:51:21"
         },
         {
             "name": "genemu/form-bundle",
@@ -1249,12 +1249,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "fdf8b15c9a464ad19a72ff739ec514994e17c95c"
+                "reference": "b90b666cf2904895f37ce79b70936210188a1b16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/fdf8b15c9a464ad19a72ff739ec514994e17c95c",
-                "reference": "fdf8b15c9a464ad19a72ff739ec514994e17c95c",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/b90b666cf2904895f37ce79b70936210188a1b16",
+                "reference": "b90b666cf2904895f37ce79b70936210188a1b16",
                 "shasum": ""
             },
             "require": {
@@ -1315,7 +1315,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-07-10 07:46:09"
+            "time": "2013-07-23 08:24:07"
         },
         {
             "name": "sonata-project/block-bundle",
