@@ -17,7 +17,7 @@ class CategoryAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('description')
+			->add('description', null, array('label' => 'label.description'))
 		;
 	}
 	
