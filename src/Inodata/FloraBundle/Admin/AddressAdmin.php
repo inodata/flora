@@ -19,13 +19,13 @@ class AddressAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('street')
-			->add('noInt')
-			->add('noExt')
-			->add('neighborhood')
-			->add('state', 'inodata_mx_states_type')
-			->add('city')
-			->add('postalCode')			
+			->add('street', null, array('label' => 'label.street'))
+			->add('noInt', null, array('label' => 'label.interior'))
+			->add('noExt', null, array('label' => 'label.exterior'))
+			->add('neighborhood', null, array('label' => 'label.neighborhood'))
+			->add('state', 'inodata_mx_states_type', array('label' => 'label.state'))
+			->add('city', null, array('label' => 'label.city'))
+			->add('postalCode', null, array('label' => 'label.postal_code'))
 		;
 	}
 	
@@ -38,16 +38,16 @@ class AddressAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id')
-			->add('street')
-			->add('no_int')
-			->add('no_ext')
-			->add('state')
-			->add('city')
-			->add('postal_code')
-			->add('neighborhood')
+			->add('street', null, array('label' => 'label.street'))
+			->add('no_int', null, array('label' => 'label.interior'))
+			->add('no_ext', null, array('label' => 'label.exterior'))
+			->add('state', null, array('label' => 'label.state'))
+			->add('city', null, array('label' => 'label.city'))
+			->add('postal_code', null, array('label' => 'label.postal_code'))
+			->add('neighborhood', null, array('label' => 'label.neighborhood'))
 			->add('_action', 'actions', array(
+				'label' => 'label.action',
 				'actions' => array(
-					'view' => array(),
 					'edit' => array(),
 					'delete' => array(),
 				)
@@ -63,9 +63,9 @@ class AddressAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('postalCode')
-			->add('state')
-			->add('city')
+			->add('postalCode', null, array('label' => 'label.postal_code'))
+			->add('state', null, array('label' => 'label.state'))
+			->add('city', null, array('label' => 'label.city'))
 		;		
 	}
 	

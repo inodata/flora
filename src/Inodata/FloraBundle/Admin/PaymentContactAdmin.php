@@ -17,13 +17,13 @@ class PaymentContactAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('customer', 'sonata_type_model')
-			->add('name')
-			->add('department')
-			->add('employeeNumber')
-			->add('phone')
-			->add('extension')
-			->add('email')
+			->add('customer', 'sonata_type_model', array('label' => 'label.customer'))
+			->add('name', null, array('label' => 'label.name'))
+			->add('department', null, array('label' => 'label.department'))
+			->add('employeeNumber', null, array('label' => 'label.employee_number'))
+			->add('phone', null, array('label' => 'label.phone'))
+			->add('extension', null, array('label' => 'label.payment_contact.extension'))
+			->add('email', null, array('label' => 'label.email'))
 		;
 	}
 	
@@ -35,16 +35,15 @@ class PaymentContactAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->addIdentifier('id')
-			->add('employee_number')
-			->add('name')
-			->add('phone')
-			->add('email')
-			->add('department')
-			->add('customer')
+			->addIdentifier('employee_number', null, array('label' => 'label.employee_number'))
+			->add('name', null, array('label' => 'label.name'))
+			->add('phone', null, array('label' => 'label.phone'))
+			->add('email', null, array('label' => 'label.email'))
+			->add('department', null, array('label' => 'label.department'))
+			->add('customer', null, array('label' => 'label.customer'))
 			->add('_action', 'actions', array(
+				'label' => 'label.action',
 				'actions' => array(
-					'view' => array(),
 					'edit' => array(),
 					'delete' => array(),
 				)
@@ -59,11 +58,11 @@ class PaymentContactAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('employeeNumber')
-			->add('customer')
-			->add('name')
-			->add('email')
-			->add('department')
+			->add('employeeNumber', null, array('label' => 'label.employee_number'))
+			->add('customer', null, array('label' => 'label.customer'))
+			->add('name', null, array('label' => 'label.name'))
+			->add('email', null, array('label' => 'label.email'))
+			->add('department', null, array('label' => 'label.department'))
 		;		
 	}
 	

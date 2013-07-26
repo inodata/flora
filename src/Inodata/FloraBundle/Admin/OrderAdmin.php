@@ -199,12 +199,13 @@ class OrderAdmin extends Admin
 			->add('deliveryDate', null, array(
 					"label" => "label.delivery_date",
 					"format" => "d/M/Y"))
-					->add('_action', 'actions', array(
-							'actions' => array(
-									'edit' => array(),
-							)
-					)
-					);
+			->add('_action', 'actions', array(
+				'label' => 'label.action',
+				'actions' => array(
+						'edit' => array(),
+				)
+			)
+			);
 		}
 		else{
 			$listMapper
@@ -220,6 +221,7 @@ class OrderAdmin extends Admin
 			->add('paymentContact', null, array('label' => 'label.payment_contact'))
 			->add('messenger', null, array('label' => 'label.messenger'))
 			->add('_action', 'actions', array(
+					'label' => 'label.action',
 					'actions' => array(
 							'edit' => array(),
 			)));
