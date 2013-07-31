@@ -37,7 +37,7 @@ set :composer_options,  "--no-scripts --no-dev --verbose --prefer-dist --optimiz
 
 set :writable_dirs,       ["app/cache", "app/logs"]
 set :webserver_user,      "www-data"
-set :permission_method,   :acl
+set :permission_method,   :chmod
 set :use_set_permissions, true
 
 
