@@ -32,7 +32,7 @@ role :app,        domain, :primary => true       # This may be the same as your 
 set :shared_files,      ["app/config/parameters.yml"]
 set :shared_children,   [app_path + "/logs", web_path + "/uploads", "vendor"]
 
-set :composer_options,  "--no-scripts --no-dev --verbose --prefer-dist "
+set :composer_options,  "--no-scripts --no-dev --verbose --prefer-dist --optimize-autoloader"
 # default values "--no-dev --verbose --prefer-dist --optimize-autoloader --no-progress"
 
 set :writable_dirs,       ["app/cache", "app/logs"]
