@@ -36,6 +36,8 @@ set :shared_children,   [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :composer_options,  " --no-dev --verbose --prefer-dist --optimize-autoloader"
 # default values "--no-dev --verbose --prefer-dist --optimize-autoloader --no-progress"
 
+set :cache, 	"clear"
+
 set :writable_dirs,       ["app/cache", "app/logs"]
 set :webserver_user,      "www-data"
 set :permission_method,   :acl
