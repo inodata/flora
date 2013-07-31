@@ -21,7 +21,7 @@ role :app,        domain, :primary => true       # This may be the same as your 
 set  :use_sudo,   false
 set  :keep_releases,  3
 
-set :shared_files,      ["app/config/parameters.yml"]
-set :shared_children,   [app_path + "/logs", web_path + "/uploads", "vendor"]
+#set :shared_files,      ["app/config/parameters.yml"]
+#set :shared_children,   [app_path + "/logs", web_path + "/uploads", "vendor"]
 # Be more verbose by uncommenting the following line
 logger.level = Logger::MAX_LEVEL

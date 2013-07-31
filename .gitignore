@@ -6,6 +6,9 @@
 # Bootstrap
 app/bootstrap*
 
+# Composer
+composer.lock
+
 # Symfony directories
 vendor/*
 */logs/*
