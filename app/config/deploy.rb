@@ -8,7 +8,8 @@ set :app_path,    "app"
 set :repository,  "file:///home/egarcia/workspace/flora"
 set :scm,         :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `subversion`, `mercurial`, `perforce`, or `none`
-set :deploy_via,  :capifony_copy_local
+set :deploy_via,  :rsync_with_remote_cache # Or capifony_copy_local
+
 set :use_composer,     true
 set :use_composer_tmp, true
 
