@@ -12,6 +12,11 @@ set :deploy_via,  :capifony_copy_local #rsync_with_remote_cache
 
 set :use_composer,     true
 set :use_composer_tmp, true
+set :update_vendors,   false
+set :composer_bin,     "php composer.phar"
+set :vendors_mode,     "install"
+set :symfony_vendors,  "composer.phar"
+#set :copy_vendors, true
 
 set  :use_sudo,   false
 set  :keep_releases,  3
@@ -31,7 +36,7 @@ set :model_manager, "doctrine"                   # Or: `propel`
 role :web,        domain                         # Your HTTP server, Apache/etc
 role :app,        domain, :primary => true       # This may be the same as your `Web` server
 set :shared_files,      ["app/config/parameters.yml"]
-set :shared_children,   [app_path + "/logs", web_path + "/uploads", "vendor"]
+set :shared_children,   [app_path + "/logs", web_path + "/uploads"]
 
 set :composer_options,  "--no-scripts --no-dev --verbose --prefer-dist --optimize-autoloader"
 # default values "--no-dev --verbose --prefer-dist --optimize-autoloader --no-progress"
