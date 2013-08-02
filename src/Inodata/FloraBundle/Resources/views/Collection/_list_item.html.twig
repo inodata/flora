@@ -1,4 +1,6 @@
 {% for order in orders %}
+{% set payments = order.paymentsTotal %}
+{% set price =  order.orderTotals%}
 <tr class="collector-order-row" >
 	<td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="{{ order.id }}">
 		<input name="idx[]" value="1" type="checkbox">
@@ -13,14 +15,25 @@
 		{{ order.deliveryDate|date("d/M/Y") }}
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">
-		{{ order.orderPayments }}
+		<a class="payment-details" href="{{ path('inodata_flora_collection_order_deposits', {orderId:order.id}) }}">
+			${{ payments|number_format(2, '.', ',') }}
+		</a>
+		<span class="order-payments" style="position: absolute; visibility:hidden;" data-pk="{{ order.id }}">
+		</span>
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">
-		{{ order.orderTotals }}
+		${{ price|number_format(2, '.', ',') }}
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-actions" objectid="{{ order.id }}">
-		{% include 'InodataFloraBundle:Collection:_boxcut_action.html.twig' %}
-		{% include 'InodataFloraBundle:Collection:_remove_action.html.twig' %}
+		{% if payments < price %}
+			{% include 'InodataFloraBundle:Collection:_payment_action.html.twig' with {'object':order}%}
+		{% endif %}
+		{% if order.actualOrderPayments > 0 %}
+			{% include 'InodataFloraBundle:Collection:_boxcut_action.html.twig' with {'object':order}%}
+		{% endif %}
+		{% if order.paymentsTotal == 0%}
+			{% include 'InodataFloraBundle:Collection:_remove_action.html.twig' with {'object':order, 'ajax':'true'}%}
+		{% endif %}
 	</td>                            
 </tr>   
 {% endfor %}

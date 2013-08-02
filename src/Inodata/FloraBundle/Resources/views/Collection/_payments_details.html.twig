@@ -1,0 +1,46 @@
+<div class="popover fade in editable-container editable-popup" 
+	style="position:absoulute; z-index:1000; left:35%; top:20%; display: block;">
+	<div class="arrow"></div>
+	<div class="popover-inner">
+		<h3 class="popover-title">
+			<span style="margin-right: 25px;">Detalles de abonos</span>
+			<button type="button" class="btn editable-cancel close-details-popup">
+				<i class="icon-remove"></i>
+			</button>
+		</h3>
+		
+		<div class="popover-content"><p>
+			<div>
+				<div style="display: none;" class="editableform-loading"></div>
+				<table class="table table-bordered table-striped">
+					<tbody>
+						<tr class="sonata-ba-view-container">
+							<td>Abono Anterior: </td>
+							<td>$ {{ lastPayments|number_format(2, '.', ',') }}</td>
+						</tr>
+						<tr>
+							<td>Abono Actual: </td>
+							<td>$ {{ actualPayments|number_format(2, '.', ',') }}</td>
+						</tr>
+						<tr>
+							<td>Total Abonado: </td>
+							<td>$ {{ (lastPayments+actualPayments)|number_format(2, '.', ',') }}</td>
+						</tr>
+						<tr>
+							<td>Resto: </td>
+							<td>$ {{ (totalOrder-lastPayments-actualPayments)|number_format(2, '.', ',') }}</td>
+						</tr>
+						<tr>
+							<td>Comision Cobrado: </td>
+							<td>$ {{ (lastPayments*earning)|number_format(2, '.', ',') }}</td>
+						</tr>
+						<tr>
+							<td>Comision Actual: </td>
+							<td>$ {{ (actualPayments*earning)|number_format(2, '.', ',') }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div></p>
+		</div>
+	</div>
+</div>

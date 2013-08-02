@@ -34,21 +34,6 @@ $('document').ready(function(){
 		}, 'json');
 	}
 	
-	//Edit in place employee information
-	$(".st_tabs_ul li").each(function(){
-		$(this).children('a').append($(this).children('div').clone().removeClass('editable-form'));
-	});
-	
-	var url = "";//Routing.generate('inodata_flora_collection_collector_edit_in_place');
-	$('.editable-form .edit-employee').editable(url, {
-		width:'100px', height:'20px',
-		indicator : 'Guardando...',
-		callback: function(value, settings){
-			var column = $(this).attr('column');
-			$('.st_tabs_ul a > div .'+column).text(value);
-		}
-	});
-	
 	$('#inodata_collection_type_form_id').change(function(){
 		var orderId = $(this).val()!=''?id=$(this).val():id=0;
 		var collectorId = $('.collector-tab.st_tab_active').attr('href').replace('#tab-', '');
@@ -73,4 +58,108 @@ $('document').ready(function(){
 		$('#slidetabs').slidetabs().setContentHeight();
 		
 	}
+	
+	/**
+	 * Change order status from list
+	 */
+	$('.order-action').live('click', function(){
+		var orderId = $(this).attr('orderid');
+		
+		if($(this).hasClass('remove')){
+			removeOrderFromCollector(this);
+		}
+		
+		return false;
+	});
+	
+	function removeOrderFromCollector(button){
+		var url = $(button).attr('href');
+		$.get(url, function(response){
+			if(response.success){
+				loadCollectorOrders(0);
+				updateOrdersOptions(response.orderOptions);
+			}
+		}, 'json');
+	}
+	
+	//Edit in place employee information
+	
+	$(".st_tabs_ul li").each(function(){
+		$(this).children('a').append($(this).children('div').clone().removeClass('editable-form'));
+	});
+	
+	$.fn.editable.defaults.mode = 'inline';
+	var url = Routing.generate('inodata_flora_collectionn_collector_edit_in_place');
+	$('.editable-form .edit-employee').editable({
+		url:url,
+		title:'ADato de empleado',
+		emptytext: '----',
+		success: function(response, newValue){
+			if(response!="success"){
+				return "Error";
+			}else{
+				var column = $(this).attr('column');
+				$('.st_tabs_ul a > div .'+column).text(newValue);
+			}
+			
+		}
+	});
+	
+	/***** Funcion para hacer un abono a la order*****/
+	var url = Routing.generate('inodata_flora_collection_order_deposit');
+	$('.deposit').live('click', function(){
+		$.fn.editable.defaults.mode = 'popup';
+		$('.order-payments').editable({
+			url:url,
+			title:'Abono',
+			value:'',
+			emptytext: '',
+			success: function(response, newValue){
+				if(response=="success"){
+					loadCollectorOrders(0);
+				}else{
+					return "Error";
+				}
+			}
+			
+		});
+		
+		$(this).closest('tr').find('.order-payments').click();
+		return false;
+	});
+	/************************************************/
+	
+	/** HACER CORTE DE CAJA EN LOS ABONOS DE LA ORDEN*/
+	$('.boxcut').live('click', function(){
+		var url = $(this).attr("href");
+		$.get(url, function(response){
+			if(response.success){
+				loadCollectorOrders(0);
+			}else{
+				alert("Error");
+			}
+		},'json');
+		
+		return false;
+	});
+	
+	
+	/** Carga popup para ver los abonos detalladamente
+	 * para cada orden
+	 */
+	$('.payment-details').live('click', function(){
+		var element = $(this);
+		var url = $(this).attr('href');
+		
+		$.get(url, function(response){
+			$(element).closest('.slidetabs').append(response.details);
+		}, 'json');
+		
+		return false;
+	});
+	
+	$('.close-details-popup').live('click', function(){
+		$(this).closest('.editable-container').remove();
+		return false;
+	});
 });

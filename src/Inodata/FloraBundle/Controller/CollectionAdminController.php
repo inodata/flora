@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Inodata\FloraBundle\Entity\Product;
 use Inodata\FloraBundle\Entity\Order;
+use Inodata\FloraBundle\Entity\OrderPayment;
 use Inodata\FloraBundle\Form\Type\CollectionType;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
@@ -118,9 +119,7 @@ class CollectionAdminController extends Controller{
 				array('orders' => array(0=>$order)));
 		 
 		//Cargar View con estos datos
-		$ordersDelivered = $this->getDoctrine()
-			->getRepository('InodataFloraBundle:Order')
-			->findByStatus('delivered');
+		$ordersDelivered = $this->getOrderOptionByStatus("delivered");
 		 
 		$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
 				array('orders' => $ordersDelivered));
@@ -132,6 +131,140 @@ class CollectionAdminController extends Controller{
 		return new Response(json_encode(array('order'=>$row,
 				'id'=>$collectorId, 'orderOptions'=>$orderOptions
 				/*'n_delivered'=>$nDelivered, 'n_in_transit'=>$nInTransit*/)));
+	}
+	
+	private function getOrderOptionByStatus($status)
+	{
+		$ordersDelivered = $this->getDoctrine()
+			->getRepository('InodataFloraBundle:Order')
+			->findByStatus($status);
+		
+		return $ordersDelivered;
+	}
+	
+	public function removeOrderAction($orderId)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$order = $em->getRepository('InodataFloraBundle:Order')
+			->find($orderId);
+		
+		$success = false;
+		if ($order){
+			$order->setCollector(null);
+			$order->setStatus('delivered');
+			$em->persist($order);
+			$em->flush();
+			$success = true;
+		}
+		
+		if ($this->isXmlHttpRequest()){
+			$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
+					array('orders' => $this->getOrderOptionByStatus("delivered")));
+					
+			return new Response(json_encode(array(
+					"success"=>$success, 
+					"orderOptions"=>$orderOptions
+				)));
+		}
+		
+		return new RedirectResponse($this->generateUrl('collection_list'));
+	}
+	
+	public function boxcutOrderAction($orderId)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$orderPayments = $em->getRepository("InodataFloraBundle:OrderPayment")
+			->findByOrder($orderId);
+		
+		if($orderPayments){
+			foreach ($orderPayments as $orderPayment){
+				$orderPayment->setIsPaid(true);
+				$orderPayment->setPaidDate(new \DateTime("NOW"));
+				
+				$em->persist($orderPayment);
+				$em->flush();
+			}
+		}
+		
+		return new Response(json_encode(array("success"=>true)));
+	}
+	
+	//Messenger edit in place
+	public function editInPlaceAction()
+	{
+		$employeeId = $this->get('request')->get('pk');
+		$employeeAttr = $this->get('request')->get('name');
+		$value =  $this->get('request')->get('value');
+	
+		$em = $this->getDoctrine()->getManager();
+		$employee = $em->getRepository('InodataFloraBundle:Employee')
+		->find($employeeId);
+		 
+		switch($employeeAttr){
+			case 'name':
+				$employee->setName($value);
+				break;
+			case 'lastname':
+				$employee->setLastname($value);
+				break;
+			case 'phone':
+				$employee->setPhone($value);
+				break;
+		};
+	
+		$em->persist($employee);
+	
+		$em->flush();
+		$em->clear();
+	
+		return new Response("success");
+	}
+	
+	//Make deposit to order
+	public function depositToOrderAction()
+	{
+		$idOrder = $this->get('request')->get('pk');
+		$value = $this->get('request')->get('value');
+		
+		if (!is_numeric($value)){
+			return new Response("Failed");
+		}
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$order = $em->getRepository('InodataFloraBundle:Order')
+			->find($idOrder);
+		
+		$orderPayment = new OrderPayment();
+		$orderPayment->setDeposit($value);
+		$orderPayment->setOrder($order);
+		
+		$em->persist($orderPayment);
+		$em->flush();
+		$em->clear();
+		
+		return new Response("success");
+	}
+	
+	public function paymentsOrderDetailsAction($orderId){
+		
+		$order = $this->getDoctrine()
+			->getRepository('InodataFloraBundle:Order')
+			->find($orderId);
+		
+		$lastPayments = $order->getLastOrderPayments();
+		$actualPayments = $order->getActualOrderPayments();
+		$totalOrder = $order->getOrderTotals();
+		$earning = 0.1;
+		
+		$orderDetails = $this->renderView('InodataFloraBundle:Collection:_payments_details.html.twig',
+				array('lastPayments'=>$lastPayments, 
+						'actualPayments'=>$actualPayments,
+						'totalOrder'=>$totalOrder, 
+						'earning'=>$earning
+				));
+		
+		return new Response(json_encode(array("details"=>$orderDetails)));
 	}
 	
 	private function setFilters($request)

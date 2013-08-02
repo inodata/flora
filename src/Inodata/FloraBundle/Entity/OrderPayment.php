@@ -35,23 +35,23 @@ class OrderPayment {
 	/**
 	 * @var float
 	 *
-	 * @ORM\Column(name="deposit", type="decimal", nullable=false)
+	 * @ORM\Column(name="deposit", type="float", nullable=false)
 	 */
 	private $deposit;
 	
 	/**
 	 * @var boolean
 	 *
-	 * @ORM\Column(name="has_invoice", type="boolean", nullable=true)
+	 * @ORM\Column(name="is_paid", type="boolean", nullable=true)
 	 */
-	private $isClosed;
+	private $isPaid;
 	
 	/**
 	 * @var \DateTime
 	 *
-	 * @ORM\Column(name="delivery_date", type="datetime", nullable=true)
+	 * @ORM\Column(name="paid_date", type="datetime", nullable=true)
 	 */
-	private $closeDate;
+	private $paidDate;
 	
 	/**
 	 * @var \DateTime
@@ -60,6 +60,11 @@ class OrderPayment {
 	 * @Gedmo\Timestampable(on="create")
 	 */
 	private $createdAt;
+	
+	public function __construct()
+	{
+		$this->isPaid = false;
+	}
 
     /**
      * Get id
@@ -95,49 +100,49 @@ class OrderPayment {
     }
 
     /**
-     * Set isClosed
+     * Set isPaid
      *
-     * @param boolean $isClosed
+     * @param boolean $isPaid
      * @return OrderPayment
      */
-    public function setIsClosed($isClosed)
+    public function setIsPaid($isPaid)
     {
-        $this->isClosed = $isClosed;
+        $this->isPaid = $isPaid;
     
         return $this;
     }
 
     /**
-     * Get isClosed
+     * Get isPaid
      *
      * @return boolean 
      */
-    public function getIsClosed()
+    public function getIsPaid()
     {
-        return $this->isClosed;
+        return $this->isPaid;
     }
 
     /**
-     * Set closeDate
+     * Set paidDate
      *
-     * @param \DateTime $closeDate
+     * @param \DateTime $paidDate
      * @return OrderPayment
      */
-    public function setCloseDate($closeDate)
+    public function setPaidDate($paidDate)
     {
-        $this->closeDate = $closeDate;
+        $this->paidDate = $paidDate;
     
         return $this;
     }
 
     /**
-     * Get closeDate
+     * Get paidDate
      *
      * @return \DateTime 
      */
-    public function getCloseDate()
+    public function getPaidDate()
     {
-        return $this->closeDate;
+        return $this->paidDate;
     }
 
     /**

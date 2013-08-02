@@ -100,3 +100,25 @@ inodata_flora_collection_orders_by_collector:
 inodata_flora_collection_add_order_to_collector: 
     pattern: /admin/inodata/flora/collection/add/order/to/collector
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:addOrderToCollector}
+    
+inodata_flora_collection_order_remove: 
+    pattern: /admin/inodata/flora/collection/remove/order/{orderId}
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:removeOrder }
+
+inodata_flora_collection_order_boxcut: 
+    pattern: /admin/inodata/flora/collection/boxcut/order/{orderId}
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:boxcutOrder }
+
+inodata_flora_collection_order_deposit: 
+    pattern: /admin/inodata/flora/collection/deposit/to/order/
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:depositToOrder }
+
+inodata_flora_collection_order_deposits: 
+    pattern: /admin/inodata/flora/collection/deposits/details/{orderId}
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:paymentsOrderDetails }
+    
+#new    
+inodata_flora_collectionn_collector_edit_in_place:
+    pattern: /admin/inodata/flora/collection/collector/edit/in/place
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:editInPlace}
+    

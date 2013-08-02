@@ -212,5 +212,10 @@
 	.sonata-ba-list-field-actions a.cancel-reasign{
 		display:none;
 	}
+	
+	/*Quitar borde del edit in place de los tabs*/
+	.st_tabs .editable-click{
+		border-bottom: 0;
+	}
 }
 

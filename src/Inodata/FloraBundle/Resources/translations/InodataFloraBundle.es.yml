@@ -138,6 +138,11 @@ label.job_position: Puesto
 
 #Collection
 label.collector_boxcut: Corte
+label.last_order_payments: Abono Ant.
+label.actual_order_payments: Abono
+label.order_total: Precio
+label.order_payments: Abonos
+label.collector_payment: Abonar
 
 #GuiaRoji
 label.map: Plano

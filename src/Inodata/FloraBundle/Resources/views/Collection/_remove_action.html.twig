@@ -1,4 +1,11 @@
-<a href="#" class="btn" title="{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}">
-    <img src="{{ asset('bundles/sonataadmin/famfamfam/cancel.png') }}"/>
-	{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}
-</a>
+{% if orderPayments is not defined %}
+	{% set  orderPayments = 0%}
+{% endif %}
+
+{% if orderPayments == 0%}
+	<a href="{{ path('inodata_flora_collection_order_remove', {orderId:object.id }) }}" 
+		class="btn {% if ajax is defined %}order-action remove{% endif %}" title="{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}">
+	    <img src="{{ asset('bundles/sonataadmin/famfamfam/cancel.png') }}"/>
+		{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}
+	</a>
+{% endif %}

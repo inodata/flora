@@ -47,7 +47,7 @@ class CollectionAdmin extends Admin {
 		/* TODO: Agregar comentarios */
 		$listMapper
 		->addIdentifier('id', null, array(
-				'label' => 'label.collection_id',
+				'label' => 'label.order',
 		))
 		->add('customerAndContact', null, array(
 				'label' => 'label.customer',
@@ -56,17 +56,18 @@ class CollectionAdmin extends Admin {
 				'label' => 'label.delivery_date',
 				'format' => 'd/M/Y'
 		))
-		->add('orderPayments', null, array(
+		->add('paymentsTotal', null, array(
 				'label'	=> 'label.order_payments'
 		))
 		->add('orderTotals', null, array(
-				'label'	=> 'label.order_payments'
+				'label'	=> 'label.order_total'
 		))
 		->add('_action', 'actions', array(
 				'label' => 'label.distribution_actions',
 				'actions' => array(
 						'boxcut' => array('template' => 'InodataFloraBundle:Collection:_boxcut_action.html.twig'),
-						'remove' => array('template' => 'InodataFloraBundle:Collection:_remove_action.html.twig')
+						'remove' => array('template' => 'InodataFloraBundle:Collection:_remove_action.html.twig'),
+						'deposit' => array('template' => 'InodataFloraBundle:Collection:_payment_action.html.twig')
 				)
 		));
 	}

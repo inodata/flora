@@ -820,18 +820,45 @@ class Order
     	return $customer.$contact;
     }
     
-    public function getOrderPayments(){
-    	global $kernel;
-    	 
-    	if ('AppCache' == get_class($kernel)) {
-    		$kernel = $kernel->getKernel();
+    public function getPaymentsTotal(){
+    	$em = $this->getEntityManager();
+    	
+    	$repository = $em->getRepository('InodataFloraBundle:OrderPayment');
+    	$orderPayments = $repository->findByOrder(array('orderId'=>$this->getId()));
+    	
+    	$total = 0; setlocale(LC_MONETARY, 'es_MX');
+    	if(!$orderPayments){
+    		return $total;
+    	}
+    	
+    	foreach ($orderPayments as $orderPayment){
+    		$total+=$orderPayment->getDeposit();
+    	}
+    	
+    	return $total;
+    }
+    
+    public function getLastOrderPayments()
+    {
+    	$orderPayments = $this->getOrderPayments(true);
+    	
+    	$total = 0; setlocale(LC_MONETARY, 'es_MX');
+    	if(!$orderPayments){
+    		return $total;
     	}
     	 
-    	$em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-    	$repository = $em->getRepository('InodataFloraBundle:OrderPayment');
-    	$orderPayments = $repository->findByOrder($this->getId());
+    	foreach ($orderPayments as $orderPayment){
+    		$total+=$orderPayment->getDeposit();
+    	}
+    	
+    	return $total;
+    }
+    
+    public function getActualOrderPayments()
+    {
+    	$orderPayments = $this->getOrderPayments(false);
    
-    	$total = 0;
+    	$total = 0; setlocale(LC_MONETARY, 'es_MX');
     	if(!$orderPayments){
     		return $total;
     	}
@@ -843,26 +870,41 @@ class Order
     	return $total;
     }
     
-    public function getOrderTotals(){
-    	global $kernel;
-    
-    	if ('AppCache' == get_class($kernel)) {
-    		$kernel = $kernel->getKernel();
-    	}
-    
-    	$em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+    public function getOrderTotals()
+    {
+    	$em = $this->getEntityManager();
     	$repository = $em->getRepository('InodataFloraBundle:OrderProduct');
     	$orderProducts = $repository->findByOrder($this->getId());
-    	 
-    	$total = 0; setlocale(LC_MONETARY, 'es_MX');
+    	$total = 0;
     	if(!$orderProducts){
-    		return '$ '.money_format('%i', $total);
+    		return $total;
     	}
     	 
     	foreach ($orderProducts as $orderProduct){
     		$total+=($orderProduct->getProductPrice()*$orderProduct->getQuantity());
     	}
     
-    	return '$ '.money_format('%i', $total);
+    	return $total;
+    }
+    
+    private function getOrderPayments($paid)
+    {
+    	$em = $this->getEntityManager();
+    	 
+    	$repository = $em->getRepository('InodataFloraBundle:OrderPayment');
+    	$orderPayments = $repository->findBy(array('order'=>$this->getId(),
+    			'isPaid'=>$paid));
+    	
+    	return $orderPayments;
+    }
+    
+    private function getEntityManager(){
+    	global $kernel;
+    	
+    	if ('AppCache' == get_class($kernel)) {
+    		$kernel = $kernel->getKernel();
+    	}
+    	
+    	return $kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
 }
