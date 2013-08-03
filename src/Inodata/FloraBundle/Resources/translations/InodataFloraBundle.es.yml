@@ -53,7 +53,7 @@ button.print_invoice: Imprimir factura
 button.print_note: Imprimir Nota
 
 #Order labels
-label.customer: Nombre Cliente
+label.customer: Cliente
 label.purchase_order: Orden de compra (cliente)
 label.payment_contact: Ordenó
 label.from: De
@@ -61,7 +61,7 @@ label.to: Para
 label.message_category: Categoría
 label.messages_list: Lista de mensajes
 label.message: Mensaje
-label.delivery_date: Fecha de entrega
+label.delivery_date: Entrega el
 label.search_product: Buscar producto
 label.product_list: Lista de productos
 label.shipping: Envío
@@ -72,7 +72,7 @@ label.msg_category_empty_list: Seleccionar una ocasión
 label.message_empty_list: Seleccionar un mensaje predefinido
 label.invoice: Factura
 label.order_notes: Observaciones
-label.order_number: No. de pedido
+label.order_number: Pedido
 label.created_at: Creado el
 label.updated_at: Actualizado el
 label.date: Fecha
