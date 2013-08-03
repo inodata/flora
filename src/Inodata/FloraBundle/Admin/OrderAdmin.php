@@ -223,6 +223,7 @@ class OrderAdmin extends Admin
 			->add('id', null, array('label' => 'label.order_number'))
 			->add('to', null, array('label' => 'label.to'))
 			->add('from', null, array('label' => 'label.from'))
+			->add('customer.companyName', null, array('label'=>'label.customer'))
 			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'doctrine_orm_string', array(
 				'label' => 'label.created_at',
