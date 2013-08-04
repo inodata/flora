@@ -53,6 +53,7 @@ button.print_invoice: Imprimir factura
 button.print_note: Imprimir Nota
 
 #Order labels
+label.reporter: Reportó
 label.customer: Cliente
 label.purchase_order: Orden de compra (cliente)
 label.payment_contact: Ordenó

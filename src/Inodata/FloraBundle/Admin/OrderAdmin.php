@@ -46,10 +46,8 @@ class OrderAdmin extends Admin
 				'attr' => array(
 					'class' => 'inodata-shipping-address'
 				)
-			))			
-			->add('id', 'hidden', array(
-					'attr' => array('class' => "order-id")
 			))
+			->add('reporter', null, array('label' => 'label.reporter'))			
 			->add('customer', 'sonata_type_model', array(
 					'label' => 'label.customer',
 					'empty_value' => '',
@@ -75,7 +73,6 @@ class OrderAdmin extends Admin
 					'attr' => array('class' => 'payment_contact_form')
 				)
 			)
-			->add('status', 'hidden')
 			->add('category', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.message_category',
 					'class' => 'Inodata\FloraBundle\Entity\Category',
@@ -172,9 +169,16 @@ class OrderAdmin extends Admin
 						)
 				))
 			->end()
+			->add('id', 'hidden', array(
+					'attr' => array('class' => "order-id")
+			))
+			->add('status', 'hidden')
 		;
 	}
 
+	/**
+	* Determina el ordenamiento por default en el listado
+	*/
 	protected $datagridValues = array(
         '_page'       => 1,
         '_sort_order' => 'DESC', // sort direction
