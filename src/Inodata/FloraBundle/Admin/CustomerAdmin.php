@@ -25,7 +25,8 @@ class CustomerAdmin extends Admin
 				->add('discount', null, array('label' => 'label.discount'))
 				->add('paymentCondition', 'text', array('label' => 'label.payment_condition',
 							'required' => false
-						))
+						)
+				)
 			->end()
 			->with('label.fiscal_address', array('expanded' => false,))
 				->add('usePasymentAddress', 'checkbox', array(
@@ -123,5 +124,20 @@ class CustomerAdmin extends Admin
 				return parent::getTemplate($name);
 				break;
 		}
+	}
+
+	public function prePersist($customer)
+	{
+	    foreach ($customer->getAddresses() as $address) {
+	        $customer->addAddress($address);
+	    }
+	}
+	 
+	public function preUpdate($customer)
+	{
+	    foreach ($customer->getAddresses() as $address) {
+	        $address->setCustomer($customer);
+	    }
+	    $customer->setAddresses($customer->getAddresses());
 	}
 } 

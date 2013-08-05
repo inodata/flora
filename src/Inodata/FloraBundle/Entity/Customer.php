@@ -293,7 +293,7 @@ class Customer
      * @param \Inodata\FloraBundle\Entity\Address $addresses
      * @return Customer
      */
-    public function addAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
+    public function addAddress(\Inodata\FloraBundle\Entity\Address $addresses)
     {
         $this->addresses[] = $addresses;
     
@@ -305,7 +305,7 @@ class Customer
      *
      * @param \Inodata\FloraBundle\Entity\Address $addresses
      */
-    public function removeAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
+    public function removeAddress(\Inodata\FloraBundle\Entity\Address $addresses)
     {
         $this->addresses->removeElement($addresses);
     }
