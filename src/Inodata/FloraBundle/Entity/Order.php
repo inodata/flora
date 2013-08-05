@@ -36,6 +36,13 @@ class Order
      * @ORM\Column(name="invoice_number", type="string", length=15, nullable=true)
      */
     private $invoiceNumber;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="purchase_order", type="string", length=32, nullable=true)
+     */
+    private $purchaseOrder;
     
     /**
      * @var \DateTime
@@ -857,8 +864,8 @@ class Order
     public function getActualOrderPayments()
     {
     	$orderPayments = $this->getOrderPayments(false);
-   
-    	$total = 0; setlocale(LC_MONETARY, 'es_MX');
+    	 
+    	$total = 0;
     	if(!$orderPayments){
     		return $total;
     	}
@@ -906,5 +913,28 @@ class Order
     	}
     	
     	return $kernel->getContainer()->get('doctrine.orm.entity_manager');
+    }
+
+    /**
+     * Set purchaseOrder
+     *
+     * @param integer $purchaseOrder
+     * @return Order
+     */
+    public function setPurchaseOrder($purchaseOrder)
+    {
+        $this->purchaseOrder = $purchaseOrder;
+    
+        return $this;
+    }
+
+    /**
+     * Get purchaseOrder
+     *
+     * @return integer 
+     */
+    public function getPurchaseOrder()
+    {
+        return $this->purchaseOrder;
     }
 }

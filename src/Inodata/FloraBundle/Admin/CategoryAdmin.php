@@ -17,7 +17,7 @@ class CategoryAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->add('description')
+			->add('description', null, array('label' => 'label.description'))
 		;
 	}
 	
@@ -30,10 +30,10 @@ class CategoryAdmin extends Admin
 	{
 		$listMapper
 			->addIdentifier('id')
-			->add('description')
+			->add('description', null, array('label' => 'label.description'))
 			->add('_action', 'actions', array(
+				'label' => 'label.action',
 				'actions' => array(
-					'view' => array(),
 					'edit' => array(),
 					'delete' => array(),
 				)
@@ -48,7 +48,7 @@ class CategoryAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('description')
+			->add('description', null, array('label' => 'label.description'))
 		;		
 	}
 	

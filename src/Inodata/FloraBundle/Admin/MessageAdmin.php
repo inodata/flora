@@ -42,9 +42,10 @@ class MessageAdmin extends Admin
 	protected function configureListFields(ListMapper $listMapper)
 	{
 		$listMapper
-			->addIdentifier('message')
-			->add('category')
+			->addIdentifier('message', null, array('label' => 'label.message'))
+			->add('category',  null, array('label' => 'label.message_category'))
 			->add('_action', 'actions', array(
+				'label' => 'label.action',
 				'actions' => array(
 					'view' => array(),
 					'edit' => array(),
@@ -61,8 +62,8 @@ class MessageAdmin extends Admin
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
-			->add('message')
-			->add('category')
+			->add('message', null, array('label' => 'label.message'))
+			->add('category', null, array('label' => 'label.message_category'))
 		;		
 	}
 	

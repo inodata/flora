@@ -57,6 +57,9 @@ class OrderAdmin extends Admin
 							'class' => 'inodata_customer span5',
 							'placeholder' => 'Buscar Cliente')
 					))
+			->add('purchaseOrder', null, array(
+					'label' => 'label.purchase_order')
+			)
 			->add('paymentContact', 'genemu_jqueryselect2_entity',array(
 					'label' => 'label.payment_contact',
 					'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
@@ -98,7 +101,11 @@ class OrderAdmin extends Admin
 					'config_name' => 'inodata_editor',
 					'attr' => array('class' => 'inodata_message span5')
 			))
-			->add('productos', 'sonata_type_model', array(
+			/**
+		 	* Si se agrega un elemento antes de este item, actualizar main.css
+			* para no romper el acomodo de acuerdo al index
+			*/
+			->add('products', 'sonata_type_model', array(
 				'label' => 'label.search_product',
 				'class' => 'Inodata\FloraBundle\Entity\Product',
 				'mapped' => false,
@@ -156,6 +163,7 @@ class OrderAdmin extends Admin
 						)
 				))
 				->add('invoice_date', 'date', array(
+						'required' => false,
 						'label'=> 'label.invoice_date',
 						'widget' => 'single_text',
 						'format' => 'd/MM/y',
@@ -191,12 +199,13 @@ class OrderAdmin extends Admin
 			->add('deliveryDate', null, array(
 					"label" => "label.delivery_date",
 					"format" => "d/M/Y"))
-					->add('_action', 'actions', array(
-							'actions' => array(
-									'edit' => array(),
-							)
-					)
-					);
+			->add('_action', 'actions', array(
+				'label' => 'label.action',
+				'actions' => array(
+						'edit' => array(),
+				)
+			)
+			);
 		}
 		else{
 			$listMapper
@@ -212,6 +221,7 @@ class OrderAdmin extends Admin
 			->add('paymentContact', null, array('label' => 'label.payment_contact'))
 			->add('messenger', null, array('label' => 'label.messenger'))
 			->add('_action', 'actions', array(
+					'label' => 'label.action',
 					'actions' => array(
 							'edit' => array(),
 			)));
@@ -227,8 +237,8 @@ class OrderAdmin extends Admin
 	{
 		$datagridMapper
 			->add('id', null, array('label' => 'label.order_number'))
-			->add('to')
-			->add('from')
+			->add('to', null, array('label' => 'label.to'))
+			->add('from', null, array('label' => 'label.from'))
 			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'doctrine_orm_string', array(
 				'label' => 'label.created_at',
