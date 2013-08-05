@@ -68,6 +68,15 @@ class Customer
      * })
      */
     private $paymentAddress;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Address")
+     * @ORM\JoinTable(name="ino_customer_address",
+     *      joinColumns={@ORM\JoinColumn(name="customer_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id")}
+     * )
+     */
+    private $addresses;
     
     /**
      * @var string
@@ -269,5 +278,45 @@ class Customer
     public function getPaymentCondition()
     {
         return $this->paymentCondition;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add addresses
+     *
+     * @param \Inodata\FloraBundle\Entity\Address $addresses
+     * @return Customer
+     */
+    public function addAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses;
+    
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \Inodata\FloraBundle\Entity\Address $addresses
+     */
+    public function removeAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
     }
 }

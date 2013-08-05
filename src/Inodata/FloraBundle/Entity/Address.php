@@ -85,6 +85,16 @@ class Address
     private $phone;
 
     /**
+     * @var \Employee
+     *
+     * @ORM\ManyToOne(targetEntity="Employee")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="messenger_id", referencedColumnName="id")
+     * })
+     */
+    private $messenger;
+
+    /**
     *@return string
     */
     public function __toString()
@@ -314,5 +324,28 @@ class Address
     public function getReference()
     {
         return $this->reference;
+    }
+
+    /**
+     * Set messenger
+     *
+     * @param \Inodata\FloraBundle\Entity\Employee $messenger
+     * @return Address
+     */
+    public function setMessenger(\Inodata\FloraBundle\Entity\Employee $messenger = null)
+    {
+        $this->messenger = $messenger;
+    
+        return $this;
+    }
+
+    /**
+     * Get messenger
+     *
+     * @return \Inodata\FloraBundle\Entity\Employee 
+     */
+    public function getMessenger()
+    {
+        return $this->messenger;
     }
 }

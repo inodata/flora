@@ -43,7 +43,20 @@ class CustomerAdmin extends Admin
 						'required' => false,
 						'attr' => array('class'=>'use-fiscal-address')))
 				->add('paymentAddress', 'inodata_address_form', array('label'=>false))
-			->end();
+			->end()
+			->with('label.more_addresses')
+				->add('addresses','sonata_type_collection' ,array(
+					'label' => 'label.extra_addresses',
+					'required' => false,
+				    'by_reference' => false
+					),
+					array(
+						'edit' => 'inline',
+					    'inline' => 'table',
+					    'allow_delete' => true
+					)
+				)
+			->end()
 		;
 	}
 
