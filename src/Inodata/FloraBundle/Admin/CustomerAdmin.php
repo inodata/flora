@@ -46,15 +46,22 @@ class CustomerAdmin extends Admin
 				->add('paymentAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('label.more_addresses')
+				/*TODO: Intentar implementar con sonata_type_collection
 				->add('addresses','sonata_type_collection' ,array(
 					'label' => 'label.extra_addresses',
 					'required' => false,
-				    'by_reference' => false
-					),
-					array(
-						'edit' => 'inline',
-					    'inline' => 'table',
-					    'allow_delete' => true
+					
+					)					
+				)*/
+				->add('addresses','collection' ,array(
+					'label' => 'label.extra_addresses',
+					'required' => false,
+					'type' => new \Inodata\FloraBundle\Form\Type\AddressType,
+				    'allow_add' => true,
+				    'allow_delete' => true,
+				    'by_reference' => true,
+				    /*'prototype_name' => 'label_address',
+				    'prototype' => true,*/
 					)
 				)
 			->end()
@@ -126,7 +133,7 @@ class CustomerAdmin extends Admin
 		}
 	}
 
-	public function prePersist($customer)
+	/*public function prePersist($customer)
 	{
 	    foreach ($customer->getAddresses() as $address) {
 	        $customer->addAddress($address);
@@ -139,5 +146,5 @@ class CustomerAdmin extends Admin
 	        $address->setCustomer($customer);
 	    }
 	    $customer->setAddresses($customer->getAddresses());
-	}
+	}*/
 } 

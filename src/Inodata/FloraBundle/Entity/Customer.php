@@ -70,7 +70,7 @@ class Customer
     private $paymentAddress;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Address")
+     * @ORM\ManyToMany(targetEntity="Address", cascade={"persist"})
      * @ORM\JoinTable(name="ino_customer_address",
      *      joinColumns={@ORM\JoinColumn(name="customer_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id")}
@@ -318,5 +318,28 @@ class Customer
     public function getAddresses()
     {
         return $this->addresses;
+    }
+
+    /**
+     * Add addresses
+     *
+     * @param \Inodata\FloraBundle\Entity\Address $addresses
+     * @return Customer
+     */
+    public function addAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses;
+    
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \Inodata\FloraBundle\Entity\Address $addresses
+     */
+    public function removeAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
     }
 }

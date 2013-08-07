@@ -39,6 +39,8 @@ label.rfc: RFC
 label.discount: Descuento
 label.use_fiscal_address: Usar dirección fiscal
 label.use_payment_address: Usar dirección de cobro
+label.more_addresses: Otras direcciones
+label.extra_addresses: Agregar/Eliminar direcciones
 
 #Order tabs
 tab.customer: Cliente
