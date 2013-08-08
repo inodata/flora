@@ -198,7 +198,7 @@ class OrderAdmin extends Admin
 					"label" => "label.created_at",
 					"format" => "d/M/Y")
 			)
-			->add('customer.companyName', null, array('label'=>'label.customer'))
+			->add('customer', null, array('label'=>'label.customer'))
 			->add('firstProduct', null, array("label" => "label.details"))
 			->add('firstProductPrice', null, array('label'=>'label.price'))
 			->add('shipping', null, array('label'=>'label.shipping'))			

@@ -94,7 +94,7 @@ class Customer
             $companyName = $this->companyName;
         }
         
-        if ($companyName=="" && !empty($this->businessName)){
+        if (empty($companyName) && !empty($this->businessName)){
         	$companyName = $this->businessName;
         }
         
