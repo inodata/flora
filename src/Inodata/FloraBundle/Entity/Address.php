@@ -85,6 +85,29 @@ class Address
     private $phone;
 
     /**
+     * @var \Employee
+     *
+     * @ORM\ManyToOne(targetEntity="Employee")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="messenger_id", referencedColumnName="id")
+     * })
+     */
+    private $messenger;
+
+    /**
+    * @var \Customer
+    * @ORM\ManyToOne(targetEntity="Customer", inversedBy="addresses", cascade={"persist"})
+    * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+    */
+    private $customer;
+
+    /**
+     * @var string
+     * @ORM\Column(name="address_type", type="string", columnDefinition="ENUM('Delivery','Fiscal', 'Shipping', 'Billing')")
+     */
+    private $addressType;
+
+    /**
     *@return string
     */
     public function __toString()
@@ -314,5 +337,74 @@ class Address
     public function getReference()
     {
         return $this->reference;
+    }
+
+    /**
+     * Set messenger
+     *
+     * @param \Inodata\FloraBundle\Entity\Employee $messenger
+     * @return Address
+     */
+    public function setMessenger(\Inodata\FloraBundle\Entity\Employee $messenger = null)
+    {
+        $this->messenger = $messenger;
+    
+        return $this;
+    }
+
+    /**
+     * Get messenger
+     *
+     * @return \Inodata\FloraBundle\Entity\Employee 
+     */
+    public function getMessenger()
+    {
+        return $this->messenger;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Inodata\FloraBundle\Entity\Customer $customer
+     * @return Address
+     */
+    public function setCustomer(\Inodata\FloraBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+    
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Inodata\FloraBundle\Entity\Customer 
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Set addressType
+     *
+     * @param string $addressType
+     * @return Address
+     */
+    public function setAddressType($addressType)
+    {
+        $this->addressType = $addressType;
+    
+        return $this;
+    }
+
+    /**
+     * Get addressType
+     *
+     * @return string 
+     */
+    public function getAddressType()
+    {
+        return $this->addressType;
     }
 }

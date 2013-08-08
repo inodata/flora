@@ -25,7 +25,8 @@ class CustomerAdmin extends Admin
 				->add('discount', null, array('label' => 'label.discount'))
 				->add('paymentCondition', 'text', array('label' => 'label.payment_condition',
 							'required' => false
-						))
+						)
+				)
 			->end()
 			->with('label.fiscal_address', array('expanded' => false,))
 				->add('usePasymentAddress', 'checkbox', array(
@@ -43,7 +44,21 @@ class CustomerAdmin extends Admin
 						'required' => false,
 						'attr' => array('class'=>'use-fiscal-address')))
 				->add('paymentAddress', 'inodata_address_form', array('label'=>false))
-			->end();
+			->end()
+			->with('label.more_addresses')
+				->add('addresses','sonata_type_collection',
+					array(
+						'label' => 'label.extra_addresses',
+						'required' => false,
+						'by_reference' => false,
+					),
+					array(
+						'edit' => 'inline',
+						'inline' => 'table',
+						'allow_delete' => true
+					)
+				)
+			->end()
 		;
 	}
 
@@ -89,8 +104,7 @@ class CustomerAdmin extends Admin
 	 * @param Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
 	 * 
 	 * @return void
-	 */
-	
+	 */	
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
@@ -110,5 +124,19 @@ class CustomerAdmin extends Admin
 				return parent::getTemplate($name);
 				break;
 		}
+	}
+
+	public function prePersist($customer)
+	{
+	    foreach ($customer->getAddresses() as $address) {
+	        $address->setCustomer($customer);
+	    }
+	}
+	 
+	public function preUpdate($customer)
+	{
+	    foreach ($customer->getAddresses() as $address) {
+	        $address->setCustomer($customer);
+	    }
 	}
 } 
