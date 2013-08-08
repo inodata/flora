@@ -4,6 +4,10 @@ label.action: Acción
 #Custom picklists
 Messenger: Repartidor
 Collector: Cobrador
+Delivery: Entrega
+Fiscal: Fiscal
+Shipping: Envío
+Billing: Cobro
 
 #knp menu (breadcrumbs)
 Category List: Lista de Categorías
@@ -39,6 +43,8 @@ label.rfc: RFC
 label.discount: Descuento
 label.use_fiscal_address: Usar dirección fiscal
 label.use_payment_address: Usar dirección de cobro
+label.more_addresses: Otras direcciones
+label.extra_addresses: Agregar/Eliminar direcciones
 
 #Order tabs
 tab.customer: Cliente
@@ -96,6 +102,7 @@ label.collector: Cobrador
 
 
 #Address labels
+label.address_type: Tipo Dirección
 label.address: Dirección
 label.street: Calle
 label.exterior: Número

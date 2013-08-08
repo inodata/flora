@@ -19,13 +19,15 @@ class AddressAdmin extends Admin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
+			->add('addressType', 'inodata_address_type_type', array('label' => 'label.address_type', 'attr' => array('class' => 'span5')))
 			->add('street', null, array('label' => 'label.street'))
-			->add('noInt', null, array('label' => 'label.interior'))
 			->add('noExt', null, array('label' => 'label.exterior'))
-			->add('neighborhood', null, array('label' => 'label.neighborhood'))
-			->add('state', 'inodata_mx_states_type', array('label' => 'label.state'))
-			->add('city', null, array('label' => 'label.city'))
+			->add('noInt', null, array('label' => 'label.interior'))
+			->add('reference', null, array('label' => 'label.reference'))
 			->add('postalCode', null, array('label' => 'label.postal_code'))
+			->add('neighborhood', null, array('label' => 'label.neighborhood'))
+			->add('city', null, array('label' => 'label.city'))
+			->add('state', 'inodata_mx_states_type', array('label' => 'label.state'))
 		;
 	}
 	
