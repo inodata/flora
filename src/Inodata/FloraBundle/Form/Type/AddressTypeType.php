@@ -13,7 +13,8 @@ class AddressTypeType extends AbstractType
 			'choices' => array(
 				"Delivery" => "Delivery",
 				"Fiscal" => "Fiscal",
-				"Shipping" => "Shipping"
+				"Shipping" => "Shipping",
+				"Billing" => "Billing",
 			),
 			'translation_domain' => 'InodataFloraBundle'
 		));

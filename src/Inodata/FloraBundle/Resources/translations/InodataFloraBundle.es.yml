@@ -7,6 +7,7 @@ Collector: Cobrador
 Delivery: Entrega
 Fiscal: Fiscal
 Shipping: Envío
+Billing: Cobro
 
 #knp menu (breadcrumbs)
 Category List: Lista de Categorías

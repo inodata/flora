@@ -103,7 +103,7 @@ class Address
 
     /**
      * @var string
-     * @ORM\Column(name="address_type", type="string", columnDefinition="ENUM('Delivery','Fiscal', 'Shipping')")
+     * @ORM\Column(name="address_type", type="string", columnDefinition="ENUM('Delivery','Fiscal', 'Shipping', 'Billing')")
      */
     private $addressType;
 
