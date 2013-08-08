@@ -4,6 +4,9 @@ label.action: Acción
 #Custom picklists
 Messenger: Repartidor
 Collector: Cobrador
+Delivery: Entrega
+Fiscal: Fiscal
+Shipping: Envío
 
 #knp menu (breadcrumbs)
 Category List: Lista de Categorías
@@ -98,6 +101,7 @@ label.collector: Cobrador
 
 
 #Address labels
+label.address_type: Tipo Dirección
 label.address: Dirección
 label.street: Calle
 label.exterior: Número

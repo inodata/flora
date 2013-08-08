@@ -70,11 +70,8 @@ class Customer
     private $paymentAddress;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Address", cascade={"persist"})
-     * @ORM\JoinTable(name="ino_customer_address",
-     *      joinColumns={@ORM\JoinColumn(name="customer_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id")}
-     * )
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="customer", cascade={"persist", "remove"}, orphanRemoval=true)
+     * 
      */
     private $addresses;
     
@@ -279,6 +276,8 @@ class Customer
     {
         return $this->paymentCondition;
     }
+    
+    
     /**
      * Constructor
      */
@@ -287,39 +286,6 @@ class Customer
         $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-    /**
-     * Add addresses
-     *
-     * @param \Inodata\FloraBundle\Entity\Address $addresses
-     * @return Customer
-     */
-    public function addAddress(\Inodata\FloraBundle\Entity\Address $addresses)
-    {
-        $this->addresses[] = $addresses;
-    
-        return $this;
-    }
-
-    /**
-     * Remove addresses
-     *
-     * @param \Inodata\FloraBundle\Entity\Address $addresses
-     */
-    public function removeAddress(\Inodata\FloraBundle\Entity\Address $addresses)
-    {
-        $this->addresses->removeElement($addresses);
-    }
-
-    /**
-     * Get addresses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAddresses()
-    {
-        return $this->addresses;
-    }
-
     /**
      * Add addresses
      *
@@ -341,5 +307,30 @@ class Customer
     public function removeAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
     {
         $this->addresses->removeElement($addresses);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * Set addresses
+     *
+     * @param  $addresses
+     * @return Customer
+     */
+    public function setAddresses($addresses)
+    {
+        foreach ($addresses as $address) {
+            $this->addAddresse($address);
+        }
+    
+        return $this;
     }
 }

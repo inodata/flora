@@ -46,22 +46,16 @@ class CustomerAdmin extends Admin
 				->add('paymentAddress', 'inodata_address_form', array('label'=>false))
 			->end()
 			->with('label.more_addresses')
-				/*TODO: Intentar implementar con sonata_type_collection
-				->add('addresses','sonata_type_collection' ,array(
-					'label' => 'label.extra_addresses',
-					'required' => false,
-					
-					)					
-				)*/
-				->add('addresses','collection' ,array(
-					'label' => 'label.extra_addresses',
-					'required' => false,
-					'type' => new \Inodata\FloraBundle\Form\Type\AddressType,
-				    'allow_add' => true,
-				    'allow_delete' => true,
-				    'by_reference' => true,
-				    /*'prototype_name' => 'label_address',
-				    'prototype' => true,*/
+				->add('addresses','sonata_type_collection',
+					array(
+						'label' => 'label.extra_addresses',
+						'required' => false,
+						'by_reference' => false,
+					),
+					array(
+						'edit' => 'inline',
+						'inline' => 'table',
+						'allow_delete' => true
 					)
 				)
 			->end()
@@ -110,8 +104,7 @@ class CustomerAdmin extends Admin
 	 * @param Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
 	 * 
 	 * @return void
-	 */
-	
+	 */	
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper
@@ -133,10 +126,10 @@ class CustomerAdmin extends Admin
 		}
 	}
 
-	/*public function prePersist($customer)
+	public function prePersist($customer)
 	{
 	    foreach ($customer->getAddresses() as $address) {
-	        $customer->addAddress($address);
+	        $address->setCustomer($customer);
 	    }
 	}
 	 
@@ -145,6 +138,5 @@ class CustomerAdmin extends Admin
 	    foreach ($customer->getAddresses() as $address) {
 	        $address->setCustomer($customer);
 	    }
-	    $customer->setAddresses($customer->getAddresses());
-	}*/
+	}
 } 
