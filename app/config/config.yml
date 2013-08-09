@@ -26,18 +26,21 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-      order_shipping: %order_shipping%
-      issuing_name:       %issuing_name%
-      issuing_rfc:        %issuing_rfc%
-      issuing_curp:       %issuing_curp%
-      issuing_street:     %issuing_street%
-      issuing_nint:       %issuing_nint%
-      issuing_neighborhood: %issuing_neighborhood%
-      issuing_cp:         %issuing_cp%
-      issuing_city:       %issuing_city%
-      issuing_state:      %issuing_state%
-      issuing_phone:      %issuing_phone%
-      issuing_phone2:     %issuing_phone2%
+        order_shipping:     %order_shipping%
+        issuing_name:       %issuing_name%
+        issuing_rfc:        %issuing_rfc%
+        issuing_curp:       %issuing_curp%
+        issuing_street:     %issuing_street%
+        issuing_nint:       %issuing_nint%
+        issuing_neighborhood: %issuing_neighborhood%
+        issuing_cp:         %issuing_cp%
+        issuing_city:       %issuing_city%
+        issuing_state:      %issuing_state%
+        issuing_phone:      %issuing_phone%
+        issuing_phone2:     %issuing_phone2%
+        card_printer:       %card_printer%
+        note_printer:       %note_printer%
+        invoice_printer:    %invoice_printer%
     form:
         resources:
             - 'InodataFloraBundle:Form:fields.html.twig'
