@@ -32,9 +32,10 @@ end
 before "deploy:share_childs", "upload_parameters"
 
 # Symfony2
-set :model_manager, "doctrine"                   # Or: `propel`
+set  :model_manager, "doctrine"                  # Or: `propel`
 role :web,        domain                         # Your HTTP server, Apache/etc
 role :app,        domain, :primary => true       # This may be the same as your `Web` server
+# TODO: Add "src/Inodata/FloraBundle/Resources/public/js/print.js" to shared_files?
 set :shared_files,      ["app/config/parameters.yml"]
 set :shared_children,   [app_path + "/logs", web_path + "/uploads"]
 
@@ -47,7 +48,6 @@ set :writable_dirs,       ["app/cache", "app/logs"]
 set :webserver_user,      "www-data"
 set :permission_method,   :acl
 set :use_set_permissions, false
-
 
 # Be more verbose by uncommenting the following line
 logger.level = Logger::MAX_LEVEL
