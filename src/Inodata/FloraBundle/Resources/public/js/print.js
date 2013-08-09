@@ -1,6 +1,5 @@
 // Install JSPrintSetup
 function installjsPrintSetup() {
-    //if (confirm("You don't have printer plugin.\nDo you want to install the Printer Plugin now?")) {
     if (confirm("No tienes instalado el plugin de la impresora.\nQuieres instalarlo ahora?")) {
         var xpi = new Object();
         xpi['jsprintsetup'] = '/bundles/inodataflora/downloads/jsprintsetup-0.9.2.xpi';
@@ -43,6 +42,14 @@ function setupGlobalOptions(){
     jsPrintSetup.setOption('footerStrRight', '');
 
     //definePaperSizes();
+    
+    /* debugoptions */
+    //jsPrintSetup.setPaperSizeData(1);
+    //jsPrintSetup.setOption ("paperWidth", 216);
+    //jsPrintSetup.setOption ("paperHeight", 140);
+    //jsPrintSetup.setPaperSizeData(100);
+    //alert(jsPrintSetup.getPaperSizeList());
+    //alert(jsPrintSetup.getPrintersList());
 
     // clears user preferences always silent print value
     // to enable using 'printSilent' option
@@ -56,44 +63,60 @@ function setupGlobalOptions(){
 // Do Print 
 // When print is submitted it is executed asynchronous and
 // script flow continues after print independently of completetion of print process! 
-//  jsPrintSetup.print();
+// jsPrintSetup.print();
 var print_delay = 3000;
+
+//TODO: Get this printer names from parameters.yml
+//Medium Letter Paper Size
+var note_printer = 'Epson_xp002';
+var card_printer = 'Epson_xp001';
+//Letter Paper Size
+var invoice_printer = 'Facturas';
+
+/**
+* Gets the printer list in array and select the proper printer.
+* If it's installed as network printer or local printer this function
+* selects "\\pc-name\printerX" or "printerX" respectively.
+* @param printer <String> Printer name, this can be a local or shared printer name
+* @return void
+*/
+function setPrinter(printer){
+  printersList = jsPrintSetup.getPrintersList();
+  printersList = printersList.split(",");
+  
+  for (var i=0; i<printersList.length; i++){
+    if(printersList[i].indexOf(printer) != -1){
+      jsPrintSetup.setPrinter(printersList[i]);
+      return;
+    }
+  }
+
+  alert('No se encontro la impresora');
+}
+
 
 function printCard(){
   setupGlobalOptions();
-  jsPrintSetup.definePaperSize(1, 1, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
-  jsPrintSetup.setPaperSizeData(1);
-  jsPrintSetup.setPrinter('\\\\flora\\Tarjetas');
-  //alert(jsPrintSetup.getPaperMeasure());
+  setPrinter(card_printer);
   setTimeout('jsPrintSetup.print()', print_delay);
 }
 
 function printNote(){
   setupGlobalOptions();
-  //jsPrintSetup.setPaperSizeData(1);
-  //jsPrintSetup.setOption ("paperWidth", 216);
-  //jsPrintSetup.setOption ("paperHeight", 140);
-  jsPrintSetup.definePaperSize(100, 100, 'na_letter', 'na_letter_8.5x11in', 'Notas', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
-  jsPrintSetup.setPaperSizeData(100);
-  //alert(jsPrintSetup.getPaperSizeList());
-  jsPrintSetup.setPrinter('\\\\flora\\Notas');
-  //alert(jsPrintSetup.getPaperMeasure());
+  setPrinter(note_printer);
   //add a delay to render correctly all elements fetched via AJAX
   setTimeout('jsPrintSetup.print()', print_delay);
 }
 
 function printInvoice(){
   setupGlobalOptions();
-  jsPrintSetup.definePaperSize(1, 1, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 11, jsPrintSetup.kPaperSizeInches);
-  jsPrintSetup.setPaperSizeData(1);
-  jsPrintSetup.setPrinter('Facturas');
-  //alert(jsPrintSetup.getPaperMeasure());
-  //add a delay to render correctly all elements fetched via AJAX
+  setPrinter(invoice_printer);
   setTimeout('jsPrintSetup.print()', print_delay);
 }
 
-//FIXME: Revisar la impresion de esta lista y seleccionar impresora.
+//TODO: Revisar la impresion de esta lista y seleccionar impresora.
 function printDistributionList(){
   setupGlobalOptions();
-  setTimeout('jsPrintSetup.print()', 3000);
+  setPrinter(invoice_printer);
+  setTimeout('jsPrintSetup.print()', print_delay);
 }
