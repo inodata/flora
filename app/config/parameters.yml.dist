@@ -17,6 +17,7 @@ parameters:
     
     #Inodata Parameters
     order_shipping:    65
+    collector_commission: 0.1
     
     issuing_name:       ~
     issuing_rfc:        ~

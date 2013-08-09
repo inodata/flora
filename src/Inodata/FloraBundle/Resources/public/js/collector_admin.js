@@ -1,5 +1,6 @@
 $('document').ready(function(){
 	$('.inodata_id_list').select2({allowClear:true});
+	$('.filter-deliver-date').datepicker({ dateFormat: "yy-mm-dd" });
 	
 	loadSlidingTabsEfects();
 	
@@ -29,8 +30,7 @@ $('document').ready(function(){
 		$.get(url, function(data){
 			$('.st_view.tab-'+data.id).find('tbody').html(data.orders);
 			$('#slidetabs').slidetabs().setContentHeight();
-			
-			//TODO: Cargar resultados para el cobrador
+			updatePayments(data);
 		}, 'json');
 	}
 	
@@ -45,7 +45,7 @@ $('document').ready(function(){
 			$.post(url, data, function(response){
 				$('.st_view.tab-'+response.id).find('tbody').prepend(response.order);
 				
-				//TODO: Cargar informacion de las ganancias del cobrador
+				updatePayments(response);
 				updateOrdersOptions(response.orderOptions);
 			},'json');
 		}
@@ -57,6 +57,11 @@ $('document').ready(function(){
 			.select2({allowClear:true});
 		$('#slidetabs').slidetabs().setContentHeight();
 		
+	}
+	
+	function updatePayments(data){
+		$('#total-payments').text('$ '+data.payments);
+		$('#total-commission').text('$ '+data.commission);
 	}
 	
 	/**

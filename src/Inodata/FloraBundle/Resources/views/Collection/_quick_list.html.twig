@@ -80,30 +80,22 @@
 									<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
 										{{ form_widget(collection_form.id)}}
 									</div>
-									<div class="deliver-all">
-										<a class="btn order-action deliver-all" orderid="0" href="#"><img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
-										{{ 'label.deliver_all'|trans({}, 'InodataFloraBundle') }}</a>
+									<div class="pay-all">
+										<a class="btn order-action pay-all" orderid="0" href="#"><img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
+										{{ 'label.pay_all'|trans({}, 'InodataFloraBundle') }}</a>
 									</div>
-									{#
-									<div class="is-delivered">
-										<div id="num-delivered">0</div>
-										<div>Entregados</div>
+									<div class="boxcut-all">
+										<a class="btn order-action boxcut-all" orderid="0" href="#"><img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
+										{{ 'label.boxcut_all'|trans({}, 'InodataFloraBundle') }}</a>
 									</div>
-									<div class="in-transit">
-										<div id="num-pendings">0</div>
-										<div>Pendientes</div>
+									<div class="collected">
+										<div id="total-payments">{{ payments['payments'] }}</div>
+										<div>Abonos</div>
 									</div>
-									<div class="boxes">
-										<div class="more"><a href="javascript:void()">+</a></div>
-										<div class="num-boxes"></div>
-										<div class="less"><a href="javascript:void()">-</a></div>
+									<div class="collecting">
+										<div id="total-commission">{{ payments['commission'] }}</div>
+										<div>Comision</div>
 									</div>
-									<div class="lamps">
-										<div class="more"><a href="javascript:void()">+</a></div>
-										<div class="num-lamps"></div>
-										<div class="less"><a href="javascript:void()">-</a></div>
-									</div>
-									#}
 								</div>
 							{% endif %}
 							<br><br>

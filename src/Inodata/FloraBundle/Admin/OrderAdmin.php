@@ -46,10 +46,8 @@ class OrderAdmin extends Admin
 				'attr' => array(
 					'class' => 'inodata-shipping-address'
 				)
-			))			
-			->add('id', 'hidden', array(
-					'attr' => array('class' => "order-id")
 			))
+			->add('reporter', null, array('label' => 'label.reporter'))			
 			->add('customer', 'sonata_type_model', array(
 					'label' => 'label.customer',
 					'empty_value' => '',
@@ -75,7 +73,6 @@ class OrderAdmin extends Admin
 					'attr' => array('class' => 'payment_contact_form')
 				)
 			)
-			->add('status', 'hidden')
 			->add('category', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.message_category',
 					'class' => 'Inodata\FloraBundle\Entity\Category',
@@ -172,8 +169,21 @@ class OrderAdmin extends Admin
 						)
 				))
 			->end()
+			->add('id', 'hidden', array(
+					'attr' => array('class' => "order-id")
+			))
+			->add('status', 'hidden')
 		;
 	}
+
+	/**
+	* Determina el ordenamiento por default en el listado
+	*/
+	protected $datagridValues = array(
+        '_page'       => 1,
+        '_sort_order' => 'DESC', // sort direction
+        '_sort_by' => 'id' // field name
+    );
 	
 	/**
 	 * @param Sonata\AdminBundle\Datagrid\ListMapper $listMapper
@@ -182,50 +192,28 @@ class OrderAdmin extends Admin
 	 */
 	protected function configureListFields(ListMapper $listMapper)
 	{
-		if (!isset($this->list_view)){
-			$this->list_view = "normal";
-		}
-		
-		if ($this->list_view!="details")
-		{
-			$listMapper
+		$listMapper
 			->addIdentifier('id', null, array("label" => "label.order_number"))
-			->add('firstProduct', null, array("label" => "label.details"))
-			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'date', array(
 					"label" => "label.created_at",
 					"format" => "d/M/Y")
 			)
-			->add('deliveryDate', null, array(
-					"label" => "label.delivery_date",
-					"format" => "d/M/Y"))
-			->add('_action', 'actions', array(
-				'label' => 'label.action',
-				'actions' => array(
-						'edit' => array(),
-				)
-			)
-			);
-		}
-		else{
-			$listMapper
-			->addIdentifier('id', null, array("label" => "label.order_number"))
-			->add('collector', null, array('label' => 'label.collector'))
+			->add('customer.companyName', null, array('label'=>'label.customer'))
 			->add('firstProduct', null, array("label" => "label.details"))
 			->add('firstProductPrice', null, array('label'=>'label.price'))
-			->add('shipping', null, array('label'=>'label.shipping'))
-			->add('customer.companyName', null, array('label'=>'label.customer'))
+			->add('shipping', null, array('label'=>'label.shipping'))			
 			->add('deliveryDate', null, array(
 					"label" => "label.delivery_date",
 					"format" => "d/M/Y"))
 			->add('paymentContact', null, array('label' => 'label.payment_contact'))
 			->add('messenger', null, array('label' => 'label.messenger'))
+			->add('collector', null, array('label' => 'label.collector'))
 			->add('_action', 'actions', array(
 					'label' => 'label.action',
 					'actions' => array(
-							'edit' => array(),
-			)));
-		}
+						'edit' => array())
+			)
+		);		
 	}
 	
 	/**
@@ -239,6 +227,7 @@ class OrderAdmin extends Admin
 			->add('id', null, array('label' => 'label.order_number'))
 			->add('to', null, array('label' => 'label.to'))
 			->add('from', null, array('label' => 'label.from'))
+			->add('customer.companyName', null, array('label'=>'label.customer'))
 			->add('creator', null, array('label' => 'label.capturated'))
 			->add('createdAt', 'doctrine_orm_string', array(
 				'label' => 'label.created_at',

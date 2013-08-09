@@ -217,5 +217,35 @@
 	.st_tabs .editable-click{
 		border-bottom: 0;
 	}
+	
+	/* CSS for Collection*/
+	.sonata-bc .row-fluid .slidetabs .span5 {
+		width:100%;
+	}
+	
+	.collecting, .collected {
+		position: relative;
+		width: 70px;
+		height: 30px;
+		top: -6px;
+		padding-left: 20px;
+	}
+	
+	.collecting > div, .collected > div {
+    	position: relative;
+    	color: rgb(68, 68, 68);
+    	font-weight: bold;
+    	width: 100%;
+    	text-align: center;
+    }
+    
+    .collecting > div:first-child, .collected > div:first-child {
+    	top: 0px;
+    	font-size: 16px;
+    }
+    
+    .sonata-bc input.filter-deliver-date{
+    	width: 110px;
+    }
 }
 

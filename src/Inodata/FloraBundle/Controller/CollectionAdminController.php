@@ -59,7 +59,8 @@ class CollectionAdminController extends Controller{
 				'last_tab' => $lastTab,
 				'selected_collector' => $this->getSelectedCollector($firstCollector),
 				'list_view' => $this->getListeView(),
-				'orders'	=> $this->getCollectorOrders($this->getSelectedCollector($firstCollector))
+				'orders'	=> $this->getCollectorOrders($this->getSelectedCollector($firstCollector)),
+				'payments' => $this->getDespositsAndCommissionByCollector($this->getSelectedCollector())
 		));
 	
 		return $render;
@@ -74,22 +75,40 @@ class CollectionAdminController extends Controller{
 		return $orders;
 	}
 	
+	private function getDespositsAndCommissionByCollector($id)
+	{
+		$orders = $this->getDoctrine()
+			->getRepository('InodataFloraBundle:Order')
+			->findBy(array('collector'=>$id, 'status'=>'partiallypayment'));
+		
+		$totalPayments = 0;
+		foreach ($orders as $order){
+			$totalPayments+=$order->getActualOrderPayments();
+		}
+		
+		$earning = $this->container->getParameter('collector_commission');
+		$totalcommission = ($totalPayments * $earning);
+		
+		return array("payments"=>$totalPayments, "commission"=>$totalcommission);
+	}
+	
 	
 	public function loadOrdersByCollectorAction($id)
 	{
 		$this->setSelectedCollector($id);
 		$id = $this->getSelectedCollector();
-		//$status = $this->getStatusSelected();
+		
 		//TODO: implementar carga de orders de acuerdo al filtro
 		
 		$orders = $this->getCollectorOrders($id);
-		 
 		$response = $this->renderView('InodataFloraBundle:Collection:_list_item.html.twig',
 				array('orders' => $orders));
+		
+		$paymentsAndCommision = $this->getDespositsAndCommissionByCollector($id);
 		 
 		return new Response(json_encode(array('orders'=>$response,
-				'id'=>$id /*'n_in_transit'=>$nOrdersInTransit, 'n_delivered' => $nOrdersDelivered,
-				'boxes'=>$messenger->getBoxes(), 'lamps'=>$messenger->getLamps()*/)));
+				'id'=>$id, 'payments'=>$paymentsAndCommision['payments'],
+				'commission' => $paymentsAndCommision['commission'])));
 	}
 	
 	public function addOrderToCollectorAction()
@@ -124,13 +143,12 @@ class CollectionAdminController extends Controller{
 		$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
 				array('orders' => $ordersDelivered));
 		
-		//TODO: Cargar informacion de las ganancias delcobrador
-		//$nInTransit = $this->getNOrdersInStatus('intransit', $messengerId);
-		//$nDelivered = $this->getNOrdersInStatus('delivered', $messengerId);
+		$paymentsAndCommision = $this->getDespositsAndCommissionByCollector($collectorId);
 	
 		return new Response(json_encode(array('order'=>$row,
-				'id'=>$collectorId, 'orderOptions'=>$orderOptions
-				/*'n_delivered'=>$nDelivered, 'n_in_transit'=>$nInTransit*/)));
+				'id'=>$collectorId, 'orderOptions'=>$orderOptions,
+				'payments'=>$paymentsAndCommision['payments'],
+				'commission' => $paymentsAndCommision['commission'])));
 	}
 	
 	private function getOrderOptionByStatus($status)
@@ -160,10 +178,15 @@ class CollectionAdminController extends Controller{
 		if ($this->isXmlHttpRequest()){
 			$orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
 					array('orders' => $this->getOrderOptionByStatus("delivered")));
+			
+			$paymentsAndCommision = $this
+				->getDespositsAndCommissionByCollector($this->getSelectedCollector());
 					
 			return new Response(json_encode(array(
 					"success"=>$success, 
-					"orderOptions"=>$orderOptions
+					"orderOptions"=>$orderOptions,
+					'payments'=>$paymentsAndCommision['payments'],
+					'commission' => $paymentsAndCommision['commission']
 				)));
 		}
 		
@@ -255,7 +278,7 @@ class CollectionAdminController extends Controller{
 		$lastPayments = $order->getLastOrderPayments();
 		$actualPayments = $order->getActualOrderPayments();
 		$totalOrder = $order->getOrderTotals();
-		$earning = 0.1;
+		$earning = $this->container->getParameter('collector_commission');
 		
 		$orderDetails = $this->renderView('InodataFloraBundle:Collection:_payments_details.html.twig',
 				array('lastPayments'=>$lastPayments, 

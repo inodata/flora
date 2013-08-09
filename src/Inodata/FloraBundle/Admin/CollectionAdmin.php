@@ -93,9 +93,11 @@ class CollectionAdmin extends Admin {
 		->add('id', null, array(
 				'label' => 'label.distribution_id'
 		))
-		->add('deliveryDate', 'doctrine_orm_string', array(
-				'label' => 'label.delivery_date'
-		))
+		->add('deliveryDate', 'doctrine_orm_date_range', array(
+				'label' => 'label.delivery_date'),
+				null,
+				array('widget'=>'single_text', 'attr'=>array('class'=>'filter-deliver-date'))
+				)
 		/*
 		->add('status', null, array(
 				'label' => 'label.distribution_status',

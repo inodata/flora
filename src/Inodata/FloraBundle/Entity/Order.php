@@ -83,6 +83,12 @@ class Order
     private $creator;
 
     /**
+     * @var string
+     * @ORM\Column(name="reporter", type="string", length=32, nullable=true)
+     */
+    private $reporter;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -936,5 +942,28 @@ class Order
     public function getPurchaseOrder()
     {
         return $this->purchaseOrder;
+    }
+
+    /**
+     * Set reporter
+     *
+     * @param string $reporter
+     * @return Order
+     */
+    public function setReporter($reporter)
+    {
+        $this->reporter = $reporter;
+    
+        return $this;
+    }
+
+    /**
+     * Get reporter
+     *
+     * @return string 
+     */
+    public function getReporter()
+    {
+        return $this->reporter;
     }
 }
