@@ -64,14 +64,9 @@ function setupGlobalOptions(){
 // When print is submitted it is executed asynchronous and
 // script flow continues after print independently of completetion of print process! 
 // jsPrintSetup.print();
+// add a delay to render correctly all elements fetched via AJAX
+// setTimeout('jsPrintSetup.print()', print_delay);
 var print_delay = 3000;
-
-//TODO: Get this printer names from parameters.yml
-//Medium Letter Paper Size
-var note_printer = 'Epson_xp002';
-var card_printer = 'Epson_xp001';
-//Letter Paper Size
-var invoice_printer = 'Facturas';
 
 /**
 * Gets the printer list in array and select the proper printer.
@@ -87,30 +82,33 @@ function setPrinter(printer){
   for (var i=0; i<printersList.length; i++){
     if(printersList[i].indexOf(printer) != -1){
       jsPrintSetup.setPrinter(printersList[i]);
-      return;
+      return true;
     }
   }
 
-  alert('No se encontro la impresora');
+  alert('No se encontro la impresora' + ': ' +printer);
+  return false;
 }
-
 
 function printCard(){
   setupGlobalOptions();
-  setPrinter(card_printer);
-  setTimeout('jsPrintSetup.print()', print_delay);
+  if(setPrinter(card_printer)){
+	  setTimeout('jsPrintSetup.print()', print_delay);
+  }
 }
 
 function printNote(){
   setupGlobalOptions();
-  setPrinter(note_printer);
-  //add a delay to render correctly all elements fetched via AJAX
-  setTimeout('jsPrintSetup.print()', print_delay);
+  if(setPrinter(note_printer)){
+	  setTimeout('jsPrintSetup.print()', print_delay);
+  }
 }
 
 function printInvoice(){
   setupGlobalOptions();
-  setPrinter(invoice_printer);
+  if(setPrinter(invoice_printer)){
+	  setTimeout('jsPrintSetup.print()', print_delay);
+  }
   setTimeout('jsPrintSetup.print()', print_delay);
 }
 
