@@ -109,8 +109,8 @@ class OrderAdmin extends Admin
 				'required' => false,
 				'empty_value' => '',
 				'attr' => array(
-						'placeholder' => $this->trans('label.product_empty_list'),
-						'class'=>'inodata_product', 'style'=>'width:100%')
+					'placeholder' => $this->trans('label.product_empty_list'),
+					'class'=>'inodata_product', 'style'=>'width:100%')
 			))
 			->add('hasInvoice', 'checkbox', array(
 					'label' => 'label.invoice_require',
