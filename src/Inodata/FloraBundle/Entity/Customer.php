@@ -68,6 +68,12 @@ class Customer
      * })
      */
     private $paymentAddress;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="customer", cascade={"persist", "remove"}, orphanRemoval=true)
+     * 
+     */
+    private $addresses;
     
     /**
      * @var string
@@ -88,7 +94,7 @@ class Customer
             $companyName = $this->companyName;
         }
         
-        if ($companyName=="" && !empty($this->businessName)){
+        if (empty($companyName) && !empty($this->businessName)){
         	$companyName = $this->businessName;
         }
         
@@ -269,5 +275,62 @@ class Customer
     public function getPaymentCondition()
     {
         return $this->paymentCondition;
+    }
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add addresses
+     *
+     * @param \Inodata\FloraBundle\Entity\Address $addresses
+     * @return Customer
+     */
+    public function addAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses;
+    
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \Inodata\FloraBundle\Entity\Address $addresses
+     */
+    public function removeAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * Set addresses
+     *
+     * @param  $addresses
+     * @return Customer
+     */
+    public function setAddresses($addresses)
+    {
+        foreach ($addresses as $address) {
+            $this->addAddresse($address);
+        }
+    
+        return $this;
     }
 }

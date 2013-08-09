@@ -11,32 +11,19 @@ class AddressType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('street', null, array(
-				'label' => 'label.street', )
-			)
-			->add('noExt', null, array(
-				'label' => 'label.exterior',)
-			)
-			->add('noInt', null, array(
-				'label' => 'label.interior',)
-			)
+			->add('street', null, array('label' => 'label.street'))
+			->add('noExt', null, array('label' => 'label.exterior'))
+			->add('noInt', null, array('label' => 'label.interior'))
 			->add('reference', null, array('label' => 'label.reference'))
-			->add('postalCode', null, array(
-				'label' => 'label.postal_code',)
+			->add('postalCode', null, array('label' => 'label.postal_code'))
+			->add('neighborhood', null, array('label' => 'label.neighborhood'))
+			->add('city', null, array('label' => 'label.city'))
+			->add('state', 'inodata_mx_states_type',
+				array('label' => 'label.state',
+					'attr' => array('class'=>'mx_state')
+				)
 			)
-			->add('neighborhood', null, array(
-				'label' => 'label.neighborhood',)
-			)
-			->add('city', null, array(
-				'label' => 'label.city',)
-			)
-			->add('state', 'inodata_mx_states_type', array(
-				'label' => 'label.state',
-				'attr' => array('class'=>'mx_state'))
-			)
-			->add('phone', null, array(
-				'label' => 'label.delivery_phone',)
-			)
+			->add('phone', null, array('label' => 'label.delivery_phone'))
 		;
 	}
 
@@ -48,8 +35,10 @@ class AddressType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'Inodata\FloraBundle\Entity\Address',
-				'translation_domain' => 'InodataFloraBundle'
+			'data_class' => 'Inodata\FloraBundle\Entity\Address',
+			'translation_domain' => 'InodataFloraBundle',
+			//TODO: Implementar el tipo de dirección como etiqueta.
+			'label' => false
 		));
 	}
 }
