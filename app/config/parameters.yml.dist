@@ -32,5 +32,6 @@ parameters:
     issuing_phone2:     ~
 
     #Printers configuration
-    card_printer:       EPSONLX300
-    note_printer:       EPSONLX300
+    card_printer: Epson_xp001
+    note_printer: Epson_xp002
+    invoice_printer: Facturas
