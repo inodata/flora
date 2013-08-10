@@ -123,6 +123,9 @@ $('document').ready(function(){
 				if(response=="success"){
 					loadCollectorOrders(0);
 				}else{
+					if(response=="overflow"){
+						return "El abono es mayor al resto"
+					}
 					return "Error";
 				}
 			}
@@ -167,4 +170,27 @@ $('document').ready(function(){
 		$(this).closest('.editable-container').remove();
 		return false;
 	});
+	
+	/**
+	 * PAY ALL BUTTON OR BOXCUT TO ALL
+	 */
+	$('.pay-all, .boxcut-all').live('click', function(){
+		var url = $(this).attr('href');
+		
+		$.get(url, function(response){
+			if(response.success){
+				loadCollectorOrders(0);
+			}
+		}, 'json');
+		
+		return false;
+	});
+	/*---------------------------------*/
+	
+	
+	
+	
+	
+	
+	
 });

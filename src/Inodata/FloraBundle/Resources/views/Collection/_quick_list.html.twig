@@ -81,19 +81,21 @@
 										{{ form_widget(collection_form.id)}}
 									</div>
 									<div class="pay-all">
-										<a class="btn order-action pay-all" orderid="0" href="#"><img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
-										{{ 'label.pay_all'|trans({}, 'InodataFloraBundle') }}</a>
+										<a class="btn order-action pay-all" orderid="0" href="{{ path('inodata_flora_collection_pay_all') }}">
+											<img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
+											{{ 'label.pay_all'|trans({}, 'InodataFloraBundle') }}</a>
 									</div>
 									<div class="boxcut-all">
-										<a class="btn order-action boxcut-all" orderid="0" href="#"><img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
-										{{ 'label.boxcut_all'|trans({}, 'InodataFloraBundle') }}</a>
+										<a class="btn order-action boxcut-all" orderid="0" href="{{ path('inodata_flora_collection_boxcut_all') }}">
+											<img alt="Entregado" src="/bundles/sonataadmin/famfamfam/accept.png"></img>
+											{{ 'label.boxcut_all'|trans({}, 'InodataFloraBundle') }}</a>
 									</div>
 									<div class="collected">
-										<div id="total-payments">{{ payments['payments'] }}</div>
+										<div id="total-payments">$ {{ payments['payments'] }}</div>
 										<div>Abonos</div>
 									</div>
 									<div class="collecting">
-										<div id="total-commission">{{ payments['commission'] }}</div>
+										<div id="total-commission">$ {{ payments['commission'] }}</div>
 										<div>Comision</div>
 									</div>
 								</div>

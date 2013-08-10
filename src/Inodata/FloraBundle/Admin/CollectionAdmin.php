@@ -52,8 +52,8 @@ class CollectionAdmin extends Admin {
 		->add('customerAndContact', null, array(
 				'label' => 'label.customer',
 		))
-		->add('deliveryDate', null, array(
-				'label' => 'label.delivery_date',
+		->add('collectionDate', null, array(
+				'label' => 'label.collection_date',
 				'format' => 'd/M/Y'
 		))
 		->add('paymentsTotal', null, array(

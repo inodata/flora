@@ -70,16 +70,20 @@ class CollectionAdminController extends Controller{
 	{
 		$orders = $this->getDoctrine()
 			->getRepository('InodataFloraBundle:Order')
-			->findByCollector($collectorId);
+			->createQueryBuilder('o')
+			->where("o.status='partiallypayment' OR o.status = 'closed'")
+			->andWhere('o.collector=:collector')
+			//TODO: Filtrar por rango de fecha
+			->setParameter('collector', $collectorId)
+			->getQuery()
+			->getResult();
 		
 		return $orders;
 	}
 	
 	private function getDespositsAndCommissionByCollector($id)
 	{
-		$orders = $this->getDoctrine()
-			->getRepository('InodataFloraBundle:Order')
-			->findBy(array('collector'=>$id, 'status'=>'partiallypayment'));
+		$orders = $this->getCollectorOrders($id);
 		
 		$totalPayments = 0;
 		foreach ($orders as $order){
@@ -97,8 +101,6 @@ class CollectionAdminController extends Controller{
 	{
 		$this->setSelectedCollector($id);
 		$id = $this->getSelectedCollector();
-		
-		//TODO: implementar carga de orders de acuerdo al filtro
 		
 		$orders = $this->getCollectorOrders($id);
 		$response = $this->renderView('InodataFloraBundle:Collection:_list_item.html.twig',
@@ -129,6 +131,7 @@ class CollectionAdminController extends Controller{
 		if( $order != null ){
 			$order->setStatus('partiallypayment');
 			$order->setCollector($collector);
+			$order->setCollectionDate(new \DateTime("NOW"));
 			 
 			$em->persist($order);
 			$em->flush();
@@ -170,6 +173,7 @@ class CollectionAdminController extends Controller{
 		if ($order){
 			$order->setCollector(null);
 			$order->setStatus('delivered');
+			$order->setCollectionDate(null);
 			$em->persist($order);
 			$em->flush();
 			$success = true;
@@ -193,7 +197,7 @@ class CollectionAdminController extends Controller{
 		return new RedirectResponse($this->generateUrl('collection_list'));
 	}
 	
-	public function boxcutOrderAction($orderId)
+	public function boxcutOrderAction($orderId, $response=true)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$orderPayments = $em->getRepository("InodataFloraBundle:OrderPayment")
@@ -209,7 +213,9 @@ class CollectionAdminController extends Controller{
 			}
 		}
 		
-		return new Response(json_encode(array("success"=>true)));
+		if ($response){
+			return new Response(json_encode(array("success"=>true)));
+		}
 	}
 	
 	//Messenger edit in place
@@ -258,11 +264,19 @@ class CollectionAdminController extends Controller{
 		$order = $em->getRepository('InodataFloraBundle:Order')
 			->find($idOrder);
 		
+		$reamining = $order->getOrderTotals() - $order->getPaymentsTotal();
+		if ($value > $reamining){
+			return new Response('overflow');
+		}
+		
 		$orderPayment = new OrderPayment();
 		$orderPayment->setDeposit($value);
 		$orderPayment->setOrder($order);
-		
 		$em->persist($orderPayment);
+		$em->flush();
+		
+		$order->setStatus('closed');
+		$em->persist($order);
 		$em->flush();
 		$em->clear();
 		
@@ -288,6 +302,50 @@ class CollectionAdminController extends Controller{
 				));
 		
 		return new Response(json_encode(array("details"=>$orderDetails)));
+	}
+	
+	public function payAllAction()
+	{
+		$collector = $this->getSelectedCollector();
+		$em = $this->getDoctrine()->getManager();
+		
+		$orders = $em->getRepository('InodataFloraBundle:Order')
+			->findBy(array('collector'=>$collector, 'status'=>'partiallypayment'));
+		
+		if($orders){
+			foreach ($orders as $order){
+				$newDeposit = $order->getOrderTotals() - $order->getPaymentsTotal();
+				
+				if ($newDeposit>0){
+					$orderPayment = new OrderPayment();
+					$orderPayment->setDeposit($newDeposit);
+					$orderPayment->setOrder($order);
+					
+					$em->persist($orderPayment);
+					$em->flush();
+					
+					$order->setStatus('closed');
+					$em->persist($order);
+					$em->flush();
+				}
+			}
+		}
+		
+		return new Response(json_encode(array('success'=>true)));
+	}
+	
+	public function boxcutAllAction()
+	{
+		$collector = $this->getSelectedCollector();
+		$orders = $this->getCollectorOrders($collector);
+		
+		if ($orders){
+			foreach ($orders as $order){
+				$this->boxcutOrderAction($order->getId(), false);
+			}
+		}
+		
+		return new Response(json_encode(array('success'=>true)));
 	}
 	
 	private function setFilters($request)

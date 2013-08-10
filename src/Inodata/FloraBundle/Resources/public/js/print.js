@@ -87,30 +87,36 @@ function setPrinter(printer){
   for (var i=0; i<printersList.length; i++){
     if(printersList[i].indexOf(printer) != -1){
       jsPrintSetup.setPrinter(printersList[i]);
-      return;
+      return true;
     }
   }
 
   alert('No se encontro la impresora');
+  return false;
 }
 
 
 function printCard(){
   setupGlobalOptions();
-  setPrinter(card_printer);
-  setTimeout('jsPrintSetup.print()', print_delay);
+  if(setPrinter(card_printer)){
+	  setTimeout('jsPrintSetup.print()', print_delay);
+  }
 }
 
 function printNote(){
   setupGlobalOptions();
-  setPrinter(note_printer);
+  if(setPrinter(note_printer)){
+	  setTimeout('jsPrintSetup.print()', print_delay);
+  }
   //add a delay to render correctly all elements fetched via AJAX
   setTimeout('jsPrintSetup.print()', print_delay);
 }
 
 function printInvoice(){
   setupGlobalOptions();
-  setPrinter(invoice_printer);
+  if(setPrinter(invoice_printer)){
+	  setTimeout('jsPrintSetup.print()', print_delay);
+  }
   setTimeout('jsPrintSetup.print()', print_delay);
 }
 

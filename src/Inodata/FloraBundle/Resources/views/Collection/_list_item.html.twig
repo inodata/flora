@@ -12,7 +12,7 @@
 		{{ order.customerAndContact() }}
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-datetime" objectid="{{ order.id }}">
-		{{ order.deliveryDate|date("d/M/Y") }}
+		{{ order.collectionDate|date("d/M/Y") }}
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="{{ order.id }}">
 		<a class="payment-details" href="{{ path('inodata_flora_collection_order_deposits', {orderId:order.id}) }}">

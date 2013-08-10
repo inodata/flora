@@ -117,6 +117,14 @@ inodata_flora_collection_order_deposits:
     pattern: /admin/inodata/flora/collection/deposits/details/{orderId}
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:paymentsOrderDetails }
     
+inodata_flora_collection_pay_all: 
+    pattern: /admin/inodata/flora/collection/pay/all
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:payAll }
+    
+inodata_flora_collection_boxcut_all: 
+    pattern: /admin/inodata/flora/collection/boxcut/all
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:boxcutAll }
+    
 #new    
 inodata_flora_collectionn_collector_edit_in_place:
     pattern: /admin/inodata/flora/collection/collector/edit/in/place

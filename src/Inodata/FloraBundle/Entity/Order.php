@@ -165,6 +165,13 @@ class Order
      * })
      */
     private $collector;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="collection_date", type="datetime", nullable=true)
+     */
+    private $collectionDate;
 
     /**
      * @var \PaymentContact
@@ -839,7 +846,7 @@ class Order
     	$repository = $em->getRepository('InodataFloraBundle:OrderPayment');
     	$orderPayments = $repository->findByOrder(array('orderId'=>$this->getId()));
     	
-    	$total = 0; setlocale(LC_MONETARY, 'es_MX');
+    	$total = 0;
     	if(!$orderPayments){
     		return $total;
     	}
@@ -965,5 +972,28 @@ class Order
     public function getReporter()
     {
         return $this->reporter;
+    }
+
+    /**
+     * Set collectionDate
+     *
+     * @param \DateTime $collectionDate
+     * @return Order
+     */
+    public function setCollectionDate($collectionDate)
+    {
+        $this->collectionDate = $collectionDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get collectionDate
+     *
+     * @return \DateTime 
+     */
+    public function getCollectionDate()
+    {
+        return $this->collectionDate;
     }
 }
