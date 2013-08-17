@@ -56,19 +56,13 @@ class CollectionAdmin extends Admin {
 				'label' => 'label.collection_date',
 				'format' => 'd/M/Y'
 		))
-		->add('paymentsTotal', null, array(
-				'label'	=> 'label.order_payments'
-		))
 		->add('orderTotals', null, array(
 				'label'	=> 'label.order_total'
 		))
 		->add('_action', 'actions', array(
 				'label' => 'label.distribution_actions',
 				'actions' => array(
-						'boxcut' => array('template' => 'InodataFloraBundle:Collection:_boxcut_action.html.twig'),
-						'remove' => array('template' => 'InodataFloraBundle:Collection:_remove_action.html.twig'),
-						'deposit' => array('template' => 'InodataFloraBundle:Collection:_payment_action.html.twig')
-				)
+						'boxcut' => array('template' => 'InodataFloraBundle:Collection:_boxcut_action.html.twig'),)
 		));
 	}
 	
@@ -94,19 +88,17 @@ class CollectionAdmin extends Admin {
 				'label' => 'label.distribution_id'
 		))
 		->add('deliveryDate', 'doctrine_orm_date_range', array(
-				'label' => 'label.delivery_date'),
-				null,
-				array('widget'=>'single_text', 'attr'=>array('class'=>'filter-deliver-date'))
-				)
-		/*
-		->add('status', null, array(
-				'label' => 'label.distribution_status',
-		),  'choice', array( 'translation_domain' => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
-				'choices' => array( 'open' => 'label.distribution_delivery_status_open',
-						'intransit' => 'label.distribution_delivery_status_intransit',
-						'delivered' => 'label.distribution_delivery_status_delivered',
-						'closed' => 'label.distribution_delivery_status_closed') ) )*/
-		;
+				'label' => 'label.delivery_date'), null,
+				array('widget'=>'single_text', 'attr'=>array('class'=>'filter-deliver-date')))
+		->add('status', null, array('label' => 'label.distribution_status',),
+				  'choice', array( 
+				  		'translation_domain' => 'InodataFloraBundle', 
+				  		'expanded' => false, 
+				  		'multiple' => false,
+						'choices' => array( 
+								'partiallypayment' => 'label.collection_status_pending',
+								'closed' => 'label.collection_status_paid'))
+				);
 	}
 	
 	public function getTemplate($name)

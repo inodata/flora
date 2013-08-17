@@ -180,11 +180,14 @@ label.last_order_payments: Abono Ant.
 label.actual_order_payments: Abono
 label.order_total: Precio
 label.order_payments: Abonos
-label.collector_payment: Abonar
+label.collector_pay: Pagado
 label.collection_collector: Cobrador
 label.pay_all: Pagar todo
 label.boxcut_all: Corte a todos
 label.collection_date: Fecha Asignada
+label.unasign: Desasignar
+label.collection_status_pending: Pendiente
+label.collection_status_paid: Pagado
 
 #GuiaRoji
 label.map: Plano

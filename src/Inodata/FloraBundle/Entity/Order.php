@@ -840,56 +840,6 @@ class Order
     	return $customer.$contact;
     }
     
-    public function getPaymentsTotal(){
-    	$em = $this->getEntityManager();
-    	
-    	$repository = $em->getRepository('InodataFloraBundle:OrderPayment');
-    	$orderPayments = $repository->findByOrder(array('orderId'=>$this->getId()));
-    	
-    	$total = 0;
-    	if(!$orderPayments){
-    		return $total;
-    	}
-    	
-    	foreach ($orderPayments as $orderPayment){
-    		$total+=$orderPayment->getDeposit();
-    	}
-    	
-    	return $total;
-    }
-    
-    public function getLastOrderPayments()
-    {
-    	$orderPayments = $this->getOrderPayments(true);
-    	
-    	$total = 0; setlocale(LC_MONETARY, 'es_MX');
-    	if(!$orderPayments){
-    		return $total;
-    	}
-    	 
-    	foreach ($orderPayments as $orderPayment){
-    		$total+=$orderPayment->getDeposit();
-    	}
-    	
-    	return $total;
-    }
-    
-    public function getActualOrderPayments()
-    {
-    	$orderPayments = $this->getOrderPayments(false);
-    	 
-    	$total = 0;
-    	if(!$orderPayments){
-    		return $total;
-    	}
-    	
-    	foreach ($orderPayments as $orderPayment){
-    		$total+=$orderPayment->getDeposit();
-    	}
-    
-    	return $total;
-    }
-    
     public function getOrderTotals()
     {
     	$em = $this->getEntityManager();
@@ -905,17 +855,6 @@ class Order
     	}
     
     	return $total;
-    }
-    
-    private function getOrderPayments($paid)
-    {
-    	$em = $this->getEntityManager();
-    	 
-    	$repository = $em->getRepository('InodataFloraBundle:OrderPayment');
-    	$orderPayments = $repository->findBy(array('order'=>$this->getId(),
-    			'isPaid'=>$paid));
-    	
-    	return $orderPayments;
     }
     
     private function getEntityManager(){

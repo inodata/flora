@@ -23,7 +23,7 @@ class CollectionAdminController extends Controller{
 			$this->setListView($this->getRequest()->get('view'));
 		}
 	
-		//$this->setFilters($this->get('request')->get('filter'));
+		$this->setFilters($this->get('request')->get('filter'));
 	
 		$datagrid = $this->admin->getDatagrid();
 		$formView = $datagrid->getForm()->createView();
@@ -85,15 +85,15 @@ class CollectionAdminController extends Controller{
 	{
 		$orders = $this->getCollectorOrders($id);
 		
-		$totalPayments = 0;
+		$totalOrders = 0;
 		foreach ($orders as $order){
-			$totalPayments+=$order->getActualOrderPayments();
+			$totalOrders+=$order->getOrderTotals();
 		}
 		
 		$earning = $this->container->getParameter('collector_commission');
-		$totalcommission = ($totalPayments * $earning);
+		$totalcommission = ($totalOrders * $earning);
 		
-		return array("payments"=>$totalPayments, "commission"=>$totalcommission);
+		return array("payments"=>$totalOrders, "commission"=>$totalcommission);
 	}
 	
 	
@@ -197,27 +197,6 @@ class CollectionAdminController extends Controller{
 		return new RedirectResponse($this->generateUrl('collection_list'));
 	}
 	
-	public function boxcutOrderAction($orderId, $response=true)
-	{
-		$em = $this->getDoctrine()->getManager();
-		$orderPayments = $em->getRepository("InodataFloraBundle:OrderPayment")
-			->findByOrder($orderId);
-		
-		if($orderPayments){
-			foreach ($orderPayments as $orderPayment){
-				$orderPayment->setIsPaid(true);
-				$orderPayment->setPaidDate(new \DateTime("NOW"));
-				
-				$em->persist($orderPayment);
-				$em->flush();
-			}
-		}
-		
-		if ($response){
-			return new Response(json_encode(array("success"=>true)));
-		}
-	}
-	
 	//Messenger edit in place
 	public function editInPlaceAction()
 	{
@@ -246,40 +225,6 @@ class CollectionAdminController extends Controller{
 		$em->flush();
 		$em->clear();
 	
-		return new Response("success");
-	}
-	
-	//Make deposit to order
-	public function depositToOrderAction()
-	{
-		$idOrder = $this->get('request')->get('pk');
-		$value = $this->get('request')->get('value');
-		
-		if (!is_numeric($value)){
-			return new Response("Failed");
-		}
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		$order = $em->getRepository('InodataFloraBundle:Order')
-			->find($idOrder);
-		
-		$reamining = $order->getOrderTotals() - $order->getPaymentsTotal();
-		if ($value > $reamining){
-			return new Response('overflow');
-		}
-		
-		$orderPayment = new OrderPayment();
-		$orderPayment->setDeposit($value);
-		$orderPayment->setOrder($order);
-		$em->persist($orderPayment);
-		$em->flush();
-		
-		$order->setStatus('closed');
-		$em->persist($order);
-		$em->flush();
-		$em->clear();
-		
 		return new Response("success");
 	}
 	
@@ -314,38 +259,32 @@ class CollectionAdminController extends Controller{
 		
 		if($orders){
 			foreach ($orders as $order){
-				$newDeposit = $order->getOrderTotals() - $order->getPaymentsTotal();
-				
-				if ($newDeposit>0){
-					$orderPayment = new OrderPayment();
-					$orderPayment->setDeposit($newDeposit);
-					$orderPayment->setOrder($order);
-					
-					$em->persist($orderPayment);
-					$em->flush();
-					
-					$order->setStatus('closed');
-					$em->persist($order);
-					$em->flush();
-				}
+				$this->payOrder($order);
 			}
 		}
 		
 		return new Response(json_encode(array('success'=>true)));
 	}
 	
-	public function boxcutAllAction()
+	public function payOrderAction($orderId)
 	{
-		$collector = $this->getSelectedCollector();
-		$orders = $this->getCollectorOrders($collector);
+		$order = $this->getDoctrine()
+			->getRepository("InodataFloraBundle:Order")
+			->find($orderId);
 		
-		if ($orders){
-			foreach ($orders as $order){
-				$this->boxcutOrderAction($order->getId(), false);
-			}
+		if ($order){
+			$this->payOrder($order);
 		}
 		
 		return new Response(json_encode(array('success'=>true)));
+	}
+	
+	public function payOrder($order)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$order->setStatus('closed');
+		$em->persist($order);
+		$em->flush();
 	}
 	
 	private function setFilters($request)
@@ -355,15 +294,7 @@ class CollectionAdminController extends Controller{
 			$this->setStatusSelected(null);
 		}else
 		{
-			if (isset($request['deliveryDate']['value'])){
-				$this->setDateSelected($request['deliveryDate']['value']);
-			}
-			if (isset($request['collector']['value'])){
-				$this->setSelectedCollector($request['collector']['value']);
-			}
-			if (isset($request['status']['value'])){
-				$this->setStatusSelected($request['status']['value']);
-			}
+			//
 		}
 	}
 	

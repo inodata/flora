@@ -111,6 +111,7 @@ $('document').ready(function(){
 	});
 	
 	/***** Funcion para hacer un abono a la order*****/
+	/*
 	var url = Routing.generate('inodata_flora_collection_order_deposit');
 	$('.deposit').live('click', function(){
 		$.fn.editable.defaults.mode = 'popup';
@@ -134,10 +135,10 @@ $('document').ready(function(){
 		
 		$(this).closest('tr').find('.order-payments').click();
 		return false;
-	});
+	});*/
 	/************************************************/
 	
-	/** HACER CORTE DE CAJA EN LOS ABONOS DE LA ORDEN*/
+	/** HACER CORTE DE CAJA EN LOS ABONOS DE LA ORDEN
 	$('.boxcut').live('click', function(){
 		var url = $(this).attr("href");
 		$.get(url, function(response){
@@ -149,7 +150,7 @@ $('document').ready(function(){
 		},'json');
 		
 		return false;
-	});
+	});*/
 	
 	
 	/** Carga popup para ver los abonos detalladamente
@@ -171,10 +172,20 @@ $('document').ready(function(){
 		return false;
 	});
 	
-	/**
-	 * PAY ALL BUTTON OR BOXCUT TO ALL
-	 */
-	$('.pay-all, .boxcut-all').live('click', function(){
+	/* PAY AN ORDER, PAY ALLORDERS*/
+	$('.pay-action').live('click', function(){
+		var url = $(this).attr('href');
+		
+		$.get(url, function(response){
+			if(response.success){
+				loadCollectorOrders(0);
+			}
+		}, 'json');
+		
+		return false;
+	});
+	
+	$('.pay-all').live('click', function(){
 		var url = $(this).attr('href');
 		
 		$.get(url, function(response){
