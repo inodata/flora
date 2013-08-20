@@ -87,11 +87,11 @@
 									</div>
 									<div class="collected">
 										<div id="total-payments">$ {{ payments['payments'] }}</div>
-										<div>Abonos</div>
+										<div>{{ 'label.total_paids'|trans({}, 'InodataFloraBundle') }}</div>
 									</div>
 									<div class="collecting">
 										<div id="total-commission">$ {{ payments['commission'] }}</div>
-										<div>Comision</div>
+										<div>{{ 'label.commision'|trans({}, 'InodataFloraBundle') }}</div>
 									</div>
 								</div>
 							{% endif %}
