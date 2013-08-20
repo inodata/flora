@@ -68,13 +68,21 @@ class CollectionAdminController extends Controller{
 	
 	private function getCollectorOrders($collectorId)
 	{
+		$status = $this->getSelectedStatus();
+		
+		if (!$status){
+			$status = "o.status='partiallypayment' OR o.status = 'closed'";
+		}else{
+			$status="o.status='".$status."'";
+		}
+		
 		$orders = $this->getDoctrine()
 			->getRepository('InodataFloraBundle:Order')
 			->createQueryBuilder('o')
-			->where("o.status='partiallypayment' OR o.status = 'closed'")
+			->where($status)
 			->andWhere('o.collector=:collector')
-			//TODO: Filtrar por rango de fecha
-			->setParameter('collector', $collectorId)
+			->andWhere('o.collectionDate>=:dateStart AND o.collectionDate<=:dateEnd')
+			->setParameters(array('collector'=>$collectorId, 'dateStart'=>$this->getDateStart(), 'dateEnd'=>$this->getDateEnd()))
 			->getQuery()
 			->getResult();
 		
@@ -290,11 +298,23 @@ class CollectionAdminController extends Controller{
 	private function setFilters($request)
 	{
 		if (!$request && $this->getRequest()->get('filters')){
-			$this->setDateSelected('');
-			$this->setStatusSelected(null);
+			$this->setDateStart(null);
+			$this->setDateEnd(null);
+			$this->setSelectedStatus(null);
 		}else
 		{
-			//
+			if(isset($request['collector']['value']))	{
+				$this->setSelectedCollector($request['collector']['value']);
+			}
+			if (isset($request['deliveryDate']['value']['start'])){
+				$this->setDateStart($request['deliveryDate']['value']['start']);
+			}
+			if (isset($request['deliveryDate']['value']['end'])){
+				$this->setDateEnd($request['deliveryDate']['value']['end']);
+			}
+			if (isset($request['status']['value'])){
+				$this->setSelectedStatus($request['status']['value']);
+			}
 		}
 	}
 	
@@ -341,5 +361,41 @@ class CollectionAdminController extends Controller{
 		if($adminCode){
 			parent::configure();
 		}
+	}
+	
+	private function setDateStart($date){
+		$this->getRequest()->getSession()->set('collection_date_start', $date);
+	}
+	
+	protected function getDateStart()
+	{
+		$date = $this->getRequest()->getSession()->get('collection_date_start');
+		if (!$date){ //By default return TODAY
+			$date = date("Y-m-01");
+		}
+		 
+		return $date." 00:00:00";
+	}
+	
+	private function setDateEnd($date){
+		$this->getRequest()->getSession()->set('collection_date_end', $date);
+	}
+	
+	protected function getDateEnd()
+	{
+		$date = $this->getRequest()->getSession()->get('collection_date_end');
+		if (!$date){ //By default return TODAY
+			$date = date("Y-m-d");
+		}
+			
+		return $date." 23:59:59";
+	}
+	
+	private function setSelectedStatus($status){
+		$this->getRequest()->getSession()->set('collection_status', $status);
+	}
+	
+	private function getSelectedStatus(){
+		return $this->getRequest()->getSession()->get('collection_status');
 	}
 }

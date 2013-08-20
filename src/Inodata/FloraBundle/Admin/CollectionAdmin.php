@@ -61,8 +61,7 @@ class CollectionAdmin extends Admin {
 		))
 		->add('_action', 'actions', array(
 				'label' => 'label.distribution_actions',
-				'actions' => array(
-						'boxcut' => array('template' => 'InodataFloraBundle:Collection:_boxcut_action.html.twig'),)
+				'actions' => array()
 		));
 	}
 	

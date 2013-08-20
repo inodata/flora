@@ -142,6 +142,8 @@ label.distribution_delivery_status_closed: Cancelado
 label.distribution_delivery_status_intransit: En tránsito
 intransit: En tránsito
 delivered: Entregado
+partiallypayment: En cobranza
+closed: Pagado
 label.delivered: Entregado
 label.remove: Quitar
 label.cancel: Cancelar

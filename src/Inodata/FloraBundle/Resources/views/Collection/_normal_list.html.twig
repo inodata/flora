@@ -15,30 +15,12 @@
 		<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 		{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
 					   	 '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
-					   	 '@InodataFloraBundle/Resources/public/js/distribution_admin.js'
+					   	 '@InodataFloraBundle/Resources/public/js/collector_admin.js'
 					   	 '@InodataFloraBundle/Resources/public/js/lang/es.js'
 					   	 "@InodataFloraBundle/Resources/public/js/jquery.jeditable.min.js"
 					   	 '@InodataFloraBundle/Resources/public/js/sliding/jquery.slidetabs.min.js'%}
 			<script type="text/javascript" src="{{ asset_url }}" ></script>
 		{% endjavascripts %}
-		<script>
-			$('document').ready(function(){
-				$('td.sonata-ba-list-field-text').each(function(){
-					var content = $(this).text().trim();
-					if(content=='intransit'){
-						$(this).addClass('order-intransit');
-						$(this).text("En tránsito");
-					}
-					if(content=='delivered'){
-						$(this).addClass('order-delivered');
-						$(this).text("Entregado");
-					}
-					if(content=='open'){
-						$(this).text("Abierto");
-					}
-				});
-			});
-		</script>
 {% endblock %}
 
 {% block actions %}

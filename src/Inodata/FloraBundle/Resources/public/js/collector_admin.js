@@ -24,6 +24,8 @@ $('document').ready(function(){
 		});
 	}
 	
+	loadCollectorOrders(0);
+	
 	function loadCollectorOrders(id){
 		var url = Routing.generate('inodata_flora_collection_orders_by_collector', {id:id});
 		
@@ -97,7 +99,7 @@ $('document').ready(function(){
 	var url = Routing.generate('inodata_flora_collectionn_collector_edit_in_place');
 	$('.editable-form .edit-employee').editable({
 		url:url,
-		title:'ADato de empleado',
+		title:'Dato de empleado',
 		emptytext: '----',
 		success: function(response, newValue){
 			if(response!="success"){
@@ -197,11 +199,5 @@ $('document').ready(function(){
 		return false;
 	});
 	/*---------------------------------*/
-	
-	
-	
-	
-	
-	
 	
 });

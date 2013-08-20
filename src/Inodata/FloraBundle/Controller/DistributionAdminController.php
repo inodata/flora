@@ -277,7 +277,7 @@ class DistributionAdminController extends Controller
     	$status = $this->getStatusSelected();
     	
     	if (!$status){
-    		$status = "o.status='intransit' OR o.status='delivered'";
+    		$status = "o.status!='open'";
     	}else{
     		$status = "o.status='".$status."'";
     	}
