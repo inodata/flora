@@ -1,4 +1,7 @@
 $('document').ready(function(){
+	
+	var reAsigning = 0;
+	
 	$('.inodata_id_list').select2({allowClear:true});
 	$('.filter-deliver-date').datepicker({ dateFormat: "yy-mm-dd" });
 	
@@ -13,10 +16,10 @@ $('document').ready(function(){
 			contentEasing:"easeInOutQuart",
 			onTabClick: function(){
 				var id = $(this).attr('href').replace('#tab-', '');
-				/*
+				
 				if(reAsigning!=0){
 					reasignOrder(id);
-				}*/
+				}
 				
 				$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
 				loadCollectorOrders(id);
@@ -66,14 +69,18 @@ $('document').ready(function(){
 		$('#total-commission').text('$ '+data.commission);
 	}
 	
-	/**
-	 * Change order status from list
-	 */
+	var reasigning = false;
 	$('.order-action').live('click', function(){
 		var orderId = $(this).attr('orderid');
 		
 		if($(this).hasClass('remove')){
 			removeOrderFromCollector(this);
+		}
+		if($(this).hasClass('reasign')){
+			preReasignOrder(orderId, this);
+		}
+		if($(this).hasClass('cancel-reasign')){
+			preReasignOrder(0, this);
 		}
 		
 		return false;
@@ -111,6 +118,29 @@ $('document').ready(function(){
 			
 		}
 	});
+	
+	function preReasignOrder(orderId, button){
+		reAsigning = orderId;
+		
+		$(button).css('display', 'none');
+		if($(button).hasClass("reasign")){
+			$(button).next().css("display", "inline");
+			$(button).next().next().addClass("selected");
+		}else{
+			$(button).prev().css("display", "inline");
+			$(button).next().removeClass("selected");
+		}
+	}
+	
+	function reasignOrder(collectorId){
+		var url = Routing.generate("inodata_flora_collection_reasign_order");
+		var data={orderId:reAsigning, collectorId:collectorId};
+		
+		$.post(url, data, function(response){
+		}, 'json');
+		
+		reAsigning=0;
+	}
 	
 	/***** Funcion para hacer un abono a la order*****/
 	/*

@@ -10,20 +10,13 @@
 			<a href="javascript:void()" class="btn order-action deliver" title="Entregado" orderid="{{ order.id }}">
 	    		<img src="/bundles/sonataadmin/famfamfam/accept.png" alt="Entregado">{{ 'label.delivered'|trans({}, 'InodataFloraBundle') }}
 			</a>
+			{#
 			<a href="javascript:void()" class="btn order-action cancel" title="Cancelado" orderid="{{ order.id }}">
 				<img src="/bundles/sonataadmin/famfamfam/cancel.png" alt="Cancelado">{{ 'label.remove'|trans({}, 'InodataFloraBundle') }}
 			</a>
-		{% else %}
-			<a href="#" class="btn order-action reasign" title="Reasignar" orderid="{{ order.id }}">
-				Reasignar
-			</a>
-			<a href="javascript:void()" class="btn order-action cancel-reasign" title="Cancelar" orderid="{{ order.id }}">
-				{{ 'label.cancel'|trans({}, 'InodataFloraBundle') }}
-			</a>
-			<div class="msg-to-reasign">
-				Selecciona el repartidor en las pestañas superiores.
-			</div>
+			#}
 		{% endif %}
+		{% include 'InodataFloraBundle:Collection:_reasign_action.html.twig' %}
 	</td>  
 </tr>   
 {% endfor %}

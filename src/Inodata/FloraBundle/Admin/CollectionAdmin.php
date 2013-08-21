@@ -87,7 +87,7 @@ class CollectionAdmin extends Admin {
 				'label' => 'label.distribution_id'
 		))
 		->add('deliveryDate', 'doctrine_orm_date_range', array(
-				'label' => 'label.delivery_date'), null,
+				'label' => 'label.collection_filter_date'), null,
 				array('widget'=>'single_text', 'attr'=>array('class'=>'filter-deliver-date')))
 		->add('status', null, array('label' => 'label.distribution_status',),
 				  'choice', array( 

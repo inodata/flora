@@ -118,3 +118,8 @@ inodata_flora_collectionn_collector_edit_in_place:
     pattern: /admin/inodata/flora/collection/collector/edit/in/place
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:editInPlace}
     
+#New    
+inodata_flora_collection_reasign_order: 
+    pattern: /admin/inodata/flora/collection/reasign/order
+    defaults: {_controller: InodataFloraBundle:CollectionAdmin:reasignOrder }
+    

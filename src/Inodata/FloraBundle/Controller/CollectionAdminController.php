@@ -295,6 +295,24 @@ class CollectionAdminController extends Controller{
 		$em->flush();
 	}
 	
+	public function reasignOrderAction()
+	{
+		$collectorId = $this->get('request')->get('collectorId');
+		$orderId = $this->get('request')->get('orderId');
+		 
+		$em = $this->getDoctrine()->getManager();
+		$order = $em->getRepository("InodataFloraBundle:Order")
+			->find($orderId);
+		$collector = $em->getRepository("InodataFloraBundle:Employee")
+			->find($collectorId);
+		 
+		$order->setCollector($collector);
+		$em->persist($order);
+		$em->flush();
+		 
+		return new Response(json_encode(array("success"=>true)));
+	}
+	
 	private function setFilters($request)
 	{
 		if (!$request && $this->getRequest()->get('filters')){

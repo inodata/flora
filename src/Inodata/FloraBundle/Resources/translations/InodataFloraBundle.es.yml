@@ -193,6 +193,7 @@ label.collection_status_paid: Pagado
 label.collection_title: Cobranza
 label.total_paids: Pagos
 label.commision: Comisión
+label.collection_filter_date: Asignado el
 
 #GuiaRoji
 label.map: Plano

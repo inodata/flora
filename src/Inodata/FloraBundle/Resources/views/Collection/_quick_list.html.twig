@@ -54,7 +54,7 @@
 									{% if collector.id ==  last_tab%} st_tab_last{% endif %}">
 								</a>
 								<div class="editable-form">
-									<p>({{ collector.code}})</p>
+									<p>({{ collector.id}})</p>
 									<p class="edit-employee {{ collector.id }}-name" column="{{collector.id }}-name" data-pk="{{ collector.id }}" data-name="name">{{ collector.name }}</p>
 									<p class="edit-employee {{ collector.id }}-lastname" column="{{ collector.id }}-lastname" data-pk="{{ collector.id }}" data-name="lastname">{{ collector.lastname }}</p>
 									<p class="edit-employee {{ collector.id }}-phone new-line" column="{{ collector.id }}-phone" data-pk="{{ collector.id }}" data-name="phone">{{ collector.phone }}</p>
