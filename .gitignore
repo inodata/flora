@@ -8,6 +8,7 @@ app/bootstrap*
 
 # Composer
 composer.lock
+composer.phar
 
 # Symfony directories
 vendor/*
