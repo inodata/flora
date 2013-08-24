@@ -100,6 +100,12 @@ class CollectionAdmin extends Admin {
 				);
 	}
 	
+	protected function configureRoutes(RouteCollection $collection)
+	{
+		$collection
+		->remove('create');
+	}
+	
 	public function getTemplate($name)
 	{
 		switch ($name) {
