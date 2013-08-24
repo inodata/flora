@@ -202,8 +202,28 @@ label.coordinate: Coordenada
 # On line help messages
 help:
   delivery_date: Establece la fecha de entrega que se imprime en la nota.
-  to: Define para quien va dirigido el pedido y se imprime en la nota.
+  to: Define para quien va dirigido el pedido y se imprime en la tarjeta y la nota.
+  from: Define quien envia el pedido y se imprime en la tarjeta y la nota.
   shipping: Modifica el costo de envio.
   discount: Modifica el descuento definido para el cliente.
   invoice_date: Establece la fecha que se imprime en la factura.
   tab_invoice: "Captura los datos cuando el cliente requiere factura (debe habilitarse el campo 'Requiere Factura?)"
+  delivery_address: Define los datos de la dirección de entrega.
+  reporter: Indica quién levantó el pedido independientemente de quién lo captura (Ej. Alguien toma el pedido, lo anota y alguien más lo captura).
+  customer: |
+    Selecciona al cliente al que se le va a generar el pedido, si el cliente no existe se puede crear uno nuevo dando click en el botón adjunto.
+    Si el cliente existe, también se pueden editar sus datos dando click en "Editar".
+  purchase_order: |
+    Indica el número de orden indicado por el cliente, esta puede ser alguna orden interna u orden de compra del cliente.
+    Este dato se imprime en la nota y en la factura.
+  payment_contact: |
+    Establece el nombre del contacto quién es responsable de hacer el pago del pedido, si no aparece en la lista se puede capturar en el campo de texto y al dar "Enter" se guardará automáticamente.
+    También se guardan los datos del contacto como Departamento, No. de empleado, Teléfono, Extensión y un Correo Electrónico.
+  category: Enlista las categorías para filtrar la lista de mensajes predefinidos en las tarjetas.
+  messages_list: Enlista los mensajes predefinidos para la tarjeta, al seleccionar uno se establece en el campo mensaje y se puede editar si es requerido.
+  message: Indica el mensaje que será impreso en la tarjeta.
+  products_list: |
+    Enlista los productos disponibles en el catálogo o que fueron previamente creados en un pedido, al seleccionar uno se agrega a la tabla de productos en el detalle de productos.
+    Cuando el producto no existe en el listado se puede capturar clave, descripción y precio, al dar click en "Crear y Agregar" se guarda en el catálogo de productos y se agrega al detalle del pedido.
+  require_invoice: Cuando un cliente requiere factura esta casilla seleccionada permite capturar los datos para complementar e imprimir una factura.
+  order_notes: Agrega notas/observaciones impresas en la nota. (Ej. Cuando el cliente requiere hacer la entrega en un horario especifico)

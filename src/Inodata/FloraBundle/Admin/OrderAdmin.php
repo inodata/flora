@@ -46,7 +46,6 @@ class OrderAdmin extends Admin
 			))				
 			->add('shippingAddress', 'inodata_address_form', array(
 				'label'=>false,
-				'help' => 'help.delivery_address',
 				'attr' => array(
 					'class' => 'inodata-shipping-address'
 				)
