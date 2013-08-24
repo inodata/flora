@@ -95,7 +95,7 @@ label.import: Importe
 label.subtotal: Subtotal
 label.total: Total
 label.capturated: Capturó
-label.invoice_require: ¿Requiere factura?
+label.require_invoice: ¿Requiere factura?
 label.has_invoice: ¿Tiene Factura?
 label.normal_list: Ver Lista Normal
 label.collector: Cobrador
@@ -198,3 +198,12 @@ label.collection_filter_date: Asignado el
 #GuiaRoji
 label.map: Plano
 label.coordinate: Coordenada
+
+# On line help messages
+help:
+  delivery_date: Establece la fecha de entrega que se imprime en la nota.
+  to: Define para quien va dirigido el pedido y se imprime en la nota.
+  shipping: Modifica el costo de envio.
+  discount: Modifica el descuento definido para el cliente.
+  invoice_date: Establece la fecha que se imprime en la factura.
+  tab_invoice: "Captura los datos cuando el cliente requiere factura (debe habilitarse el campo 'Requiere Factura?)"

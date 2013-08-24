@@ -85,7 +85,7 @@ services:
     admin.paymentcontact:
         class: Inodata\FloraBundle\Admin\PaymentContactAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Contacto de pago }
+            - { name: sonata.admin, manager_type: orm, group: system_admin, label: Contacto de pago }
         arguments: [ null, Inodata\FloraBundle\Entity\PaymentContact, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
@@ -99,7 +99,7 @@ services:
     admin.address:
         class: Inodata\FloraBundle\Admin\AddressAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Dirección }
+            - { name: sonata.admin, manager_type: orm, group: system_admin, label: Dirección }
         arguments: [ null, Inodata\FloraBundle\Entity\Address, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
@@ -124,10 +124,11 @@ services:
         arguments: [ null, Inodata\FloraBundle\Entity\Product, SonataAdminBundle:CRUD ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
+    # meterlo a otro grupo cuando se implemente el incremento de inventarios
     admin.product_log:
         class: Inodata\FloraBundle\Admin\ProductLogAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Control de inventario}
+            - { name: sonata.admin, manager_type: orm, group: disabled, label: Control de inventario}
         arguments: [ null, Inodata\FloraBundle\Entity\ProductLog, SonataAdminBundle:CRUD ]
 
     # KernelRequest listener

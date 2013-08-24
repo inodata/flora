@@ -21,6 +21,7 @@ class OrderAdmin extends Admin
 		$formMapper
 			->add('delivery_date', 'date', array(
 				'label'=> 'label.delivery_date',
+				'help' => 'help.delivery_date',
 				'widget' => 'single_text',
 				'format' => 'd/MM/y',
 				'attr' => array(
@@ -29,6 +30,7 @@ class OrderAdmin extends Admin
 			))
 			->add('to', null, array(
 				'label'=> 'label.to',
+				'help' => 'help.to',
 				'attr' => array(
 					'class' => 'inodata_to',
 					'style' => 'width:210px'
@@ -36,6 +38,7 @@ class OrderAdmin extends Admin
 			))
 			->add('from', null, array(
 				'label' => 'label.from',
+				'help' => 'help.from',
 				'attr' => array(
 					'class' => 'inodata_from span5',
 					'style' => 'width:210px'
@@ -43,29 +46,37 @@ class OrderAdmin extends Admin
 			))				
 			->add('shippingAddress', 'inodata_address_form', array(
 				'label'=>false,
+				'help' => 'help.delivery_address',
 				'attr' => array(
 					'class' => 'inodata-shipping-address'
 				)
 			))
-			->add('reporter', null, array('label' => 'label.reporter'))			
+			->add('reporter', null, array(
+				'label' => 'label.reporter',
+				'help' => 'help.reporter',
+			))
 			->add('customer', 'sonata_type_model', array(
-					'label' => 'label.customer',
-					'empty_value' => '',
-					'attr' => array(
-							'class' => 'inodata_customer span5',
-							'placeholder' => 'Buscar Cliente')
-					))
+				'label' => 'label.customer',
+				'help' => 'help.customer',
+				'empty_value' => '',
+				'attr' => array(
+					'class' => 'inodata_customer span5',
+					'placeholder' => 'Buscar Cliente',
+				)
+			))
 			->add('purchaseOrder', null, array(
-					'label' => 'label.purchase_order')
-			)
+					'label' => 'label.purchase_order',
+					'help' => 'help.purchase_order',
+			))
 			->add('paymentContact', 'genemu_jqueryselect2_entity',array(
-					'label' => 'label.payment_contact',
-					'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
-					'empty_value' => '',
-					'attr' => array(
-							'class' => 'inodata_payment_contact span5',
-							'placeholder' => $this->trans('label.contact_empty_list')
-					)
+				'label' => 'label.payment_contact',
+				'help' => 'help.payment_contact',
+				'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
+				'empty_value' => '',
+				'attr' => array(
+					'class' => 'inodata_payment_contact span5',
+					'placeholder' => $this->trans('label.contact_empty_list')
+				)
 			))
 			->add('contact', 'inodata_payment_contact_form', array(
 					'label'=>false, 
@@ -75,6 +86,7 @@ class OrderAdmin extends Admin
 			)
 			->add('category', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.message_category',
+					'help' => 'help.category',
 					'class' => 'Inodata\FloraBundle\Entity\Category',
 					'empty_value' => '',
 					'mapped' => false, 'required' => false,
@@ -85,6 +97,7 @@ class OrderAdmin extends Admin
 			))
 			->add('messages', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.messages_list',
+					'help' => 'help.messages_list',
 					'class' => 'Inodata\FloraBundle\Entity\Message',
 					'empty_value' => '',
 					'mapped' => false, 'required' => false,
@@ -95,6 +108,7 @@ class OrderAdmin extends Admin
 			))
 			->add('message', 'ckeditor', array(
 					'label'=> 'label.message',
+					'help' => 'help.message',
 					'config_name' => 'inodata_editor',
 					'attr' => array('class' => 'inodata_message span5')
 			))
@@ -104,6 +118,7 @@ class OrderAdmin extends Admin
 			*/
 			->add('products', 'sonata_type_model', array(
 				'label' => 'label.search_product',
+				'help' => 'help.products_list',
 				'class' => 'Inodata\FloraBundle\Entity\Product',
 				'mapped' => false,
 				'required' => false,
@@ -113,29 +128,30 @@ class OrderAdmin extends Admin
 					'class'=>'inodata_product', 'style'=>'width:100%')
 			))
 			->add('hasInvoice', 'checkbox', array(
-					'label' => 'label.invoice_require',
-					'required' => false,
-					'attr'=>array(
-							'class' => 'inodata-has-invoice'
-					)))
-			->add('order_notes', null, array('label' => 'label.order_notes',
-					'attr' => array(
-							'class' => 'inodata-order-notes',
-							'style' => 'width:95%')
+				'label' => 'label.require_invoice',
+				'help' => 'help.require_invoice',
+				'required' => false,
+				'attr'=>array('class' => 'inodata-has-invoice')
+			))
+			->add('order_notes', null, array(
+				'label' => 'label.order_notes',
+				'help' => 'help.order_notes',
+				'attr' => array(
+					'class' => 'inodata-order-notes',
+					'style' => 'width:95%'
+				)
 			))
 			->add('shipping', 'text', array(
 				'label' => 'label.shipping',
-				'attr' => array(
-					'class' => 'order-shipping'
-				)		
+				'help' => 'help.shipping',
+				'attr' => array('class' => 'order-shipping')		
 			))
 			->add('discount', null, array(
 				'label' => 'label.discount',
-				'attr' => array(
-						'class' => 'order-discount'
-				)
+				'help' => 'help.discount',
+				'attr' => array('class' => 'order-discount')
 			))
-			->with('tab.invoice')
+			->with('tab.invoice', array('description' => 'help.tab_invoice'))
 				->add('invoiceNumber', 'hidden',array(
 					'required' => false,
 					'label' => 'label.invoice',
@@ -161,6 +177,7 @@ class OrderAdmin extends Admin
 				))
 				->add('invoice_date', 'date', array(
 						'required' => false,
+						'help' => 'help.invoice_date',
 						'label'=> 'label.invoice_date',
 						'widget' => 'single_text',
 						'format' => 'd/MM/y',
