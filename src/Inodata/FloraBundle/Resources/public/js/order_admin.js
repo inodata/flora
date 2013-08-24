@@ -13,6 +13,24 @@ $(document).ready(function() {
 	$('.inodata_delivery_date').datepicker({ dateFormat: "dd/mm/yy" });
 	$(".inodata_invoice_date").closest('fieldset').css('display','none');
 	
+	$('.help-block').each(function(){
+		var help = $(this).text();
+		
+		var selec2Widget = $(this).closest('.control-group').find('.select2-container');
+		if($(selec2Widget).length !=0 ){
+			$(selec2Widget).attr('title', help);
+		}else{
+			$(this).prev().attr('title', help);
+		}
+		$(this).remove();
+	});
+	
+	 $( "input, .select2-container" ).tooltip({
+		 show: {
+		 effect: "slideDown",
+		 delay: 250}
+	 });
+	
 	//Mueve el elemento de orservaciones en el pedido al final.
 	var notesContainer = $('.inodata-order-notes').closest('div.control-group');
 	$('.list-products-content .table-1').append($(notesContainer).clone());
