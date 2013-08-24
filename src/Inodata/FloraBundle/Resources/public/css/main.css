@@ -387,8 +387,8 @@
   .payment-note > div{
   	border: solid 1px #000;
   	border-radius: 5px;
-  	font-size: 11px;
-  	font-weight: bold;
+  	/*font-size: 11px;
+  	font-weight: bold;*/
   	padding: 0 5px;
   	margin-bottom: 15px;
   }
