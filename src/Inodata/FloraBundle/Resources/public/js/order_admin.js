@@ -133,7 +133,7 @@ $(document).ready(function() {
 		$('.payment_contact_form input').eq(1).val(contact.department);
 		$('.payment_contact_form input').eq(2).val(contact.emp_number);
 		$('.payment_contact_form input').eq(3).val(contact.phone);
-                $('.payment_contact_form input').eq(4).val(contact.extension);
+        $('.payment_contact_form input').eq(4).val(contact.extension);
 		$('.payment_contact_form input').eq(5).val(contact.email);
 	}
 	
@@ -278,7 +278,7 @@ $(document).ready(function() {
 	//----------Load initial data for edit order ----------//
 	var id = $(".order-id").val();
 	
-	if(id!=''){
+	/*if(id!=''){
 		var url = Routing.generate('inodata_flora_order_products', {id:id});
 	    
 	    $.get(url, function(data){
@@ -289,7 +289,7 @@ $(document).ready(function() {
 	    	loadPriceTotals(data.totals);
 	    	loadInvoiceOrderProducts($(data.listFields).clone(), data.listForInvoice, data.totals);
 	    }, 'json');
-	}
+	}*/
 	//----------------------------------------//
 	
 	
@@ -387,7 +387,7 @@ $(document).ready(function() {
 	//-------------------------------------------------------------------------//
 
 	//----------------------- Load invoice and note data ----------------------//
-	function loadInvoiceOrderProducts(listFields, listForInvoice, totals)
+	/*function loadInvoiceOrderProducts(listFields, listForInvoice, totals)
 	{
 		$(listFields).each(function(){
 			var cant = $(this).children('td:first').find('input').val();
@@ -402,7 +402,6 @@ $(document).ready(function() {
 		$('.invoice_page table > tbody').append(listForInvoice);
 		createProductXEditable();
 		
-		//Load totals
 		$('.invoice-subtotal').append(totals.subtotal);
 		$('.invoice-iva').append(totals.iva);
 		$('.invoice-total').append(totals.total);
@@ -433,7 +432,7 @@ $(document).ready(function() {
 		//$('.invoice_page .order-note').text(orderNote);
 		
 		$('div.payment-note').prev().remove();
-	}
+	}*/
 	//----------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//
@@ -448,6 +447,10 @@ $(document).ready(function() {
 	
 	function loadPriceTotals(price)
 	{
+		if(price.discount==''){
+			price.discount = 0;
+		}
+		
 		$(".order-subtotal").text(price.subtotal);
 		$(".order-shipping").val(price.shipping);
 		$(".order-discount").eq(0).val(price.discount);
@@ -509,7 +512,54 @@ $(document).ready(function() {
 	}
 	//-----------------------------------------------------
 	
-	// ------------------- INOVICCE EDIT IN PLACE ----------------//
+	//--------PRINT AND SAVE INVOICE/NOTE USING AJAX--------//
+	/*var useAjaxToSubmit = false;
+	var btnPresset = "";
+	$('form.form-horizontal').submit(function(){
+		if(useAjaxToSubmit){
+			saveOrUpdateOrderByAjax(this);
+			printNoteOrInvoice();
+			useAjaxToSubmit = false;
+			return false;
+		}	
+	});
+	
+	function saveOrUpdateOrderByAjax(form){
+		var data = $(form).serialize();
+		var url = $(form).attr('action');
+		$.post(url, data, function(response){
+			//alert(response);
+		});
+	}
+	
+	$("input.btn").live('click', function(){
+		if($(this).hasClass("btn-print")){
+			useAjaxToSubmit = true;
+			btnPresset = $(this).attr('name');
+		}
+	});
+	
+	function printNoteOrInvoice()
+	{
+		switch(btnPresset)
+		{
+			case 'save_and_print_note':
+				$('.invoice_page').addClass('hide_template');
+				$('.card_page').addClass('hide_template');
+				$('.payment-note').removeClass('hide_template');
+				printNote();
+			break;
+			case 'save_and_print_invoice':
+				$('.invoice_page').removeClass('hide_template');
+				$('.payment-note').addClass('hide_template');
+				$('.card_page').addClass('hide_template');
+				printInvoice();
+			break;
+		}
+	}*/
+	//-----------------------------------------------------//
+	
+	// ------------------- INVOICE EDIT IN PLACE ----------------//
 	$.fn.editable.defaults.mode = "inline";
 	
 	var edit_url = Routing.generate('inodata_flora_order_invoice_edit_in_place', {module:"customer"});

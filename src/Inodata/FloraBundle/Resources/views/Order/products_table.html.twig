@@ -28,13 +28,21 @@
 
             {% block table_body %}
                 <tbody>
-                    <tr id="no_products" >
-                        <td colspan="6" class="sonata-ba-list-field sonata-ba-list-field-text" >
-                            <p class="notice">
-                                No hay productos seleccionados.
-                            </p>
-                        </td>                 
-                    </tr>
+                {% if orderProducts is defined %}
+	                {% if orderProducts|length > 0 %}
+	                	{% for orderProduct in orderProducts %}
+	                		{% include 'InodataFloraBundle:Order:_product_item.html.twig' 
+	                			with {'product':orderProduct.product, 'total':orderProduct.quantity} %}
+	                	{% endfor %}
+	                {% else%}
+	                	<tr id="no_products" >
+	                		<td colspan="6" class="sonata-ba-list-field sonata-ba-list-field-text" >
+	                            <p class="notice">No hay productos seleccionados.</p>
+	                        </td>
+	                    </tr>
+	                {% endif %}
+	            {% endif %}
+                
                 </tbody>
             {% endblock %}
 
@@ -50,25 +58,39 @@
             </thead>
             <tbody>
             	<tr>
-                    <td>Descuento (-<span class="order-discount-percent"></span>):</td>
+                    <td>
+                    	Descuento (-<span class="order-discount-percent">{% if totals is defined %}{{ totals['discount_percent'] }}{% else %}{{''}}{% endif %}</span>):
+                    </td>
                     <td>$ 
-                        <input type="number" step="any" class="order-discount" value="0.0" style="width:60%;"/>
+                        <input type="number" step="any" class="order-discount" 
+                        value="{% if totals is defined %}{{ totals['discount_net'] }}{% else %}{{ 0.0 }}{% endif %}" style="width:60%;"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Envío:</td>
-                    <td>$ <input type="number" class="order-shipping" value="{{ order_shipping }}" style="width:60%;"/></td>
+                    <td>$ <input type="number" class="order-shipping" 
+                    	value="{% if totals is defined%}{{ totals['shipping']}}{% else %}{{ order_shipping  }}{% endif %}" style="width:60%;"/>
+                    </td>
                 </tr>
-                <tr><td>Subtotal:</td><td>$ <span class="order-subtotal">0</span></td></tr>
+                <tr><td>Subtotal:</td><td>$ 
+                	<span class="order-subtotal">
+                		{% if totals is defined %}{{ totals['subtotal'] }}{% else %}{{ 0.0 }}{% endif %}
+                	</span></td></tr>
                 <tr class="iva-container">
                     <td>IVA(16%):</td>
-                    <td>$ <span class="order-iva">0</span></td>
+                    <td>$ 
+                    	<span class="order-iva">
+                    		{% if totals is defined %}{{ totals['iva'] }}{% else %}{{ 0.0 }}{% endif %}
+                    	</span></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <th>Total:</th>
-                    <th>$ <span class="order-total">0</span></th>
+                    <th>$ 
+                    	<span class="order-total">
+                    		{% if totals is defined %}{{ totals['total'] }}{% else %}{{ 0.0 }}{% endif %}
+                    	</span></th>
                 </tr>
             </tfoot>
         </table>

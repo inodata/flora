@@ -1,0 +1,14 @@
+<tr id="" product_id={{ product.id }}>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
+		{{total}}
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text details" >
+		{{ product }} ({{ product.priceInLetters }})
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text price" >
+		{{ product.price }}
+	</td>
+	<td class="sonata-ba-list-field sonata-ba-list-field-text import" >
+		{{ product.price * total}}
+	</td>
+</tr>

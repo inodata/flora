@@ -57,7 +57,7 @@ class OrderAdminController extends Controller
 		
 		return new Response(json_encode(array('id'=>-1)));
 	}
-	
+	/*
 	public function orderProductsAction($id = null, $isForInvoice = false)
 	{
 		$price_subtotal = 0;
@@ -90,7 +90,7 @@ class OrderAdminController extends Controller
 						  'totals'=>$this->getTotalsCostAsArray($id, $price_subtotal));
 		
 		return new Response(json_encode($response));
-	}
+	}*/
 	
 	public function addingProductAction()
 	{
@@ -144,20 +144,22 @@ class OrderAdminController extends Controller
 	 * Calculate total price for the order
 	 * @return array
 	 */
-	protected function getTotalsCostAsArray($orderId, $subtotal, $shipping=null, $discount=null, $hasInvoice=null)
+	protected function getTotalsCostAsArray($orderProducts=null, $subtotal=0, $shipping=null, $discount=null, $hasInvoice=null)
 	{
 		$IVA = 0 ;
 		
-		if ($orderId != null)
-		{
-			$order = $this->getDoctrine()
-			->getRepository('InodataFloraBundle:Order')
-			->find($orderId);
+		if ($orderProducts!=null && count($orderProducts)>0){
+			$order = $orderProducts[0]->getOrder();
+			
+			foreach ($orderProducts as $orderProduct){
+				$subtotal+=$orderProduct->getProduct()->getPrice()*$orderProduct->getQuantity();
+			}
 			
 			$shipping = $order->getShipping();
 			if(!$shipping){
 				$shipping = 0;
 			}
+			
 			$discount = $order->getDiscount();
 			if (!$discount){
 				$discount = 0;
@@ -246,13 +248,20 @@ class OrderAdminController extends Controller
 		);
 	}
 	
+	/**
+	 * Sobreescribe la funcion del CRUDController, para agragar funcionalodad de actualizar
+	 * informacion de otras tablas.
+	 * 
+	 * @return Response
+	 */
 	public function editAction($id = null)
 	{
+		//-------------------------CUSTOMIZADO ---------------------------*/
 		$products = $this->get('request')->get('product');
-		
+			
 		$action = $this->getRequest()->getSession()->get('post_save_action');
 		$this->getRequest()->getSession()->set('post_save_action', '');
-		
+			
 		if ($this->getRequest()->getSession()->get('submit_action') == 'submit'){
 			$this->getRequest()->getSession()->set('post_save_action', $action);
 			$this->getRequest()->getSession()->set('submit_action', '');
@@ -263,22 +272,87 @@ class OrderAdminController extends Controller
 			if (!$this->get('request')->get('save_and_print_invoice')){
 				$this->preUpdate($id, $products);
 			}
-			
 			$this->updatePaymentContactInfo();
-			//Try to create the invoice if not exist
 			$this->createInvoice($id);
-			
 			$this->getRequest()->getSession()->set('submit_action', 'submit');
 		}
+		//----------------------------------------------------------------**/
 		
-		return parent::editAction($id);
+		// the key used to lookup the template
+		$templateKey = 'edit';
+	
+		$id = $this->get('request')->get($this->admin->getIdParameter());
+	
+		$object = $this->admin->getObject($id);
+	
+		if (!$object) {
+			throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+		}
+	
+		if (false === $this->admin->isGranted('EDIT', $object)) {
+			throw new AccessDeniedException();
+		}
+	
+		$this->admin->setSubject($object);
+	
+		/** @var $form \Symfony\Component\Form\Form */
+		$form = $this->admin->getForm();
+		$form->setData($object);
+	
+		if ($this->getRestMethod() == 'POST') {
+			$form->bind($this->get('request'));
+	
+			$isFormValid = $form->isValid();
+	
+			// persist if the form was valid and if in preview mode the preview was approved
+			if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
+				$this->admin->update($object);
+				$this->addFlash('sonata_flash_success', 'flash_edit_success');
+	
+				if ($this->isXmlHttpRequest()) {
+					return $this->renderJson(array(
+							'result'    => 'ok',
+							'objectId'  => $this->admin->getNormalizedIdentifier($object)
+					));
+				}
+	
+				// redirect to edit mode
+				return $this->redirectTo($object);
+			}
+	
+			// show an error message if the form failed validation
+			if (!$isFormValid) {
+				if (!$this->isXmlHttpRequest()) {
+					$this->addFlash('sonata_flash_error', 'flash_edit_error');
+				}
+			} elseif ($this->isPreviewRequested()) {
+				// enable the preview template if the form was valid and preview was requested
+				$templateKey = 'preview';
+				$this->admin->getShow();
+			}
+		}
+	
+		$view = $form->createView();
+	
+		// set the theme for the current Admin Form
+		$this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
+		
+		/** ----------- CUSTMIZADO --------**/
+		$orderProducts = $this->getOrderProducts($id);
+	
+		return $this->render($this->admin->getTemplate($templateKey), array(
+				'action' => 'edit',
+				'form'   => $view,
+				'object' => $object,
+				'orderProducts' => $this->getOrderProducts($id),
+				'totals' => $this->getTotalsCostAsArray($orderProducts)
+		));
 	}
 	
 	protected function preUpdate($id, $newProducts=null)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$orderProducts = $em->getRepository('InodataFloraBundle:OrderProduct')
-			->findByOrder($id);
+		$orderProducts = $this->getOrderProducts($id);
 		//Delete all order's products
 		if ($orderProducts){
 			foreach ($orderProducts as $product){
@@ -291,6 +365,14 @@ class OrderAdminController extends Controller
 		
 		$this->createOrderProducts($id, $newProducts);
 		
+	}
+	
+	protected function getOrderProducts($orderId)
+	{
+		$orderProducts = $this->getDoctrine()->getManager()->getRepository('InodataFloraBundle:OrderProduct')
+			->findByOrder($orderId);
+		
+		return $orderProducts;
 	}
 	
 	/**

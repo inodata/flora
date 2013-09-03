@@ -46,6 +46,14 @@
 					<tr><th class="padding"></th></tr>
 				</thead>
 				<tbody>
+				{% if orderProducts is defined %}
+	                {% if orderProducts|length > 0 %}
+	                	{% for orderProduct in orderProducts %}
+	                		{% include 'InodataFloraBundle:Order:_note_product_item.html.twig' 
+	                			with {'product':orderProduct.product, 'total':orderProduct.quantity} %}
+	                	{% endfor %}
+	                {% endif%}
+	            {% endif %}
 				</tbody>
 				<tfoot>
 					<tr><td colspan="4" class="padding"></td></tr>

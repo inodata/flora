@@ -1,6 +1,7 @@
 <tr id="product-{{ product.id }}" class="product" product_id={{ product.id }}>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text" >
 		<input type="text" class="product-total" value="{{total}}" style="width: 25px; text-align: center;"/>
+		<input type="hidden" name="product[{{ product.id }}]" id="data_product_{{ product.id }}" value="{{ total }}"/>
 	</td>
 	<td class="sonata-ba-list-field sonata-ba-list-field-text details" >
 		{{ product }} ({{ product.priceInLetters }})

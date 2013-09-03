@@ -1,3 +1,27 @@
+<script type="text/javascript">
+	$('document').ready(function(){
+		var invoiceNumber = $('.inodata-invoice-number');
+		$('.folio-container .div_content').append($(invoiceNumber).clone().attr('type', 'text'));
+		$(invoiceNumber).remove();
+		
+		var invoiceDate = $('.inodata_invoice_date');
+		$('.date .div_content').append($(invoiceDate)
+				.clone().datepicker({ dateFormat: "dd/mm/yy" }));
+		$(invoiceDate).remove();
+		
+		var inovicePCondition = $('.inodata-payment-condition');
+		$('.payment-condition .div_content').append($(inovicePCondition).clone().attr('type', 'text'));
+		$(inovicePCondition).remove();
+		
+		$('.read-only input').attr('readonly', 'readonly');
+		
+		var invoiceComment = $('.inodata-invoice-comment');
+		$('.comments .div_content').append($(invoiceComment).clone().attr('type', 'text'));
+		$(invoiceComment).remove();
+		$('div.payment-note').prev().remove();
+	});
+</script>
+
 <div class="invoice_page">
 	<div class="header_container">
 		<div class="issuing-container">
@@ -10,7 +34,9 @@
 			</div>
 			<div class="folio-container">
 				<div class="div_header">{{ 'label.folio'|trans({}, 'InodataFloraBundle') }}</div>
-				<div class="div_content {% if object.invoiceNumber == "" %}input-container{%else%}read-only{% endif %}"></div>
+				<div class="div_content {% if object.invoiceNumber == "" %}input-container{%else%}read-only{% endif %}">
+					{{ form_widget(form['invoiceNumber']) }}
+				</div>
 			</div>
 		</div>
 		<div class="sub-header">
@@ -110,7 +136,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								<!-- El listado de productos se copia con javascript del formulario de edición -->
+								{% if orderProducts is defined %}
+					                {% if orderProducts|length > 0 %}
+					                	{% for orderProduct in orderProducts %}
+					                		{% include 'InodataFloraBundle:Order:_invoice_product_item.html.twig' 
+					                			with {'orderProduct':orderProduct, 'total':orderProduct.quantity} %}
+					                	{% endfor %}
+					                {% endif %}
+	            				{% endif %}
 							</tbody>
 							<tfoot>
 								<tr>
@@ -122,11 +155,11 @@
 								</tr>
 								<tr>
 									<td class="td-label" colspan="5">{{ 'label.discount'|trans({}, 'InodataFloraBundle') }}</td>
-									<td class="invoice-discount">- </td>
+									<td class="invoice-discount">{% if totals is defined %}{{ totals['discount_net'] }}{% else %}{{ 0.0 }}{% endif %}</td>
 								</tr>
 								<tr>
 									<td class="td-label" colspan="5">{{ 'label.shipping'|trans({}, 'InodataFloraBundle') }}</td>
-									<td class="invoice-shipping"></td>
+									<td class="invoice-shipping">{% if totals is defined %}{{ totals['shipping'] }}{% else %}{{ 0.0 }}{% endif %}</td>
 								</tr>
 							</tfoot>
 						</table>
@@ -142,22 +175,22 @@
     	<div class="totals">
     		<div class="ammount_in_words">
     			<div class="div_header">Importe total con letra</div>
-    			<div class="div_content">CIENTO CINCUENTA</div>
+    			<div class="div_content">{{ totals['totalInLetters'] }}</div>
     		</div>
     		<div class="divisor-w"></div>
     		<div class="taxes">
 	            <div class="taxes_content">
 	            	<div>
 	            		<div class="bold_text">{{ 'label.subtotal'|trans({}, 'InodataFloraBundle') }}</div>
-	            		<div  class="invoice-subtotal">$ </div >
+	            		<div  class="invoice-subtotal">$ {% if totals is defined %}{{ totals['subtotal'] }}{% else %}{{ 0.0 }}{% endif %}</div >
 	            	</div>
 	            	<div>
 	            		<div class="bold_text">IVA</div>
-	            		<div class="invoice-iva">$ </div>
+	            		<div class="invoice-iva">$ {% if totals is defined %}{{ totals['iva'] }}{% else %}{{ 0.0 }}{% endif %}</div>
 	            	</div>
 	            	<div>
 	            		<div class="bold_text">{{ 'label.total'|trans({}, 'InodataFloraBundle') }}</div>
-	            		<div class="invoice-total">$ </div>
+	            		<div class="invoice-total">$ {% if totals is defined %}{{ totals['total'] }}{% else %}{{ 0.0 }}{% endif %}</div>
 	            	</div>
 	            </div>
     		</div>

@@ -145,13 +145,13 @@ class OrderAdmin extends Admin
 				'help' => 'help.shipping',
 				'attr' => array('class' => 'order-shipping')		
 			))
-			->add('discount', null, array(
+			->add('discount', 'text', array(
 				'label' => 'label.discount',
 				'help' => 'help.discount',
 				'attr' => array('class' => 'order-discount')
 			))
 			->with('tab.invoice', array('description' => 'help.tab_invoice'))
-				->add('invoiceNumber', 'hidden',array(
+				->add('invoiceNumber', 'text',array(
 					'required' => false,
 					'label' => 'label.invoice',
 					'attr' => array(
