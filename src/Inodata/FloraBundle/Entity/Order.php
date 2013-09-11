@@ -101,7 +101,7 @@ class Order
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="update")
-     * @Gedmo\Versioned
+     * 
      */
     private $updatedAt;
 
