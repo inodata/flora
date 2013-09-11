@@ -110,6 +110,7 @@ class Address
     /**
     *@return string
     */
+    //TODO: Hacer una funcion getFormatedAddress() para esta cadena, la funcion toString() se debe mantener simple.
     public function __toString()
     {
         $address = $this->street.' '.$this->noExt;

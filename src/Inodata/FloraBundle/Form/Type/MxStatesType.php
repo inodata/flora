@@ -44,7 +44,7 @@ class MxStatesType extends AbstractType
 				"YUC" => "Yucatán",
 				"ZAC" => "Zacatecas"
 			),
-			'data' => "NL"
+			//'data' => "NL"
 		));
 	}
 
