@@ -620,5 +620,6 @@ $(document).ready(function() {
 		});
 	}
 	
+	createProductXEditable();
 	//------------------------------------------------------------//
 });
