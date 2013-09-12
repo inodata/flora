@@ -91,18 +91,17 @@
   }
 
   .card_message {
-    text-align: justify;
-    line-height: 3.2cm;
     border: 1px dotted white;
     padding-top: .1cm;
     padding-left: 0px;
-    min-height: 3.2cm;
-    max-height: 3.2cm;
+    height:3.2cm;
+    position:relative;
   }
 
-  .card_message p {
-    display: inline-block;
-    vertical-align: middle;
+  .message_container {
+       
+    height:100%;
+    
   }
 
   .card_from{
