@@ -371,7 +371,7 @@ $(document).ready(function() {
 		}else{
 			$(".card_from").html(from);
 			$(".card_to").html(to);
-			$(".card_message").html($('iframe').contents().find('body>p').html());
+			$("table.message_container td").html($('iframe').contents().find('body>p').html());
 
 			$('.invoice_page').addClass('hide_template');
 			$('.payment-note').addClass('hide_template');

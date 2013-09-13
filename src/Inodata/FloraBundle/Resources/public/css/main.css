@@ -90,13 +90,18 @@
 
   }
 
-  .card_message{
-    text-align: justify;
+  .card_message {
     border: 1px dotted white;
     padding-top: .1cm;
     padding-left: 0px;
-    min-height: 3.2cm;
-    max-height: 3.2cm;
+    height:3.2cm;
+    position:relative;
+  }
+
+  .message_container {
+       
+    height:100%;
+    
   }
 
   .card_from{
@@ -106,42 +111,41 @@
 
   }
 
-
   .btn-print-card {visibility: hidden;}
   /* Terina la impresion de tarjeta */
   
-  	.invoice_page{
-  		position: relative;
-  		left: -10px;
-  		z-index: 1000;
-  	}
-  	
-  	.invoice_page .receptor{
-  		padding-right: 5px;
-  	}
-  	.invoice_page .receptor, .other-details {
-  		font-size: 11px;
-  	}
-  	
+	.invoice_page{
+		position: relative;
+		left: -10px;
+		z-index: 1000;
+	}
+
+	.invoice_page .receptor{
+		padding-right: 5px;
+	}
+	.invoice_page .receptor, .other-details {
+		font-size: 11px;
+	}
+
 	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA FACTURA*/
 	.invoice_page .issuing-container { visibility:hidden; }
 	.invoice_page .div_header { visibility:hidden; }
 	.invoice_page .div_content { border: solid 1px #FFF; }
 	.invoice_page .taxes_content { border: solid 1px #FFF; }
 	.sonata-bc .input-container input { box-shadow: none; }
-	
+
 	/*OCULTAR CONTENIDO NO REQUERIDO EN LA PANTALLA DE LA NOTA*/
 	.payment-note > div{ visibility:hidden; }
 	.payment-note .info-row > div.info,
 	.payment-note .totals > div{ visibility:visible;}
-	
+
 	.invoice_page thead { visibility: hidden; }
 	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
-	
-  	##.invoice_page .items_container .sonata-ba-list-field .editable-empty{display:none;}
-	
+
+	##.invoice_page .items_container .sonata-ba-list-field .editable-empty{display:none;}
+
 	.hide_template{ display: none; }
-	
+
 	.sonata-bc .tab-content > .tab-pane:first-child{ display: none; }
 	.sonata-bc .tab-content > .tab-pane:nth-child(2) { display: block; }
 }
