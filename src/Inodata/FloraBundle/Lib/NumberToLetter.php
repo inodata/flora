@@ -25,8 +25,8 @@ class NumberToLetter
 	private $numero=0;
 	private $genero=1;
 	private $moneda="PESOS";
-	private $prefijo="(--";
-	private $sufijo="--)";
+	private $prefijo="(-- ";
+	private $sufijo="M.N. --)";
 	private $mayusculas=1;
 	//textos
 	private $textos_posibles= array(
