@@ -148,7 +148,7 @@ sonata_cache:
             token: InodataSecretToken2013
             prefix: inodata_flora
             servers:
-                - { domain: flora, ip: 127.0.0.1, port: 80 }
+                - { domain: flora.inodata.com.mx, ip: 127.0.0.1, port: 80 }
 
 sonata_block:
     default_contexts: [ cms ]

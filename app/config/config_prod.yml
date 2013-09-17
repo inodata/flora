@@ -1,6 +1,10 @@
 imports:
     - { resource: config.yml }
 
+parameters:
+    router.options.matcher.cache_class: ~ # disable router cache
+    router.options.matcher_class: Symfony\Component\Routing\Matcher\ApacheUrlMatcher
+
 # In production environment you should know that the parameters for URL generation
 # always pass the requirements. Otherwise it would break your link (or even site with
 # strict_requirements = true). So we can disable the requirements check completely for
@@ -9,19 +13,30 @@ framework:
     router:
         strict_requirements: null
 
-#doctrine:
-#    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
+doctrine:
+    orm:
+        metadata_cache_driver: apc
+        result_cache_driver: apc
+        query_cache_driver: apc
 
 monolog:
     handlers:
         main:
             type:         fingers_crossed
             action_level: error
-            handler:      nested
-        nested:
+            handler:      grouped
+        grouped:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+        swift:
+            type:               swift_mailer
+            from_email:         development@inodata.com.mx
+            to_email:           enrique@inodata.com.mx
+            subject:            "OOps, error from flora..."
+            level:              error
+        login:
+            type:               stream
+            path:               "%kernel.logs_dir%/auth.log"
+            level:              info
+            channels:           security

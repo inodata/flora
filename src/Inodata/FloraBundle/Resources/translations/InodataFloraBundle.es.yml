@@ -166,7 +166,7 @@ label.is_canceled: Cancelado
 label.comment: Comentario
 label.canceled_by: Cancelado por
 label.canceled_at: Cancelado el
-button.cancel: Cancelar Factura
+button.save_comment_and_cancel_invoice: Guardar comentario y cancelar factura
 button.back_to_list: Regresar a la lista
 label.actions: Acciones
 label.unit: Unidad
