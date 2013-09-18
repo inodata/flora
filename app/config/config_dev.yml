@@ -21,6 +21,12 @@ monolog:
         chromephp:
             type:  chromephp
             level: info
+        swift:
+            type:               swift_mailer
+            from_email:         development@inodata.com.mx
+            to_email:           enrique@inodata.com.mx
+            subject:            "OOps, error from flora dev..."
+            level:              error
 
 assetic:
     use_controller: true
