@@ -3,12 +3,9 @@ $(document).ready(function() {
 	var isCustomerToSelect2 = false;
 	var isEditingCustomer = false;
 	
-	$(".inodata_customer, " +
-	  ".inodata_payment_contact, " +
-	  ".inodata_product, " +
-	  ".inodata_category_day, " +
-	  ".inodata_messages"
-	).select2({ allowClear: true });
+	jQuery("select", "document").select2({
+		allowClear: 'true'
+	});
 	
 	$('.inodata_delivery_date').datepicker({ dateFormat: "dd/mm/yy" });
 	$(".inodata_invoice_date").closest('fieldset').css('display','none');
@@ -46,8 +43,8 @@ $(document).ready(function() {
 	    	}else{
 	    		var selected = $('select.inodata_customer option:last').val();
 	    	}
-	        $('.inodata_customer').select2({ allowClear: true});
-	        $('.inodata_customer').select2('val', selected);
+	        
+	        //jQuery('select','.inodata_customer').select2({ val: selected });
 	        updateEditCustomerButton();
 	    }
 	    isCustomerToSelect2 = true;
@@ -56,12 +53,14 @@ $(document).ready(function() {
 	$(element).bind('DOMNodeRemoved', function(){
 	    isCustomerToSelect2 = false;
 	});
+	
 	$('.sonata-ba-action').live('mouseenter', function(){
 		isEditingCustomer = false;
 	});
 	$('.btn_edit_customer').live('mouseenter', function(){
 		isEditingCustomer = true;
 	});
+	
 	//---------------------------------------------------------------------------------//
 	
 	//----------------Fila de seleccion de cliente en la orden------------------//

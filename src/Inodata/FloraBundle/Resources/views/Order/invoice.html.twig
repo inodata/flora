@@ -153,14 +153,20 @@
 										{% endif %}
 									</td>
 								</tr>
-								<tr>
-									<td class="td-label" colspan="5">{{ 'label.discount'|trans({}, 'InodataFloraBundle') }}</td>
-									<td class="invoice-discount">{% if totals is defined %}{{ totals['discount_net'] }}{% else %}{{ 0.0 }}{% endif %}</td>
-								</tr>
-								<tr>
-									<td class="td-label" colspan="5">{{ 'label.shipping'|trans({}, 'InodataFloraBundle') }}</td>
-									<td class="invoice-shipping">{% if totals is defined %}{{ totals['shipping'] }}{% else %}{{ 0.0 }}{% endif %}</td>
-								</tr>
+								{% if totals is defined %}
+									{% if totals['discount_net'] > 0 %}
+										<tr>
+											<td class="td-label" colspan="5">{{ 'label.discount'|trans({}, 'InodataFloraBundle') }}</td>
+											<td class="invoice-discount">{{ totals['discount_net'] }}</td>
+										</tr>
+									{% endif %}
+									{% if totals['shipping'] > 0 %}
+										<tr>
+											<td class="td-label" colspan="5">{{ 'label.shipping'|trans({}, 'InodataFloraBundle') }}</td>
+											<td class="invoice-shipping">{{ totals['shipping'] }}</td>
+										</tr>
+									{% endif %}
+								{% endif %}
 							</tfoot>
 						</table>
 					</div>

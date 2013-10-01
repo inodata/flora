@@ -61,6 +61,7 @@ class OrderAdmin extends Admin
 				'attr' => array(
 					'class' => 'inodata_customer span5',
 					'placeholder' => 'Buscar Cliente',
+					'allowClear' => 'true',					
 				)
 			))
 			->add('purchaseOrder', null, array(

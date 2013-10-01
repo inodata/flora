@@ -703,31 +703,31 @@ class OrderAdminController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function listAction()
-	{
-		if (false === $this->admin->isGranted('LIST')) {
-			throw new AccessDeniedException();
-		}
+	// public function listAction()
+	// {
+	// 	if (false === $this->admin->isGranted('LIST')) {
+	// 		throw new AccessDeniedException();
+	// 	}
 		
-		$view = $this->get('request')->get('view');
-		if ($view){
-			$this->setListType($view);
-		}
-		$this->admin->list_view = $this->getListType();
+	// 	$view = $this->get('request')->get('view');
+	// 	if ($view){
+	// 		$this->setListType($view);
+	// 	}
+	// 	$this->admin->list_view = $this->getListType();
 		
-		$datagrid = $this->admin->getDatagrid();
-		$formView = $datagrid->getForm()->createView();
+	// 	$datagrid = $this->admin->getDatagrid();
+	// 	$formView = $datagrid->getForm()->createView();
 	
-		// set the theme for the current Admin Form
-		$this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
+	// 	// set the theme for the current Admin Form
+	// 	$this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 	
-		return $this->render($this->admin->getTemplate('list'), array(
-				'action'   => 'list',
-				'form'     => $formView,
-				'datagrid' => $datagrid,
-				'view' 	   => $this->getListType()
-		));
-	}
+	// 	return $this->render($this->admin->getTemplate('list'), array(
+	// 			'action'   => 'list',
+	// 			'form'     => $formView,
+	// 			'datagrid' => $datagrid,
+	// 			'view' 	   => $this->getListType()
+	// 	));
+	// }
 	
 	public function exportAction(Request $request)
     {
@@ -761,19 +761,19 @@ class OrderAdminController extends Controller
         return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $flick);
     }
     
-    protected function setListType($listType)
-    {
-    	$this->get('session')->set('order.list_type', $listType);
-    }
+    // protected function setListType($listType)
+    // {
+    // 	$this->get('session')->set('order.list_type', $listType);
+    // }
     
-    protected function getListType()
-    {
-    	$listType = $this->get('session')->get('order.list_type');
+    // protected function getListType()
+    // {
+    // 	$listType = $this->get('session')->get('order.list_type');
     	
-    	if (!$listType){
-    		return "normal";
-    	}
+    // 	if (!$listType){
+    // 		return "normal";
+    // 	}
     	
-    	return $listType;
-    }
+    // 	return $listType;
+    // }
 }
