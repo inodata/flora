@@ -3,7 +3,9 @@ $(document).ready(function() {
 	var isCustomerToSelect2 = false;
 	var isEditingCustomer = false;
 	
-	jQuery("select", "document").select2({
+		//var customer = $("select.inodata_customer").first();
+	//alert($(customer).attr("class"));
+	$("select.inodata_customer").select2({
 		allowClear: 'true'
 	});
 	
@@ -34,33 +36,35 @@ $(document).ready(function() {
 	$(notesContainer).remove();
 	
 	//---Reactiva el widget de Select2 al crear nuevo Customer desde la ventana modal---//
+	var customerAction ="";
 	var element = $('.inodata_customer').closest('.sonata-ba-field-standard-natural');
 	
 	$(element).bind('DOMNodeInserted', function(){
-	    if(!isCustomerToSelect2){
-	    	if(isEditingCustomer){
-	    		var selected = $('select.inodata_customer option:selected').val();
-	    	}else{
-	    		var selected = $('select.inodata_customer option:last').val();
+	    if(isCustomerToSelect2){
+	    	if(customerAction=="new" && $('select.inodata_customer').length > 0){
+		    	var selected = $('select.inodata_customer option:last').val();
+		    	$('select.inodata_customer').val(selected).change();
+		    	isCustomerToSelect2 = false; customerAction = "";
 	    	}
-	        
-	        //jQuery('select','.inodata_customer').select2({ val: selected });
-	        updateEditCustomerButton();
+	    	updateEditCustomerButton();
 	    }
-	    isCustomerToSelect2 = true;
+	});
+	
+	$(".ui-dialog-titlebar-close").live('mousedown', function(){
+		customerAction = "";
 	});
 	
 	$(element).bind('DOMNodeRemoved', function(){
-	    isCustomerToSelect2 = false;
+	    isCustomerToSelect2 = true;
 	});
 	
-	$('.sonata-ba-action').live('mouseenter', function(){
-		isEditingCustomer = false;
+	$(".btn").live('click', function(){
+		if($(this).hasClass('btn_edit_customer')){
+			customerAction = "edit";
+		}else if($(this).closest('div').find(".inodata_customer").length > 0){
+			customerAction = "new";
+		}
 	});
-	$('.btn_edit_customer').live('mouseenter', function(){
-		isEditingCustomer = true;
-	});
-	
 	//---------------------------------------------------------------------------------//
 	
 	//----------------Fila de seleccion de cliente en la orden------------------//
@@ -71,7 +75,7 @@ $(document).ready(function() {
 	    $.get(url, function(data){
 	    	$("select.inodata_payment_contact option").remove();
 	    	$("select.inodata_payment_contact").append(data.contacts);
-	    	$(".inodata_payment_contact").select2('val','');
+	    	$("select.inodata_payment_contact").select2({'val':'', allowClear:true});
 	    	
 	    	$('.order-discount').eq(0).val(data.customer_discount);
 	    	updateAjaxTotalsCost();
@@ -137,8 +141,8 @@ $(document).ready(function() {
 	}
 	
 	// CREA EL PAYMENT CONTACT SI NO EXISTE
-	$('.inodata_payment_contact').prev().find('input[type="text"]').keyup(function(event){
-		if(event.which == 13){
+	$('.select2-search > input[type="text"]').live('keyup', function(event){
+		if(event.which == 13 && $('div.inodata_payment_contact').hasClass('select2-dropdown-open')){
 			if($('.select2-results li:first').attr('class')=="select2-no-results" ){
 				var url = Routing.generate('inodata_flora_order_payment_contact_create');
 				var customerId = $('select.inodata_customer option:selected').val();
