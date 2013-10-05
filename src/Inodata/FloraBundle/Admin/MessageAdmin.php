@@ -47,7 +47,7 @@ class MessageAdmin extends Admin
 			->add('_action', 'actions', array(
 				'label' => 'label.action',
 				'actions' => array(
-					'view' => array(),
+					'show' => array(),
 					'edit' => array(),
 					'delete' => array(),
 				)
