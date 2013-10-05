@@ -13,7 +13,7 @@ set :deploy_via,  :capifony_copy_local #rsync_with_remote_cache
 set :use_composer,     true
 set :use_composer_tmp, true
 set :update_vendors,   false
-set :composer_bin,     "php composer.phar"
+set :composer_bin,     "composer"
 set :vendors_mode,     "install"
 set :symfony_vendors,  "composer.phar"
 #set :copy_vendors, true
