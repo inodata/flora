@@ -41,7 +41,6 @@ class PartnerAdmin extends Admin
 			->add('email', null, array('label' => 'label.email'))
 			->add('_action', 'actions', array(
 				'actions' => array(
-					'view' => array(),
 					'edit' => array(),
 					'delete' => array(),
 				)

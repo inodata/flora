@@ -55,7 +55,6 @@ class ProductLogAdmin extends Admin
 			->add('date', 'date')
 			->add('_action', 'actions', array(
 				'actions' => array(
-						'view' => array(),
 						'edit' => array(),
 						'delete' => array(),
 				)
