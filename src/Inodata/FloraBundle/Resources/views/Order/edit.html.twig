@@ -72,7 +72,9 @@
 {% block formactions %}
 	{{ parent() }}
 	<input type="submit" name="save_and_print_note" class="btn btn-print" value="{{ 'button.print_note'|trans({}, 'InodataFloraBundle')}}"/>
-	<input type="submit" name="save_and_print_invoice" class="btn btn-print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle')}}"/>
+  {% if object.hasInvoice == 1 %}
+    <input type="submit" name="save_and_print_invoice" class="btn btn-print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle')}}"/>
+  {% endif %}	
 	{% if admin.id(object) %}
 		<input type="hidden" class="post_save_action" value="{{ app.session.get('post_save_action') }}" />
 	{% endif %}
