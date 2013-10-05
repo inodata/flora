@@ -1,21 +1,5 @@
 {% extends 'InodataFloraBundle::base_edit.html.twig' %}
 
-{#
-    probar si arregla la inclusion de javascripts utilizados por genemu bundle y otros
-
-    {% extends 'SonataAdminBundle::standard_layout.html.twig' %}
-
-    {% block javascripts %}
-       {{ parent() }}
-       {% if form is defined %}{{ form_javascript(form) }}{% endif %}
-    {% endblock %}
-
-    {% block stylesheets %}
-       {{ parent() }}
-       {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
-    {% endblock %}
-#}
-
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets 
@@ -58,6 +42,10 @@
                     	{% embed 'InodataFloraBundle:Order:payment_note.html.twig' %}{% endembed %}
                     	{% if object.hasInvoice==1 %}
                     		{% embed 'InodataFloraBundle:Order:invoice.html.twig' %}{% endembed %}
+                      {% else %}
+                        {# TODO: Meter un botón para activar los datos de factura sin necesidad del click en checkbox y actualizar el pedido.
+                          <a href="#" class="btn btn-success"><i class="icon-list-alt"></i>{{ 'button.activate_invoice'|trans({}, 'InodataFloraBundle')}}</a>
+                        #}
                     	{% endif %}
                     {% else %}
                     	<div class="no-invoice-msg">Para facturar, primero debe crear la orden.</div>
@@ -81,11 +69,11 @@
         {% endfor %}
     </div>
 {% endblock %}
-{% block sonata_formactions %}
+{% block formactions %}
 	{{ parent() }}
 	<input type="submit" name="save_and_print_note" class="btn btn-print" value="{{ 'button.print_note'|trans({}, 'InodataFloraBundle')}}"/>
 	<input type="submit" name="save_and_print_invoice" class="btn btn-print" value="{{ 'button.print_invoice'|trans({}, 'InodataFloraBundle')}}"/>
 	{% if admin.id(object) %}
 		<input type="hidden" class="post_save_action" value="{{ app.session.get('post_save_action') }}" />
 	{% endif %}
-{% endblock %}
+{% endblock formactions %}

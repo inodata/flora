@@ -23,7 +23,11 @@
 			<div class="space-5">EXT.:</div><div class="info">{{ object.paymentContact.extension}}&nbsp;</div>
 		</div>
 		<div class="info-row">
-			<div>EMPRESA:</div><div class="space-1 info">{{ object.creator }}&nbsp;</div>
+			<div>EMPRESA:</div><div class="space-1 info">{{ object.creator }}&nbsp;
+				{% if object.reporter != "" %}
+					({{ object.reporter }})
+				{% endif %}
+			</div>
 			<div class="space-2">ORDENO:</div><div class="info">{{ object.paymentContact }}&nbsp;</div>
 		</div>
 		<div class="info-row">

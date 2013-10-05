@@ -57,40 +57,6 @@ class OrderAdminController extends Controller
 		
 		return new Response(json_encode(array('id'=>-1)));
 	}
-	/*
-	public function orderProductsAction($id = null, $isForInvoice = false)
-	{
-		$price_subtotal = 0;
-		
-		$order = $this->getDoctrine()
-			->getRepository('InodataFloraBundle:OrderProduct')
-			->findByOrder($id);
-		
-		$listFields=""; $listInvoiceFields="";
-		$selectOptions ="";
-		foreach ($order as $orderProduct){
-			$orderProduct->getProduct()->setPrice($orderProduct->getProductPrice());
-			$listFields.= $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
-					array('product' => $orderProduct->getProduct(), 
-						  'total' =>$orderProduct->getQuantity()));	
-			
-			//List using for Invoice with two extra columns (unit and date)
-			$listInvoiceFields.=$this->renderView('InodataFloraBundle:Order:_invoice_product_item.html.twig',
-					array('orderProduct' => $orderProduct, 
-						  'total' =>$orderProduct->getQuantity()));
-			
-			$selectOptions .= $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
-					array('product' => $orderProduct->getProduct(),
-						  'total' =>$orderProduct->getQuantity()));
-		
-			$price_subtotal+=($orderProduct->getProduct()->getPrice()*$orderProduct->getQuantity());
-		}
-		
-		$response = array("listFields"=>$listFields, "listForInvoice"=>$listInvoiceFields, "optionsToSave"=>$selectOptions, 
-						  'totals'=>$this->getTotalsCostAsArray($id, $price_subtotal));
-		
-		return new Response(json_encode($response));
-	}*/
 	
 	public function addingProductAction()
 	{
@@ -696,39 +662,6 @@ class OrderAdminController extends Controller
 		}
 	}
 	
-	/**
-	 * return the Response object associated to the list action
-	 *
-	 * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-	 *
-	 * @return Response
-	 */
-	// public function listAction()
-	// {
-	// 	if (false === $this->admin->isGranted('LIST')) {
-	// 		throw new AccessDeniedException();
-	// 	}
-		
-	// 	$view = $this->get('request')->get('view');
-	// 	if ($view){
-	// 		$this->setListType($view);
-	// 	}
-	// 	$this->admin->list_view = $this->getListType();
-		
-	// 	$datagrid = $this->admin->getDatagrid();
-	// 	$formView = $datagrid->getForm()->createView();
-	
-	// 	// set the theme for the current Admin Form
-	// 	$this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
-	
-	// 	return $this->render($this->admin->getTemplate('list'), array(
-	// 			'action'   => 'list',
-	// 			'form'     => $formView,
-	// 			'datagrid' => $datagrid,
-	// 			'view' 	   => $this->getListType()
-	// 	));
-	// }
-	
 	public function exportAction(Request $request)
     {
     	$fields = array('collector', 'firstProduct', 'firstProduct.price',
@@ -760,20 +693,4 @@ class OrderAdminController extends Controller
 
         return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $flick);
     }
-    
-    // protected function setListType($listType)
-    // {
-    // 	$this->get('session')->set('order.list_type', $listType);
-    // }
-    
-    // protected function getListType()
-    // {
-    // 	$listType = $this->get('session')->get('order.list_type');
-    	
-    // 	if (!$listType){
-    // 		return "normal";
-    // 	}
-    	
-    // 	return $listType;
-    // }
 }

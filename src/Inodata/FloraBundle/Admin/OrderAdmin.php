@@ -171,8 +171,8 @@ class OrderAdmin extends Admin
 						'required' => false,
 						'label' => 'label.invoice_comment',
 						'attr' => array(
-								'class' => 'inodata-invoice-comment',
-								'style' => 'width:100%'
+							'class' => 'inodata-invoice-comment',
+							'style' => 'width:100%'
 						)
 				))
 				->add('invoice_date', 'date', array(
@@ -182,7 +182,7 @@ class OrderAdmin extends Admin
 						'widget' => 'single_text',
 						'format' => 'd/MM/y',
 						'attr' => array(
-								'class' => 'inodata_invoice_date'
+							'class' => 'inodata_invoice_date'
 						)
 				))
 			->end()
@@ -212,8 +212,8 @@ class OrderAdmin extends Admin
 		$listMapper
 			->addIdentifier('id', null, array("label" => "label.order_number"))
 			->add('createdAt', 'date', array(
-					"label" => "label.created_at",
-					"format" => "d/M/Y")
+				"label" => "label.created_at",
+				"format" => "d/M/Y")
 			)
 			->add('customer', null, array('label'=>'label.customer'))
 			->add('firstProduct', null, array("label" => "label.details"))
@@ -230,7 +230,7 @@ class OrderAdmin extends Admin
 					'actions' => array(
 						'edit' => array())
 			)
-		);		
+		);
 	}
 	
 	/**
