@@ -3,8 +3,8 @@ $('document').ready(function(){
 	var reAsigning = 0;
 
 	$('#filter_deliveryDate_value').datepicker({ dateFormat: "yy-mm-dd" });
-	$('.inodata_messenger_list').select2({allowClear:true});
-	$('.inodata_id_list').select2({allowClear:true});
+	$('select.inodata_messenger_list').select2({allowClear:true});
+	$('select.inodata_id_list').select2({allowClear:true});
 	
 	/* Refactorizar esta funcion */
 	$('div.alert-success').fadeOut(5000, function(){

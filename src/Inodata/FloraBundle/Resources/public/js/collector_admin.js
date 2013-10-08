@@ -2,7 +2,7 @@ $('document').ready(function(){
 	
 	var reAsigning = 0;
 	
-	$('.inodata_id_list').select2({allowClear:true});
+	$('select.inodata_id_list').select2({allowClear:true});
 	$('.filter-deliver-date').datepicker({ dateFormat: "yy-mm-dd" });
 	
 	loadSlidingTabsEfects();

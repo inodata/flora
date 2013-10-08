@@ -1,8 +1,7 @@
 {% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
 {% block stylesheets %}
 	{{ parent() }}
-		{% stylesheets '@InodataFloraBundle/Resources/public/css/select2.css'
-	                  '@InodataFloraBundle/Resources/public/css/main.css'
+		{% stylesheets '@InodataFloraBundle/Resources/public/css/main.css'
 	                  '@InodataFloraBundle/Resources/public/css/distribution.css'
 	                  '@InodataFloraBundle/Resources/public/css/sliding/preview.css'
 	                  '@InodataFloraBundle/Resources/public/css/sliding/template.css'
@@ -14,9 +13,7 @@
 	{{ parent() }}	
 		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 		<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-		{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
-					   	 '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
-					   	 '@InodataFloraBundle/Resources/public/js/collector_admin.js'
+		{% javascripts '@InodataFloraBundle/Resources/public/js/collector_admin.js'
 					   	 '@InodataFloraBundle/Resources/public/js/lang/es.js'
 					   	 '@InodataFloraBundle/Resources/public/js/sliding/jquery.slidetabs.min.js'
 					   	 "@InodataFloraBundle/Resources/public/js/customer_admin.js"
