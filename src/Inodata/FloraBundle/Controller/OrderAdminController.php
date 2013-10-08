@@ -161,9 +161,9 @@ class OrderAdminController extends Controller
 			'discount' =>$discount, 
 			'discount_net' =>round($discountNet,2),
 			'discount_percent'=>$discountPercentLabel, 
-			'iva' =>$IVA,//money_format('%!i', $IVA), 
-			'subtotal'=>$subtotal,//money_format('%!i', ), 
-			'total'=>$total,//money_format('%!i', $total),
+			'iva' =>money_format('%!i', $IVA), 
+			'subtotal'=>money_format('%!i', $subtotal), 
+			'total'=>money_format('%!i', $total),
 			'totalInLetters'=>$totalInLetters);
 	}
 	
