@@ -53,6 +53,7 @@ class DistributionAdminController extends Controller
         		'form'     => $formView,
         		'distribution_form' => $distributionFormView,
         		'datagrid' => $datagrid,
+        		'csrf_token' => $this->getCsrfToken('sonata.batch'),
         		'messengers' => $messengers,
         		'first_tab' => $firstTab,
         		'last_tab' => $lastTab,

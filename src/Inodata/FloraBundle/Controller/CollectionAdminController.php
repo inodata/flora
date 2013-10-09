@@ -54,6 +54,7 @@ class CollectionAdminController extends Controller{
 				'form'     => $formView,
 				'collection_form' => $collectionFormView,
 				'datagrid' => $datagrid,
+				'csrf_token' => $this->getCsrfToken('sonata.batch'),
 				'collectors' => $collectors,
 				'first_tab' => $firstTab,
 				'last_tab' => $lastTab,
