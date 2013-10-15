@@ -19,10 +19,10 @@ $('document').ready(function(){
 				
 				if(reAsigning!=0){
 					reasignOrder(id);
-				}
-				
-				$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
-				loadCollectorOrders(id);
+				}else{
+					loadCollectorOrders(id);
+				}				
+				$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());				
 			}
 		});
 	}
@@ -137,6 +137,7 @@ $('document').ready(function(){
 		var data={orderId:reAsigning, collectorId:collectorId};
 		
 		$.post(url, data, function(response){
+			loadCollectorOrders(collectorId);
 		}, 'json');
 		
 		reAsigning=0;

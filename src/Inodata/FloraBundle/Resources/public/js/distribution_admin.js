@@ -211,6 +211,7 @@ $('document').ready(function(){
 		var data={orderId:reAsigning, messengerId:messengerId};
 		
 		$.post(url, data, function(response){
+			loadMessengerOrders(messengerId);
 		}, 'json');
 		
 		reAsigning=0;
@@ -228,10 +229,10 @@ $('document').ready(function(){
 				
 				if(reAsigning!=0){
 					reasignOrder(id);
+				}else{
+					loadMessengerOrders(id);
 				}
-				
-				$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());
-				loadMessengerOrders(id);
+				$('.st_view.tab-'+id).find('.st_view_inner').prepend($('.inner-filters').detach());		
 			}
 		});
 	}
