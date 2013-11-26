@@ -267,15 +267,16 @@
   /* -----------------------*/
   .issuing-container{
   	width:100%;
-  	height: 102px;
+  	height: 89px;
   }
   .issuing-container > div{
   	float:left;
   }
   
   .issuing-container .logo{
-  	height: 100px;
+  	height: 87px;
   	background: url(../../bundles/inodataflora/img/logo.jpg) no-repeat;
+    background-size: 160px 87px;
   	width: 35%;
   }
   .issuing-container .issuing{
@@ -312,10 +313,10 @@
   .date .div_content{ text-align: center; }
   
   .items_container{
-  	height: 316px;
+  	height: 293px;
   }
   .items_container .div_content{
-  	height: 290px;
+  	height: 267px;
   	padding-top: 3px;
   }
   
