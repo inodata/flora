@@ -300,12 +300,14 @@
   
   .receptor .div_content{
   	height: 95px;
+    line-height: 17px;
   }
   
   .other-details{ width:54% }
   .other-details .payment-condition{
   	clear:left;
   	width:100%;
+    padding-top: 5px;
   }
   .other-details .expedition { width: 59%;}
   .other-details .date { width: 40%; }
@@ -313,10 +315,10 @@
   .date .div_content{ text-align: center; }
   
   .items_container{
-  	height: 293px;
+  	height: 284px;
   }
   .items_container .div_content{
-  	height: 267px;
+  	height: 258px;
   	padding-top: 3px;
   }
   
@@ -378,7 +380,7 @@
   }
   
   .ammount_in_words .div_content{ height: 53px; padding-top: 20px;}
-  .comments .div_content{height: 63px; padding-top: 10px}
+  .comments .div_content{height: 63px; padding-top: 5px}
   
   
   .divisor-w {width: 1%; height:2px;}
