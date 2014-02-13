@@ -23,6 +23,7 @@
         "friendsofsymfony/jsrouting-bundle": "~1.1",
         "sonata-project/cache-bundle": "2.1.*@dev",
         "sonata-project/block-bundle": "2.2.*@dev",
+        "sonata-project/core-bundle": "~2.2@dev",
         "sonata-project/jquery-bundle": "1.*",
         "knplabs/knp-menu":"1.1.x-dev",
         "knplabs/knp-menu-bundle":"1.1.x-dev",

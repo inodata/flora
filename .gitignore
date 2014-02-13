@@ -2,6 +2,7 @@
 .buildpath
 .project
 .settings/*
+nbproject/*
 
 # Bootstrap
 app/bootstrap*
@@ -27,3 +28,4 @@ app/config/parameters.yml
 
 # Flotr2Bundle
 Inodata/*
+/nbproject/private/
