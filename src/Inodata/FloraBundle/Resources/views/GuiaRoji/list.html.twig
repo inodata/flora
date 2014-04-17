@@ -1,0 +1,15 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+{% block javascripts %}
+	{{ parent() }}	
+	{% javascripts '@InodataFloraBundle/Resources/public/js/guia_roji.js'
+	%}
+	<script type="text/javascript" src="{{ asset_url }}" ></script>
+	{% endjavascripts %}
+{% endblock %}
+    
+{% block actions %}
+<div class="sonata-actions btn-group">
+    {% include 'SonataAdminBundle:Core:create_button.html.twig' %}
+    <a href="#" class="btn" id="search-updates"><i class="icon-search"></i> {% trans from "InodataFloraBundle"%}label.search_updates{%endtrans%}</a>
+</div>
+{% endblock %}

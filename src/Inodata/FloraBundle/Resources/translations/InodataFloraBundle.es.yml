@@ -198,6 +198,7 @@ label.collection_filter_date: Asignado el
 #GuiaRoji
 label.map: Plano
 label.coordinate: Coordenada
+label.search_updates: Buscar Actualizacion
 
 # On line help messages
 help:

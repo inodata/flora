@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class GuiaRojiAdmin extends Admin
 {
@@ -62,4 +63,24 @@ class GuiaRojiAdmin extends Admin
 			->add('coordinate', null, array("label" => "label.coordinate"))
 		;		
 	}
+    
+    public function getTemplate($name)
+	{
+		switch ($name) {
+	        case 'edit':
+                return 'InodataFloraBundle:GuiaRoji:edit.html.twig';
+	            break;
+	        case 'list':
+	        	return 'InodataFloraBundle:GuiaRoji:list.html.twig';
+	        	break;
+	        default:
+	            	return parent::getTemplate($name);
+	            break;
+		}
+	}
+    
+    //Add an action button
+    protected function configureRoutes(RouteCollection $collection){
+        $collection->add('search');
+    }
 } 

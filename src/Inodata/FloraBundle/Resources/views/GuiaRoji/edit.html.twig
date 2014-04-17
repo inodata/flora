@@ -1,0 +1,9 @@
+{% extends 'InodataFloraBundle::base_edit.html.twig' %}
+
+{% block javascripts %}
+	{{ parent() }}	
+	{% javascripts '@InodataFloraBundle/Resources/public/js/guia_roji.js'
+	%}
+	<script type="text/javascript" src="{{ asset_url }}" ></script>
+	{% endjavascripts %}
+{% endblock %}
