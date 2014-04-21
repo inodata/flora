@@ -72,7 +72,7 @@ services:
         class: Inodata\FloraBundle\Admin\GuiaRojiAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: catalogos, label: Guía Roji }
-        arguments: [ null, Inodata\FloraBundle\Entity\GuiaRoji, SonataAdminBundle:CRUD ]
+        arguments: [ null, Inodata\FloraBundle\Entity\GuiaRoji, InodataFloraBundle:GuiaRojiAdmin ]
         calls: 
             - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
     admin.message:

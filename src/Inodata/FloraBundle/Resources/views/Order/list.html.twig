@@ -1,10 +1,6 @@
 {% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
 {% block javascripts %}
 	{{ parent() }}	
-	{% javascripts '@InodataFloraBundle/Resources/public/js/select2.js' 
-				   '@InodataFloraBundle/Resources/public/js/select2_locale_es.js'
-				   '@InodataFloraBundle/Resources/public/js/lang/es.js'
-	%}
 	<script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
 	<script type="text/javascript">

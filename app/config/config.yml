@@ -114,7 +114,7 @@ sonata_admin:
     title_logo: /bundles/inodataflora/img/logo_mini.png
     templates:
         # default global templates
-        layout:  SonataAdminBundle::standard_layout.html.twig
+        layout:  ::standard_layout.html.twig
         ajax:    SonataAdminBundle::ajax_layout.html.twig
 
         # default actions templates, should extend a global templates
@@ -183,4 +183,4 @@ genemu_form:
     date:    ~
 
 fos_js_routing:
-    routes_to_expose: [inodata_flora_order_*, inodata_flora_distribution_*, inodata_flora_collection_*, distribution_list, admin_inodata_flora_customer_edit]
+    routes_to_expose: [inodata_flora_order_*, inodata_flora_distribution_*, inodata_flora_collection_*, distribution_list, admin_inodata_flora_customer_edit, inodata_flora_guiaroji_*]

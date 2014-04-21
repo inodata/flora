@@ -1,14 +1,5 @@
 {% extends 'InodataFloraBundle::base_edit.html.twig' %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	{% stylesheets 
-      '@InodataFloraBundle/Resources/public/css/main.css'
-      '@InodataFloraBundle/Resources/public/css/x-editable/bootstrap-editable.css'%}
-		<link rel="stylesheet" href="{{ asset_url }}" />
-	{% endstylesheets %}
-
-{% endblock %}
 {% block javascripts %}
 	{{ parent() }}
   <script type="text/javascript">
@@ -19,15 +10,11 @@
     //Letter Paper Size
     var invoice_printer = "{{ invoice_printer }}";
   </script>	
-	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-	<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 	{% javascripts 
   	   "@InodataFloraBundle/Resources/public/js/order_admin.js"
-  	   "@InodataFloraBundle/Resources/public/js/lang/es.js"
        "@InodataFloraBundle/Resources/public/js/print.js"
-       "@InodataFloraBundle/Resources/public/js/jquery.jeditable.min.js"
        "@InodataFloraBundle/Resources/public/js/customer_admin.js"
-       "@InodataFloraBundle/Resources/public/js/x-editable/bootstrap-editable.min.js"%}
+       %}
     <script type="text/javascript" src="{{ asset_url }}" ></script>
 	{% endjavascripts %}
 {% endblock %}

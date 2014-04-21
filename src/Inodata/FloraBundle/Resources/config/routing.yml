@@ -123,3 +123,11 @@ inodata_flora_collection_reasign_order:
     pattern: /admin/inodata/flora/collection/reasign/order
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:reasignOrder }
     
+inodata_flora_guiaroji_search: 
+    pattern: /admin/inodata/flora/guiaroji/search
+    defaults: {_controller: InodataFloraBundle:GuiaRojiAdmin:search }
+    
+inodata_flora_guiaroji_save: 
+    pattern: /admin/inodata/flora/guiaroji/save
+    defaults: {_controller: InodataFloraBundle:GuiaRojiAdmin:save }
+    

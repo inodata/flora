@@ -83,4 +83,21 @@ class GuiaRojiAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection){
         $collection->add('search');
     }
+    
+    /**
+	* Determina el ordenamiento por default en el listado
+	*/
+	protected $datagridValues = [
+        '_page'       => 1,
+        '_sort_order' => 'ASC', // sort direction
+        '_sort_by'    => 'neighborhood' // field name
+    ];
+    
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery();
+        $query->addOrderBy($query->getRootAlias().".city", "ASC");
+        
+        return $query;
+    }
 } 
