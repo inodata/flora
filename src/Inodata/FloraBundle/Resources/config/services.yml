@@ -7,6 +7,10 @@ parameters:
 #        arguments: [@service_id, "plain_value", %parameter%]
 
 services:
+    inodata_ajax_autocomplete_type:
+        class: Inodata\FloraBundle\Form\Type\AjaxAutocompleteType
+        tags:
+            - { name: form.type, alias: ajax_autocomplete }
     inodata_payment_contact_form:
         class: Inodata\FloraBundle\Form\Type\PaymentContactType
         tags:

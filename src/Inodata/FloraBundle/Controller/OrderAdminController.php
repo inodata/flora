@@ -204,13 +204,13 @@ class OrderAdminController extends Controller
 	private function getPaymentCotactInfoAsArray($paymentContact)
 	{
 		return array(
-				'id' => $paymentContact->getId(),
-				'name' => $paymentContact->getName(),
-				'emp_number' => $paymentContact->getEmployeeNumber(),
-				'phone' => $paymentContact->getPhone(),
-				'extension' => $paymentContact->getExtension(),
-				'email' => $paymentContact->getEmail(),
-				'department' => $paymentContact->getDepartment()
+            'id' => $paymentContact->getId(),
+            'name' => $paymentContact->getName(),
+            'emp_number' => $paymentContact->getEmployeeNumber(),
+            'phone' => $paymentContact->getPhone(),
+            'extension' => $paymentContact->getExtension(),
+            'email' => $paymentContact->getEmail(),
+            'department' => $paymentContact->getDepartment()
 		);
 	}
 	
@@ -307,11 +307,12 @@ class OrderAdminController extends Controller
 		$orderProducts = $this->getOrderProducts($id);
 	
 		return $this->render($this->admin->getTemplate($templateKey), array(
-				'action' => 'edit',
-				'form'   => $view,
-				'object' => $object,
-				'orderProducts' => $this->getOrderProducts($id),
-				'totals' => $this->getTotalsCostAsArray($orderProducts)
+            'action' => 'edit',
+            'form'   => $view,
+            'object' => $object,
+            'guiaRoji' => $this->getAddrressFromGuiaRoji($object->getShippingAddress()),
+            'orderProducts' => $this->getOrderProducts($id),
+            'totals' => $this->getTotalsCostAsArray($orderProducts)
 		));
 	}
 	
@@ -692,5 +693,11 @@ class OrderAdminController extends Controller
         $flick =  $this->admin->getModelManager()->getDataSourceIterator($datagrid, $fields);
 
         return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $flick);
+    }
+    
+    private function getAddrressFromGuiaRoji($address){
+        $address = "hola";
+        
+        return $address;
     }
 }

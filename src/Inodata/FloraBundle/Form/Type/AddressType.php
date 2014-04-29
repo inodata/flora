@@ -16,8 +16,18 @@ class AddressType extends AbstractType
 			->add('noInt', null, array('label' => 'label.interior'))
 			->add('reference', null, array('label' => 'label.reference'))
 			->add('postalCode', null, array('label' => 'label.postal_code'))
-			->add('neighborhood', null, array('label' => 'label.neighborhood'))
-			->add('city', null, array('label' => 'label.city'))
+			->add('neighborhood', 'ajax_autocomplete', array('label' => 'label.neighborhood',
+                    'attr' => array(
+                        "class" => 'span3 ajax-autocomplete', 
+                        'entity' => "InodataFloraBundle:GuiaRoji",
+                        "column" => "neighborhood")
+                ))
+			->add('city', 'ajax_autocomplete', array('label' => 'label.city',
+                    'attr' => array(
+                        "class" => 'span3 ajax-autocomplete', 
+                        'entity' => "InodataFloraBundle:GuiaRoji",
+                        "column" => "city")
+                ))
 			->add('state', 'inodata_mx_states_type',
 				array('label' => 'label.state',
 					'attr' => array('class'=>'mx_state')

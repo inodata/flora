@@ -28,13 +28,14 @@ class OrderAdmin extends Admin
 					'class' => 'inodata_delivery_date'
 				)
 			))
-			->add('to', null, array(
+			->add('to', 'genemu_jqueryautocomplete_text', array(
+                'suggestions' => array('Ozil', 'Van Persie'),
 				'label'=> 'label.to',
-				'help' => 'help.to',
+				/*'help' => 'help.to',
 				'attr' => array(
 					'class' => 'inodata_to',
 					'style' => 'width:210px'
-				)
+				)*/
 			))
 			->add('from', null, array(
 				'label' => 'label.from',

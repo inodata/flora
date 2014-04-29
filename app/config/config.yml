@@ -179,8 +179,10 @@ knp_menu:
     default_renderer: twig # The renderer to use, list is also available by default
 
 genemu_form:
+    autocomplete: ~
     select2: ~
     date:    ~
+    
 
 fos_js_routing:
-    routes_to_expose: [inodata_flora_order_*, inodata_flora_distribution_*, inodata_flora_collection_*, distribution_list, admin_inodata_flora_customer_edit, inodata_flora_guiaroji_*]
+    routes_to_expose: [inodata_flora_order_*, inodata_flora_distribution_*, inodata_flora_collection_*, distribution_list, admin_inodata_flora_customer_edit, inodata_flora_guiaroji_*, inodata_flora_ajax_*]
