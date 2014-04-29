@@ -281,21 +281,6 @@ $(document).ready(function() {
 	//----------Load initial data for edit order ----------//
 	var id = $(".order-id").val();
 	
-	/*if(id!=''){
-		var url = Routing.generate('inodata_flora_order_products', {id:id});
-	    
-	    $.get(url, function(data){
-	    	$(".list-products tbody").append(data.listFields);
-	    	$(".list-products-content").append(data.optionsToSave);
-	    	hideEmptyNotification();
-	    	//Load price totals for the order editing
-	    	loadPriceTotals(data.totals);
-	    	loadInvoiceOrderProducts($(data.listFields).clone(), data.listForInvoice, data.totals);
-	    }, 'json');
-	}*/
-	//----------------------------------------//
-	
-	
 	function showEmptyNotification(){
 		if($(".product").length==0){
 	    	$("#no_products").css('display', 'table-row'); 
@@ -388,55 +373,6 @@ $(document).ready(function() {
 	$('.inodata_message').closest('.control-group').append($(btnPrinCard).clone());
 	$(btnPrinCard).remove();
 	//-------------------------------------------------------------------------//
-
-	//----------------------- Load invoice and note data ----------------------//
-	/*function loadInvoiceOrderProducts(listFields, listForInvoice, totals)
-	{
-		$(listFields).each(function(){
-			var cant = $(this).children('td:first').find('input').val();
-			$(this).children('td:first').html(cant);
-			$(this).children('td:last').remove();
-			$(this).attr('id', '').removeClass('product')
-		});
-		
-		$('.payment-note .totals table > tbody').append(listFields);
-		$('.payment-note .totals .shipping').text(totals.shipping);
-		
-		$('.invoice_page table > tbody').append(listForInvoice);
-		createProductXEditable();
-		
-		$('.invoice-subtotal').append(totals.subtotal);
-		$('.invoice-iva').append(totals.iva);
-		$('.invoice-total').append(totals.total);
-		$('.invoice-shipping').append(totals.shipping);
-		$('.invoice-discount').append(totals.discount_net);
-		$('.ammount_in_words .div_content').text(totals.totalInLetters);
-		
-		var invoiceNumber = $('.inodata-invoice-number');
-		$('.folio-container .div_content').append($(invoiceNumber).clone().attr('type', 'text'));
-		$(invoiceNumber).remove();
-		
-		var invoiceDate = $('.inodata_invoice_date');
-		$('.date .div_content').append($(invoiceDate)
-				.clone().datepicker({ dateFormat: "dd/mm/yy" }));
-		$(invoiceDate).remove();
-		
-		var inovicePCondition = $('.inodata-payment-condition');
-		$('.payment-condition .div_content').append($(inovicePCondition).clone().attr('type', 'text'));
-		$(inovicePCondition).remove();
-		
-		$('.read-only input').attr('readonly', 'readonly');
-		
-		var invoiceComment = $('.inodata-invoice-comment');
-		$('.comments .div_content').append($(invoiceComment).clone().attr('type', 'text'));
-		$(invoiceComment).remove();
-		
-		//var orderNote = $('.inodata-order-notes').val();
-		//$('.invoice_page .order-note').text(orderNote);
-		
-		$('div.payment-note').prev().remove();
-	}*/
-	//----------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//
 	hideElement($('.products-to-buy'));
@@ -514,53 +450,6 @@ $(document).ready(function() {
 		}
 	}
 	//-----------------------------------------------------
-	
-	//--------PRINT AND SAVE INVOICE/NOTE USING AJAX--------//
-	/*var useAjaxToSubmit = false;
-	var btnPresset = "";
-	$('form.form-horizontal').submit(function(){
-		if(useAjaxToSubmit){
-			saveOrUpdateOrderByAjax(this);
-			printNoteOrInvoice();
-			useAjaxToSubmit = false;
-			return false;
-		}	
-	});
-	
-	function saveOrUpdateOrderByAjax(form){
-		var data = $(form).serialize();
-		var url = $(form).attr('action');
-		$.post(url, data, function(response){
-			//alert(response);
-		});
-	}
-	
-	$("input.btn").live('click', function(){
-		if($(this).hasClass("btn-print")){
-			useAjaxToSubmit = true;
-			btnPresset = $(this).attr('name');
-		}
-	});
-	
-	function printNoteOrInvoice()
-	{
-		switch(btnPresset)
-		{
-			case 'save_and_print_note':
-				$('.invoice_page').addClass('hide_template');
-				$('.card_page').addClass('hide_template');
-				$('.payment-note').removeClass('hide_template');
-				printNote();
-			break;
-			case 'save_and_print_invoice':
-				$('.invoice_page').removeClass('hide_template');
-				$('.payment-note').addClass('hide_template');
-				$('.card_page').addClass('hide_template');
-				printInvoice();
-			break;
-		}
-	}*/
-	//-----------------------------------------------------//
 	
 	// ------------------- INVOICE EDIT IN PLACE ----------------//
 	$.fn.editable.defaults.mode = "inline";

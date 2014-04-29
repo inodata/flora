@@ -1,4 +1,11 @@
 {% extends 'InodataFloraBundle::base_edit.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets 
+      '@InodataFloraBundle/Resources/public/css/order_screen.css'%}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}

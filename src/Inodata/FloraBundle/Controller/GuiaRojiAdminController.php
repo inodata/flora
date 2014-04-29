@@ -12,6 +12,15 @@ use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
 class GuiaRojiAdminController extends Controller
 {
+    public function findByIdAction($id){
+        $guiaRoji = $this->getDoctrine()->getRepository("InodataFloraBundle:GuiaRoji")
+                ->find($id);
+        
+        $return = ['neighborhood'=>$guiaRoji->getNeighborhood(), 'city'=> $guiaRoji->getCity(), 'postal_code' => $guiaRoji->getPostalCode()];
+        
+        return $this->renderJson($return);
+    }
+
     public function searchAction()
     {
         $letter = $this->getRequest()->get("letter");

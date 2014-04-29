@@ -34,6 +34,11 @@
   .original_string, .digital_stamp, .footer_container{display:none;}
   
  .payment-note, .card_page { display: none; }
+ 
+ .no-guia-roji{color: #F00;}
+ 
+ span.select2-chosen, div.select2-result-label, span.select2-match { color: #000100 }
+ .select2-highlighted > div.select2-result-label, .select2-highlighted span.select2-match  {color: #FFF; }
 }
 
 @media print
@@ -148,6 +153,8 @@
 
 	.sonata-bc .tab-content > .tab-pane:first-child{ display: none; }
 	.sonata-bc .tab-content > .tab-pane:nth-child(2) { display: block; }
+    
+    .guia_roji_map{font-weight: bold; padding-top: 4px;}
 }
 
 @media print, screen

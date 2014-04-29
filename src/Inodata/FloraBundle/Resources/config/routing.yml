@@ -122,6 +122,11 @@ inodata_flora_collectionn_collector_edit_in_place:
 inodata_flora_collection_reasign_order: 
     pattern: /admin/inodata/flora/collection/reasign/order
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:reasignOrder }
+
+#Module GuiaRoji
+inodata_flora_guiaroji_find_by_id: 
+    pattern: /admin/inodata/flora/guiaroji/find/{id}
+    defaults: {_controller: InodataFloraBundle:GuiaRojiAdmin:findById }
     
 inodata_flora_guiaroji_search: 
     pattern: /admin/inodata/flora/guiaroji/search
@@ -131,7 +136,7 @@ inodata_flora_guiaroji_save:
     pattern: /admin/inodata/flora/guiaroji/save
     defaults: {_controller: InodataFloraBundle:GuiaRojiAdmin:save }
     
-#Routing for ajax entity
+#Routing for ajax autocomplete
 inodata_flora_ajax_autocomplete:
     pattern: /admin/inodata/flora/ajax/text/autocomplete
     defaults: { _controller: InodataFloraBundle:AjaxWidgets:text }

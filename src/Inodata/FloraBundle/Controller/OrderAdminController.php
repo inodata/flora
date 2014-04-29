@@ -310,7 +310,7 @@ class OrderAdminController extends Controller
             'action' => 'edit',
             'form'   => $view,
             'object' => $object,
-            'guiaRoji' => $this->getAddrressFromGuiaRoji($object->getShippingAddress()),
+            'guia_roji' => $this->getAddrressFromGuiaRoji($object->getShippingAddress()),
             'orderProducts' => $this->getOrderProducts($id),
             'totals' => $this->getTotalsCostAsArray($orderProducts)
 		));
@@ -402,9 +402,6 @@ class OrderAdminController extends Controller
 	
 	public function createAction()
 	{
-		//$uniqid = $this->get('request')->get('uniqid');
-		//$request = $this->get('request')->get($uniqid);
-		
 		$create = parent::createAction();
 		
 		if ($this->getRestMethod() == 'POST'){
@@ -695,9 +692,24 @@ class OrderAdminController extends Controller
         return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $flick);
     }
     
-    private function getAddrressFromGuiaRoji($address){
-        $address = "hola";
+    private function getAddrressFromGuiaRoji(Address $address){
+        $city = $address->getCity();
+        $neighborhood = $address->getNeighborhood();
+        $pc = $address->getPostalCode();
         
-        return $address;
+        $guiaRojis = $this->getDoctrine()->getRepository("InodataFloraBundle:GuiaRoji")
+                ->createQueryBuilder('q')
+                ->where("q.neighborhood LIKE :neighborhood")
+                ->andWhere("q.city LIKE :city OR q.postal_code = :pc")
+                ->setParameters(array('neighborhood'=>"%".$neighborhood."%", 'city'=>"%".$city."%", 'pc'=>$pc))
+                ->getQuery()->getResult();
+        
+        if($guiaRojis){
+            $guiaRoji = $guiaRojis[0];
+            
+            return "Plano: ".$guiaRoji->getMap(). ", Coordenada: ".$guiaRoji->getCoordinate();
+        }
+        
+        return "";
     }
 }
