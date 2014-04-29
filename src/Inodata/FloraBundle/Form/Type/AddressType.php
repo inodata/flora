@@ -18,17 +18,17 @@ class AddressType extends AbstractType
 			->add('neighborhood', 'ajax_autocomplete', array('label' => 'label.neighborhood',
                     'attr' => array(
                         'placeholder' => "label.select_neighborhood",
-                        "class" => 'span2 ajax-autocomplete shipping_neighborhood', 
+                        "class" => 'ajax-autocomplete shipping_neighborhood', 
                         'entity' => "InodataFloraBundle:GuiaRoji",
                         "column" => "neighborhood")
                 ))
 			->add('city', null, array('label' => 'label.city','attr' => array("class" => 'shipping_city')))
-            ->add('postalCode', null, array('label' => 'label.postal_code', 'attr' => ['class' => 'shipping_postal_code']))
 			->add('state', 'inodata_mx_states_type',
 				array('label' => 'label.state',
 					'attr' => array('class'=>'mx_state')
 				)
 			)
+            ->add('postalCode', null, array('label' => 'label.postal_code', 'attr' => ['class' => 'shipping_postal_code']))
 			->add('phone', null, array('label' => 'label.delivery_phone'))
 		;
 	}

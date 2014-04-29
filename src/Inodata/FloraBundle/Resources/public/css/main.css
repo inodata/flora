@@ -20,11 +20,11 @@
   	width: 70px;
   }
   /* acomoda la posición del control Buscar Producto y Requiere Factura */
-  .sonata-ba-collapsed-fields > .control-group:nth-child(13),
+  /*.sonata-ba-collapsed-fields > .control-group:nth-child(13),
   .sonata-ba-collapsed-fields > .control-group:nth-child(14){
   	float: left;
   	width: 50%;
-  }
+  }*/
   
   .invoice_page .input-container, .sonata-bc .invoice_page .input-container input{
   	background: #FFCCCC;

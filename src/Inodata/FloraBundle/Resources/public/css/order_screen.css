@@ -4,7 +4,45 @@
 */
 
 @media screen{
+    .sonata-ba-collapsed-fields > .control-group:nth-child(1),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(2)
+    {
+        float: left;
+    }
     
+    .sonata-ba-collapsed-fields > .control-group:nth-child(2) > label{ width: auto; padding-left: 10px; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(2) > .sonata-ba-field{ float: left; margin-left: 5px;}
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(3) > label{ width: auto; padding-left: 10px; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(3) > .sonata-ba-field{ float: left; margin-left: 5px;}
+    
+    /*CSS PARA SHIPPING-ADDRESS*/
+    .inodata-shipping-address > .control-group:nth-child(1),
+    .inodata-shipping-address > .control-group:nth-child(2),
+    .inodata-shipping-address > .control-group:nth-child(3),
+    .inodata-shipping-address > .control-group:nth-child(4),
+    .inodata-shipping-address > .control-group:nth-child(6),
+    .inodata-shipping-address > .control-group:nth-child(7),
+    .inodata-shipping-address > .control-group:nth-child(8){ float: left; }
+    
+    .inodata-shipping-address > .control-group:nth-child(2) > label{width: auto; padding-left: 10px;}
+    .inodata-shipping-address > .control-group:nth-child(2) > .controls{float: left; margin-left: 5px;}
+    .inodata-shipping-address > .control-group:nth-child(2) > .controls > input{width: 50px;}
+    
+    .inodata-shipping-address > .control-group:nth-child(3) > label{width: auto; padding-left: 10px;}
+    .inodata-shipping-address > .control-group:nth-child(3) > .controls{float: left; margin-left: 5px;}
+    .inodata-shipping-address > .control-group:nth-child(3) > .controls > input{width: 50px;;}
+    
+    .inodata-shipping-address > .control-group:nth-child(4) > label{width: auto; padding-left: 10px;}
+    .inodata-shipping-address > .control-group:nth-child(4) > .controls{float: left; margin-left: 5px;}
+    
+    .inodata-shipping-address > .control-group:nth-child(5) > label{width: auto; padding-left: 10px;}
+    .inodata-shipping-address > .control-group:nth-child(5) > .controls{float: left; margin-left: 5px;}
+    
+    .inodata-shipping-address > .control-group:nth-child(7) > label{width: auto; padding-left: 10px;}
+    .inodata-shipping-address > .control-group:nth-child(7) > .controls{float: left; margin-left: 5px;}
+    
+    .inodata-shipping-address > .control-group:nth-child(8) > label{width: auto; padding-left: 10px;}
+    .inodata-shipping-address > .control-group:nth-child(8) > .controls{float: left; margin-left: 5px;}
+    .inodata-shipping-address > .control-group:nth-child(8) > .controls > input{width: 50px;}
 }
-
-
