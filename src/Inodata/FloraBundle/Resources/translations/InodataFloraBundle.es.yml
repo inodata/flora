@@ -61,7 +61,7 @@ button.print_note: Imprimir Nota
 #Order labels
 label.reporter: Reportó
 label.customer: Cliente
-label.purchase_order: Orden de compra (cliente)
+label.purchase_order: Ord. Compra
 label.payment_contact: Ordenó
 label.from: De
 label.to: Para
@@ -112,14 +112,14 @@ label.postal_code: Código postal
 label.neighborhood: Colonia
 label.city: Ciudad
 label.state: Estado
-label.delivery_phone: Teléfono de entrega
+label.delivery_phone: Tel. de entrega
 
 #PaymentContact labels
 label.department: Departamento
 label.employee_number: No. de empleado
 label.phone: Teléfono
 label.extension: Ext.
-label.email: Correo electrónico
+label.email: E-mail
 
 #Distribution labels
 label.distribution_messenger: Repartidor

@@ -2,19 +2,39 @@
     Created on : Apr 29, 2014, 3:14:22 PM
     Author     : heriberto
 */
-
 @media screen{
     .sonata-ba-collapsed-fields > .control-group:nth-child(1),
-    .sonata-ba-collapsed-fields > .control-group:nth-child(2)
+    .sonata-ba-collapsed-fields > .control-group:nth-child(2),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(3),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(6),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(7),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(10),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(10)
     {
         float: left;
     }
     
+    .sonata-ba-collapsed-fields > .control-group:nth-child(1) > .sonata-ba-field > input{width: 155px;}
+    
     .sonata-ba-collapsed-fields > .control-group:nth-child(2) > label{ width: auto; padding-left: 10px; }
     .sonata-ba-collapsed-fields > .control-group:nth-child(2) > .sonata-ba-field{ float: left; margin-left: 5px;}
+    .sonata-ba-collapsed-fields > .control-group:nth-child(2) > .sonata-ba-field > input{width: 195px;}
     
     .sonata-ba-collapsed-fields > .control-group:nth-child(3) > label{ width: auto; padding-left: 10px; }
     .sonata-ba-collapsed-fields > .control-group:nth-child(3) > .sonata-ba-field{ float: left; margin-left: 5px;}
+    .sonata-ba-collapsed-fields > .control-group:nth-child(3) > .sonata-ba-field > input{width: 218px;}
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(4) > label{ width: auto; padding-left: 10px; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(4) > .sonata-ba-field{ float: left; margin-left: 5px;}
+    .sonata-ba-collapsed-fields > .control-group:nth-child(4) > .sonata-ba-field > input{width: 195px;}
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(7) > label{ width: auto; padding-left: 10px; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(7) > .sonata-ba-field{ float: left; margin-left: 5px;}
+    .sonata-ba-collapsed-fields > .control-group:nth-child(7) > .sonata-ba-field > input{width: 97px;}
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(8) > label{ width: auto; padding-left: 10px; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(8) > .sonata-ba-field{ float: left; margin-left: 5px;}
+    .sonata-ba-collapsed-fields > .control-group:nth-child(8) > .sonata-ba-field > input{width: 150px;}
     
     /*CSS PARA SHIPPING-ADDRESS*/
     .inodata-shipping-address > .control-group:nth-child(1),
@@ -25,24 +45,63 @@
     .inodata-shipping-address > .control-group:nth-child(7),
     .inodata-shipping-address > .control-group:nth-child(8){ float: left; }
     
+    .inodata-shipping-address > .control-group:nth-child(1) > .controls > input{width: 155px;}
+    
     .inodata-shipping-address > .control-group:nth-child(2) > label{width: auto; padding-left: 10px;}
     .inodata-shipping-address > .control-group:nth-child(2) > .controls{float: left; margin-left: 5px;}
     .inodata-shipping-address > .control-group:nth-child(2) > .controls > input{width: 50px;}
     
     .inodata-shipping-address > .control-group:nth-child(3) > label{width: auto; padding-left: 10px;}
     .inodata-shipping-address > .control-group:nth-child(3) > .controls{float: left; margin-left: 5px;}
-    .inodata-shipping-address > .control-group:nth-child(3) > .controls > input{width: 50px;;}
+    .inodata-shipping-address > .control-group:nth-child(3) > .controls > input{width: 50px;}
     
     .inodata-shipping-address > .control-group:nth-child(4) > label{width: auto; padding-left: 10px;}
     .inodata-shipping-address > .control-group:nth-child(4) > .controls{float: left; margin-left: 5px;}
+    .inodata-shipping-address > .control-group:nth-child(4) > .controls > input{width: 160px;}
     
     .inodata-shipping-address > .control-group:nth-child(5) > label{width: auto; padding-left: 10px;}
     .inodata-shipping-address > .control-group:nth-child(5) > .controls{float: left; margin-left: 5px;}
+    
+    .inodata-shipping-address > .control-group:nth-child(6) > .controls > input{width: 155px;}
     
     .inodata-shipping-address > .control-group:nth-child(7) > label{width: auto; padding-left: 10px;}
     .inodata-shipping-address > .control-group:nth-child(7) > .controls{float: left; margin-left: 5px;}
     
     .inodata-shipping-address > .control-group:nth-child(8) > label{width: auto; padding-left: 10px;}
     .inodata-shipping-address > .control-group:nth-child(8) > .controls{float: left; margin-left: 5px;}
-    .inodata-shipping-address > .control-group:nth-child(8) > .controls > input{width: 50px;}
+    .inodata-shipping-address > .control-group:nth-child(8) > .controls > input{width: 119px;}
+    
+    .inodata-shipping-address > .control-group:nth-child(9) > label{width: auto; padding-left: 10px;}
+    .inodata-shipping-address > .control-group:nth-child(9) > .controls{float: left; margin-left: 5px;}
+    .inodata-shipping-address > .control-group:nth-child(9) > .controls > input{width: 132px;}
+    
+    /* CSS PARA PAYMENT CONTACT FORM*/
+    .payment_contact_form > .control-group:nth-child(1),
+    .payment_contact_form > .control-group:nth-child(2),
+    .payment_contact_form > .control-group:nth-child(3),
+    .payment_contact_form > .control-group:nth-child(4),
+    .payment_contact_form > .control-group:nth-child(5)
+    {
+        float: left;
+    }
+    
+    .payment_contact_form > .control-group:nth-child(3) > label{ width: auto; padding-left: 10px;}
+    .payment_contact_form > .control-group:nth-child(3) > .controls{float: left; margin-left: 5px;}
+    .payment_contact_form > .control-group:nth-child(3) > .controls > input{width: 65px;}
+    
+    .payment_contact_form > .control-group:nth-child(4) > label{ width: auto; padding-left: 10px;}
+    .payment_contact_form > .control-group:nth-child(4) > .controls{float: left; margin-left: 5px;}
+    .payment_contact_form > .control-group:nth-child(4) > .controls > input{width: 95px;}
+    
+    .payment_contact_form > .control-group:nth-child(5) > label{ width: auto; padding-left: 10px;}
+    .payment_contact_form > .control-group:nth-child(5) > .controls{float: left; margin-left: 5px;}
+    .payment_contact_form > .control-group:nth-child(5) > .controls > input{width: 50px;}
+    
+    .payment_contact_form > .control-group:nth-child(6) > label{ width: auto; padding-left: 10px;}
+    .payment_contact_form > .control-group:nth-child(6) > .controls{float: left; margin-left: 5px;}
+    .payment_contact_form > .control-group:nth-child(6) > .controls > input{width: 175px;}
+    
+    /*MUEVE LISTA DE MENSAJES Y CKEDITOR*/
+    .btn-print-card {position: absolute; }
+    
 }

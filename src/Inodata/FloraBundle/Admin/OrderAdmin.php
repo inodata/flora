@@ -32,17 +32,19 @@ class OrderAdmin extends Admin
 				'label'=> 'label.to',
                     'help' => 'help.to',
 				'attr' => array(
-					'class' => 'inodata_to',
-					'style' => 'width:210px'
+					'class' => 'inodata_to'
 				)
 			))
 			->add('from', null, array(
 				'label' => 'label.from',
 				'help' => 'help.from',
 				'attr' => array(
-					'class' => 'inodata_from span5',
-					'style' => 'width:210px'
+					'class' => 'inodata_from'
 				)
+			))
+            ->add('reporter', null, array(
+				'label' => 'label.reporter',
+				'help' => 'help.reporter',
 			))
             ->add('shippingAddress', 'inodata_address_form', array(
 				'label'=>false,
@@ -50,16 +52,12 @@ class OrderAdmin extends Admin
 					'class' => 'inodata-shipping-address'
 				)
 			))
-			->add('reporter', null, array(
-				'label' => 'label.reporter',
-				'help' => 'help.reporter',
-			))
 			->add('customer', 'sonata_type_model', array(
 				'label' => 'label.customer',
 				'help' => 'help.customer',
 				'empty_value' => '',
 				'attr' => array(
-					'class' => 'inodata_customer span5',
+					'class' => 'inodata_customer',
 					'placeholder' => 'Buscar Cliente',
 					'allowClear' => 'true',					
 				)
@@ -74,7 +72,7 @@ class OrderAdmin extends Admin
 				'class' => 'Inodata\FloraBundle\Entity\PaymentContact',
 				'empty_value' => '',
 				'attr' => array(
-					'class' => 'inodata_payment_contact span5',
+					'class' => 'inodata_payment_contact',
 					'placeholder' => $this->trans('label.contact_empty_list')
 				)
 			))
@@ -95,7 +93,13 @@ class OrderAdmin extends Admin
 							'placeholder' => $this->trans('label.msg_category_empty_list')
 					)
 			))
-			->add('messages', 'genemu_jqueryselect2_entity', array(
+			->add('message', 'ckeditor', array(
+					'label'=> 'label.message',
+					'help' => 'help.message',
+					'config_name' => 'inodata_editor',
+					'attr' => array('class' => 'inodata_message span5')
+			))
+            ->add('messages', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.messages_list',
 					'help' => 'help.messages_list',
 					'class' => 'Inodata\FloraBundle\Entity\Message',
@@ -105,12 +109,6 @@ class OrderAdmin extends Admin
 							'class' => 'inodata_messages span5',
 							'placeholder' => $this->trans('Seleccionar un mensaje predefinido')
 					)
-			))
-			->add('message', 'ckeditor', array(
-					'label'=> 'label.message',
-					'help' => 'help.message',
-					'config_name' => 'inodata_editor',
-					'attr' => array('class' => 'inodata_message span5')
 			))
 			/**
 		 	* Si se agrega un elemento antes de este item, actualizar main.css
