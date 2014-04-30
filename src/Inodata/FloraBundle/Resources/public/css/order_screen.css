@@ -7,9 +7,8 @@
     .sonata-ba-collapsed-fields > .control-group:nth-child(2),
     .sonata-ba-collapsed-fields > .control-group:nth-child(3),
     .sonata-ba-collapsed-fields > .control-group:nth-child(6),
-    .sonata-ba-collapsed-fields > .control-group:nth-child(7),
-    .sonata-ba-collapsed-fields > .control-group:nth-child(10),
-    .sonata-ba-collapsed-fields > .control-group:nth-child(10)
+    .sonata-ba-collapsed-fields > .control-group:nth-child(7)
+    /*.sonata-ba-collapsed-fields > .control-group:nth-child(10)*/
     {
         float: left;
     }
@@ -102,6 +101,21 @@
     .payment_contact_form > .control-group:nth-child(6) > .controls > input{width: 175px;}
     
     /*MUEVE LISTA DE MENSAJES Y CKEDITOR*/
-    .btn-print-card {position: absolute; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(10),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(11)
+    {
+        float: left;
+    }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(10){ position: relative; width: 300px; height: 100px;}
+    .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field{ float: left; margin-left: 5px; position: absolute; left: 155px; width: 956px; height: 60px;}
+    .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field .cke_contents{ height: 100px; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field .cke_bottom{ display: none; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(10) > a{position: absolute; left: 975px; width: 110px;}
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(11) > label{ width: auto; padding-left: 10px; position: relative;}
+    .sonata-ba-collapsed-fields > .control-group:nth-child(11) > .sonata-ba-field{ float: left; margin-left: 5px; }
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(12) > label{ width: auto; padding-left: 10px; position: relative; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(12) > .sonata-ba-field{ float: left; margin-left: 5px; }
     
 }

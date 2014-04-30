@@ -82,6 +82,16 @@ class OrderAdmin extends Admin
 					'attr' => array('class' => 'payment_contact_form')
 				)
 			)
+            ->add('message', 'ckeditor', array(
+					'label'=> 'label.message',
+					'help' => 'help.message',
+					'config_name' => 'inodata_editor',
+                    'config' => array(
+                        'uiColor' => '#ffffff',
+                        'height' => '50px'
+                    ),
+					'attr' => array('class' => 'inodata_message')
+			))
 			->add('category', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.message_category',
 					'help' => 'help.category',
@@ -89,15 +99,9 @@ class OrderAdmin extends Admin
 					'empty_value' => '',
 					'mapped' => false, 'required' => false,
 					'attr' => array(
-							'class' => 'inodata_category_day span5',
+							'class' => 'inodata_category_day',
 							'placeholder' => $this->trans('label.msg_category_empty_list')
 					)
-			))
-			->add('message', 'ckeditor', array(
-					'label'=> 'label.message',
-					'help' => 'help.message',
-					'config_name' => 'inodata_editor',
-					'attr' => array('class' => 'inodata_message span5')
 			))
             ->add('messages', 'genemu_jqueryselect2_entity', array(
 					'label' => 'label.messages_list',
@@ -106,7 +110,7 @@ class OrderAdmin extends Admin
 					'empty_value' => '',
 					'mapped' => false, 'required' => false,
 					'attr' => array(
-							'class' => 'inodata_messages span5',
+							'class' => 'inodata_messages',
 							'placeholder' => $this->trans('Seleccionar un mensaje predefinido')
 					)
 			))
@@ -123,7 +127,7 @@ class OrderAdmin extends Admin
 				'empty_value' => '',
 				'attr' => array(
 					'placeholder' => $this->trans('label.product_empty_list'),
-					'class'=>'inodata_product', 'style'=>'width:100%')
+					'class'=>'inodata_product')
 			))
 			->add('hasInvoice', 'checkbox', array(
 				'label' => 'label.require_invoice',
