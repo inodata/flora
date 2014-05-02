@@ -100,6 +100,11 @@ label.need_invoice: ¿Factura?
 label.has_invoice: ¿Tiene Factura?
 label.normal_list: Ver Lista Normal
 label.collector: Cobrador
+label.placeholder_to: ¿Para quién es el arreglo?
+label.placeholder_from: ¿De parte de quién?
+label.placeholder_reporter: ¿Quién levantó el pedido?
+label.select_neighborhood: Selecciona una colonia
+label.placeholder_customer: Selecciona o agrega un nuevo cliente
 
 
 #Address labels

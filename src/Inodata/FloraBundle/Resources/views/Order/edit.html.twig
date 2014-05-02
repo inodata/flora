@@ -27,7 +27,7 @@
 {% endblock %}
 
 {% block sonata_fieldsets %}
-    <div class="tab-content">
+    <div class="tab-content order-capture">
         {% for name, form_group in admin.formgroups %}            
             {% if name == "tab.invoice" %}
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">

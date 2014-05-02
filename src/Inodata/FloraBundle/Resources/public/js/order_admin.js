@@ -12,7 +12,7 @@ $(document).ready(function() {
 	$('.inodata_delivery_date').datepicker({ dateFormat: "dd/mm/yy" });
 	$(".inodata_invoice_date").closest('fieldset').css('display','none');
 	
-	$('.help-block').each(function(){
+	/*$('.help-block').each(function(){
 		var help = $(this).text();
 		
 		var selec2Widget = $(this).closest('.control-group').find('.select2-container');
@@ -22,7 +22,8 @@ $(document).ready(function() {
 			$(this).prev().attr('title', help);
 		}
 		$(this).remove();
-	});
+	});*/
+    $(window).scrollTop(120);
 	
 	 $( "input, .select2-container" ).tooltip({
 		 show: {
