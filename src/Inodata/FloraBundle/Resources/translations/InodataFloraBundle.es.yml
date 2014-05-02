@@ -96,6 +96,7 @@ label.subtotal: Subtotal
 label.total: Total
 label.capturated: Capturó
 label.require_invoice: ¿Requiere factura?
+label.need_invoice: ¿Factura?
 label.has_invoice: ¿Tiene Factura?
 label.normal_list: Ver Lista Normal
 label.collector: Cobrador

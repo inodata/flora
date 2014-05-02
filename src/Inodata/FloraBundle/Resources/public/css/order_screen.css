@@ -13,6 +13,25 @@
         float: left;
     }
     
+    /* AJUSTE DE ESPACION EN LOS MASRGENES*/
+    .sonata-ba-collapsed-fields > .control-group:nth-child(1),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(2),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(3),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(4){margin-top: 7px;}
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(5) {margin-bottom: 0px;}
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(6),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(7),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(8){margin-bottom: 4px;}
+    
+    .inodata-shipping-address > .control-group:nth-child(1),
+    .inodata-shipping-address > .control-group:nth-child(2),
+    .inodata-shipping-address > .control-group:nth-child(3),
+    .inodata-shipping-address > .control-group:nth-child(4){margin-bottom: 0px;}
+    /*TERMINA AJUSTES EN LOS MARGENES*/
+    
+    
     .sonata-ba-collapsed-fields > .control-group:nth-child(1) > .sonata-ba-field > input{width: 155px;}
     
     .sonata-ba-collapsed-fields > .control-group:nth-child(2) > label{ width: auto; padding-left: 10px; }
@@ -102,7 +121,8 @@
     
     /*MUEVE LISTA DE MENSAJES Y CKEDITOR*/
     .sonata-ba-collapsed-fields > .control-group:nth-child(10),
-    .sonata-ba-collapsed-fields > .control-group:nth-child(11)
+    .sonata-ba-collapsed-fields > .control-group:nth-child(11),
+    .sonata-ba-collapsed-fields > .control-group:nth-child(13)
     {
         float: left;
     }
@@ -117,5 +137,24 @@
     
     .sonata-ba-collapsed-fields > .control-group:nth-child(12) > label{ width: auto; padding-left: 10px; position: relative; }
     .sonata-ba-collapsed-fields > .control-group:nth-child(12) > .sonata-ba-field{ float: left; margin-left: 5px; }
+    
+    .sonata-ba-collapsed-fields > .control-group:nth-child(14) > label{ width: auto; padding-left: 10px; position: relative; }
+    .sonata-ba-collapsed-fields > .control-group:nth-child(14) > .sonata-ba-field{ float: left; margin-left: 5px; }
+    
+    div.tab-pane {position: relative; overflow: visible;}
+    div.create-product-form {position: absolute; width: auto; top: 355px; left: 485px; }
+    div.create-product-form .product-code input { width: 50px;}
+    div.create-product-form .product-description input { width: 342px; }
+    div.create-product-form .product-price input { width: 50px;}
+    
+    /*ESTILOS PARA LOS FRAMES*/
+    div.frame { position: absolute; border: solid 2px #0073ea; width: 97%; margin-left: 20px; z-index: -1; left: 10px;}
+    div.frame span { position: relative; top: -10px; color: #003bb3; font-weight: bold; color: #000; background: #FFF; padding: 0 3px; margin: 10px; }
+    
+    div.frame.order-data{ top: -3px; height: 41px; }
+    div.frame.delivery-address{ top: 50px; height: 77px; }
+    div.customer-data{ top: 141px; height: 77px; }
+    div.message-data{ top: 234px; height: 107px; }
+    div.products_to_order{ top: 356px; height: 325px; margin-left: 0px; left: 0px; width: 99.7%}
     
 }

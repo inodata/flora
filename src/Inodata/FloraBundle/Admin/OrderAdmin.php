@@ -32,19 +32,22 @@ class OrderAdmin extends Admin
 				'label'=> 'label.to',
                     'help' => 'help.to',
 				'attr' => array(
-					'class' => 'inodata_to'
+					'class' => 'inodata_to',
+                    'placeholder' => 'label.placeholder_to'
 				)
 			))
 			->add('from', null, array(
 				'label' => 'label.from',
 				'help' => 'help.from',
 				'attr' => array(
-					'class' => 'inodata_from'
+					'class' => 'inodata_from',
+                    'placeholder' => 'label.placeholder_from'
 				)
 			))
             ->add('reporter', null, array(
 				'label' => 'label.reporter',
 				'help' => 'help.reporter',
+                'placeholder' => 'label.placeholder_reporter'
 			))
             ->add('shippingAddress', 'inodata_address_form', array(
 				'label'=>false,
@@ -130,7 +133,7 @@ class OrderAdmin extends Admin
 					'class'=>'inodata_product')
 			))
 			->add('hasInvoice', 'checkbox', array(
-				'label' => 'label.require_invoice',
+				'label' => 'label.need_invoice',
 				'help' => 'help.require_invoice',
 				'required' => false,
 				'attr'=>array('class' => 'inodata-has-invoice')
