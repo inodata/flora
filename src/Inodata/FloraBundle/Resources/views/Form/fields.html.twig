@@ -15,3 +15,11 @@
         {% endif %}
     {% endspaceless %}
 {% endblock %}
+
+{% block ajax_entity_widget %}
+    {% spaceless %}
+        <input type="text" class="ajax-entity {% if form.vars.attr['class'] is defined %}{{form.vars.attr['class']}}{%endif%}"
+            {% for index, attr in form.vars.attr %} {%if index != "class" %}{{index}} = "{{attr}}"{%endif%}{%endfor%}
+            id ="{{form.vars.id}}" name="{{form.vars.full_name}}" value="{{form.vars.value}}" text="{{form.vars.data}}"></input>
+    {% endspaceless %}
+{% endblock %}

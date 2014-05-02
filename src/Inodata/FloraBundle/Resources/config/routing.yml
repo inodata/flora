@@ -140,3 +140,8 @@ inodata_flora_guiaroji_save:
 inodata_flora_ajax_autocomplete:
     pattern: /admin/inodata/flora/ajax/text/autocomplete
     defaults: { _controller: InodataFloraBundle:AjaxWidgets:text }
+    
+#Routing for ajax entity
+inodata_flora_ajax_entity:
+    pattern: /admin/inodata/flora/ajax/entity
+    defaults: { _controller: InodataFloraBundle:AjaxWidgets:entity }

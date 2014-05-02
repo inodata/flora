@@ -128,15 +128,16 @@ class OrderAdmin extends Admin
 		 	* Si se agrega un elemento antes de este item, actualizar main.css
 			* para no romper el acomodo de acuerdo al index
 			*/
-			->add('products', 'sonata_type_model', array(
+			->add('products', 'ajax_entity', array(
 				'label' => 'label.search_product',
-				'class' => 'Inodata\FloraBundle\Entity\Product',
+				'class' => 'InodataFloraBundle:Product',
 				'mapped' => false,
 				'required' => false,
 				'empty_value' => '',
 				'attr' => array(
                     'placeholder' => $this->trans('label.product_empty_list'),
                     'class'=>'inodata_product',
+                    'entity' => 'InodataFloraBundle:Product', 'columns' => 'id,description',
                     'title' => $this->trans('help.products_list')
                 )
             ))

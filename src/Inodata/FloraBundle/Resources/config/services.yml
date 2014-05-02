@@ -11,6 +11,10 @@ services:
         class: Inodata\FloraBundle\Form\Type\AjaxAutocompleteType
         tags:
             - { name: form.type, alias: ajax_autocomplete }
+    inodata_ajax_entity_type:
+        class: Inodata\FloraBundle\Form\Type\AjaxEntityType
+        tags:
+            - { name: form.type, alias: ajax_entity }
     inodata_payment_contact_form:
         class: Inodata\FloraBundle\Form\Type\PaymentContactType
         tags:

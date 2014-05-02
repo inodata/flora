@@ -51,13 +51,42 @@ AjaxWidget = {
         });
 		
     },
-    entity: function(){
-        
+    entity: function() {
+        $('.ajax-entity').select2({
+            minimumInputLength: 2,
+            allowClear: true,
+            ajax: {
+                url: Routing.generate("inodata_flora_ajax_entity", {
+                    entity: $(this).attr('entity'),
+                    columns: $(this).attr('columns')
+                }),
+                dataType: 'json',
+                data: function(term, page) {
+                    return {
+                        text: term,
+                        entity: $(this).attr('entity'),
+                        columns: $(this).attr('columns')
+                    };
+                },
+                results: function(data, page) {
+                    return {
+                        results: data
+                    };
+                }
+            },
+            initSelection: function(element, callback) {
+                callback({
+                    id: $(element).val(),
+                    text: $(element).attr('text')
+                });
+            }
+        });
     }
 };
 
 
 $(document).ready(function(){
     AjaxWidget.autocomplete();
+    AjaxWidget.entity();
 });
 
