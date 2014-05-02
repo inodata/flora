@@ -47,7 +47,9 @@ class OrderAdmin extends Admin
             ->add('reporter', null, array(
 				'label' => 'label.reporter',
 				'help' => 'help.reporter',
-                'placeholder' => 'label.placeholder_reporter'
+                'attr' => [
+                    'placeholder' => 'label.placeholder_reporter'
+                ]
 			))
             ->add('shippingAddress', 'inodata_address_form', array(
 				'label'=>false,
