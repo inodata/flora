@@ -11,19 +11,11 @@ $(document).ready(function() {
 	
 	$('.inodata_delivery_date').datepicker({ dateFormat: "dd/mm/yy" });
 	$(".inodata_invoice_date").closest('fieldset').css('display','none');
-	
-	/*$('.help-block').each(function(){
-		var help = $(this).text();
-		
-		var selec2Widget = $(this).closest('.control-group').find('.select2-container');
-		if($(selec2Widget).length !=0 ){
-			$(selec2Widget).attr('title', help);
-		}else{
-			$(this).prev().attr('title', help);
-		}
-		$(this).remove();
-	});*/
-    $(window).scrollTop(120);
+    
+    //APLICA AUTOSCROLL A LA PANTALLA DE CAPTURA DE ORDEN
+    if($(".order-capture").length > 0){
+        $(window).scrollTop(120);
+    }
 	
 	 $( "input, .select2-container" ).tooltip({
 		 show: {
