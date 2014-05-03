@@ -65,7 +65,8 @@ class OrderAdmin extends Admin
 					'class' => 'inodata_customer',
 					'placeholder' => $this->trans("label.placeholder_customer"),
 					'allowClear' => 'true',
-                    'title' => $this->trans('help.customer')
+                    'title' => $this->trans('help.customer'),
+                    'style' => 'width:270px;'
 				)
 			))
 			->add('purchaseOrder', null, array(
