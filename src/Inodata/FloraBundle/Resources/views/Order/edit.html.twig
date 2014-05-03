@@ -77,4 +77,8 @@
 	{% if admin.id(object) %}
 		<input type="hidden" class="post_save_action" value="{{ app.session.get('post_save_action') }}" />
 	{% endif %}
+        
+    {% if admin.id(object) %}
+        <input type="submit" class="btn btn-primary save_as-new" value ="Guardar como nuevo" url="{{path("admin_inodata_flora_order_create")}}">
+    {% endif %}
 {% endblock formactions %}

@@ -2,7 +2,7 @@ homepage:
     pattern:  /
     defaults: 
         _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /admin/dashboard
+        path: /admin/inodata/flora/order/create
         permanent: true
 
 inodata_flora_order_product:

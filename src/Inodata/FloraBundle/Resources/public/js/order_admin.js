@@ -22,6 +22,18 @@ $(document).ready(function() {
 		 effect: "slideDown",
 		 delay: 250}
 	 });
+     
+     //FUNCIONALIDAD DEL BUTTON GUARDAR COMO NUEVO
+     $('.save_as-new').click(function(){
+         var url = $(this).closest('form').attr('action');
+         var uniqid = url.split('?');
+         uniqid = uniqid[1];
+         
+         var newUrl = $(this).attr('url')+"?"+uniqid;
+         $(this).closest('form').attr('action',newUrl);
+         
+         return true;
+     });
 	
 	//Mueve el elemento de orservaciones en el pedido al final.
 	var notesContainer = $('.inodata-order-notes').closest('div.control-group');
