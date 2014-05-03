@@ -72,7 +72,7 @@
 			<div>ENTREGA:</div><div class="info shipping-street">{{ object.shippingAddress.street }} 
 			{% if object.shippingAddress.noExt!='' %}#{{object.shippingAddress.noExt}}{% endif %}
 			{% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %} 
-            <span class="guia_roji_map info">-->{%if guia_roji is not empty %} {{guia_roji}} {% else %} --- {% endif %} <--</span></div>
+            <span class="guia_roji_map info">{%if guia_roji is not empty %} -->{{guia_roji}}<-- {% else %} --- {% endif %} </span></div>
 		</div>
 		<div class="info-row">
 			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.reference }}&nbsp;</div>
