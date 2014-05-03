@@ -28,7 +28,7 @@ class AddressType extends AbstractType
 					'attr' => array('class'=>'mx_state')
 				)
 			)
-            ->add('postalCode', null, array('label' => 'label.postal_code', 'attr' => ['class' => 'shipping_postal_code']))
+            ->add('postalCode', null, array('label' => 'label.postal_code', 'attr' => array('class' => 'shipping_postal_code')))
 			->add('phone', null, array('label' => 'label.delivery_phone'))
 		;
 	}

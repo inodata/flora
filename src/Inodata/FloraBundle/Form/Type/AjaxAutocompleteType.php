@@ -15,9 +15,9 @@ class AjaxAutocompleteType extends AbstractType
     //@Overriden
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'attr' => ['class' => 'ajax-autocomplete']
-        ]);
+        $resolver->setDefaults(array(
+            'attr' => array('class' => 'ajax-autocomplete')
+        ));
     }
 
     //@Overriden
