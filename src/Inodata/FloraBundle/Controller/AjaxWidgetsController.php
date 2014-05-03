@@ -35,11 +35,11 @@ class AjaxWidgetsController extends Controller
         //Get query result as array
         $result = $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
         
-        $return = [];        
+        $return = array();        
         foreach ($result as $row){
             $text = $row[$column];
             
-            $data = ['id' => $row['id'], 'text' => $text];
+            $data = array('id' => $row['id'], 'text' => $text);
             array_push($return, $data);
         }
         
@@ -85,7 +85,7 @@ class AjaxWidgetsController extends Controller
         //Get query result as array
         $result = $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
         
-        $return = [];        
+        $return = array();        
         foreach ($result as $row){
             $text = "";
             
@@ -97,7 +97,7 @@ class AjaxWidgetsController extends Controller
                 }
             }
             
-            $data = ['id' => $row["id"], 'text' => "{$text}"];
+            $data = array('id' => $row["id"], 'text' => "{$text}");
             array_push($return, $data);
         }
         

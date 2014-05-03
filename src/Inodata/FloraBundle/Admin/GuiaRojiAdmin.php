@@ -87,11 +87,11 @@ class GuiaRojiAdmin extends Admin
     /**
 	* Determina el ordenamiento por default en el listado
 	*/
-	protected $datagridValues = [
+	protected $datagridValues = array(
         '_page'       => 1,
         '_sort_order' => 'ASC', // sort direction
         '_sort_by'    => 'neighborhood' // field name
-    ];
+    );
     
     public function createQuery($context = 'list')
     {

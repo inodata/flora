@@ -16,7 +16,7 @@ class GuiaRojiAdminController extends Controller
         $guiaRoji = $this->getDoctrine()->getRepository("InodataFloraBundle:GuiaRoji")
                 ->find($id);
         
-        $return = ['neighborhood'=>$guiaRoji->getNeighborhood(), 'city'=> $guiaRoji->getCity(), 'postal_code' => $guiaRoji->getPostalCode()];
+        $return = array('neighborhood'=>$guiaRoji->getNeighborhood(), 'city'=> $guiaRoji->getCity(), 'postal_code' => $guiaRoji->getPostalCode());
         
         return $this->renderJson($return);
     }
