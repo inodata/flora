@@ -15,9 +15,9 @@ class AjaxEntityType extends AbstractType
     //@Overriden
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'attr' => ['class' => 'ajax-entity']
-        ]);
+        $resolver->setDefaults(array(
+            'attr' => array('class' => 'ajax-entity')
+        ));
     }
 
     //@Overriden
