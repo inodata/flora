@@ -69,9 +69,10 @@
 	</div>
 	<div class="shipping-info">
 		<div class="info-row">
-			<div>ENTREGA:</div><div class="info">{{ object.shippingAddress.street }} 
+			<div>ENTREGA:</div><div class="info shipping-street">{{ object.shippingAddress.street }} 
 			{% if object.shippingAddress.noExt!='' %}#{{object.shippingAddress.noExt}}{% endif %}
-			{% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %}</div>
+			{% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %} 
+            <span class="guia_roji_map info">-->{%if guia_roji is not empty %} {{guia_roji}} {% else %} --- {% endif %} <--</span></div>
 		</div>
 		<div class="info-row">
 			<div>ENTRE:</div><div class="space-6 info">{{ object.shippingAddress.reference }}&nbsp;</div>
@@ -80,7 +81,7 @@
 		<div class="info-row">
 			<div>COLONIA:</div><div class="space-1 info">{{ object.shippingAddress.neighborhood }}&nbsp;</div>
 			<div>MUNICIPIO:</div><div class="info">{{ object.shippingAddress.city}}, {{ object.shippingAddress.state}} 
-                <div class="guia_roji_map">{%if guia_roji is not empty %} {{guia_roji}} {% else %} --- {% endif %}</div></div>
+                </div>
 		</div>
 	</div>
 </div>
