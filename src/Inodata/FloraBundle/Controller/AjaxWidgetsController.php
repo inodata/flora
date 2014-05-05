@@ -39,7 +39,7 @@ class AjaxWidgetsController extends Controller
         foreach ($result as $row){
             $text = $row[$column];
             
-            $data = array('id' => $row['id'], 'text' => $text);
+            $data = array('id' => $row['id'], 'text' => $text." - ".$row['city']);
             array_push($return, $data);
         }
         
