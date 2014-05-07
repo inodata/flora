@@ -30,7 +30,7 @@ AjaxWidget = {
                     $(dropdown).next().attr('value', $(this).val());
                     $(dropdown).next().select2('val', $(this).val());
                     $(dropdown).next().select2('close');
-                    $(dropdown).append('<span class="no-guia-roji">No existe en la guia roji</span>');
+                    //$(dropdown).append('<span class="no-guia-roji">No existe en la guia roji</span>');
                 }
             }
         });
