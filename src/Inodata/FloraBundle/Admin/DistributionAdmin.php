@@ -55,8 +55,8 @@ class DistributionAdmin extends Admin
 			->add('messenger', null, array(
 					'label' => 'label.messenger'
 				))
-			->addIdentifier('id', null, array(
-					'label' => 'label.distribution_id',
+			->addIdentifier('id', 'entity', array(
+					'label' => 'label.distribution_id', 'admin_code' => 'admin.order'
 				))
 			->add('firstProduct', null, array(
 					'label' => 'label.distribution_product',
