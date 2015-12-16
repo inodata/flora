@@ -11,7 +11,6 @@ app/bootstrap*
 .idea/*
 
 # Composer
-composer.lock
 composer.phar
 
 # Symfony directories
