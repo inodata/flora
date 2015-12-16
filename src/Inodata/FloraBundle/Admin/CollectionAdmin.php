@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
 class CollectionAdmin extends Admin {
 	
 	protected $baseRouteName = 'collection';
-	protected $baseRoutePattern = 'collection';
+	protected $baseRoutePattern = 'inodata/flora/collection';
 	
 	/**
 	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper

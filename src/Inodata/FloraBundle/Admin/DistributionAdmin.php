@@ -13,7 +13,7 @@ use Symfony\Component\Form\AbstractType;
 class DistributionAdmin extends Admin
 {
 	protected $baseRouteName = 'distribution';
-	protected $baseRoutePattern = 'distribution';
+	protected $baseRoutePattern = 'inodata/flora/distribution';
 	
 	protected $datagridValues = array(
         '_sort_order' => 'ASC',
