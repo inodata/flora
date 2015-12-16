@@ -7,6 +7,9 @@ nbproject/*
 # Bootstrap
 app/bootstrap*
 
+# PhpStorm
+.idea/*
+
 # Composer
 composer.lock
 composer.phar
