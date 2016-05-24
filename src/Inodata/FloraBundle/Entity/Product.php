@@ -50,6 +50,13 @@ class Product
     private $stock;
 
     /**
+     * @var \Customer
+     *
+     * @ORM\OneToMany(targetEntity="ProductLog", mappedBy="product")
+     */
+    private $stockStory;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Category", cascade={"persist"})
      * @ORM\JoinTable(name="ino_products_categories",
      *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
@@ -248,5 +255,38 @@ class Product
     public function removeCategorie(\Inodata\FloraBundle\Entity\Category $categories)
     {
         $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Add stockStory
+     *
+     * @param \Inodata\FloraBundle\Entity\ProductLog $stockStory
+     * @return Product
+     */
+    public function addStockStory(\Inodata\FloraBundle\Entity\ProductLog $stockStory)
+    {
+        $this->stockStory[] = $stockStory;
+    
+        return $this;
+    }
+
+    /**
+     * Remove stockStory
+     *
+     * @param \Inodata\FloraBundle\Entity\ProductLog $stockStory
+     */
+    public function removeStockStory(\Inodata\FloraBundle\Entity\ProductLog $stockStory)
+    {
+        $this->stockStory->removeElement($stockStory);
+    }
+
+    /**
+     * Get stockStory
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStockStory()
+    {
+        return $this->stockStory;
     }
 }

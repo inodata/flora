@@ -37,4 +37,14 @@ class User extends BaseUser
     {
         return $this->id;
     }
+
+    public function getFullName()
+    {
+        if($this->getFirstname()){
+            return $this->getFirstname()." ".$this->getLastname();
+        }
+
+        return $this->getUsername();
+    }
+
 }

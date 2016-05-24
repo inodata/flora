@@ -136,8 +136,10 @@ services:
     admin.product_log:
         class: Inodata\FloraBundle\Admin\ProductLogAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: disabled, label: Control de inventario}
+            - { name: sonata.admin, manager_type: orm, group: catalogos, label: Control de inventario}
         arguments: [ null, Inodata\FloraBundle\Entity\ProductLog, SonataAdminBundle:CRUD ]
+        calls:
+            - [ setTranslationDomain, [ 'InodataFloraBundle' ] ]
 
     # KernelRequest listener
     extension.listener:

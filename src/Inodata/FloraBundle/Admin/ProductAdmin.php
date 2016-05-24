@@ -20,7 +20,12 @@ class ProductAdmin extends Admin
 			->add('code', null, array('label' => 'label.code'))
 			->add('description', null, array('label' => 'label.description'))
 			->add('price', null, array('label' => 'label.price'))
-			->add('stock', null, array('label' => 'label.stock'))
+			->add('stock', null, array('label' => 'label.stock', 'disabled' => true))
+			->add('stockStory', "sonata_type_collection", array('label' => 'label.stock_story'), [
+					'edit' => 'popup',
+					'inline' => 'table',
+					'sortable'  => 'position'
+			])
 			->add('categories', null, array('label' => 'label.categories'))
 		;
 	}

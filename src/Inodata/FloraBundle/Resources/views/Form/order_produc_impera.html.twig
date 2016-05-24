@@ -1,0 +1,39 @@
+<tr class="product-to-save" num-row="{% if num_row is defined%}{{num_row}}{%else%}{{loop.index-1}}{%endif%}">
+    {% if uniqid is not defined%} {%set uniqid = form.parent.vars.id%}{%endif%}
+    {% for field_name, field in product %}
+        {% if (field_name != "_delete" and field_name != "id") %}
+            {% set value = field %}
+            {% if app.request.isXmlHttpRequest == false%} {% set value = field.vars.value%} {%endif%}
+            <td>
+                <a href="#" data-name="{{field_name}}"
+                   class="{% if field_name == 'quantity' or field_name=='productCode' or  field_name == 'product' or field_name == 'discount'%}
+                        edit-in-place{%endif%}" data-value="{{value}}" data-type="text" data-url="{{path("inodata_impera_orderproduct_ajax_editinplace", {"uniqid": uniqid})}}"
+                        data-title="{{"label.write_new_value"|trans([], 'InodataImperaBundle')}}">
+                {%if field_name == "productPrice" or field_name == "subtotal"%}
+                    $ {{value|number_format(2, '.', ',')}}
+                {% elseif field_name == "discount"%}
+                    $
+                    {% if app.request.isXmlHttpRequest == true%}
+                        {{(product['productPrice']*(value/100))|number_format(2, '.', ',')}}
+                    {% else %}
+                        {{(product['productPrice'].vars.value*(value/100))|number_format(2, '.', ',')}}
+                    {% endif%}
+                    ({{value}}%)
+                {%else%}
+                    {{value}}
+                {% endif %}
+                </a>
+                {%if  app.request.isXmlHttpRequest == true%}
+                    <input type="hidden" id="{{uniqid}}_products_{{num_row}}_{{field_name}}" name="{{uniqid}}[products][{{num_row}}][{{field_name}}]"
+                           value = "{{field}}" class="ino_order_product_{{field_name}} span5">
+                {% else %}
+                    <input type="hidden" id="{{field.vars.id}}" name="{{field.vars.full_name}}" value = "{{field.vars.value}}" class="{{field.vars.attr.class}}">
+                {% endif%}
+            </td>
+        {% endif %}
+    {% endfor%}
+    <td>
+        <a href="#" class="btn ino_order_product_remove" title="{{"label.remove"|trans({}, "InodataImperaBundle")}}">
+            <i class="icon-remove"></i></a>
+    </td>
+</tr>

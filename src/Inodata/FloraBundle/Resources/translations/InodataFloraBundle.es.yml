@@ -161,6 +161,8 @@ label.messenger: Repartidor
 #Product labels
 label.price: Precio
 label.stock: Inventario
+label.last_stock: Invent. Anterior
+label.stock_added: Invent. Agregado
 label.categories: Categoría
 
 #Invoice labels
@@ -205,6 +207,10 @@ label.collection_filter_date: Asignado el
 label.map: Plano
 label.coordinate: Coordenada
 label.search_updates: Buscar Actualizacion
+
+#Inventario
+label.product: Producto
+label.created_by: Creado por
 
 # On line help messages
 help:

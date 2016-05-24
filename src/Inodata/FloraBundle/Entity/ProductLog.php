@@ -3,6 +3,7 @@
 namespace Inodata\FloraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * ProductLog
@@ -24,6 +25,13 @@ class ProductLog
     /**
      * @var integer
      *
+     * @ORM\Column(name="last_stock", type="integer", nullable=false)
+     */
+    private $lastStock;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="stock", type="integer", nullable=false)
      */
     private $stock;
@@ -36,31 +44,35 @@ class ProductLog
     private $comment;
 
     /**
-     * @var integer
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
-     * })
-     */
-    private $creator;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime", nullable=true)
-     */
-    private $date;
-
-    /**
      * @var \Product
      *
-     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="stockStory")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * })
      */
     private $product;
+
+    /**
+     * @var Application\Sonata\UserBundle\Entity\User $creator
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     * })
+     */
+    private $createdBy;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+
     
     /**
      * @return string
@@ -82,6 +94,29 @@ class ProductLog
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set lastStock
+     *
+     * @param integer $lastStock
+     * @return ProductLog
+     */
+    public function setLastStock($lastStock)
+    {
+        $this->lastStock = $lastStock;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastStock
+     *
+     * @return integer 
+     */
+    public function getLastStock()
+    {
+        return $this->lastStock;
     }
 
     /**
@@ -131,49 +166,26 @@ class ProductLog
     }
 
     /**
-     * Set userId
+     * Set createdAt
      *
-     * @param integer $userId
+     * @param \DateTime $createdAt
      * @return ProductLog
      */
-    public function setUserId($userId)
+    public function setCreatedAt($createdAt)
     {
-        $this->userId = $userId;
+        $this->createdAt = $createdAt;
     
         return $this;
     }
 
     /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return ProductLog
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    
-        return $this;
-    }
-
-    /**
-     * Get date
+     * Get createdAt
      *
      * @return \DateTime 
      */
-    public function getDate()
+    public function getCreatedAt()
     {
-        return $this->date;
+        return $this->createdAt;
     }
 
     /**
@@ -200,25 +212,25 @@ class ProductLog
     }
 
     /**
-     * Set creator
+     * Set createdBy
      *
-     * @param \Application\Sonata\UserBundle\Entity\User $creator
+     * @param \Application\Sonata\UserBundle\Entity\User $createdBy
      * @return ProductLog
      */
-    public function setCreator(\Application\Sonata\UserBundle\Entity\User $creator = null)
+    public function setCreatedBy(\Application\Sonata\UserBundle\Entity\User $createdBy = null)
     {
-        $this->creator = $creator;
+        $this->createdBy = $createdBy;
     
         return $this;
     }
 
     /**
-     * Get creator
+     * Get createdBy
      *
      * @return \Application\Sonata\UserBundle\Entity\User 
      */
-    public function getCreator()
+    public function getCreatedBy()
     {
-        return $this->creator;
+        return $this->createdBy;
     }
 }

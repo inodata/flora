@@ -1,0 +1,160 @@
+{% use 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% block admin_order_sonata_type_collection_widget %}
+    <div id="table-order-products">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>{%trans from "InodataImperaBundle"%}label.quantity{%endtrans%}</th>
+                    <th>{%trans from "InodataImperaBundle"%}label.code{%endtrans%}</th>
+                    <th>{%trans from "InodataImperaBundle"%}label.product_description{%endtrans%}</th>
+                    <th>{%trans from "InodataImperaBundle"%}label.product_price{%endtrans%}</th>
+                    <th>{%trans from "InodataImperaBundle"%}label.discount{%endtrans%}</th>
+                    <th>{%trans from "InodataImperaBundle"%}label.subtotal{%endtrans%}</th>
+                    <th>{{"label.actions"|trans([], "InodataImperaBundle")}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="product-entry">
+                    <td><input type="text" value="1" id="entry-quantity"/></td>
+                    <td><input type="text" id="entry-code"/></td>
+                    <td>
+                        <input type="text" id="entry-product" placeholder="{{"label.write_and_select_product"|trans([], "InodataImperaBundle")}}"/>
+                    </td>
+                    <td>
+                        <a href="#" class="product-editable" id="entry-price" data-pk="" data-url="{{path("inodata_impera_product_ajax_editinplace")}}" data-type ="text" data-name="salePrice"
+                            data-title ="{{"label.write_new_price"|trans({},"InodataImperaBundle")}}">0</a>
+                    </td>
+                    <td><input type="text" value="{% if form.parent['customer'].vars.data is not null %}{{ form.parent['customer'].vars.data.discount}}{% else %}0{% endif %}"
+                               id="entry-discount"/> %</td>
+                    <td id="entry-subtotal">0</td>
+                    <td>
+                        <a href="{{path("inodata_impera_orderproduct_ajax_add", {"uniqid": form.parent.vars.id})}}" class="btn" id="entry-add"
+                           title="{{"label.add"|trans({}, "InodataImperaBundle")}}">
+                            <i class="icon-plus"></i></a>
+                    </td>
+                </tr>
+
+                {% for product in form%}
+                    {% include 'InodataImperaBundle:OrderProduct:order_product.html.twig'%}
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock%}
+
+{% block admin_order_sonata_type_model_hidden_widget %}
+    <div class="control-group">
+        <label class="control-label required">{{form.vars.label|trans({},'InodataImperaBundle')}}</label>
+        <div class="controls sonata-ba-field sonata-ba-field-standard-natural order-sales-agent" id="">{{form.vars.data}}</div>
+        <input type="hidden" id="{{form.vars.id}}" name="{{form.vars.full_name}}" value="{{form.vars.value}}" maxlength="45" class="span5 order-sales-agent">
+    </div>
+    {{block("sonata_type_model_hidden_widget")}}
+{% endblock %}
+
+{% block admin_purchase_order_hidden_widget %}
+    {% include 'InodataImperaBundle:PoPurchaseOrder:_requisition_products.html.twig' %}
+{% endblock %}
+
+{% block admin_purchase_reception_hidden_widget %}
+    {% if form.vars.name == 'products'%}
+    {% else %}
+        {{ block('hidden_widget') }}
+    {% endif %}
+{% endblock %}
+
+{% block admin_purchase_reception_sonata_type_model_widget %}
+    {% if form.vars.name == 'requisitionProduct'%}
+        <input type="hidden" value="{{form.vars.value}}" id="{{form.vars.id}}" name="{{form.vars.full_name}}">
+    {% else %}
+        {{ block('hidden_widget') }}
+    {% endif %}
+{% endblock %}
+
+{% block admin_purchase_payment_hidden_widget %}
+    {% if form.vars.name == 'products' %}
+        {% include 'InodataImperaBundle:PoPayment:_po_invoice_products.html.twig' %}
+    {% else %}
+        {{block('hidden_widget')}}
+    {% endif %}
+{% endblock %}
+
+{% block admin_order_hidden_widget %}
+    {% if form.vars.name == 'totals'%}
+        <div id="order-totals">
+            <table class="table table-bordered pay-table">
+                <thead>
+                    <tr><th colspan="2">{{"label.totals"|trans({}, "InodataImperaBundle")}}</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{"label.discount"|trans({}, "InodataImperaBundle")}} (-):</td>
+                        <td>$
+                            <span class="order-discount" >{{ form.vars.data['discount']|number_format(2, '.', ',')}}</span>
+                        </td>
+                    </tr>
+                    <tr><td>{{"label.subtotal"|trans({}, "InodataImperaBundle")}}:</td>
+                        <td>$
+                            <span class="order-subtotal">{{ form.vars.data['subtotal']|number_format(2, '.', ',')}}</span>
+                        </td>
+                    </tr>
+                    <tr class="iva-container">
+                        <td>IVA(16%):</td>
+                        <td>$
+                            <span class="order-iva">{{ form.vars.data['iva']|number_format(2, '.', ',')}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>{{"label.total"|trans({}, "InodataImperaBundle")}}:</th>
+                        <th>$
+                            <span class="order-total">{{ form.vars.data['total']|number_format(2, '.', ',')}}</span>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    {% endif%}
+
+    {% if form.vars.name == 'customer_details' %}
+        <div class="customer-details-container">
+            {% if form.parent['customer'].vars.value > 0 %}
+                <a href="{{ path('inodata_impera_customer_ajax_get_details', {customerId: form.parent['customer'].vars.value})}}" class="btn btn-small" id="ino_customer_details">
+                    {{'label.customer_details'|trans({}, 'InodataImperaBundle')}}</a>
+            {% else %}
+                <a href="{{ path('inodata_impera_customer_ajax_get_details', {customerId: 0 })}}" class="btn btn-small" id="ino_customer_details">
+                    {{'label.customer_details'|trans({}, 'InodataImperaBundle')}}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if form.vars.name == 'emails' %}
+        <div class="control-group {% if form.parent['is_canceled'].vars.data == true%}invoice_canceled{% endif %}" id="sonata-ba-field-container-{{form.vars.id}}">
+            {% if form.parent['id'].vars.value != null and form.parent['is_canceled'].vars.value == false %}
+                <label class=" control-label" for="{{form.vars.id}}">{{'label.emails'|trans({}, 'InodataImperaBundle')}}* </label>
+                <div class="controls sonata-ba-field sonata-ba-field-standard-natural  ">
+                    <select multiple="multiple" class="ino_order_emails span5" data-url="#" data-value=" " url="{{path('inodata_impera_order_ajax_save_emails', {orderId: form.parent['id'].vars.value})}}">
+                    </select>
+                    <input type="hidden" value="{% if  form.vars.value is not empty%}{{form.vars.value}} {% else %}{{form.parent['customer'].vars.data.emails}},{% endif %}" id="{{form.vars.id}}" name="{{form.vars.full_name}}" class="span5 ino_order_emails">
+                    <a href="javascript:void()" data-url="#" data-value=""
+                       class="btn add-email-editable"> {{'label.add_email'|trans({}, 'InodataImperaBundle')}}</a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if form.vars.name == 'is_canceled'%}
+        {{block('hidden_widget')}}
+    {% endif %}
+
+{% endblock %}
+
+{% block ajax_entity_widget %}
+    {% spaceless %}
+        <input type="text" class="ajax-entity single {% if form.vars.attr['class'] is defined %}{{form.vars.attr['class']}}{%endif%}"
+            {% for index, attr in form.vars.attr %} {%if index != "class" %}{{index}} = "{{attr}}"{%endif%}{%endfor%}
+            id ="{{form.vars.id}}" name="{{form.vars.full_name}}" value="{{form.vars.value}}" text="{{form.vars.data}}"></input>
+    {% endspaceless %}
+{% endblock %}
