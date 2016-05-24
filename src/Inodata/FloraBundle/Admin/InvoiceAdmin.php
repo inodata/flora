@@ -56,7 +56,7 @@ class InvoiceAdmin extends Admin
 	{
 		$listMapper
 			->add('number', null, array('label' => 'label.number'))
-			->add('order', null, array('label' => 'label.order'))
+			->add('order', 'entity', array('label' => 'label.order', 'admin_code' => 'admin.order'))
 			->add('creator', null, array('label' => 'label.creator'))
 			->add('isCanceled', null, array('label' => 'label.is_canceled'))
 			->add('comment', 'text', array('label' => 'label.comment'))
