@@ -171,7 +171,7 @@ class OrderAdmin extends Admin
                     'class' => 'order-discount',
                     'title' => $this->trans('help.discount')
                 )
-			))
+			))->end()
 			->with('tab.invoice', array('description' => 'help.tab_invoice'))
 				->add('invoiceNumber', 'text',array(
 					'required' => false,
