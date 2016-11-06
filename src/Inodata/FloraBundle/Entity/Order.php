@@ -290,11 +290,12 @@ class Order
     
     /**
      * Function only for resolve a problem with edit
-     *
+     * @param integer $id
      * @return Order
      */
-    public function setId()
+    public function setId($id)
     {
+        $this->id = $id;
     	return $this;
     }
 
