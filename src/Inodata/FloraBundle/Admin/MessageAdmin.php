@@ -3,68 +3,66 @@
 namespace Inodata\FloraBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 
 class MessageAdmin extends Admin
 {
-	/**
+    /**
      * @var Pool
      */
     protected $formatterPool;
 
     protected $commentManager;
 
-	/**
-	 * @param Sonata\AdminBundle\Form\FormMapper $formMapper
-	 * 
-	 * @return void
-	 */
-	protected function configureFormFields(FormMapper $formMapper)
-	{
-		$formMapper
-			->add('category', 'sonata_type_model', array('label' => 'label.message_category'))
-			->add('code', null, array('label' => 'label.message_code'))						
-            ->add('message', 'ckeditor', array(
-            	'config_name' => 'inodata_editor',
-            	'label' => 'label.message',
-            	))
+    /**
+     * @param Sonata\AdminBundle\Form\FormMapper $formMapper
+     *
+     * @return void
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->add('category', 'sonata_type_model', ['label' => 'label.message_category'])
+            ->add('code', null, ['label' => 'label.message_code'])
+            ->add('message', 'ckeditor', [
+                'config_name' => 'inodata_editor',
+                'label'       => 'label.message',
+                ])
             //->add('message2', 'ckeditor', array('mapped' => false))
-		;
-	}
+;
+    }
 
-	/**
-	 * @param Sonata\AdminBundle\Datagrid\ListMapper $listMapper
-	 * 
-	 * @return void
-	 */
-	protected function configureListFields(ListMapper $listMapper)
-	{
-		$listMapper
-			->addIdentifier('message', null, array('label' => 'label.message'))
-			->add('category',  null, array('label' => 'label.message_category'))
-			->add('_action', 'actions', array(
-				'label' => 'label.action',
-				'actions' => array(
-					'show' => array(),
-					'edit' => array(),
-					'delete' => array(),
-				)
-			));
-	}
-	
-	/**
-	 * @param Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
-	 * 
-	 * @return void
-	 */	
-	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-	{
-		$datagridMapper
-			->add('message', null, array('label' => 'label.message'))
-			->add('category', null, array('label' => 'label.message_category'))
-		;		
-	}
-	
-} 
+    /**
+     * @param Sonata\AdminBundle\Datagrid\ListMapper $listMapper
+     *
+     * @return void
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addIdentifier('message', null, ['label' => 'label.message'])
+            ->add('category', null, ['label' => 'label.message_category'])
+            ->add('_action', 'actions', [
+                'label'   => 'label.action',
+                'actions' => [
+                    'show'   => [],
+                    'edit'   => [],
+                    'delete' => [],
+                ],
+            ]);
+    }
+
+    /**
+     * @param Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     *
+     * @return void
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('message', null, ['label' => 'label.message'])
+            ->add('category', null, ['label' => 'label.message_category']);
+    }
+}

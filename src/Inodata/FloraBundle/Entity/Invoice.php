@@ -6,103 +6,103 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Invoice
+ * Invoice.
  *
  * @ORM\Table(name="ino_invoice")
  * @ORM\Entity
  */
 class Invoice
 {
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="id", type="integer", nullable=false)
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="IDENTITY")
-	 */
-	private $id;
-	
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="number", type="string", length=20, nullable=true)
-	 */
-	private $number;
-	
-	/**
-	 * @var \Order
-	 *
-	 * @ORM\ManyToOne(targetEntity="Order")
-	 * @ORM\JoinColumns({
-	 *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
-	 * })
-	 */
-	private $order;
-	
-	/**
-	 * @var integer
-	 *
-	 * @ORM\ManyToOne(targetEntity="\Application\Sonata\UserBundle\Entity\User")
-	 * @ORM\JoinColumns({
-	 *   @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
-	 * })
-	 */
-	private $creator;
-	
-	/**
-	 * @var boolean
-	 *
-	 * @ORM\Column(name="is_canceled", type="boolean", nullable=false)
-	 */
-	private $isCanceled;
-	
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="comment", type="string", length=255, nullable=true)
-	 */
-	private $comment;
-	
-	/**
-	 * @var integer
-	 *
-	 * @ORM\ManyToOne(targetEntity="\Application\Sonata\UserBundle\Entity\User")
-	 * @ORM\JoinColumns({
-	 *   @ORM\JoinColumn(name="canceled_by", referencedColumnName="id")
-	 * })
-	 */
-	private $canceledBy;
-	
-	/**
-	 * @var \DateTime
-	 *
-	 * @ORM\Column(name="created_at", type="datetime")
-	 * @Gedmo\Timestampable(on="create")
-	 */
-	private $createdAt;
-	
-	/**
-	 * @var \DateTime
-	 *
-	 * @ORM\Column(name="updated_at", type="datetime", nullable=true)
-	 * @Gedmo\Timestampable(on="update")
-	 */
-	private $updatedAt;
-	
-	public function __construct()
-	{
-		$this->isCanceled = false;
-	}
-	
-	public function __toString()
-	{
-		return $this->number;
-	}
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
     /**
-     * Get id
+     * @var string
      *
-     * @return integer 
+     * @ORM\Column(name="number", type="string", length=20, nullable=true)
+     */
+    private $number;
+
+    /**
+     * @var \Order
+     *
+     * @ORM\ManyToOne(targetEntity="Order")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     * })
+     */
+    private $order;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\UserBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
+     * })
+     */
+    private $creator;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_canceled", type="boolean", nullable=false)
+     */
+    private $isCanceled;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="string", length=255, nullable=true)
+     */
+    private $comment;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\UserBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="canceled_by", referencedColumnName="id")
+     * })
+     */
+    private $canceledBy;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
+
+    public function __construct()
+    {
+        $this->isCanceled = false;
+    }
+
+    public function __toString()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Get id.
+     *
+     * @return int
      */
     public function getId()
     {
@@ -110,9 +110,10 @@ class Invoice
     }
 
     /**
-     * Set number
+     * Set number.
      *
      * @param string $number
+     *
      * @return Invoice
      */
     public function setNumber($number)
@@ -123,9 +124,9 @@ class Invoice
     }
 
     /**
-     * Get number
+     * Get number.
      *
-     * @return string 
+     * @return string
      */
     public function getNumber()
     {
@@ -133,9 +134,10 @@ class Invoice
     }
 
     /**
-     * Set isCanceled
+     * Set isCanceled.
      *
-     * @param boolean $isCanceled
+     * @param bool $isCanceled
+     *
      * @return Invoice
      */
     public function setIsCanceled($isCanceled)
@@ -146,9 +148,9 @@ class Invoice
     }
 
     /**
-     * Get isCanceled
+     * Get isCanceled.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsCanceled()
     {
@@ -156,9 +158,10 @@ class Invoice
     }
 
     /**
-     * Set comment
+     * Set comment.
      *
      * @param string $comment
+     *
      * @return Invoice
      */
     public function setComment($comment)
@@ -169,9 +172,9 @@ class Invoice
     }
 
     /**
-     * Get comment
+     * Get comment.
      *
-     * @return string 
+     * @return string
      */
     public function getComment()
     {
@@ -179,9 +182,10 @@ class Invoice
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return Invoice
      */
     public function setCreatedAt($createdAt)
@@ -192,9 +196,9 @@ class Invoice
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -202,9 +206,10 @@ class Invoice
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return Invoice
      */
     public function setUpdatedAt($updatedAt)
@@ -215,9 +220,9 @@ class Invoice
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -225,9 +230,10 @@ class Invoice
     }
 
     /**
-     * Set order
+     * Set order.
      *
      * @param \Inodata\FloraBundle\Entity\Order $order
+     *
      * @return Invoice
      */
     public function setOrder(\Inodata\FloraBundle\Entity\Order $order = null)
@@ -238,9 +244,9 @@ class Invoice
     }
 
     /**
-     * Get order
+     * Get order.
      *
-     * @return \Inodata\FloraBundle\Entity\Order 
+     * @return \Inodata\FloraBundle\Entity\Order
      */
     public function getOrder()
     {
@@ -248,9 +254,10 @@ class Invoice
     }
 
     /**
-     * Set creator
+     * Set creator.
      *
      * @param \Application\Sonata\UserBundle\Entity\User $creator
+     *
      * @return Invoice
      */
     public function setCreator(\Application\Sonata\UserBundle\Entity\User $creator = null)
@@ -261,9 +268,9 @@ class Invoice
     }
 
     /**
-     * Get creator
+     * Get creator.
      *
-     * @return \Application\Sonata\UserBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getCreator()
     {
@@ -271,9 +278,10 @@ class Invoice
     }
 
     /**
-     * Set canceledBy
+     * Set canceledBy.
      *
      * @param \Application\Sonata\UserBundle\Entity\User $canceledBy
+     *
      * @return Invoice
      */
     public function setCanceledBy(\Application\Sonata\UserBundle\Entity\User $canceledBy = null)
@@ -284,9 +292,9 @@ class Invoice
     }
 
     /**
-     * Get canceledBy
+     * Get canceledBy.
      *
-     * @return \Application\Sonata\UserBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getCanceledBy()
     {

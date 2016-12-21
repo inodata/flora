@@ -5,61 +5,61 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * GuiaRoji
+ * GuiaRoji.
  *
  * @ORM\Table(name="ino_guia_roji")
  * @ORM\Entity
  */
 class GuiaRoji
 {
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="id", type="integer", nullable=false)
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="IDENTITY")
-	 */
-	private $id;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="neighborhood", type="string", length=255, nullable=true)
-	 */
-	private $neighborhood;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="city", type="string", length=255, nullable=true)
-	 */
-	private $city;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="postal_code", type="integer", nullable=true)
-	 */
-	private $postal_code;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="map", type="string", length=32, nullable=true)
-	 */
-	private $map;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="coordinate", type="string", length=32, nullable=true)
-	 */
-	private $coordinate;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
     /**
-     * Get id
+     * @var string
      *
-     * @return integer 
+     * @ORM\Column(name="neighborhood", type="string", length=255, nullable=true)
+     */
+    private $neighborhood;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postal_code", type="integer", nullable=true)
+     */
+    private $postal_code;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="map", type="string", length=32, nullable=true)
+     */
+    private $map;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="coordinate", type="string", length=32, nullable=true)
+     */
+    private $coordinate;
+
+    /**
+     * Get id.
+     *
+     * @return int
      */
     public function getId()
     {
@@ -67,22 +67,23 @@ class GuiaRoji
     }
 
     /**
-     * Set neighborhood
+     * Set neighborhood.
      *
      * @param string $neighborhood
+     *
      * @return GuiaRoji
      */
     public function setNeighborhood($neighborhood)
     {
         $this->neighborhood = $neighborhood;
-    
+
         return $this;
     }
 
     /**
-     * Get neighborhood
+     * Get neighborhood.
      *
-     * @return string 
+     * @return string
      */
     public function getNeighborhood()
     {
@@ -90,22 +91,23 @@ class GuiaRoji
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
+     *
      * @return GuiaRoji
      */
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
-     * Get city
+     * Get city.
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -113,22 +115,23 @@ class GuiaRoji
     }
 
     /**
-     * Set postal_code
+     * Set postal_code.
      *
-     * @param integer $postalCode
+     * @param int $postalCode
+     *
      * @return GuiaRoji
      */
     public function setPostalCode($postalCode)
     {
         $this->postal_code = $postalCode;
-    
+
         return $this;
     }
 
     /**
-     * Get postal_code
+     * Get postal_code.
      *
-     * @return integer 
+     * @return int
      */
     public function getPostalCode()
     {
@@ -136,22 +139,23 @@ class GuiaRoji
     }
 
     /**
-     * Set map
+     * Set map.
      *
      * @param string $map
+     *
      * @return GuiaRoji
      */
     public function setMap($map)
     {
         $this->map = $map;
-    
+
         return $this;
     }
 
     /**
-     * Get map
+     * Get map.
      *
-     * @return string 
+     * @return string
      */
     public function getMap()
     {
@@ -159,22 +163,23 @@ class GuiaRoji
     }
 
     /**
-     * Set coordinate
+     * Set coordinate.
      *
      * @param string $coordinate
+     *
      * @return GuiaRoji
      */
     public function setCoordinate($coordinate)
     {
         $this->coordinate = $coordinate;
-    
+
         return $this;
     }
 
     /**
-     * Get coordinate
+     * Get coordinate.
      *
-     * @return string 
+     * @return string
      */
     public function getCoordinate()
     {

@@ -5,7 +5,7 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Employee
+ * Employee.
  *
  * @ORM\Table(name="ino_employee")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Employee
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -48,65 +48,66 @@ class Employee
      * @ORM\Column(name="phone", type="string", length=15, nullable=true)
      */
     private $phone;
-    
+
     /**
      * @var string
      * @ORM\Column(name="job_position", type="string", columnDefinition="ENUM('Messenger','Collector')")
      */
     private $jobPosition;
-    
+
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="lamps", type="integer", nullable=true)
      */
     private $lamps;
-    
+
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="boxes", type="integer", nullable=true)
      */
     private $boxes;
-    
+
     /**
-     * 
      * @var array
-     * Desc Si el Employee es de tipo Messenger guarda los pedidos
-     *       que se le han asignado 
+     *            Desc Si el Employee es de tipo Messenger guarda los pedidos
+     *            que se le han asignado
      */
     private $orders;
-    
-    public function __construct(){
-    	$this->boxes = 0; $this->lamps = 0;
-    }
-    
-    public function setOrders( $orders )
+
+    public function __construct()
     {
-    	$this->orders = $orders;
+        $this->boxes = 0;
+        $this->lamps = 0;
     }
-    
+
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
+    }
+
     public function getOrders()
     {
-    	return $this->orders;
-    }
-    
-    /**
-    *@return string
-    */
-    public function __toString()
-    {
-    	if(!$this->id){
-    		return 'New';
-    	}
-        
-    	return $this->name.' '.$this->lastname.' ('.$this->code.')';
+        return $this->orders;
     }
 
     /**
-     * Get id
+     *@return string
+     */
+    public function __toString()
+    {
+        if (!$this->id) {
+            return 'New';
+        }
+
+        return $this->name.' '.$this->lastname.' ('.$this->code.')';
+    }
+
+    /**
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -114,22 +115,23 @@ class Employee
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return InoEmployee
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -137,22 +139,23 @@ class Employee
     }
 
     /**
-     * Set lastname
+     * Set lastname.
      *
      * @param string $lastname
+     *
      * @return InoEmployee
      */
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-    
+
         return $this;
     }
 
     /**
-     * Get lastname
+     * Get lastname.
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -160,22 +163,23 @@ class Employee
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
+     *
      * @return InoEmployee
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -183,22 +187,23 @@ class Employee
     }
 
     /**
-     * Set code
+     * Set code.
      *
      * @param string $code
+     *
      * @return Employee
      */
     public function setCode($code)
     {
         $this->code = $code;
-    
+
         return $this;
     }
 
     /**
-     * Get code
+     * Get code.
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -206,51 +211,53 @@ class Employee
     }
 
     /**
-     * Set jobPosition
+     * Set jobPosition.
      *
      * @param string $jobPosition
+     *
      * @return Employee
      */
     public function setJobPosition($jobPosition)
     {
         $this->jobPosition = $jobPosition;
-    
+
         return $this;
     }
 
     /**
-     * Get jobPosition
+     * Get jobPosition.
      *
-     * @return string 
+     * @return string
      */
     public function getJobPosition()
     {
-        if($this->jobPosition == 'Messenger'){
-            return "Repartidor";
-        }elseif ($this->jobPosition == "Collector") {
-            return "Cobrador";
-        }else{
+        if ($this->jobPosition == 'Messenger') {
+            return 'Repartidor';
+        } elseif ($this->jobPosition == 'Collector') {
+            return 'Cobrador';
+        } else {
             return $this->jobPosition;
         }
     }
 
     /**
-     * Set lamps
+     * Set lamps.
      *
-     * @param integer $lamps
+     * @param int $lamps
+     *
      * @return Employee
      */
     public function setLamps($lamps)
     {
         $this->lamps = $lamps;
-    
+
         return $this;
     }
 
     /**
-     * Get lamps
+     * Get lamps.
      *
-     * @return integer 
+     * @return int
      */
     public function getLamps()
     {
@@ -258,22 +265,23 @@ class Employee
     }
 
     /**
-     * Set boxes
+     * Set boxes.
      *
-     * @param integer $boxes
+     * @param int $boxes
+     *
      * @return Employee
      */
     public function setBoxes($boxes)
     {
         $this->boxes = $boxes;
-    
+
         return $this;
     }
 
     /**
-     * Get boxes
+     * Get boxes.
      *
-     * @return integer 
+     * @return int
      */
     public function getBoxes()
     {

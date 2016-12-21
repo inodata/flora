@@ -5,7 +5,7 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProductLog
+ * ProductLog.
  *
  * @ORM\Table(name="ino_product_log")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ProductLog
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,7 +22,7 @@ class ProductLog
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="stock", type="integer", nullable=false)
      */
@@ -36,7 +36,7 @@ class ProductLog
     private $comment;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
@@ -61,23 +61,23 @@ class ProductLog
      * })
      */
     private $product;
-    
+
     /**
      * @return string
      */
     public function __toString()
     {
-    	if(!$this->id){
-    		return "New";
-    	}
-    	
-    	return ' '.$this->product;
+        if (!$this->id) {
+            return 'New';
+        }
+
+        return ' '.$this->product;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -85,22 +85,23 @@ class ProductLog
     }
 
     /**
-     * Set stock
+     * Set stock.
      *
-     * @param integer $stock
+     * @param int $stock
+     *
      * @return ProductLog
      */
     public function setStock($stock)
     {
         $this->stock = $stock;
-    
+
         return $this;
     }
 
     /**
-     * Get stock
+     * Get stock.
      *
-     * @return integer 
+     * @return int
      */
     public function getStock()
     {
@@ -108,22 +109,23 @@ class ProductLog
     }
 
     /**
-     * Set comment
+     * Set comment.
      *
      * @param string $comment
+     *
      * @return ProductLog
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
-    
+
         return $this;
     }
 
     /**
-     * Get comment
+     * Get comment.
      *
-     * @return string 
+     * @return string
      */
     public function getComment()
     {
@@ -131,22 +133,23 @@ class ProductLog
     }
 
     /**
-     * Set userId
+     * Set userId.
      *
-     * @param integer $userId
+     * @param int $userId
+     *
      * @return ProductLog
      */
     public function setUserId($userId)
     {
         $this->userId = $userId;
-    
+
         return $this;
     }
 
     /**
-     * Get userId
+     * Get userId.
      *
-     * @return integer 
+     * @return int
      */
     public function getUserId()
     {
@@ -154,22 +157,23 @@ class ProductLog
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
+     *
      * @return ProductLog
      */
     public function setDate($date)
     {
         $this->date = $date;
-    
+
         return $this;
     }
 
     /**
-     * Get date
+     * Get date.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -177,22 +181,23 @@ class ProductLog
     }
 
     /**
-     * Set product
+     * Set product.
      *
      * @param \Inodata\FloraBundle\Entity\Product $product
+     *
      * @return ProductLog
      */
     public function setProduct(\Inodata\FloraBundle\Entity\Product $product = null)
     {
         $this->product = $product;
-    
+
         return $this;
     }
 
     /**
-     * Get product
+     * Get product.
      *
-     * @return \Inodata\FloraBundle\Entity\Product 
+     * @return \Inodata\FloraBundle\Entity\Product
      */
     public function getProduct()
     {
@@ -200,22 +205,23 @@ class ProductLog
     }
 
     /**
-     * Set creator
+     * Set creator.
      *
      * @param \Application\Sonata\UserBundle\Entity\User $creator
+     *
      * @return ProductLog
      */
     public function setCreator(\Application\Sonata\UserBundle\Entity\User $creator = null)
     {
         $this->creator = $creator;
-    
+
         return $this;
     }
 
     /**
-     * Get creator
+     * Get creator.
      *
-     * @return \Application\Sonata\UserBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getCreator()
     {

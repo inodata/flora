@@ -12,7 +12,7 @@ class CustomerType extends AbstractType
         $builder->add(
             'member',
             'genemu_jqueryautocompleter_entity',
-            ['class' => 'Genemu\Bundle\EntityBundle\Entity\Member',]
+            ['class' => 'Genemu\Bundle\EntityBundle\Entity\Member']
         );
     }
 
