@@ -5,7 +5,7 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Customer
+ * Customer.
  *
  * @ORM\Table(name="ino_customer")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Customer
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -71,10 +71,9 @@ class Customer
 
     /**
      * @ORM\OneToMany(targetEntity="Address", mappedBy="customer", cascade={"persist", "remove"}, orphanRemoval=true)
-     * 
      */
     private $addresses;
-    
+
     /**
      * @var string
      *
@@ -83,32 +82,32 @@ class Customer
     private $paymentCondition;
 
     /**
-    *Return as string
-    *@return string
-    */
+     *Return as string.
+     *
+     *@return string
+     */
     public function __toString()
     {
-        $companyName = "";
-        if(!empty($this->companyName))
-        {
+        $companyName = '';
+        if (!empty($this->companyName)) {
             $companyName = $this->companyName;
         }
-        
-        if (empty($companyName) && !empty($this->businessName)){
-        	$companyName = $this->businessName;
+
+        if (empty($companyName) && !empty($this->businessName)) {
+            $companyName = $this->businessName;
         }
-        
-        if (!empty($this->rfc)){
-        	$companyName .= " (".$this->rfc.")";
+
+        if (!empty($this->rfc)) {
+            $companyName .= ' ('.$this->rfc.')';
         }
-        
+
         return $companyName;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -116,22 +115,23 @@ class Customer
     }
 
     /**
-     * Set rfc
+     * Set rfc.
      *
      * @param string $rfc
+     *
      * @return InoCustomer
      */
     public function setRfc($rfc)
     {
         $this->rfc = strtoupper($rfc);
-    
+
         return $this;
     }
 
     /**
-     * Get rfc
+     * Get rfc.
      *
-     * @return string 
+     * @return string
      */
     public function getRfc()
     {
@@ -139,22 +139,23 @@ class Customer
     }
 
     /**
-     * Set businessName
+     * Set businessName.
      *
      * @param string $businessName
+     *
      * @return InoCustomer
      */
     public function setBusinessName($businessName)
     {
         $this->businessName = $businessName;
-    
+
         return $this;
     }
 
     /**
-     * Get businessName
+     * Get businessName.
      *
-     * @return string 
+     * @return string
      */
     public function getBusinessName()
     {
@@ -162,22 +163,23 @@ class Customer
     }
 
     /**
-     * Set companyName
+     * Set companyName.
      *
      * @param string $companyName
+     *
      * @return InoCustomer
      */
     public function setCompanyName($companyName)
     {
         $this->companyName = $companyName;
-    
+
         return $this;
     }
 
     /**
-     * Get companyName
+     * Get companyName.
      *
-     * @return string 
+     * @return string
      */
     public function getCompanyName()
     {
@@ -185,22 +187,23 @@ class Customer
     }
 
     /**
-     * Set discount
+     * Set discount.
      *
      * @param float $discount
+     *
      * @return InoCustomer
      */
     public function setDiscount($discount)
     {
         $this->discount = $discount;
-    
+
         return $this;
     }
 
     /**
-     * Get discount
+     * Get discount.
      *
-     * @return float 
+     * @return float
      */
     public function getDiscount()
     {
@@ -208,22 +211,23 @@ class Customer
     }
 
     /**
-     * Set fiscalAddress
+     * Set fiscalAddress.
      *
      * @param \Inodata\FloraBundle\Entity\Address $fiscalAddress
+     *
      * @return Customer
      */
     public function setFiscalAddress(\Inodata\FloraBundle\Entity\Address $fiscalAddress = null)
     {
         $this->fiscalAddress = $fiscalAddress;
-    
+
         return $this;
     }
 
     /**
-     * Get fiscalAddress
+     * Get fiscalAddress.
      *
-     * @return \Inodata\FloraBundle\Entity\Address 
+     * @return \Inodata\FloraBundle\Entity\Address
      */
     public function getFiscalAddress()
     {
@@ -231,76 +235,77 @@ class Customer
     }
 
     /**
-     * Set paymentAddress
+     * Set paymentAddress.
      *
      * @param \Inodata\FloraBundle\Entity\Address $paymentAddress
+     *
      * @return Customer
      */
     public function setPaymentAddress(\Inodata\FloraBundle\Entity\Address $paymentAddress = null)
     {
         $this->paymentAddress = $paymentAddress;
-    
+
         return $this;
     }
 
     /**
-     * Get paymentAddress
+     * Get paymentAddress.
      *
-     * @return \Inodata\FloraBundle\Entity\InoAddress 
+     * @return \Inodata\FloraBundle\Entity\InoAddress
      */
     public function getPaymentAddress()
     {
         return $this->paymentAddress;
     }
-    
 
     /**
-     * Set paymentCondition
+     * Set paymentCondition.
      *
      * @param string $paymentCondition
+     *
      * @return Customer
      */
     public function setPaymentCondition($paymentCondition)
     {
         $this->paymentCondition = $paymentCondition;
-    
+
         return $this;
     }
 
     /**
-     * Get paymentCondition
+     * Get paymentCondition.
      *
-     * @return string 
+     * @return string
      */
     public function getPaymentCondition()
     {
         return $this->paymentCondition;
     }
-    
-    
+
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
-     * Add addresses
+     * Add addresses.
      *
      * @param \Inodata\FloraBundle\Entity\Address $addresses
+     *
      * @return Customer
      */
     public function addAddresse(\Inodata\FloraBundle\Entity\Address $addresses)
     {
         $this->addresses[] = $addresses;
-    
+
         return $this;
     }
 
     /**
-     * Remove addresses
+     * Remove addresses.
      *
      * @param \Inodata\FloraBundle\Entity\Address $addresses
      */
@@ -310,9 +315,9 @@ class Customer
     }
 
     /**
-     * Get addresses
+     * Get addresses.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAddresses()
     {
@@ -320,9 +325,10 @@ class Customer
     }
 
     /**
-     * Set addresses
+     * Set addresses.
      *
      * @param  $addresses
+     *
      * @return Customer
      */
     public function setAddresses($addresses)
@@ -330,7 +336,7 @@ class Customer
         foreach ($addresses as $address) {
             $this->addAddresse($address);
         }
-    
+
         return $this;
     }
 }

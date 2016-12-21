@@ -5,7 +5,7 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PaymentContact
+ * PaymentContact.
  *
  * @ORM\Table(name="ino_payment_contact")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class PaymentContact
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -74,22 +74,22 @@ class PaymentContact
     private $customer;
 
     /**
-    *@return string
-    */
+     *@return string
+     */
     public function __toString()
     {
         $name = $this->name;
-        if(empty($this->name))
-        {
+        if (empty($this->name)) {
             $name = '';
-        }        
+        }
+
         return $name;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -97,22 +97,23 @@ class PaymentContact
     }
 
     /**
-     * Set employeeNumber
+     * Set employeeNumber.
      *
      * @param string $employeeNumber
+     *
      * @return PaymentContact
      */
     public function setEmployeeNumber($employeeNumber)
     {
         $this->employeeNumber = $employeeNumber;
-    
+
         return $this;
     }
 
     /**
-     * Get employeeNumber
+     * Get employeeNumber.
      *
-     * @return string 
+     * @return string
      */
     public function getEmployeeNumber()
     {
@@ -120,22 +121,23 @@ class PaymentContact
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return PaymentContact
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -143,22 +145,23 @@ class PaymentContact
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
+     *
      * @return PaymentContact
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -166,22 +169,23 @@ class PaymentContact
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
+     *
      * @return PaymentContact
      */
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
-     * Get email
+     * Get email.
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -189,22 +193,23 @@ class PaymentContact
     }
 
     /**
-     * Set department
+     * Set department.
      *
      * @param string $department
+     *
      * @return PaymentContact
      */
     public function setDepartment($department)
     {
         $this->department = $department;
-    
+
         return $this;
     }
 
     /**
-     * Get department
+     * Get department.
      *
-     * @return string 
+     * @return string
      */
     public function getDepartment()
     {
@@ -212,22 +217,23 @@ class PaymentContact
     }
 
     /**
-     * Set customer
+     * Set customer.
      *
      * @param \Inodata\FloraBundle\Entity\Customer $customer
+     *
      * @return PaymentContact
      */
     public function setCustomer(\Inodata\FloraBundle\Entity\Customer $customer = null)
     {
         $this->customer = $customer;
-    
+
         return $this;
     }
 
     /**
-     * Get customer
+     * Get customer.
      *
-     * @return \Inodata\FloraBundle\Entity\Customer 
+     * @return \Inodata\FloraBundle\Entity\Customer
      */
     public function getCustomer()
     {
@@ -235,22 +241,23 @@ class PaymentContact
     }
 
     /**
-     * Set extension
+     * Set extension.
      *
      * @param string $extension
+     *
      * @return PaymentContact
      */
     public function setExtension($extension)
     {
         $this->extension = $extension;
-    
+
         return $this;
     }
 
     /**
-     * Get extension
+     * Get extension.
      *
-     * @return string 
+     * @return string
      */
     public function getExtension()
     {

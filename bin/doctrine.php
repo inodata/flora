@@ -17,14 +17,14 @@
  * <http://www.doctrine-project.org>.
  */
 
-(@include_once __DIR__ . '/../vendor/autoload.php') || @include_once __DIR__ . '/../../../autoload.php';
-$configFile = getcwd() . DIRECTORY_SEPARATOR . 'cli-config.php';
+(@include_once __DIR__.'/../vendor/autoload.php') || @include_once __DIR__.'/../../../autoload.php';
+$configFile = getcwd().DIRECTORY_SEPARATOR.'cli-config.php';
 
 $helperSet = null;
 if (file_exists($configFile)) {
-    if ( ! is_readable($configFile)) {
+    if (!is_readable($configFile)) {
         trigger_error(
-            'Configuration file [' . $configFile . '] does not have read permission.', E_ERROR
+            'Configuration file ['.$configFile.'] does not have read permission.', E_ERROR
         );
     }
 

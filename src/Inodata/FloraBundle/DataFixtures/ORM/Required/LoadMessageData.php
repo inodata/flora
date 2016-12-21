@@ -9,9 +9,8 @@ use Inodata\FloraBundle\Entity\Message;
 
 class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
 {
-    
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -22,7 +21,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message1', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('2');
@@ -30,7 +29,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message2', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('3');
@@ -38,7 +37,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message3', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('4');
@@ -46,7 +45,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message4', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('5');
@@ -54,7 +53,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message5', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('6');
@@ -62,7 +61,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message6', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('7');
@@ -70,7 +69,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message7', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('8');
@@ -78,7 +77,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message8', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('9');
@@ -86,7 +85,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message9', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('10');
@@ -94,7 +93,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message10', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('11');
@@ -102,7 +101,7 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message11', $message);
-        
+
         $message = new Message();
         $message->setCategory($this->getReference('category1'));
         $message->setCode('12');
@@ -110,13 +109,10 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $manager->flush();
         $this->addReference('message12', $message);
-        
-        
-   
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {
