@@ -9,9 +9,8 @@ use Inodata\FloraBundle\Entity\Address;
 
 class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
 {
-    
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -21,12 +20,12 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $address->setNoExt('1234');
         $address->setNeighborhood('Centro');
         $address->setCity('Monterrey');
-        $address->setState('NLE');        
+        $address->setState('NLE');
         $address->setPostalCode('64000');
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion1', $address);
-        
+
         $address = new Address();
         $address->setStreet('Lazaro Cardenas');
         $address->setNoInt('A');
@@ -38,7 +37,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion2', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av. Revolución');
         $address->setNoInt('A');
@@ -50,7 +49,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion3', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av. Del Estado');
         $address->setNoInt('123');
@@ -62,7 +61,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion4', $address);
-        
+
         $address = new Address();
         $address->setStreet('Lazaro Cardenas');
         $address->setNoInt('A');
@@ -74,7 +73,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion5', $address);
-        
+
         $address = new Address();
         $address->setStreet('Lazaro Cardenas');
         $address->setNoInt('A');
@@ -86,7 +85,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion6', $address);
-        
+
         $address = new Address();
         $address->setStreet('Calle pelluelas');
         $address->setNoInt('A');
@@ -98,7 +97,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion7', $address);
-                
+
         $address = new Address();
         $address->setStreet('Luis Donaldo Colosio');
         $address->setNoInt('A');
@@ -110,7 +109,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion8', $address);
-        
+
         $address = new Address();
         $address->setStreet('Abraham Lincoln');
         $address->setNoInt('A');
@@ -122,7 +121,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion9', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Insurgentes');
         $address->setNoInt('A');
@@ -134,19 +133,19 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion10', $address);
-        
+
         $address = new Address();
         $address->setStreet('Rio Tamesi');
         $address->setNoInt('A');
         $address->setNoExt('1234');
         $address->setNeighborhood('Centro');
         $address->setCity('Monterrey');
-        $address->setState('NLE');        
+        $address->setState('NLE');
         $address->setPostalCode('64000');
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion11', $address);
-        
+
         $address = new Address();
         $address->setStreet('Lazaro Cardenas');
         $address->setNoInt('A');
@@ -158,7 +157,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion12', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av. Revolución');
         $address->setNoInt('A');
@@ -170,7 +169,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion13', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av. Del Estado');
         $address->setNoInt('123');
@@ -182,7 +181,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion14', $address);
-        
+
         $address = new Address();
         $address->setStreet('Lazaro Cardenas');
         $address->setNoInt('A');
@@ -194,7 +193,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion15', $address);
-        
+
         $address = new Address();
         $address->setStreet('Lazaro Cardenas');
         $address->setNoInt('A');
@@ -206,7 +205,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion16', $address);
-        
+
         $address = new Address();
         $address->setStreet('Calle pelluelas');
         $address->setNoInt('A');
@@ -218,7 +217,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion17', $address);
-                
+
         $address = new Address();
         $address->setStreet('Luis Donaldo Colosio');
         $address->setNoInt('A');
@@ -230,7 +229,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion18', $address);
-        
+
         $address = new Address();
         $address->setStreet('Abraham Lincoln');
         $address->setNoInt('A');
@@ -242,7 +241,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion19', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Insurgentes');
         $address->setNoInt('A');
@@ -254,7 +253,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion20', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Universidad');
         $address->setNoInt('A');
@@ -266,7 +265,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion21', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Garza Sada');
         $address->setNoInt('A');
@@ -278,7 +277,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion22', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Revolucion');
         $address->setNoInt('A');
@@ -290,7 +289,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion23', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Gonzalitos');
         $address->setNoInt('A');
@@ -302,7 +301,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion24', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Miguel Aleman');
         $address->setNoInt('A');
@@ -314,7 +313,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion25', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Sendero');
         $address->setNoInt('A');
@@ -326,7 +325,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($address);
         $manager->flush();
         $this->addReference('direccion26', $address);
-        
+
         $address = new Address();
         $address->setStreet('Av Constitucion');
         $address->setNoInt('A');
@@ -341,7 +340,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {

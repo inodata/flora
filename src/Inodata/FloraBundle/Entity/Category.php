@@ -5,7 +5,7 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
+ * Category.
  *
  * @ORM\Table(name="ino_category")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -28,33 +28,30 @@ class Category
      */
     private $description;
 
-    
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
-        
     }
-    
+
     /**
-    *@return string
-    */
+     *@return string
+     */
     public function __toString()
     {
         $description = $this->description;
-        if(empty($this->description))
-        {
-            $description = "";
+        if (empty($this->description)) {
+            $description = '';
         }
+
         return $description;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -62,26 +59,26 @@ class Category
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return Category
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
         return $this->description;
     }
-
 }

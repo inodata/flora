@@ -10,7 +10,7 @@ use Inodata\FloraBundle\Entity\Customer;
 class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -26,7 +26,7 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $manager->flush();
 
         $this->addReference('customer1', $customer);
-        
+
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Super Colchones SA de CV');
@@ -34,12 +34,12 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setDiscount(.07);
         $customer->setFiscalAddress($this->getReference('direccion3'));
         $customer->setPaymentAddress($this->getReference('direccion4'));
-        
+
         $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('customer2', $customer);
-        
+
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Industrias Gonzalez');
@@ -47,12 +47,12 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setDiscount(.05);
         $customer->setFiscalAddress($this->getReference('direccion5'));
         $customer->setPaymentAddress($this->getReference('direccion6'));
-        
+
         $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('customer3', $customer);
-        
+
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Industrias Perez');
@@ -60,12 +60,12 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setDiscount(.1);
         $customer->setFiscalAddress($this->getReference('direccion7'));
         $customer->setPaymentAddress($this->getReference('direccion8'));
-        
+
         $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('customer4', $customer);
-        
+
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Industrias Gomez');
@@ -73,12 +73,12 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setDiscount(0);
         $customer->setFiscalAddress($this->getReference('direccion9'));
         $customer->setPaymentAddress($this->getReference('direccion10'));
-        
+
         $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('customer5', $customer);
-        
+
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Industrias texitles Gutierrez');
@@ -86,12 +86,12 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setDiscount(.04);
         $customer->setFiscalAddress($this->getReference('direccion11'));
         $customer->setPaymentAddress($this->getReference('direccion12'));
-        
+
         $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('customer6', $customer);
-        
+
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Industrias Bimbo');
@@ -99,13 +99,12 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setDiscount(.04);
         $customer->setFiscalAddress($this->getReference('direccion13'));
         $customer->setPaymentAddress($this->getReference('direccion14'));
-        
+
         $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('customer7', $customer);
-        
-        
+
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Duques Asociados');
@@ -113,12 +112,12 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setDiscount(.04);
         $customer->setFiscalAddress($this->getReference('direccion15'));
         $customer->setPaymentAddress($this->getReference('direccion16'));
-        
+
         $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('customer8', $customer);
-        
+
         $customer = new Customer();
         $customer->setRfc('MAH128345GH2');
         $customer->setBusinessName('Industrias Almeida');
@@ -126,18 +125,18 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
         $customer->setDiscount(.04);
         $customer->setFiscalAddress($this->getReference('direccion17'));
         $customer->setPaymentAddress($this->getReference('direccion18'));
-        
+
         $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('customer9', $customer);
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {
-    	return 7;
+        return 7;
     }
 }

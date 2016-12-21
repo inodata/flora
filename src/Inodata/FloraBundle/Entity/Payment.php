@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Payment
+ * Payment.
  *
  * @ORM\Table(name="ino_payment")
  * @ORM\Entity
@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Payment
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -55,12 +55,10 @@ class Payment
      */
     private $order;
 
-
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -68,22 +66,23 @@ class Payment
     }
 
     /**
-     * Set quantity
+     * Set quantity.
      *
      * @param float $quantity
+     *
      * @return InoPayment
      */
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
-    
+
         return $this;
     }
 
     /**
-     * Get quantity
+     * Get quantity.
      *
-     * @return float 
+     * @return float
      */
     public function getQuantity()
     {
@@ -91,22 +90,23 @@ class Payment
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return InoPayment
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -114,22 +114,23 @@ class Payment
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return InoPayment
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -137,22 +138,23 @@ class Payment
     }
 
     /**
-     * Set order
+     * Set order.
      *
      * @param \Inodata\FloraBundle\Entity\Order $order
+     *
      * @return InoPayment
      */
     public function setOrder(\Inodata\FloraBundle\Entity\Order $order = null)
     {
         $this->order = $order;
-    
+
         return $this;
     }
 
     /**
-     * Get order
+     * Get order.
      *
-     * @return \Inodata\FloraBundle\Entity\Order 
+     * @return \Inodata\FloraBundle\Entity\Order
      */
     public function getOrder()
     {

@@ -9,9 +9,8 @@ use Inodata\FloraBundle\Entity\Product;
 
 class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 {
-    
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -23,7 +22,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto1', $product);
-        
+
         $product = new Product();
         $product->setCode('452');
         $product->setDescription('Hermoso diseño con imagen de  Virgen de Guadalupe');
@@ -32,7 +31,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto2', $product);
-        
+
         $product = new Product();
         $product->setCode('453');
         $product->setDescription('Arreglo de 12 rosas rojas con malla envolvente');
@@ -41,7 +40,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto3', $product);
-        
+
         $product = new Product();
         $product->setCode('454');
         $product->setDescription('Hermoso topiario con Gerberas y Rosas');
@@ -50,7 +49,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto4', $product);
-        
+
         $product = new Product();
         $product->setCode('455');
         $product->setDescription('Hermosa canasta surtida  arreglada');
@@ -59,7 +58,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto5', $product);
-        
+
         $product = new Product();
         $product->setCode('456');
         $product->setDescription('24 Rosas en topario canasta ');
@@ -68,7 +67,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto6', $product);
-        
+
         $product = new Product();
         $product->setCode('457');
         $product->setDescription('Hemoso arreglo de Tulipanes');
@@ -77,7 +76,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto7', $product);
-        
+
         $product = new Product();
         $product->setCode('458');
         $product->setDescription('Arreglo de 6 Rosas rojas en base de madera');
@@ -86,7 +85,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto8', $product);
-        
+
         $product = new Product();
         $product->setCode('459');
         $product->setDescription('Arreglo de Rosas y Mariposas');
@@ -95,7 +94,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto9', $product);
-        
+
         $product = new Product();
         $product->setCode('460');
         $product->setDescription('Arreglo de Flores surtidas');
@@ -104,7 +103,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto10', $product);
-        
+
         $product = new Product();
         $product->setCode('461');
         $product->setDescription('Arreglo de 3 Rosas rojas en base de madera ');
@@ -113,7 +112,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto11', $product);
-        
+
         $product = new Product();
         $product->setCode('462');
         $product->setDescription('Elegante canasta de Frutas y Agapandos');
@@ -122,7 +121,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto12', $product);
-        
+
         $product = new Product();
         $product->setCode('463');
         $product->setDescription('Hermosa Jaulita Primaveral');
@@ -131,7 +130,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto13', $product);
-        
+
         $product = new Product();
         $product->setCode('464');
         $product->setDescription('Caja de madera musical con 12 Rosas rojas');
@@ -140,7 +139,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto14', $product);
-        
+
         $product = new Product();
         $product->setCode('465');
         $product->setDescription('Arreglo tropical Heliconias en base de madera');
@@ -149,7 +148,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto15', $product);
-        
+
         $product = new Product();
         $product->setCode('466');
         $product->setDescription('Canasta de lilis y peluche');
@@ -158,7 +157,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto16', $product);
-        
+
         $product = new Product();
         $product->setCode('467');
         $product->setDescription('Hermosa canasta surtida ');
@@ -167,7 +166,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto17', $product);
-        
+
         $product = new Product();
         $product->setCode('468');
         $product->setDescription('Espectacular canasta 36 Rosas vegetativo');
@@ -176,7 +175,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto18', $product);
-        
+
         $product = new Product();
         $product->setCode('469');
         $product->setDescription('Hermoso diseño de Girasoles y Rosas');
@@ -185,7 +184,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto19', $product);
-        
+
         $product = new Product();
         $product->setCode('470');
         $product->setDescription('Arreglo de Tulipanes en Alhajero');
@@ -194,7 +193,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto20', $product);
-        
+
         $product = new Product();
         $product->setCode('471');
         $product->setDescription('Arreglo Elegancia');
@@ -203,7 +202,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto21', $product);
-        
+
         $product = new Product();
         $product->setCode('472');
         $product->setDescription('Cofre mimbre con 24 Rosas');
@@ -212,11 +211,10 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($product);
         $manager->flush();
         $this->addReference('producto22', $product);
-        
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {
