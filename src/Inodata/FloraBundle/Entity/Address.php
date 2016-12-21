@@ -5,7 +5,7 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Address
+ * Address.
  *
  * @ORM\Table(name="ino_address")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Address
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -41,7 +41,7 @@ class Address
      * @ORM\Column(name="no_ext", type="string", length=45, nullable=true)
      */
     private $noExt;
-    
+
     /**
      * @var string
      *
@@ -64,7 +64,7 @@ class Address
     private $city;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="postal_code", type="integer", nullable=true)
      */
@@ -95,10 +95,10 @@ class Address
     private $messenger;
 
     /**
-    * @var \Customer
-    * @ORM\ManyToOne(targetEntity="Customer", inversedBy="addresses", cascade={"persist"})
-    * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
-    */
+     * @var \Customer
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="addresses", cascade={"persist"})
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     */
     private $customer;
 
     /**
@@ -108,25 +108,25 @@ class Address
     private $addressType;
 
     /**
-    *@return string
-    */
+     *@return string
+     */
     //TODO: Hacer una funcion getFormatedAddress() para esta cadena, la funcion toString() se debe mantener simple.
     public function __toString()
     {
         $address = $this->street.' '.$this->noExt;
-        if(!empty($this->noInt))
-        {
+        if (!empty($this->noInt)) {
             $address .= ' Int. '.$this->noInt;
         }
         $address .= "\n".$this->neighborhood;
         $address .= "\n".$this->city.', '.$this->state.', '.$this->postalCode;
+
         return $address;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -134,22 +134,23 @@ class Address
     }
 
     /**
-     * Set street
+     * Set street.
      *
      * @param string $street
+     *
      * @return InoAddress
      */
     public function setStreet($street)
     {
         $this->street = $street;
-    
+
         return $this;
     }
 
     /**
-     * Get street
+     * Get street.
      *
-     * @return string 
+     * @return string
      */
     public function getStreet()
     {
@@ -157,22 +158,23 @@ class Address
     }
 
     /**
-     * Set noInt
+     * Set noInt.
      *
      * @param string $noInt
+     *
      * @return InoAddress
      */
     public function setNoInt($noInt)
     {
         $this->noInt = $noInt;
-    
+
         return $this;
     }
 
     /**
-     * Get noInt
+     * Get noInt.
      *
-     * @return string 
+     * @return string
      */
     public function getNoInt()
     {
@@ -180,22 +182,23 @@ class Address
     }
 
     /**
-     * Set noExt
+     * Set noExt.
      *
      * @param string $noExt
+     *
      * @return InoAddress
      */
     public function setNoExt($noExt)
     {
         $this->noExt = $noExt;
-    
+
         return $this;
     }
 
     /**
-     * Get noExt
+     * Get noExt.
      *
-     * @return string 
+     * @return string
      */
     public function getNoExt()
     {
@@ -203,22 +206,23 @@ class Address
     }
 
     /**
-     * Set state
+     * Set state.
      *
-     * @param integer $state
+     * @param int $state
+     *
      * @return InoAddress
      */
     public function setState($state)
     {
         $this->state = $state;
-    
+
         return $this;
     }
 
     /**
-     * Get state
+     * Get state.
      *
-     * @return integer 
+     * @return int
      */
     public function getState()
     {
@@ -226,22 +230,23 @@ class Address
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
+     *
      * @return InoAddress
      */
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
-     * Get city
+     * Get city.
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -249,22 +254,23 @@ class Address
     }
 
     /**
-     * Set postalCode
+     * Set postalCode.
      *
-     * @param integer $postalCode
+     * @param int $postalCode
+     *
      * @return InoAddress
      */
     public function setPostalCode($postalCode)
     {
         $this->postalCode = $postalCode;
-    
+
         return $this;
     }
 
     /**
-     * Get postalCode
+     * Get postalCode.
      *
-     * @return integer 
+     * @return int
      */
     public function getPostalCode()
     {
@@ -272,22 +278,23 @@ class Address
     }
 
     /**
-     * Set neighborhood
+     * Set neighborhood.
      *
      * @param string $neighborhood
+     *
      * @return InoAddress
      */
     public function setNeighborhood($neighborhood)
     {
         $this->neighborhood = $neighborhood;
-    
+
         return $this;
     }
 
     /**
-     * Get neighborhood
+     * Get neighborhood.
      *
-     * @return string 
+     * @return string
      */
     public function getNeighborhood()
     {
@@ -295,22 +302,23 @@ class Address
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
+     *
      * @return Address
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -318,22 +326,23 @@ class Address
     }
 
     /**
-     * Set reference
+     * Set reference.
      *
      * @param string $reference
+     *
      * @return Address
      */
     public function setReference($reference)
     {
         $this->reference = $reference;
-    
+
         return $this;
     }
 
     /**
-     * Get reference
+     * Get reference.
      *
-     * @return string 
+     * @return string
      */
     public function getReference()
     {
@@ -341,22 +350,23 @@ class Address
     }
 
     /**
-     * Set messenger
+     * Set messenger.
      *
      * @param \Inodata\FloraBundle\Entity\Employee $messenger
+     *
      * @return Address
      */
     public function setMessenger(\Inodata\FloraBundle\Entity\Employee $messenger = null)
     {
         $this->messenger = $messenger;
-    
+
         return $this;
     }
 
     /**
-     * Get messenger
+     * Get messenger.
      *
-     * @return \Inodata\FloraBundle\Entity\Employee 
+     * @return \Inodata\FloraBundle\Entity\Employee
      */
     public function getMessenger()
     {
@@ -364,22 +374,23 @@ class Address
     }
 
     /**
-     * Set customer
+     * Set customer.
      *
      * @param \Inodata\FloraBundle\Entity\Customer $customer
+     *
      * @return Address
      */
     public function setCustomer(\Inodata\FloraBundle\Entity\Customer $customer = null)
     {
         $this->customer = $customer;
-    
+
         return $this;
     }
 
     /**
-     * Get customer
+     * Get customer.
      *
-     * @return \Inodata\FloraBundle\Entity\Customer 
+     * @return \Inodata\FloraBundle\Entity\Customer
      */
     public function getCustomer()
     {
@@ -387,22 +398,23 @@ class Address
     }
 
     /**
-     * Set addressType
+     * Set addressType.
      *
      * @param string $addressType
+     *
      * @return Address
      */
     public function setAddressType($addressType)
     {
         $this->addressType = $addressType;
-    
+
         return $this;
     }
 
     /**
-     * Get addressType
+     * Get addressType.
      *
-     * @return string 
+     * @return string
      */
     public function getAddressType()
     {

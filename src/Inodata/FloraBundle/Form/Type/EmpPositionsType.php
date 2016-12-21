@@ -7,24 +7,24 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EmpPositionsType extends AbstractType
 {
-	public function setDefaultOptions(OptionsResolverInterface $resolver)
-	{
-		$resolver->setDefaults(array(
-			'choices' => array(
-				"Messenger" => "Messenger",
-				"Collector" => "Collector",
-			),
-			'translation_domain' => 'InodataFloraBundle'
-		));
-	}
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults([
+            'choices' => [
+                'Messenger' => 'Messenger',
+                'Collector' => 'Collector',
+            ],
+            'translation_domain' => 'InodataFloraBundle',
+        ]);
+    }
 
-	public function getParent()
-	{
-		return 'choice';
-	}
+    public function getParent()
+    {
+        return 'choice';
+    }
 
-	public function getName()
-	{
-		return 'inodata_emp_positions_type';
-	}
+    public function getName()
+    {
+        return 'inodata_emp_positions_type';
+    }
 }

@@ -5,62 +5,62 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OderProduct
+ * OderProduct.
  *
  * @ORM\Table(name="ino_order_product")
  * @ORM\Entity
  */
 class OrderProduct
 {
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="id", type="integer", nullable=false)
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="IDENTITY")
-	 */
-	private $id;
-	
-	/**
-	 * @var \Order
-	 *
-	 * @ORM\ManyToOne(targetEntity="Order")
-	 * @ORM\JoinColumns({
-	 *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
-	 * })
-	 */
-	private $order;
-	
-	/**
-	 * @var \Product
-	 *
-	 * @ORM\ManyToOne(targetEntity="Product")
-	 * @ORM\JoinColumns({
-	 *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-	 * })
-	 */
-	private $product;
-	
-	/**
-	 *@var integer
-	 *@ORM\Column(name="quantity", type="integer", nullable=false)
-	 */
-	private $quantity;
-	
-	/**
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Order
+     *
+     * @ORM\ManyToOne(targetEntity="Order")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     * })
+     */
+    private $order;
+
+    /**
+     * @var \Product
+     *
+     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * })
+     */
+    private $product;
+
+    /**
+     *@var int
+     *@ORM\Column(name="quantity", type="integer", nullable=false)
+     */
+    private $quantity;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="product_price", type="decimal", nullable=false)
      */
     private $productPrice;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="unit", type="string", length=50, nullable=true)
      */
     private $unit;
-    
+
     /**
      * @var \DateTime
      *
@@ -69,9 +69,9 @@ class OrderProduct
     private $invoiceDate;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -79,22 +79,23 @@ class OrderProduct
     }
 
     /**
-     * Set quantity
+     * Set quantity.
      *
-     * @param integer $quantity
+     * @param int $quantity
+     *
      * @return OrderProduct
      */
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
-    
+
         return $this;
     }
 
     /**
-     * Get quantity
+     * Get quantity.
      *
-     * @return integer 
+     * @return int
      */
     public function getQuantity()
     {
@@ -102,22 +103,23 @@ class OrderProduct
     }
 
     /**
-     * Set order
+     * Set order.
      *
      * @param \Inodata\FloraBundle\Entity\Order $order
+     *
      * @return OrderProduct
      */
     public function setOrder(\Inodata\FloraBundle\Entity\Order $order = null)
     {
         $this->order = $order;
-    
+
         return $this;
     }
 
     /**
-     * Get order
+     * Get order.
      *
-     * @return \Inodata\FloraBundle\Entity\Order 
+     * @return \Inodata\FloraBundle\Entity\Order
      */
     public function getOrder()
     {
@@ -125,22 +127,23 @@ class OrderProduct
     }
 
     /**
-     * Set product
+     * Set product.
      *
      * @param \Inodata\FloraBundle\Entity\Product $product
+     *
      * @return OrderProduct
      */
     public function setProduct(\Inodata\FloraBundle\Entity\Product $product = null)
     {
         $this->product = $product;
-    
+
         return $this;
     }
 
     /**
-     * Get product
+     * Get product.
      *
-     * @return \Inodata\FloraBundle\Entity\Product 
+     * @return \Inodata\FloraBundle\Entity\Product
      */
     public function getProduct()
     {
@@ -148,22 +151,23 @@ class OrderProduct
     }
 
     /**
-     * Set productPrice
+     * Set productPrice.
      *
      * @param float $productPrice
+     *
      * @return OrderProduct
      */
     public function setProductPrice($productPrice)
     {
         $this->productPrice = $productPrice;
-    
+
         return $this;
     }
 
     /**
-     * Get productPrice
+     * Get productPrice.
      *
-     * @return float 
+     * @return float
      */
     public function getProductPrice()
     {
@@ -171,22 +175,23 @@ class OrderProduct
     }
 
     /**
-     * Set unit
+     * Set unit.
      *
      * @param string $unit
+     *
      * @return OrderProduct
      */
     public function setUnit($unit)
     {
         $this->unit = $unit;
-    
+
         return $this;
     }
 
     /**
-     * Get unit
+     * Get unit.
      *
-     * @return string 
+     * @return string
      */
     public function getUnit()
     {
@@ -194,22 +199,23 @@ class OrderProduct
     }
 
     /**
-     * Set invoiceDate
+     * Set invoiceDate.
      *
      * @param \DateTime $invoiceDate
+     *
      * @return OrderProduct
      */
     public function setInvoiceDate($invoiceDate)
     {
         $this->invoiceDate = $invoiceDate;
-    
+
         return $this;
     }
 
     /**
-     * Get invoiceDate
+     * Get invoiceDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInvoiceDate()
     {

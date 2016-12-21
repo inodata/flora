@@ -5,7 +5,7 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Product
+ * Product.
  *
  * @ORM\Table(name="ino_product")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -43,7 +43,7 @@ class Product
     private $price;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="stock", type="integer", nullable=true)
      */
@@ -57,36 +57,35 @@ class Product
      * )
      */
     private $categories;
-    
+
     /**
      * @return string
      */
     public function __toString()
     {
-    	if(!empty($this->description)){
-            if(substr($this->code, 0, 1) == 'X'){
+        if (!empty($this->description)) {
+            if (substr($this->code, 0, 1) == 'X') {
                 return $this->description;
-            }else{
+            } else {
                 return $this->code.' - '.$this->description;
             }
-        }else{
+        } else {
             return ' ';
         }
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -94,22 +93,23 @@ class Product
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return Product
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -117,22 +117,23 @@ class Product
     }
 
     /**
-     * Set price
+     * Set price.
      *
      * @param float $price
+     *
      * @return Product
      */
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
     /**
-     * Get price
+     * Get price.
      *
-     * @return float 
+     * @return float
      */
     public function getPrice()
     {
@@ -140,22 +141,23 @@ class Product
     }
 
     /**
-     * Set stock
+     * Set stock.
      *
-     * @param integer $stock
+     * @param int $stock
+     *
      * @return Product
      */
     public function setStock($stock)
     {
         $this->stock = $stock;
-    
+
         return $this;
     }
 
     /**
-     * Get stock
+     * Get stock.
      *
-     * @return integer 
+     * @return int
      */
     public function getStock()
     {
@@ -163,22 +165,23 @@ class Product
     }
 
     /**
-     * Set code
+     * Set code.
      *
-     * @param integer $code
+     * @param int $code
+     *
      * @return Product
      */
     public function setCode($code)
     {
         $this->code = $code;
-    
+
         return $this;
     }
 
     /**
-     * Get code
+     * Get code.
      *
-     * @return integer 
+     * @return int
      */
     public function getCode()
     {
@@ -186,31 +189,35 @@ class Product
     }
 
     /**
-     * Add categories
+     * Add categories.
      *
      * @param \Inodata\FloraBundle\Entity\Category $categories
+     *
      * @return Product
      */
     public function addCategorie(\Inodata\FloraBundle\Entity\Category $categories)
     {
         $this->categories[] = $categories;
-    
+
         return $this;
     }
 
     /**
-    *@return string
-    */
-    public function getPriceInLetters(){
-        $letters = array('A','B','C','D','E','F','G','H','I','J');
-        $numbers = array('1','2','3','4','5','6','7','8','9','0');
+     *@return string
+     */
+    public function getPriceInLetters()
+    {
+        $letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        $numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
         return str_replace($numbers, $letters, $this->price);
     }
 
     /**
-     * Add categories
+     * Add categories.
      *
      * @param \Inodata\FloraBundle\Entity\Category $categories
+     *
      * @return Product
      */
     public function addCategory(\Inodata\FloraBundle\Entity\Category $categories)
@@ -221,7 +228,7 @@ class Product
     }
 
     /**
-     * Remove categories
+     * Remove categories.
      *
      * @param \Inodata\FloraBundle\Entity\Category $categories
      */
@@ -231,9 +238,9 @@ class Product
     }
 
     /**
-     * Get categories
+     * Get categories.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCategories()
     {
@@ -241,7 +248,7 @@ class Product
     }
 
     /**
-     * Remove categories
+     * Remove categories.
      *
      * @param \Inodata\FloraBundle\Entity\Category $categories
      */

@@ -9,9 +9,8 @@ use Inodata\FloraBundle\Entity\Category;
 
 class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterface
 {
-    
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -20,43 +19,43 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         $manager->persist($category);
         $manager->flush();
         $this->addReference('category1', $category);
-        
+
         $category = new Category();
         $category->setDescription('	Arreglos de Amor y Amistad 2013');
         $manager->persist($category);
         $manager->flush();
         $this->addReference('category2', $category);
-        
+
         $category = new Category();
         $category->setDescription('Arreglos Día de la Secretaria');
         $manager->persist($category);
         $manager->flush();
         $this->addReference('category3', $category);
-        
+
         $category = new Category();
         $category->setDescription('Arreglos de Rosas');
         $manager->persist($category);
         $manager->flush();
         $this->addReference('category4', $category);
-        
+
         $category = new Category();
         $category->setDescription('Arreglos para Caballeros');
         $manager->persist($category);
         $manager->flush();
         $this->addReference('category5', $category);
-        
+
         $category = new Category();
         $category->setDescription('Arreglos de Eventos');
         $manager->persist($category);
         $manager->flush();
         $this->addReference('category6', $category);
-        
+
         $category = new Category();
         $category->setDescription('Arreglos Surtidos');
         $manager->persist($category);
         $manager->flush();
         $this->addReference('category7', $category);
-        
+
         $category = new Category();
         $category->setDescription('	Arreglos Funerales');
         $manager->persist($category);
@@ -65,7 +64,7 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {

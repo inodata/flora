@@ -5,7 +5,7 @@ namespace Inodata\FloraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Partner
+ * Partner.
  *
  * @ORM\Table(name="ino_partner")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Partner
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -58,69 +58,71 @@ class Partner
      * })
      */
     private $address;
-    
+
     /**
      * @return string
      */
     public function __toString()
     {
-    	if(!$this->id){
-    		return "New";
-    	}
-    	
-    	return $this->name.' ('.$this->code.')';
+        if (!$this->id) {
+            return 'New';
+        }
+
+        return $this->name.' ('.$this->code.')';
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
-    
+
     /**
-     * Set code
+     * Set code.
      *
      * @param string $code
+     *
      * @return Partner
      */
     public function setCode($code)
     {
-    	$this->code = $code;
-    
-    	return $this;
+        $this->code = $code;
+
+        return $this;
     }
-    
+
     /**
-     * Get code
+     * Get code.
      *
      * @return string
      */
     public function getCode()
     {
-    	return $this->code;
+        return $this->code;
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Partner
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -128,22 +130,23 @@ class Partner
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
+     *
      * @return Partner
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -151,22 +154,23 @@ class Partner
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
+     *
      * @return Partner
      */
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
-     * Get email
+     * Get email.
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -174,22 +178,23 @@ class Partner
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param \Inodata\FloraBundle\Entity\Address $address
+     *
      * @return Partner
      */
     public function setAddress(\Inodata\FloraBundle\Entity\Address $address = null)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
-     * Get address
+     * Get address.
      *
-     * @return \Inodata\FloraBundle\Entity\Address 
+     * @return \Inodata\FloraBundle\Entity\Address
      */
     public function getAddress()
     {

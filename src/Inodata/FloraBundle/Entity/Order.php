@@ -4,10 +4,12 @@ namespace Inodata\FloraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+
 //use Doctrine\ORM\EntityRepository;
 
 /**
- * Order
+ * Order.
+ *
  * @Gedmo\Loggable
  * @ORM\Table(name="ino_order")
  * @ORM\Entity
@@ -15,7 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 class Order
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -38,12 +40,12 @@ class Order
     private $invoiceNumber;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="purchase_order", type="string", length=32, nullable=true)
      */
     private $purchaseOrder;
-    
+
     /**
      * @var \DateTime
      *
@@ -52,7 +54,7 @@ class Order
     private $invoiceDate;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="is_external", type="boolean", nullable=true)
      */
@@ -73,7 +75,7 @@ class Order
     private $discount;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
@@ -101,7 +103,6 @@ class Order
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="update")
-     * 
      */
     private $updatedAt;
 
@@ -165,7 +166,7 @@ class Order
      * })
      */
     private $collector;
-    
+
     /**
      * @var \DateTime
      *
@@ -184,11 +185,11 @@ class Order
     private $paymentContact;
 
     /**
-    * @var string
-    * @ORM\Column(type="string", columnDefinition="ENUM('open','intransit','delivered','partiallypayment','closed')") 
-    */
+     * @var string
+     * @ORM\Column(type="string", columnDefinition="ENUM('open','intransit','delivered','partiallypayment','closed')")
+     */
     private $status;
-    
+
     /**
      * @var string
      *
@@ -202,120 +203,123 @@ class Order
      * @ORM\Column(name="order_notes", type="string", length=255, nullable=true)
      */
     private $order_notes;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="invoice_comment", type="string", length=255, nullable=true)
      */
     private $invoiceComment;
-    
+
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="has_invoice", type="boolean", nullable=true)
      */
     private $hasInvoice;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
-        
-    	$this->hasInvoice = false;
-        $this->deliveryDate = new \DateTime("NOW");
-        $this->invoiceDate = new \DateTime("NOW");
-        $this->status = "open";
+        $this->hasInvoice = false;
+        $this->deliveryDate = new \DateTime('NOW');
+        $this->invoiceDate = new \DateTime('NOW');
+        $this->status = 'open';
     }
-    
+
     /**
-    *@return string
-    */
+     *@return string
+     */
     public function __toString()
     {
         $orderId = $this->id;
-        if(empty($this->id)){
-            $orderId = "";
+        if (empty($this->id)) {
+            $orderId = '';
         }
-        
+
         $product = $this->getFirstProduct();
-        
-        if( $product != ""){
-        	return ''.$orderId.' - '.$product->getDescription();
+
+        if ($product != '') {
+            return ''.$orderId.' - '.$product->getDescription();
         }
-        
+
         return ''.$orderId;
     }
-    
-    public function getFirstProduct(){
-    	global $kernel;
-    	
-    	if ('AppCache' == get_class($kernel)) {
-    		$kernel = $kernel->getKernel();
-    	}
-    	
+
+    public function getFirstProduct()
+    {
+        global $kernel;
+
+        if ('AppCache' == get_class($kernel)) {
+            $kernel = $kernel->getKernel();
+        }
+
         $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
         $repository = $em->getRepository('InodataFloraBundle:OrderProduct');
         $orderProduct = $repository->findOneByOrder($this->getId());
-        
-        if( $orderProduct ){
-        	return $orderProduct->getProduct();
+
+        if ($orderProduct) {
+            return $orderProduct->getProduct();
         }
-        
-        return "";
+
+        return '';
     }
-    
+
     public function getFirstProductPrice()
     {
-    	$firstProduct = $this->getFirstProduct();
-    	
-    	if (!$firstProduct){
-    		return 0;
-    	}
-    	
-    	return $firstProduct->getPrice();
+        $firstProduct = $this->getFirstProduct();
+
+        if (!$firstProduct) {
+            return 0;
+        }
+
+        return $firstProduct->getPrice();
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
-    
+
     /**
-     * Function only for resolve a problem with edit
-     * @param integer $id
+     * Function only for resolve a problem with edit.
+     *
+     * @param int $id
+     *
      * @return Order
      */
     public function setId($id)
     {
         $this->id = $id;
-    	return $this;
+
+        return $this;
     }
 
     /**
-     * Set deliveryDate
+     * Set deliveryDate.
      *
      * @param \DateTime $deliveryDate
+     *
      * @return Order
      */
     public function setDeliveryDate($deliveryDate)
     {
         $this->deliveryDate = $deliveryDate;
-    
+
         return $this;
     }
 
     /**
-     * Get deliveryDate
+     * Get deliveryDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeliveryDate()
     {
@@ -323,22 +327,23 @@ class Order
     }
 
     /**
-     * Set invoiceNumber
+     * Set invoiceNumber.
      *
      * @param string $invoiceNumber
+     *
      * @return Order
      */
     public function setInvoiceNumber($invoiceNumber)
     {
         $this->invoiceNumber = $invoiceNumber;
-    
+
         return $this;
     }
 
     /**
-     * Get invoiceNumber
+     * Get invoiceNumber.
      *
-     * @return string 
+     * @return string
      */
     public function getInvoiceNumber()
     {
@@ -346,22 +351,23 @@ class Order
     }
 
     /**
-     * Set isExternal
+     * Set isExternal.
      *
-     * @param boolean $isExternal
+     * @param bool $isExternal
+     *
      * @return Order
      */
     public function setIsExternal($isExternal)
     {
         $this->isExternal = $isExternal;
-    
+
         return $this;
     }
 
     /**
-     * Get isExternal
+     * Get isExternal.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsExternal()
     {
@@ -369,22 +375,23 @@ class Order
     }
 
     /**
-     * Set shipping
+     * Set shipping.
      *
      * @param float $shipping
+     *
      * @return Order
      */
     public function setShipping($shipping)
     {
         $this->shipping = $shipping;
-    
+
         return $this;
     }
 
     /**
-     * Get shipping
+     * Get shipping.
      *
-     * @return float 
+     * @return float
      */
     public function getShipping()
     {
@@ -392,22 +399,23 @@ class Order
     }
 
     /**
-     * Set discount
+     * Set discount.
      *
      * @param float $discount
+     *
      * @return Order
      */
     public function setDiscount($discount)
     {
         $this->discount = $discount;
-    
+
         return $this;
     }
 
     /**
-     * Get discount
+     * Get discount.
      *
-     * @return float 
+     * @return float
      */
     public function getDiscount()
     {
@@ -415,20 +423,21 @@ class Order
     }
 
     /**
-     * Set creator
+     * Set creator.
      *
      * @param \Application\Sonata\UserBundle\Entity\User $creator
+     *
      * @return Order
      */
-    public function setCreator(\Application\Sonata\UserBundle\Entity\User $creator )
+    public function setCreator(\Application\Sonata\UserBundle\Entity\User $creator)
     {
         $this->creator = $creator;
-    
+
         return $this;
     }
 
     /**
-     * Get creator
+     * Get creator.
      *
      * @return \Application\Sonata\UserBundle\Entity\User
      */
@@ -438,22 +447,23 @@ class Order
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return Order
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -461,22 +471,23 @@ class Order
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return Order
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -484,22 +495,23 @@ class Order
     }
 
     /**
-     * Set from
+     * Set from.
      *
      * @param string $from
+     *
      * @return Order
      */
     public function setFrom($from)
     {
         $this->from = $from;
-    
+
         return $this;
     }
 
     /**
-     * Get from
+     * Get from.
      *
-     * @return string 
+     * @return string
      */
     public function getFrom()
     {
@@ -507,22 +519,23 @@ class Order
     }
 
     /**
-     * Set to
+     * Set to.
      *
      * @param string $to
+     *
      * @return Order
      */
     public function setTo($to)
     {
         $this->to = $to;
-    
+
         return $this;
     }
 
     /**
-     * Get to
+     * Get to.
      *
-     * @return string 
+     * @return string
      */
     public function getTo()
     {
@@ -530,46 +543,47 @@ class Order
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return Order
      */
     public function setMessage($message)
     {
         $this->message = $message;
-    
+
         return $this;
     }
 
     /**
-     * Get message
+     * Get message.
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
         return $this->message;
     }
-    
 
     /**
-     * Set shippingAddress
+     * Set shippingAddress.
      *
      * @param \Inodata\FloraBundle\Entity\Address $shippingAddress
+     *
      * @return Order
      */
     public function setShippingAddress(\Inodata\FloraBundle\Entity\Address $shippingAddress = null)
     {
         $this->shippingAddress = $shippingAddress;
-    
+
         return $this;
     }
 
     /**
-     * Get shippingAddress
+     * Get shippingAddress.
      *
-     * @return \Inodata\FloraBundle\Entity\Address 
+     * @return \Inodata\FloraBundle\Entity\Address
      */
     public function getShippingAddress()
     {
@@ -577,22 +591,23 @@ class Order
     }
 
     /**
-     * Set customer
+     * Set customer.
      *
      * @param \Inodata\FloraBundle\Entity\Customer $customer
+     *
      * @return Order
      */
     public function setCustomer(\Inodata\FloraBundle\Entity\Customer $customer = null)
     {
         $this->customer = $customer;
-    
+
         return $this;
     }
 
     /**
-     * Get customer
+     * Get customer.
      *
-     * @return \Inodata\FloraBundle\Entity\Customer 
+     * @return \Inodata\FloraBundle\Entity\Customer
      */
     public function getCustomer()
     {
@@ -600,22 +615,23 @@ class Order
     }
 
     /**
-     * Set messenger
+     * Set messenger.
      *
      * @param \Inodata\FloraBundle\Entity\Employee $messenger
+     *
      * @return Order
      */
     public function setMessenger(\Inodata\FloraBundle\Entity\Employee $messenger = null)
     {
         $this->messenger = $messenger;
-    
+
         return $this;
     }
 
     /**
-     * Get messenger
+     * Get messenger.
      *
-     * @return \Inodata\FloraBundle\Entity\Employee 
+     * @return \Inodata\FloraBundle\Entity\Employee
      */
     public function getMessenger()
     {
@@ -623,22 +639,23 @@ class Order
     }
 
     /**
-     * Set collector
+     * Set collector.
      *
      * @param \Inodata\FloraBundle\Entity\Employee $collector
+     *
      * @return Order
      */
     public function setCollector(\Inodata\FloraBundle\Entity\Employee $collector = null)
     {
         $this->collector = $collector;
-    
+
         return $this;
     }
 
     /**
-     * Get collector
+     * Get collector.
      *
-     * @return \Inodata\FloraBundle\Entity\Employee 
+     * @return \Inodata\FloraBundle\Entity\Employee
      */
     public function getCollector()
     {
@@ -646,26 +663,27 @@ class Order
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return Order
      */
     public function setStatus($status = null)
     {
-    	if (empty($status)){
-    		$status = 'open';
-    	}
-    	
+        if (empty($status)) {
+            $status = 'open';
+        }
+
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -673,22 +691,23 @@ class Order
     }
 
     /**
-     * Set paymentContact
+     * Set paymentContact.
      *
      * @param \Inodata\FloraBundle\Entity\PaymentContact $paymentContact
+     *
      * @return Order
      */
     public function setPaymentContact(\Inodata\FloraBundle\Entity\PaymentContact $paymentContact = null)
     {
         $this->paymentContact = $paymentContact;
-    
+
         return $this;
     }
 
     /**
-     * Get paymentContact
+     * Get paymentContact.
      *
-     * @return \Inodata\FloraBundle\Entity\PaymentContact 
+     * @return \Inodata\FloraBundle\Entity\PaymentContact
      */
     public function getPaymentContact()
     {
@@ -696,49 +715,51 @@ class Order
     }
 
     /**
-     * Set paymentCondition
+     * Set paymentCondition.
      *
      * @param string $paymentCondition
+     *
      * @return Order
      */
     public function setPaymentCondition($paymentCondition)
     {
         $this->paymentCondition = $paymentCondition;
-    
+
         return $this;
     }
 
     /**
-     * Get paymentCondition
+     * Get paymentCondition.
      *
-     * @return string 
+     * @return string
      */
     public function getPaymentCondition()
     {
-    	if (!$this->paymentCondition && $this->getId()){
-    		return $this->customer->getPaymentCondition();
-    	}
-    	
+        if (!$this->paymentCondition && $this->getId()) {
+            return $this->customer->getPaymentCondition();
+        }
+
         return $this->paymentCondition;
     }
 
     /**
-     * Set invoiceComment
+     * Set invoiceComment.
      *
      * @param string $invoiceComment
+     *
      * @return Order
      */
     public function setInvoiceComment($invoiceComment)
     {
         $this->invoiceComment = $invoiceComment;
-    
+
         return $this;
     }
 
     /**
-     * Get invoiceComment
+     * Get invoiceComment.
      *
-     * @return string 
+     * @return string
      */
     public function getInvoiceComment()
     {
@@ -746,22 +767,23 @@ class Order
     }
 
     /**
-     * Set order_notes
+     * Set order_notes.
      *
      * @param string $orderNotes
+     *
      * @return Order
      */
     public function setOrderNotes($orderNotes)
     {
         $this->order_notes = $orderNotes;
-    
+
         return $this;
     }
 
     /**
-     * Get order_notes
+     * Get order_notes.
      *
-     * @return string 
+     * @return string
      */
     public function getOrderNotes()
     {
@@ -769,22 +791,23 @@ class Order
     }
 
     /**
-     * Set hasInvoice
+     * Set hasInvoice.
      *
-     * @param boolean $hasInvoice
+     * @param bool $hasInvoice
+     *
      * @return Order
      */
     public function setHasInvoice($hasInvoice)
     {
         $this->hasInvoice = $hasInvoice;
-    
+
         return $this;
     }
 
     /**
-     * Get hasInvoice
+     * Get hasInvoice.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getHasInvoice()
     {
@@ -792,9 +815,10 @@ class Order
     }
 
     /**
-     * Set invoiceDate
+     * Set invoiceDate.
      *
      * @param \DateTime $invoiceDate
+     *
      * @return Order
      */
     public function setInvoiceDate($invoiceDate)
@@ -805,86 +829,90 @@ class Order
     }
 
     /**
-     * Get invoiceDate
+     * Get invoiceDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInvoiceDate()
     {
         return $this->invoiceDate;
     }
-    
+
     /**
      *@return string
      */
-    public function getIdInLetters(){
-    	$letters = array('A','B','C','D','E','F','G','H','I','J');
-    	$numbers = array('1','2','3','4','5','6','7','8','9','0');
-    	return str_replace($numbers, $letters, $this->id);
-    }
-    
-    /**
-     * funciones para el modulo de cobranza
-     */
-    
-    public function getCustomerAndContact(){
-    	$customer = $this->getCustomer()->getCompanyName();
-    	if (!$customer){
-    		$customer =  $this->getCustomer()->getBusinessName();
-    	}
-    	$contact = $this->getPaymentContact()->getName();
-    	
-    	if ($contact){
-    		$contact=' - '.$contact;
-    	}
-    	
-    	return $customer.$contact;
-    }
-    
-    public function getOrderTotals()
+    public function getIdInLetters()
     {
-    	$em = $this->getEntityManager();
-    	$repository = $em->getRepository('InodataFloraBundle:OrderProduct');
-    	$orderProducts = $repository->findByOrder($this->getId());
-    	$total = 0;
-    	if(!$orderProducts){
-    		return $total;
-    	}
-    	 
-    	foreach ($orderProducts as $orderProduct){
-    		$total+=($orderProduct->getProductPrice()*$orderProduct->getQuantity());
-    	}
-    
-    	return $total;
-    }
-    
-    private function getEntityManager(){
-    	global $kernel;
-    	
-    	if ('AppCache' == get_class($kernel)) {
-    		$kernel = $kernel->getKernel();
-    	}
-    	
-    	return $kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        $numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+        return str_replace($numbers, $letters, $this->id);
     }
 
     /**
-     * Set purchaseOrder
+     * funciones para el modulo de cobranza.
+     */
+    public function getCustomerAndContact()
+    {
+        $customer = $this->getCustomer()->getCompanyName();
+        if (!$customer) {
+            $customer = $this->getCustomer()->getBusinessName();
+        }
+        $contact = $this->getPaymentContact()->getName();
+
+        if ($contact) {
+            $contact = ' - '.$contact;
+        }
+
+        return $customer.$contact;
+    }
+
+    public function getOrderTotals()
+    {
+        $em = $this->getEntityManager();
+        $repository = $em->getRepository('InodataFloraBundle:OrderProduct');
+        $orderProducts = $repository->findByOrder($this->getId());
+        $total = 0;
+        if (!$orderProducts) {
+            return $total;
+        }
+
+        foreach ($orderProducts as $orderProduct) {
+            $total += ($orderProduct->getProductPrice() * $orderProduct->getQuantity());
+        }
+
+        return $total;
+    }
+
+    private function getEntityManager()
+    {
+        global $kernel;
+
+        if ('AppCache' == get_class($kernel)) {
+            $kernel = $kernel->getKernel();
+        }
+
+        return $kernel->getContainer()->get('doctrine.orm.entity_manager');
+    }
+
+    /**
+     * Set purchaseOrder.
      *
-     * @param integer $purchaseOrder
+     * @param int $purchaseOrder
+     *
      * @return Order
      */
     public function setPurchaseOrder($purchaseOrder)
     {
         $this->purchaseOrder = $purchaseOrder;
-    
+
         return $this;
     }
 
     /**
-     * Get purchaseOrder
+     * Get purchaseOrder.
      *
-     * @return integer 
+     * @return int
      */
     public function getPurchaseOrder()
     {
@@ -892,22 +920,23 @@ class Order
     }
 
     /**
-     * Set reporter
+     * Set reporter.
      *
      * @param string $reporter
+     *
      * @return Order
      */
     public function setReporter($reporter)
     {
         $this->reporter = $reporter;
-    
+
         return $this;
     }
 
     /**
-     * Get reporter
+     * Get reporter.
      *
-     * @return string 
+     * @return string
      */
     public function getReporter()
     {
@@ -915,22 +944,23 @@ class Order
     }
 
     /**
-     * Set collectionDate
+     * Set collectionDate.
      *
      * @param \DateTime $collectionDate
+     *
      * @return Order
      */
     public function setCollectionDate($collectionDate)
     {
         $this->collectionDate = $collectionDate;
-    
+
         return $this;
     }
 
     /**
-     * Get collectionDate
+     * Get collectionDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCollectionDate()
     {
