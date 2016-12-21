@@ -1,12 +1,12 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "inodata/flora",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Administration for flower shops",
     "autoload": {
         "psr-0": { "": "src/" }
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.6.4",
         "symfony/symfony": "2.7.1",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
