@@ -56,30 +56,37 @@ class OrderAdmin extends Admin
                     'class' => 'inodata-shipping-address',
                 ],
             ])
-            ->add('customer', 'sonata_type_model', [
+
+            ->add('customer', 'ajax_entity', [
                 'label'       => 'label.customer',
+                'class'       => 'InodataFloraBundle:Customer',
+                'mapped'      => false,
                 'empty_value' => '',
                 'attr'        => [
-                    'class'       => 'inodata_customer',
                     'placeholder' => $this->trans('label.placeholder_customer'),
                     'allowClear'  => 'true',
+                    'class'       => 'inodata_customer',
+                    'entity'      => 'InodataFloraBundle:Customer', 'columns' => 'id,companyName',
                     'title'       => $this->trans('help.customer'),
-                    'style'       => 'width:270px;',
                 ],
             ])
+
             ->add('purchaseOrder', null, [
                 'label' => 'label.purchase_order',
                 'attr'  => [
                     'title' => $this->trans('help.purchase_order'),
                 ],
             ])
-            ->add('paymentContact', 'genemu_jqueryselect2_entity', [
+
+            ->add('paymentContact', 'ajax_entity', [
                 'label'       => 'label.payment_contact',
-                'class'       => 'Inodata\FloraBundle\Entity\PaymentContact',
+                'class'       => 'InodataFloraBundle:PaymentContact',
                 'empty_value' => '',
                 'attr'        => [
                     'class'       => 'inodata_payment_contact',
+                    'entity'      => 'InodataFloraBundle:PaymentContact', 'columns' => 'id,name',
                     'placeholder' => $this->trans('label.contact_empty_list'),
+                    'allowClear'  => 'true',
                     'title'       => $this->trans('help.payment_contact'),
                 ],
             ])
