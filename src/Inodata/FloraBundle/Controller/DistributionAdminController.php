@@ -116,7 +116,7 @@ class DistributionAdminController extends Controller
         foreach ($messengers as $messenger) {
             $orders = $this->getDoctrine()
                             ->getRepository('InodataFloraBundle:Order')
-                            ->findBy(['status'         => 'intransit',
+                            ->findBy(['status'          => 'intransit',
                                             'messenger' => $messenger->getId(),
                                     ]);
             if ($orders) {

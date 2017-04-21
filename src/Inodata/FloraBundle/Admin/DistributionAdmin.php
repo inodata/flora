@@ -100,7 +100,7 @@ class DistributionAdmin extends Admin
                 ])
             ->add('status', null, [
                     'label'                         => 'label.distribution_status',
-                ], 'choice', ['translation_domain' => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
+                ], 'choice', ['translation_domain'  => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
                         'choices'                   => ['open' => 'label.distribution_delivery_status_open',
                                             'intransit'        => 'label.distribution_delivery_status_intransit',
                                             'delivered'        => 'label.distribution_delivery_status_delivered',
