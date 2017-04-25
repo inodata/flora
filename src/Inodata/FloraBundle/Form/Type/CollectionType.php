@@ -11,6 +11,7 @@ class CollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //TODO: Probar con sonata_type_model, al hacer el request de ajax no respeta el query builder
         $builder
             ->add('id', 'ajax_entity', [
                 'required'      => false,
@@ -22,7 +23,7 @@ class CollectionType extends AbstractType
                         ->andWhere('u.collector IS NULL');
                 },
                 'attr'          => [
-                    'class'       => 'inodata_id_list span',
+                    'class'       => 'inodata_id_list span5',
                     'entity'      => 'InodataFloraBundle:Order', 'columns' => 'id',
                     'placeholder' => 'Selecciona una órden',
                     'allowClear'  => 'true',
