@@ -5,25 +5,27 @@ namespace Inodata\FloraBundle\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'genemu_jqueryselect2_entity', [
+            ->add('id', 'ajax_entity', [
                 'required'      => false,
+                'class'         => 'InodataFloraBundle:Order',
                 'empty_value'   => '',
-                'class'         => 'Inodata\FloraBundle\Entity\Order',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                                  ->where('u.status = \'delivered\'')
-                                  ->andWhere('u.collector IS NULL');
+                        ->where('u.status = \'delivered\'')
+                        ->andWhere('u.collector IS NULL');
                 },
-                'attr' => [
-                    'class'       => 'inodata_id_list span5',
-                    'placeholder' => 'selecciona una orden',
+                'attr'          => [
+                    'class'       => 'inodata_id_list span',
+                    'entity'      => 'InodataFloraBundle:Order', 'columns' => 'id',
+                    'placeholder' => 'Selecciona una órden',
+                    'allowClear'  => 'true',
                 ],
             ]);
     }
@@ -33,11 +35,11 @@ class CollectionType extends AbstractType
         return 'inodata_collection_type_form';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-                'data_class'         => 'Inodata\FloraBundle\Entity\Order',
-                'translation_domain' => 'InodataFloraBundle',
+            'data_class'         => 'Inodata\FloraBundle\Entity\Order',
+            'translation_domain' => 'InodataFloraBundle',
         ]);
     }
 }
