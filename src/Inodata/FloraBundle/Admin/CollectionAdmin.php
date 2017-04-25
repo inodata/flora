@@ -14,7 +14,6 @@ class CollectionAdmin extends Admin
     protected $baseRouteName = 'collection';
     protected $baseRoutePattern = 'inodata/flora/collection';
 
-
     /**
      * @param FormMapper $formMapper
      */
@@ -32,7 +31,7 @@ class CollectionAdmin extends Admin
                 'attr'          => [
                     'class'       => 'inodata_collector_list span5',
                     'placeholder' => 'Selecciona un cobrador',
-                    'enabled'     => 'enabled',],
+                    'enabled'     => 'enabled', ],
             ]);
     }
 
@@ -85,7 +84,7 @@ class CollectionAdmin extends Admin
                 'label' => 'label.distribution_id',
             ])
             ->add('deliveryDate', 'doctrine_orm_date_range', [
-                'label' => 'label.collection_filter_date',], null,
+                'label' => 'label.collection_filter_date', ], null,
                 ['widget' => 'single_text', 'attr' => ['class' => 'filter-deliver-date']])
             ->add('status', null, ['label' => 'label.distribution_status'],
                 'choice', [
@@ -94,7 +93,7 @@ class CollectionAdmin extends Admin
                     'multiple'           => false,
                     'choices'            => [
                         'partiallypayment' => 'label.collection_status_pending',
-                        'closed'           => 'label.collection_status_paid',],]
+                        'closed'           => 'label.collection_status_paid', ], ]
             );
     }
 
