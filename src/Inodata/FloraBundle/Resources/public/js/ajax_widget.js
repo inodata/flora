@@ -58,7 +58,8 @@ AjaxWidget = {
             ajax: {
                 url: Routing.generate("inodata_flora_ajax_entity", {
                     entity: $(this).attr('entity'),
-                    columns: $(this).attr('columns')
+                    columns: $(this).attr('columns'),
+                    query: $(this).attr('query')
                 }),
                 dataType: 'json',
                 data: function(term, page) {

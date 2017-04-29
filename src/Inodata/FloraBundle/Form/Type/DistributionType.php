@@ -38,7 +38,7 @@ class DistributionType extends AbstractType
                         ->where('u.jobPosition = \'Messenger\'');
                 },
                 'attr'          => [
-                    'class'       => 'inodata_messenger_list span5',
+                    'class'       => 'inodata_messenger_list span5 ajax-entity',
                     'placeholder' => 'Selecciona un repartidor',
                     'enabled'     => 'enabled',
                 ],

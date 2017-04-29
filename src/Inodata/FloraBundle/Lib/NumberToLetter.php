@@ -5,23 +5,23 @@ namespace Inodata\FloraBundle\Lib;
 class NumberToLetter
 {
     /***************************************************************************
- *
- *	Propiedades:
- *	$numero:	Es la cantidad a ser convertida a letras maximo 999,999,999,999.99
- *	$genero:	0 para femenino y 1 para masculino, es util dependiendo de la
- *				moneda ej: cuatrocientos pesos / cuatrocientas pesetas
- *	$moneda:	nombre de la moneda
- *	$prefijo:	texto a imprimir antes de la cantidad
- *	$sufijo:	texto a imprimir despues de la cantidad
- *				tanto el $sufijo como el $prefijo en la impresion de cheques o
- *				facturas, para impedir que se altere la cantidad
- *	$mayusculas: 0 para minusculas, 1 para mayusculas indica como debe
- *				mostrarse el texto
- *	$textos_posibles: contiene todas las posibles palabras a usar
- *	$aTexto:	es el arreglo de los textos que se usan de acuerdo al genero
- *				seleccionado
- *
- ***************************************************************************/
+     *
+     *    Propiedades:
+     *    $numero:    Es la cantidad a ser convertida a letras maximo 999,999,999,999.99
+     *    $genero:    0 para femenino y 1 para masculino, es util dependiendo de la
+     *                moneda ej: cuatrocientos pesos / cuatrocientas pesetas
+     *    $moneda:    nombre de la moneda
+     *    $prefijo:    texto a imprimir antes de la cantidad
+     *    $sufijo:    texto a imprimir despues de la cantidad
+     *                tanto el $sufijo como el $prefijo en la impresion de cheques o
+     *                facturas, para impedir que se altere la cantidad
+     *    $mayusculas: 0 para minusculas, 1 para mayusculas indica como debe
+     *                mostrarse el texto
+     *    $textos_posibles: contiene todas las posibles palabras a usar
+     *    $aTexto:    es el arreglo de los textos que se usan de acuerdo al genero
+     *                seleccionado
+     *
+     ***************************************************************************/
 
     private $numero = 0;
     private $genero = 1;
@@ -31,31 +31,30 @@ class NumberToLetter
     private $mayusculas = 1;
     //textos
     private $textos_posibles = [
-    0     => ['UNA ', 'DOS ', 'TRES ', 'CUATRO ', 'CINCO ', 'SEIS ', 'SIETE ', 'OCHO ', 'NUEVE ', 'UN '],
-    1     => ['ONCE ', 'DOCE ', 'TRECE ', 'CATORCE ', 'QUINCE ', 'DIECISEIS ', 'DIECISIETE ', 'DIECIOCHO ', 'DIECINUEVE ', ''],
-    2     => ['DIEZ ', 'VEINTE ', 'TREINTA ', 'CUARENTA ', 'CINCUENTA ', 'SESENTA ', 'SETENTA ', 'OCHENTA ', 'NOVENTA ', 'VEINTI'],
-    3     => ['CIEN ', 'DOSCIENTAS ', 'TRESCIENTAS ', 'CUATROCIENTAS ', 'QUINIENTAS ', 'SEISCIENTAS ', 'SETECIENTAS ', 'OCHOCIENTAS ', 'NOVECIENTAS ', 'CIENTO '],
+        0 => ['UNA ', 'DOS ', 'TRES ', 'CUATRO ', 'CINCO ', 'SEIS ', 'SIETE ', 'OCHO ', 'NUEVE ', 'UN '],
+        1 => ['ONCE ', 'DOCE ', 'TRECE ', 'CATORCE ', 'QUINCE ', 'DIECISEIS ', 'DIECISIETE ', 'DIECIOCHO ', 'DIECINUEVE ', ''],
+        2 => ['DIEZ ', 'VEINTE ', 'TREINTA ', 'CUARENTA ', 'CINCUENTA ', 'SESENTA ', 'SETENTA ', 'OCHENTA ', 'NOVENTA ', 'VEINTI'],
+        3 => ['CIEN ', 'DOSCIENTAS ', 'TRESCIENTAS ', 'CUATROCIENTAS ', 'QUINIENTAS ', 'SEISCIENTAS ', 'SETECIENTAS ', 'OCHOCIENTAS ', 'NOVECIENTAS ', 'CIENTO '],
         4 => ['CIEN ', 'DOSCIENTOS ', 'TRESCIENTOS ', 'CUATROCIENTOS ', 'QUINIENTOS ', 'SEISCIENTOS ', 'SETECIENTOS ', 'OCHOCIENTOS ', 'NOVECIENTOS ', 'CIENTO '],
-    5     => ['MIL ', 'MILLON ', 'MILLONES ', 'CERO ', 'Y ', 'UNO ', 'DOS ', 'CON ', '', ''],
+        5 => ['MIL ', 'MILLON ', 'MILLONES ', 'CERO ', 'Y ', 'UNO ', 'DOS ', 'CON ', '', ''],
     ];
     private $aTexto;
 
-/***************************************************************************
- *
- *	Metodos:
- *	_construct:	Inicializa textos
- *	setNumero:	Asigna el numero a convertir a letra
- *  setPrefijo:	Asigna el prefijo
- *	setSufijo:	Asiga el sufijo
- *	setMoneda:	Asigna la moneda
- *	setGenero:	Asigan genero
- *	setMayusculas:	Asigna uso de mayusculas o minusculas
- *	getLetras:		Convierte numero en letra
- *	letraUnidad: Convierte unidad en letra, asigna miles y millones
- *	letraDecena: Contiene decena en letra
- *	letraCentena: Convierte centena en letra
- *
- ***************************************************************************/
+    /**
+     *
+     *    Métodos:
+     *    _construct:       Inicializa textos
+     *    setNumero:        Asigna el numero a convertir a letra
+     *    setPrefijo:       Asigna el prefijo
+     *    setSufijo:        Asigna el sufijo
+     *    setMoneda:        Asigna la moneda
+     *    setGenero:        Asigna genero
+     *    setMayusculas:    Asigna uso de mayúsculas o minúsculas
+     *    getLetras:        Convierte numero en letra
+     *    letraUnidad: Convierte unidad en letra, asigna miles y millones
+     *    letraDecena: Contiene decena en letra
+     *    letraCentena: Convierte centena en letra
+     */
     public function __construct()
     {
         for ($i = 0; $i < 6; $i++) {
@@ -117,15 +116,21 @@ class NumberToLetter
             $hay_significativo = false;
             for ($pos = 0; $pos < 12; $pos++) {
                 // Control existencia Dígito significativo
-                if (!($hay_significativo) && (substr($cnumero, $pos, 1) == '0')); else {
+                if (!($hay_significativo) && (substr($cnumero, $pos, 1) == '0')) ; else {
                     $hay_dignificativo = true;
                 }
 
                 // Detectar Tipo de Dígito
                 switch ($pos % 3) {
-                    case 0: $texto .= $this->letraCentena($pos, $cnumero); break;
-                    case 1: $texto .= $this->letraDecena($pos, $cnumero); break;
-                    case 2: $texto .= $this->letraUnidad($pos, $cnumero); break;
+                    case 0:
+                        $texto .= $this->letraCentena($pos, $cnumero);
+                        break;
+                    case 1:
+                        $texto .= $this->letraDecena($pos, $cnumero);
+                        break;
+                    case 2:
+                        $texto .= $this->letraUnidad($pos, $cnumero);
+                        break;
                 }
             }
             // Detectar caso 0
@@ -133,9 +138,9 @@ class NumberToLetter
                 $texto = $this->aTexto[5][3];
             }
             if ($this->mayusculas) {//mayusculas
-                $texto = strtoupper($this->prefijo.$texto.' '.$this->moneda.' '.substr($cnumero, -2).'/100 '.$this->sufijo);
+                $texto = strtoupper($this->prefijo . $texto . ' ' . $this->moneda . ' ' . substr($cnumero, -2) . '/100 ' . $this->sufijo);
             } else {//minusculas
-                $texto = strtolower($this->prefijo.$texto.' '.$this->moneda.' '.substr($cnumero, -2).'/100 '.$this->sufijo);
+                $texto = strtolower($this->prefijo . $texto . ' ' . $this->moneda . ' ' . substr($cnumero, -2) . '/100 ' . $this->sufijo);
             }
         }
 
@@ -152,10 +157,10 @@ class NumberToLetter
     {
         $unidad_texto = '';
         if (!((substr($cnumero, $pos, 1) == '0') ||
-               (substr($cnumero, $pos - 1, 1) == '1') ||
-               ((substr($cnumero, $pos - 2, 3) == '001') && (($pos == 2) || ($pos == 8)))
-             )
-          ) {
+            (substr($cnumero, $pos - 1, 1) == '1') ||
+            ((substr($cnumero, $pos - 2, 3) == '001') && (($pos == 2) || ($pos == 8)))
+        )
+        ) {
             if ((substr($cnumero, $pos, 1) == '1') && ($pos <= 6)) {
                 $unidad_texto .= $this->aTexto[0][9];
             } else {
@@ -163,12 +168,13 @@ class NumberToLetter
             }
         }
         if ((($pos == 2) || ($pos == 8)) &&
-           (substr($cnumero, $pos - 2, 3) != '000')) {//miles
+            (substr($cnumero, $pos - 2, 3) != '000')
+        ) {//miles
             if (substr($cnumero, $pos, 1) == '1') {
                 if ($pos <= 6) {
-                    $unidad_texto = substr($unidad_texto, 0, -1).' ';
+                    $unidad_texto = substr($unidad_texto, 0, -1) . ' ';
                 } else {
-                    $unidad_texto = substr($unidad_texto, 0, -2).' ';
+                    $unidad_texto = substr($unidad_texto, 0, -2) . ' ';
                 }
                 $unidad_texto .= $this->aTexto[5][0];
             } else {
@@ -177,7 +183,7 @@ class NumberToLetter
         }
         if ($pos == 5 && substr($cnumero, 0, 6) != '000000') {
             if (substr($cnumero, 0, 6) == '000001') {//millones
-              $unidad_texto .= $this->aTexto[5][1];
+                $unidad_texto .= $this->aTexto[5][1];
             } else {
                 $unidad_texto .= $this->aTexto[5][2];
             }
@@ -199,7 +205,7 @@ class NumberToLetter
         } elseif (substr($cnumero, $pos, 1) == '2') {
             $decena_texto .= $this->aTexto[2][9];
         } else {
-            $decena_texto .= $this->aTexto[2][substr($cnumero, $pos, 1) - 1].$this->aTexto[5][4];
+            $decena_texto .= $this->aTexto[2][substr($cnumero, $pos, 1) - 1] . $this->aTexto[5][4];
         }
 
         return $decena_texto;

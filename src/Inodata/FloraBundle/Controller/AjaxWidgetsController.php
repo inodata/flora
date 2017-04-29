@@ -4,15 +4,16 @@ namespace Inodata\FloraBundle\Controller;
 
 use Doctrine\ORM\Query;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AjaxWidgetsController extends Controller
 {
-    public function textAction()
+    public function textAction(Request $request)
     {
-        $text = $this->getRequest()->get('text');
-        $entity = $this->getRequest()->get('entity');
-        $column = $this->getRequest()->get('column');
+        $text = $request->get('text');
+        $entity = $request->get('entity');
+        $column = $request->get('column');
 
         $words = explode(' ', $text);
 
@@ -24,9 +25,9 @@ class AjaxWidgetsController extends Controller
 
         //Create query builder using entity passed on parameters
         $qb = $this->getDoctrine()->getRepository($entity)
-                ->createQueryBuilder('p');
+            ->createQueryBuilder('p');
 
-        $qb->orWhere('p.'.$column.' LIKE '.$search);
+        $qb->orWhere('p.' . $column . ' LIKE ' . $search);
         if ($column == 'city') {
             $qb->groupBy('p.city');
         }
@@ -38,18 +39,18 @@ class AjaxWidgetsController extends Controller
         foreach ($result as $row) {
             $text = $row[$column];
 
-            $data = ['id' => $row['id'], 'text' => $text.' - '.$row['city']];
+            $data = ['id' => $row['id'], 'text' => $text . ' - ' . $row['city']];
             array_push($return, $data);
         }
 
         return new Response(json_encode($return));
     }
 
-    public function entityAction()
+    public function entityAction(Request $request)
     {
-        $text = $this->getRequest()->get('text');
-        $entity = $this->getRequest()->get('entity');
-        $columns = $this->getRequest()->get('columns');
+        $text = $request->get('text');
+        $entity = $request->get('entity');
+        $columns = $request->get('columns');
 
         $words = explode(' ', $text);
 
@@ -68,16 +69,19 @@ class AjaxWidgetsController extends Controller
 
         //Create query builder using entity passed on parameters
         $qb = $this->getDoctrine()->getRepository($entity)
-                ->createQueryBuilder('p');
+            ->createQueryBuilder('p');
 
         //Create where clausule with columns parsed
         foreach ($columns as $column) {
             if (!ctype_digit($search)) {
-                $qb->orWhere('p.'.$column.' LIKE '.$search);
+                $qb->orWhere('p.' . $column . ' LIKE ' . $search);
             } else {
-                $qb->orWhere('p.'.$column.' = '.$search);
+                $qb->orWhere('p.' . $column . ' = ' . $search);
             }
         }
+
+        //TODO: Agregar parámetro de criteria para recibir strings y agregarlos aquí
+        //$qb->andWhere('p.status = \'delivered\'');
 
         //Get query result as array
         $result = $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
@@ -88,7 +92,7 @@ class AjaxWidgetsController extends Controller
 
             foreach ($columns as $column) {
                 if ($text != '') {
-                    $text .= (' - '.$row[$column]);
+                    $text .= (' - ' . $row[$column]);
                 } else {
                     $text = $row[$column];
                 }

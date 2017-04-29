@@ -1,147 +1,147 @@
 homepage:
-    pattern:  /
+    path:  /
     defaults: 
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /admin/inodata/flora/order/create
         permanent: true
 
 inodata_flora_order_product:
-    pattern: /admin/inodata/flora/order/product/{id}
+    path: /admin/inodata/flora/order/product/{id}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:product}
 
 inodata_flora_order_product_by_code:
-    pattern: /admin/inodata/flora/order/find/product/{code}
+    path: /admin/inodata/flora/order/find/product/{code}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:productByCode}
 
 inodata_flora_order_products:
-    pattern: /admin/inodata/flora/order/{id}/products
+    path: /admin/inodata/flora/order/{id}/products
     defaults: {_controller: InodataFloraBundle:OrderAdmin:orderProducts}
 
 inodata_flora_order_product_create_and_add:
-    pattern: /admin/inodata/flora/order/adding/product
+    path: /admin/inodata/flora/order/adding/product
     defaults: {_controller: InodataFloraBundle:OrderAdmin:addingProduct}
 
 inodata_flora_order_payment_contact:
-    pattern: /admin/inodata/flora/order/payment/contact/{id}
+    path: /admin/inodata/flora/order/payment/contact/{id}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:paymentContact}
 
 inodata_flora_order_payment_contact_create:
-    pattern: /admin/inodata/flora/order/new/payment/contact
+    path: /admin/inodata/flora/order/new/payment/contact
     defaults: {_controller: InodataFloraBundle:OrderAdmin:createPaymentContact}
 
 inodata_flora_order_filter_contact_by_customer:
-    pattern: /admin/inodata/flora/order/filter/contact/by/customer/{customerId}
+    path: /admin/inodata/flora/order/filter/contact/by/customer/{customerId}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:filterPaymentContactsByCustomer}
 
 inodata_flora_order_filter_message_by_category:
-    pattern: /admin/inodata/flora/order/filter/message/by/category/{categoryId}
+    path: /admin/inodata/flora/order/filter/message/by/category/{categoryId}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:filterMessagesByCategory}
 
 inodata_flora_order_update_totals_cost:
-    pattern: /admin/inodata/flora/order/update/totals/cost
+    path: /admin/inodata/flora/order/update/totals/cost
     defaults: {_controller: InodataFloraBundle:OrderAdmin:updateTotalsCost}
 
 inodata_flora_distribution_filter_order_by_messenger:
-    pattern: /admin/inodata/flora/distribution/filter/order/by/messenger/{messengerId}
+    path: /admin/inodata/flora/distribution/filter/order/by/messenger/{messengerId}
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:ordersByMessengerId}
 
 #inodata_flora_distribution_add_orders_to_messenger: 
-#    pattern: /admin/inodata/flora/distribution/add/order/to/messenger
+#    path: /admin/inodata/flora/distribution/add/order/to/messenger
 #    defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrdersToMessenger}
 
 
 inodata_flora_distribution_update_orders_available: 
-    pattern: /admin/inodata/flora/distribution/update/orders/available
+    path: /admin/inodata/flora/distribution/update/orders/available
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:updateOrdersAvailable}
 
 inodata_flora_distribution_list_print: 
-    pattern: /admin/inodata/flora/distribution/list/print
+    path: /admin/inodata/flora/distribution/list/print
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:printDistribution }
 #New
 inodata_flora_distribution_orders_by_messenger: 
-    pattern: /admin/inodata/flora/distribution/messenger/{id}/orders
+    path: /admin/inodata/flora/distribution/messenger/{id}/orders
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:loadOrdersByMessenger }
 #New    
 inodata_flora_distribution_order_action: 
-    pattern: /admin/inodata/flora/distribution/change/order/status
+    path: /admin/inodata/flora/distribution/change/order/status
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:changeOrderStatus }
 #New    
 inodata_flora_distribution_reasign_order: 
-    pattern: /admin/inodata/flora/distribution/reasign/order
+    path: /admin/inodata/flora/distribution/reasign/order
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:reasignOrder }
     
 #New   
 inodata_flora_distribution_add_order_to_messenger: 
-    pattern: /admin/inodata/flora/distribution/add/order/to/messenger
+    path: /admin/inodata/flora/distribution/add/order/to/messenger
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:addOrderToMessenger}
 #new    
 inodata_flora_distribution_messenger_edit_in_place:
-    pattern: /admin/inodata/flora/distribution/messenger/edit/in/place
+    path: /admin/inodata/flora/distribution/messenger/edit/in/place
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:editInPlace} 
 
 #new    
 inodata_flora_distribution_objects_edit:
-    pattern: /admin/inodata/flora/distribution/objects/edit
+    path: /admin/inodata/flora/distribution/objects/edit
     defaults: {_controller: InodataFloraBundle:DistributionAdmin:editObjects} 
 
 inodata_flora_order_create_inovice_totals:
-    pattern: /admin/inodata/flora/order/invoice/totals/{orderId}
+    path: /admin/inodata/flora/order/invoice/totals/{orderId}
     defaults: {_controller: InodataFloraBundle:OrderAdmin:createInvoiceTotals}
 
 inodata_flora_order_invoice_edit_in_place:
-    pattern: /admin/inodata/flora/order/invoice/edit/in/place
+    path: /admin/inodata/flora/order/invoice/edit/in/place
     defaults: {_controller: InodataFloraBundle:OrderAdmin:editInPlace}
 
 #New
 inodata_flora_collection_orders_by_collector: 
-    pattern: /admin/inodata/flora/collection/collector/{id}/orders
+    path: /admin/inodata/flora/collection/collector/{id}/orders
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:loadOrdersByCollector}
 #ew   
 inodata_flora_collection_add_order_to_collector: 
-    pattern: /admin/inodata/flora/collection/add/order/to/collector
+    path: /admin/inodata/flora/collection/add/order/to/collector
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:addOrderToCollector}
     
 inodata_flora_collection_order_remove: 
-    pattern: /admin/inodata/flora/collection/remove/order/{orderId}
+    path: /admin/inodata/flora/collection/remove/order/{orderId}
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:removeOrder }
 
 inodata_flora_collection_order_pay: 
-    pattern: /admin/inodata/flora/collection/pay/order/{orderId}
+    path: /admin/inodata/flora/collection/pay/order/{orderId}
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:payOrder }
     
 inodata_flora_collection_pay_all: 
-    pattern: /admin/inodata/flora/collection/pay/all
+    path: /admin/inodata/flora/collection/pay/all
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:payAll }
     
 #new    
 inodata_flora_collectionn_collector_edit_in_place:
-    pattern: /admin/inodata/flora/collection/collector/edit/in/place
+    path: /admin/inodata/flora/collection/collector/edit/in/place
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:editInPlace}
     
 #New    
 inodata_flora_collection_reasign_order: 
-    pattern: /admin/inodata/flora/collection/reasign/order
+    path: /admin/inodata/flora/collection/reasign/order
     defaults: {_controller: InodataFloraBundle:CollectionAdmin:reasignOrder }
 
 #Module GuiaRoji
 inodata_flora_guiaroji_find_by_id: 
-    pattern: /admin/inodata/flora/guiaroji/find/{id}
+    path: /admin/inodata/flora/guiaroji/find/{id}
     defaults: {_controller: InodataFloraBundle:GuiaRojiAdmin:findById }
     
 inodata_flora_guiaroji_search: 
-    pattern: /admin/inodata/flora/guiaroji/search
+    path: /admin/inodata/flora/guiaroji/search
     defaults: {_controller: InodataFloraBundle:GuiaRojiAdmin:search }
     
 inodata_flora_guiaroji_save: 
-    pattern: /admin/inodata/flora/guiaroji/save
+    path: /admin/inodata/flora/guiaroji/save
     defaults: {_controller: InodataFloraBundle:GuiaRojiAdmin:save }
     
 #Routing for ajax autocomplete
 inodata_flora_ajax_autocomplete:
-    pattern: /admin/inodata/flora/ajax/text/autocomplete
+    path: /admin/inodata/flora/ajax/text/autocomplete
     defaults: { _controller: InodataFloraBundle:AjaxWidgets:text }
     
 #Routing for ajax entity
 inodata_flora_ajax_entity:
-    pattern: /admin/inodata/flora/ajax/entity
+    path: /admin/inodata/flora/ajax/entity
     defaults: { _controller: InodataFloraBundle:AjaxWidgets:entity }

@@ -67,7 +67,7 @@ class Product
             if (substr($this->code, 0, 1) == 'X') {
                 return $this->description;
             } else {
-                return $this->code.' - '.$this->description;
+                return $this->code . ' - ' . $this->description;
             }
         } else {
             return ' ';
@@ -195,6 +195,7 @@ class Product
      *
      * @return Product
      */
+    //TODO: Eliminar este método (refactor)
     public function addCategorie(\Inodata\FloraBundle\Entity\Category $categories)
     {
         $this->categories[] = $categories;
@@ -203,7 +204,7 @@ class Product
     }
 
     /**
-     *@return string
+     * @return string
      */
     public function getPriceInLetters()
     {
@@ -252,6 +253,7 @@ class Product
      *
      * @param \Inodata\FloraBundle\Entity\Category $categories
      */
+    //TODO: Eliminar este método (refactor)
     public function removeCategorie(\Inodata\FloraBundle\Entity\Category $categories)
     {
         $this->categories->removeElement($categories);
