@@ -1,4 +1,5 @@
 <?php
+umask(0002); //TODO: Remover esto
 
 use Symfony\Component\HttpFoundation\Request;
 
