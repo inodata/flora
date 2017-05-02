@@ -156,5 +156,35 @@
     .order-capture div.customer-data{ top: 147px; height: 77px; }
     .order-capture div.message-data{ top: 241px; height: 107px; }
     .order-capture div.products_to_order{ top: 363px; height: 310px; margin-left: 0px; left: 0px; width: 99.7%}
-    
+
+    .payment_note_2{display: none;}
+
+}
+
+@media screen, print {
+    /**Nota segundo template*/
+    .payment_note_2 .note-label{ font-size: 11px;}
+    .payment_note_2 h5{  margin: 0; line-height: 1;  }
+    .payment_note_2 .phone1{  text-align: right }
+    .payment_note_2 .phone2{  text-align: left }
+    .payment_note_2 .note-header{  text-align: center }
+    .payment_note_2 .note-label{ font-weight: bold; color:#aa1267;   }
+    .payment_note_2 .no-tel{ padding-left: 100px;  }
+    .payment_note_2 .date{ text-align: right; font-weight: bold;  }
+    .payment_note_2 .second-label{ text-align: right !important;}
+    .payment_note_2 .row-data{ border: solid 1px #aa1267; border-radius: 10px; padding: 2px 5px;}
+    .payment_note_2 .row-data:first-child, .payment_note_2 .row:nth-child(2){ border: none; padding: 0;}
+    .payment_note_2 .data-1, .payment_note_2 .data-2{ margin-bottom: 10px; }
+    .payment_note_2 .data-2{ height: 140px; }
+    .payment_note_2 .data-2 th{padding: 2px 0px; }
+    .payment_note_2 .data-2 .shipping-row{padding-top: 3px; }
+    .payment_note_2 .shipping{ text-align: right; }
+    .payment_note_2.note_3 .data-2 .import, .payment_note_2.note_3 .data-2 .price{ display: none}
+
+}
+
+@media print {
+    div.alert { display: none; }
+    .container-fluid > .row-fluid:nth-child(3) { display:none;}
+    .payment_note_2 { page-break-after  : always; page-break-inside : auto; }
 }

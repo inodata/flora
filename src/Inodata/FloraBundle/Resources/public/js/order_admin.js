@@ -362,13 +362,15 @@ $(document).ready(function() {
 		if( from == "" || to == "" || message == "<br>"){
 			alert(trans("alert.card_missing_fields"));
 		}else{
+            $('form').removeClass('hide_template');
 			$(".card_from").html(from);
 			$(".card_to").html(to);
 			$("table.message_container td").html($('iframe').contents().find('body>p').html());
 
 			$('.invoice_page').addClass('hide_template');
-			$('.payment-note').addClass('hide_template');
-			$('.card_page').removeClass('hide_template');			
+			$('.payment-note').addClass('hide_template'); //Vieja nota
+			$('.payment_note_2').addClass('hide_template'); //Nueva nota
+			$('.card_page').removeClass('hide_template');
 			printCard();
 		}
 	});
@@ -441,14 +443,19 @@ $(document).ready(function() {
 		switch(postSaveAction)
 		{
 			case 'print-note':
+				$('div.alert > .close').click();
 				$('.invoice_page').addClass('hide_template');
 				$('.card_page').addClass('hide_template');
-				$('.payment-note').removeClass('hide_template');
+				//$('.payment-note').removeClass('hide_template'); //Nota Vieja
+				$('.payment-note').addClass('hide_template');
+				$('form').addClass('hide_template'); //Nota nueva
+				$('.payment_note_2').removeClass('hide_template');//Nota nueva
 				printNote();
 			break;
 			case 'print-invoice':
 				$('.invoice_page').removeClass('hide_template');
 				$('.payment-note').addClass('hide_template');
+				$('.payment_note_2').addClass('hide_template'); //Nueva nota
 				$('.card_page').addClass('hide_template');
 				printInvoice();
 			break;

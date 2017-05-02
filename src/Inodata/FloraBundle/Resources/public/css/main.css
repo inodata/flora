@@ -147,7 +147,7 @@
 	.invoice_page thead { visibility: hidden; }
 	.invoice_page .taxes_content div > .bold_text { visibility:hidden; }
 
-	##.invoice_page .items_container .sonata-ba-list-field .editable-empty{display:none;}
+	/*.invoice_page .items_container .sonata-ba-list-field .editable-empty{display:none;}*/
 
 	.hide_template{ display: none; }
 
