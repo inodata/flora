@@ -1,4 +1,5 @@
 {% extends 'InodataFloraBundle::base_edit.html.twig' %}
+
 {% block stylesheets %}
 	{{ parent() }}
 	{% stylesheets 
@@ -26,6 +27,15 @@
 	{% endjavascripts %}
 {% endblock %}
 
+{% block form %}
+    {{ parent() }}
+    {% embed 'InodataFloraBundle:Order:payment_note_2.html.twig' with {'note': 1} %} {% endembed %}
+    {% embed 'InodataFloraBundle:Order:payment_note_2.html.twig' with {'note': 2} %} {% endembed %}
+    {% embed 'InodataFloraBundle:Order:payment_note_2.html.twig' with {'note': 3} %} {% endembed %}
+
+{% endblock %}
+
+
 {% block sonata_fieldsets %}
     <div class="tab-content order-capture">
         {% for name, form_group in admin.formgroups %}            
@@ -33,7 +43,7 @@
                 <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
                     {{ block('sonata_fieldset') }}
                     {% if admin.id(object) %}
-                    	{% embed 'InodataFloraBundle:Order:payment_note.html.twig' %}{% endembed %}
+                    	{#{% embed 'InodataFloraBundle:Order:payment_note.html.twig' %}{% endembed %}#}
                     	{% if object.hasInvoice==1 %}
                     		{% embed 'InodataFloraBundle:Order:invoice.html.twig' %}{% endembed %}
                       {% else %}

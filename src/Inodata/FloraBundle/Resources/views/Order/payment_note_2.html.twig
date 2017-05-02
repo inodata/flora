@@ -1,0 +1,100 @@
+<div class="container-fluid payment_note_2 note_{{ note }}" style="/*border: solid 1px #000;*/ height: 12.6cm; overflow: hidden; padding: 0 6px;">
+	<div class="row" >
+		<table style="width: 100%">
+			<tr>
+				<td class="note-header" width="100%">
+					<img width="280" src="{{ asset('bundles/inodataflora/img/note_header.png') }}">
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="row date">MONTERREY, N. L. {{ object.deliveryDate|date("d/m/Y") }}</div>
+	<div class="row-data data-1">
+		<table style="width: 100%">
+			<tr>
+				<td width="9%" class="note-label">NOMBRE:</td><td width="51%">{{ object.to }}</td>
+				<td width="13%" class="note-label second-label">No. PEDIDO:</td><td width="27%">&nbsp;{{ object.id }}</td>
+			</tr>
+			<tr>
+				<td class="note-label">COBRAR:</td><td>{{ object.customer.companyName }}&nbsp; {% if object.purchaseOrder %}(Orden {{ object.purchaseOrder}}){% endif %}</td>
+				<td class="note-label second-label">DEPTO:</td><td>&nbsp;{{ object.paymentContact.department }}</td>
+			</tr>
+			<tr>
+				<td class="note-label">DIR. COB.:</td>
+				<td >{{ object.customer.paymentAddress.street }}
+                    {{ object.customer.paymentAddress.noExt }}
+                    {{ object.customer.paymentAddress.neighborhood }}
+				</td>
+				<td class="note-label second-label">NO. TARJETA:</td><td>&nbsp;{{ object.paymentContact.employeeNumber}} <span class="note-label">&nbsp;&nbsp;EXT: </span>{{ object.paymentContact.extension}}</td>
+			</tr>
+
+			<tr>
+				<td class="note-label">CAPTURÓ:</td>
+				<td>{{ object.creator }}
+                    {% if object.reporter != "" %}
+						({{ object.reporter }})
+                    {% endif %}</td>
+				<td class="note-label second-label">ORDENÓ:</td>
+				<td>&nbsp;{{ object.paymentContact }}</td>
+			</tr>
+
+			<tr>
+				<td class="note-label">NO. EMP.:</td>
+				<td> ---  <span class="note-label no-tel">TEL: </span>{{ object.paymentContact.phone }}</td>
+				{#<td class="note-label second-label">EMP. U OBR.:</td>
+				<td>&nbsp;--- </td>#}
+				<td class="note-label second-label">FACTURA:</td>
+				<td>&nbsp;{% if (object.hasInvoice) == 1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</td>
+			</tr>
+			<tr>
+				<td class="note-label">DE:</td>
+				<td colspan="3">{{ object.from }}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="row-data data-2">
+		<table style="width: 100%">
+			<tr>
+				<th>Cant.</th><th>Arreglo</th><th>P. Unit</th><th>Total</th>
+			</tr>
+            {% if orderProducts is defined %}
+                {% if orderProducts|length > 0 %}
+                    {% for orderProduct in orderProducts %}
+                        {% include 'InodataFloraBundle:Order:_note_product_item.html.twig'
+                        with {'product':orderProduct.product, 'total':orderProduct.quantity} %}
+                    {% endfor %}
+                {% endif%}
+            {% endif %}
+
+			<tr class="shipping-row">
+				<td colspan="2" class="note-comments">{{ object.orderNotes }}</td>
+				<td colspan="2" class="shipping price">(Envío) {{ object.shipping }}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="row-data data-3">
+		<table style="width: 100%">
+			<tr>
+				<td width="10%" class="note-label">ENTREGA:</td>
+				<td width="60%" colspan="2">{{ object.shippingAddress.street }}
+                    {% if object.shippingAddress.noExt!='' %}#{{object.shippingAddress.noExt}}{% endif %}
+                    {% if(object.shippingAddress.noInt) != '' %} Int. {{object.shippingAddress.noInt}}{% endif %}
+					<span class="guia_roji_map info">{%if guia_roji is not empty %} -->{{guia_roji}}<-- {% else %} --- {% endif %} </span></td>
+				<td width="30%"><span class="note-label">TEL:</span>{{ object.shippingAddress.phone }}</td>
+			</tr>
+			<tr>
+				<td class="note-label">ENTRE:</td>
+				<td colspan="3">{{ object.shippingAddress.reference }}</td>
+			</tr>
+			<tr class="shipping-row">
+				<td width="10%" class="note-label">COLONIA:</td>
+				<td width="50%">{{ object.shippingAddress.neighborhood }}</td>
+				<td width="10%" class="note-label">MUNICIPIO:</td>
+				<td width="30%">{{ object.shippingAddress.city}}, {{ object.shippingAddress.state}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
