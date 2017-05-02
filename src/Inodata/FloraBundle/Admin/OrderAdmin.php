@@ -56,6 +56,7 @@ class OrderAdmin extends Admin
                     'class' => 'inodata-shipping-address',
                 ],
             ])
+            /*
             ->add('customer', 'ajax_entity', [
                 'label'       => 'label.customer',
                 'class'       => 'InodataFloraBundle:Customer',
@@ -68,6 +69,17 @@ class OrderAdmin extends Admin
                     'entity'      => 'InodataFloraBundle:Customer', 'columns' => 'id,companyName',
                     'title'       => $this->trans('help.customer'),
                 ],
+            ])*/
+            ->add('customer', 'sonata_type_model', [
+                'label'       => 'label.customer',
+                'empty_value' => '',
+                'attr'        => [
+                    'class'       => 'inodata_customer',
+                    'placeholder' => $this->trans('label.placeholder_customer'),
+                    'allowClear'  => 'true',
+                    'title'       => $this->trans('help.customer'),
+                    'style'       => 'width:270px;',
+                ],
             ])
             ->add('purchaseOrder', null, [
                 'label' => 'label.purchase_order',
@@ -75,6 +87,7 @@ class OrderAdmin extends Admin
                     'title' => $this->trans('help.purchase_order'),
                 ],
             ])
+            /*
             ->add('paymentContact', 'ajax_entity', [
                 'label'       => 'label.payment_contact',
                 'class'       => 'InodataFloraBundle:PaymentContact',
@@ -84,6 +97,16 @@ class OrderAdmin extends Admin
                     'entity'      => 'InodataFloraBundle:PaymentContact', 'columns' => 'id,name',
                     'placeholder' => $this->trans('label.contact_empty_list'),
                     'allowClear'  => 'true',
+                    'title'       => $this->trans('help.payment_contact'),
+                ],
+            ])*/
+            ->add('paymentContact', 'genemu_jqueryselect2_entity', [
+                'label'       => 'label.payment_contact',
+                'class'       => 'Inodata\FloraBundle\Entity\PaymentContact',
+                'empty_value' => '',
+                'attr'        => [
+                    'class'       => 'inodata_payment_contact',
+                    'placeholder' => $this->trans('label.contact_empty_list'),
                     'title'       => $this->trans('help.payment_contact'),
                 ],
             ])
