@@ -3,7 +3,9 @@
 namespace Inodata\FloraBundle\Controller;
 
 use Inodata\FloraBundle\Entity\Address;
+use Inodata\FloraBundle\Entity\Customer;
 use Inodata\FloraBundle\Entity\Invoice;
+use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Entity\OrderProduct;
 use Inodata\FloraBundle\Entity\PaymentContact;
 use Inodata\FloraBundle\Entity\Product;
@@ -37,8 +39,9 @@ class OrderAdminController extends Controller
 
     public function productByCodeAction($code)
     {
-        $products = $this->getDoctrine()->getRepository('InodataFloraBundle:Product')
-            ->findByCode($code); //FIXME: hay algún método para extraer solo 1? ($repository->first())
+        $products = $this->getDoctrine()
+            ->getRepository('InodataFloraBundle:Product')
+            ->findByCode($code);
 
         if ($products) {
             $product = $products[0];
@@ -62,12 +65,11 @@ class OrderAdminController extends Controller
         $description = $this->get('request')->get('description');
         $price = $this->get('request')->get('price');
 
-        //TODO: Mover esto a un método de repositorio o un servicio
         if (!$code) {
             $products = $this->getDoctrine()
                 ->getRepository('InodataFloraBundle:Product')
                 ->createQueryBuilder('p')
-                ->where("p.code LIKE '%X%'")//FIXME: Aquí se puede obtener solo el último y evitar el siguiente foreach
+                ->where("p.code LIKE '%X%'")
                 ->getQuery()
                 ->getResult();
 
@@ -110,7 +112,7 @@ class OrderAdminController extends Controller
      *
      * @return array
      */
-    protected function getTotalsCostAsArray($orderProducts = null, $subtotal = 0, $shipping = null, $discount = null, $hasInvoice = null)
+    protected function getTotalsCostAsArray($orderProducts = null, $subtotal = 0, $shipping = null, $discount = 0, $hasInvoice = null)
     {
         $IVA = 0;
 
@@ -127,7 +129,7 @@ class OrderAdminController extends Controller
             }
 
             $discount = $order->getDiscount();
-            if (!$discount) {
+            if (empty($discount)) {
                 $discount = 0;
             }
 
@@ -225,12 +227,12 @@ class OrderAdminController extends Controller
         //-------------------------CUSTOMIZADO ---------------------------*/
         $products = $this->get('request')->get('product');
 
-        $action = $this->get('request')->getSession()->get('post_save_action');
-        $this->get('request')->getSession()->set('post_save_action', '');
+        $action = $this->getRequest()->getSession()->get('post_save_action');
+        $this->getRequest()->getSession()->set('post_save_action', '');
 
-        if ($this->get('request')->getSession()->get('submit_action') == 'submit') {
-            $this->get('request')->getSession()->set('post_save_action', $action);
-            $this->get('request')->getSession()->set('submit_action', '');
+        if ($this->getRequest()->getSession()->get('submit_action') == 'submit') {
+            $this->getRequest()->getSession()->set('post_save_action', $action);
+            $this->getRequest()->getSession()->set('submit_action', '');
         }
 
         if ($this->getRestMethod() == 'POST') {
@@ -239,7 +241,7 @@ class OrderAdminController extends Controller
             }
             $this->updatePaymentContactInfo();
             $this->createInvoice($id);
-            $this->get('request')->getSession()->set('submit_action', 'submit');
+            $this->getRequest()->getSession()->set('submit_action', 'submit');
         }
         //----------------------------------------------------------------**/
 
@@ -265,7 +267,7 @@ class OrderAdminController extends Controller
         $form->setData($object);
 
         if ($this->getRestMethod() == 'POST') {
-            $form->handleRequest($this->get('request')); //TODO: validar este cambio
+            $form->bind($this->get('request'));
 
             $isFormValid = $form->isValid();
 
@@ -408,7 +410,7 @@ class OrderAdminController extends Controller
             $object = $this->admin->getSubject();
             $this->createOrderProducts($object->getId(), $products);
 
-            $this->get('request')->getSession()->set('submit_action', 'submit');
+            $this->getRequest()->getSession()->set('submit_action', 'submit');
         }
 
         return $create;
@@ -627,22 +629,21 @@ class OrderAdminController extends Controller
     }
 
     //Overwitten function
-    //FIXME: No se puede inyectar Request en este caso, revisar diferencia $this->get('request')
     public function redirectTo($object)
     {
         $response = parent::redirectTo($object);
 
         if ($this->get('request')->get('save_and_print_note')) {
-            $this->get('request')->getSession()->set('post_save_action', 'print-note');
+            $this->getRequest()->getSession()->set('post_save_action', 'print-note');
         }
         if ($this->get('request')->get('save_and_print_invoice')) {
-            $this->get('request')->getSession()->set('post_save_action', 'print-invoice');
+            $this->getRequest()->getSession()->set('post_save_action', 'print-invoice');
         }
         if ($this->get('request')->get('btn_update_and_list') ||
             $this->get('request')->get('btn_create_and_list') ||
             $this->get('request')->get('btn_create_and_create')
         ) {
-            $this->get('request')->getSession()->set('post_save_action', '');
+            $this->getRequest()->getSession()->set('post_save_action', '');
         }
 
         return $response;

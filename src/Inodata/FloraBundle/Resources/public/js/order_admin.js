@@ -287,20 +287,21 @@ $(document).ready(function() {
 	var id = $(".order-id").val();
 	
 	function showEmptyNotification(){
-		if($(".product").length==0){
+		if($(".product").length===0){
 	    	$("#no_products").css('display', 'table-row'); 
 	    }
 	}
 	
 	function hideEmptyNotification(){
-		if($("#no_products").length>0){
-	        $("#no_products").css('display', 'none'); 
+		var noProducts = $("#no_products");
+		if(noProducts.length>0){
+	        noProducts.css('display', 'none');
 	    }
 	}
 	
 	//Update product list, select-option and prices when amount is change
 	$('.product-total').live('keydown', function(event){
-	    if(event.which==13){
+	    if(event.which===13){
 	    	validateProductsTotalChange(this);
 	    	return false;
 	    }
@@ -332,7 +333,7 @@ $(document).ready(function() {
 	
 	//-----Update prices when shipping or discount changes -----//
 	$('.order-shipping, .order-discount').live('keypress', function(event){
-		if(event.which==13){
+		if(event.which===13){
 			validateShippingOrDiscountChange(this, 'key');
 			return false;
 		}
@@ -343,12 +344,12 @@ $(document).ready(function() {
 	function validateShippingOrDiscountChange(element, event)
 	{
 		if($(element).val().match('[0-9]+(\.[0-9][0-9]?)?')){
-			if((event=='key') && ($(element).attr('class')=='order-discount')){
+			if((event==='key') && ($(element).attr('class')==='order-discount')){
 				$('.order-discount:first').val($(element).val());
 			}
 			updateAjaxTotalsCost();
 		}else{
-			alert('Cantidad invalida');
+			alert('Cantidad inválida');
 			$(element).val('0');
 		}
 	}
@@ -391,14 +392,15 @@ $(document).ready(function() {
 	
 	function loadPriceTotals(price)
 	{
-		if(price.discount==''){
+		var orderDiscount = $(".order-discount");
+		if(price.discount===''){
 			price.discount = 0;
 		}
 		
 		$(".order-subtotal").text(price.subtotal);
 		$(".order-shipping").val(price.shipping);
-		$(".order-discount").eq(0).val(price.discount);
-		$(".order-discount").eq(1).val(price.discount_net);
+		orderDiscount.eq(0).val(price.discount);
+		orderDiscount.eq(1).val(price.discount_net);
 		$(".order-iva").text(price.iva);
 		$(".order-total").text(price.total);
 		$('.order-discount-percent').text(price.discount_percent);
@@ -410,6 +412,10 @@ $(document).ready(function() {
 		var products = [];
 		var shipping = $('.order-shipping').eq(1).val();
 		var discount = $('.order-discount').eq(0).val();
+		//FIXME: Hack para inicializar el descuento
+		if(discount === ''){
+			discount = 0;
+		}
 		var hasInvoice = $('.inodata-has-invoice:checked').val();
 		
 		if(!hasInvoice){
