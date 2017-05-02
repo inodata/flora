@@ -28,13 +28,13 @@ class DistributionAdmin extends Admin
         $formMapper
             ->add('id')
             ->add('messenger', 'sonata_type_model', [
-                    'class' => 'Inodata\FloraBundle\Entity\Employee',
-                    'attr'  => [
-                        'class' => '	 span5', ],
-                ])
+                'class' => 'Inodata\FloraBundle\Entity\Employee',
+                'attr'  => [
+                    'class' => '	 span5',],
+            ])
             ->add('delivery_date', 'date', [
-                        'label'=> 'label.delivery_date',
-                ])
+                'label' => 'label.delivery_date',
+            ])
             ->add('status', null);
     }
 
@@ -49,22 +49,22 @@ class DistributionAdmin extends Admin
         /* TODO: Agregar comentarios */
         $listMapper
             ->add('messenger', null, [
-                    'label' => 'label.messenger',
-                ])
+                'label' => 'label.messenger',
+            ])
             ->addIdentifier('id', 'entity', [
-                    'label' => 'label.distribution_id', 'admin_code' => 'admin.order',
-                ])
+                'label' => 'label.distribution_id', 'admin_code' => 'admin.order',
+            ])
             ->add('firstProduct', null, [
-                    'label' => 'label.distribution_product',
-                ])
+                'label' => 'label.distribution_product',
+            ])
             ->add('deliveryDate', null, [
-                    'label'  => 'label.delivery_date',
-                    'format' => 'd/M/Y',
-                ])
+                'label'  => 'label.delivery_date',
+                'format' => 'd/M/Y',
+            ])
             ->add('status', null, [
-                    'label' => 'label.distribution_status',
-                    'attr'  => ['class'=>'status'],
-                ])
+                'label' => 'label.distribution_status',
+                'attr'  => ['class' => 'status'],
+            ])
             ->add('_action', 'actions', [
                     'label'   => 'label.distribution_actions',
                     'actions' => [
@@ -84,27 +84,27 @@ class DistributionAdmin extends Admin
     {
         $datagridMapper
             ->add('messenger', null, [
-                    'label' => 'label.distribution_messenger',
-                ], null, [
-                    'query_builder' => function ($er) {
-                        return $er->createQueryBuilder('u')
-                                  ->where('u.jobPosition = :type ')
-                                  ->setParameter('type', 'Messenger');
-                    },
-                ])
+                'label' => 'label.distribution_messenger',
+            ], null, [
+                'query_builder' => function ($er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.jobPosition = :type ')
+                        ->setParameter('type', 'Messenger');
+                },
+            ])
             ->add('id', null, [
-                    'label' => 'label.distribution_id',
-                ])
+                'label' => 'label.distribution_id',
+            ])
             ->add('deliveryDate', 'doctrine_orm_string', [
-                    'label' => 'label.delivery_date',
-                ])
+                'label' => 'label.delivery_date',
+            ])
             ->add('status', null, [
-                    'label'                         => 'label.distribution_status',
-                ], 'choice', ['translation_domain'  => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
-                        'choices'                   => ['open' => 'label.distribution_delivery_status_open',
-                                            'intransit'        => 'label.distribution_delivery_status_intransit',
-                                            'delivered'        => 'label.distribution_delivery_status_delivered',
-                                            'closed'           => 'label.distribution_delivery_status_closed', ], ]);
+                'label' => 'label.distribution_status',
+            ], 'choice', ['translation_domain' => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
+                          'choices'            => ['open'      => 'label.distribution_delivery_status_open',
+                                                   'intransit' => 'label.distribution_delivery_status_intransit',
+                                                   'delivered' => 'label.distribution_delivery_status_delivered',
+                                                   'closed'    => 'label.distribution_delivery_status_closed',],]);
     }
 
     protected function configureRoutes(RouteCollection $collection)
@@ -135,8 +135,8 @@ class DistributionAdmin extends Admin
 
         if ($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')) {
             $actions['deliveredAll'] = [
-                    'label'            => 'Entregados',
-                    'ask_confirmation' => true,
+                'label'            => 'Entregados',
+                'ask_confirmation' => true,
             ];
         }
 

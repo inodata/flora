@@ -230,7 +230,7 @@ class Order
     }
 
     /**
-     *@return string
+     * @return string
      */
     public function __toString()
     {
@@ -242,10 +242,10 @@ class Order
         $product = $this->getFirstProduct();
 
         if ($product != '') {
-            return ''.$orderId.' - '.$product->getDescription();
+            return '' . $orderId . ' - ' . $product->getDescription();
         }
 
-        return ''.$orderId;
+        return '' . $orderId;
     }
 
     public function getFirstProduct()
@@ -292,7 +292,6 @@ class Order
      * Function only for resolve a problem with edit.
      *
      * @param int $id
-     *
      * @return Order
      */
     public function setId($id)
@@ -839,7 +838,7 @@ class Order
     }
 
     /**
-     *@return string
+     * @return string
      */
     public function getIdInLetters()
     {
@@ -861,10 +860,10 @@ class Order
         $contact = $this->getPaymentContact()->getName();
 
         if ($contact) {
-            $contact = ' - '.$contact;
+            $contact = ' - ' . $contact;
         }
 
-        return $customer.$contact;
+        return $customer . $contact;
     }
 
     public function getOrderTotals()

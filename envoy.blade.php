@@ -34,8 +34,8 @@
 
 @task('install_assets')
   cd {{ $root_path }}
-  php app/console assets:install --env=prod --symlink
   php app/console assetic:dump --env=prod
+  php app/console assets:install --env=prod --symlink
   php app/console cache:clear --env=prod
   chmod -R 777 app/cache/ app/logs/
 @endtask
