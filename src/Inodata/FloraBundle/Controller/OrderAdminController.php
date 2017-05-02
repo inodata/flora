@@ -3,9 +3,7 @@
 namespace Inodata\FloraBundle\Controller;
 
 use Inodata\FloraBundle\Entity\Address;
-use Inodata\FloraBundle\Entity\Customer;
 use Inodata\FloraBundle\Entity\Invoice;
-use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Entity\OrderProduct;
 use Inodata\FloraBundle\Entity\PaymentContact;
 use Inodata\FloraBundle\Entity\Product;
@@ -28,9 +26,9 @@ class OrderAdminController extends Controller
             ->find($id);
 
         $listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
-                ['product' => $product, 'total' => 1]);
+            ['product' => $product, 'total' => 1]);
         $selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
-                ['product' => $product, 'total' => 1]);
+            ['product' => $product, 'total' => 1]);
 
         $response = ['listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $id];
 
@@ -39,24 +37,23 @@ class OrderAdminController extends Controller
 
     public function productByCodeAction($code)
     {
-        $products = $this->getDoctrine()
-        ->getRepository('InodataFloraBundle:Product')
-        ->findByCode($code);
+        $products = $this->getDoctrine()->getRepository('InodataFloraBundle:Product')
+            ->findByCode($code); //FIXME: hay algún método para extraer solo 1? ($repository->first())
 
         if ($products) {
             $product = $products[0];
 
             $listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
-                    ['product' => $product, 'total' => 1]);
+                ['product' => $product, 'total' => 1]);
             $selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
-                    ['product' => $product, 'total' => 1]);
+                ['product' => $product, 'total' => 1]);
 
-            $response = ['listField' => $listField, 'optionsToSave' => $selectOption, 'id' =>$product->getId()];
+            $response = ['listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $product->getId()];
 
             return new Response(json_encode($response));
         }
 
-        return new Response(json_encode(['id'=>-1]));
+        return new Response(json_encode(['id' => -1]));
     }
 
     public function addingProductAction()
@@ -65,11 +62,12 @@ class OrderAdminController extends Controller
         $description = $this->get('request')->get('description');
         $price = $this->get('request')->get('price');
 
+        //TODO: Mover esto a un método de repositorio o un servicio
         if (!$code) {
             $products = $this->getDoctrine()
                 ->getRepository('InodataFloraBundle:Product')
                 ->createQueryBuilder('p')
-                ->where("p.code LIKE '%X%'")
+                ->where("p.code LIKE '%X%'")//FIXME: Aquí se puede obtener solo el último y evitar el siguiente foreach
                 ->getQuery()
                 ->getResult();
 
@@ -81,7 +79,7 @@ class OrderAdminController extends Controller
                         $code = $newCode;
                     }
                 }
-                $code = 'X'.(++$code);
+                $code = 'X' . (++$code);
             } else {
                 $code = 'X1';
             }
@@ -98,9 +96,9 @@ class OrderAdminController extends Controller
         $em->flush($product);
 
         $listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
-                ['product' => $product, 'total' => 1]);
+            ['product' => $product, 'total' => 1]);
         $selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
-                ['product' => $product, 'total' => 1]);
+            ['product' => $product, 'total' => 1]);
 
         $response = ['listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $product->getId()];
 
@@ -141,7 +139,7 @@ class OrderAdminController extends Controller
 
         if ($discount < 1) {
             $discountNet = $subtotal * $discount;
-            $discountPercentLabel = ($discount * 100).'%';
+            $discountPercentLabel = ($discount * 100) . '%';
         }
 
         $subtotal = $subtotal + $shipping - $discountNet;
@@ -159,14 +157,14 @@ class OrderAdminController extends Controller
 
         setlocale(LC_MONETARY, 'es_MX');
 
-        return ['shipping'    => $shipping,
-            'discount'        => $discount,
-            'discount_net'    => round($discountNet, 2),
-            'discount_percent'=> $discountPercentLabel,
-            'iva'             => money_format('%!i', $IVA),
-            'subtotal'        => money_format('%!i', $subtotal),
-            'total'           => money_format('%!i', $total),
-            'totalInLetters'  => $totalInLetters, ];
+        return ['shipping'         => $shipping,
+                'discount'         => $discount,
+                'discount_net'     => round($discountNet, 2),
+                'discount_percent' => $discountPercentLabel,
+                'iva'              => money_format('%!i', $IVA),
+                'subtotal'         => money_format('%!i', $subtotal),
+                'total'            => money_format('%!i', $total),
+                'totalInLetters'   => $totalInLetters,];
     }
 
     public function updateTotalsCostAction()
@@ -189,7 +187,7 @@ class OrderAdminController extends Controller
 
         $response = $this->getTotalsCostAsArray(null, $subtotal, $shipping, $discount, $hasInvoice);
 
-        return new Response(json_encode(['prices' =>$response]));
+        return new Response(json_encode(['prices' => $response]));
     }
 
     public function paymentContactAction($id)
@@ -227,12 +225,12 @@ class OrderAdminController extends Controller
         //-------------------------CUSTOMIZADO ---------------------------*/
         $products = $this->get('request')->get('product');
 
-        $action = $this->getRequest()->getSession()->get('post_save_action');
-        $this->getRequest()->getSession()->set('post_save_action', '');
+        $action = $this->get('request')->getSession()->get('post_save_action');
+        $this->get('request')->getSession()->set('post_save_action', '');
 
-        if ($this->getRequest()->getSession()->get('submit_action') == 'submit') {
-            $this->getRequest()->getSession()->set('post_save_action', $action);
-            $this->getRequest()->getSession()->set('submit_action', '');
+        if ($this->get('request')->getSession()->get('submit_action') == 'submit') {
+            $this->get('request')->getSession()->set('post_save_action', $action);
+            $this->get('request')->getSession()->set('submit_action', '');
         }
 
         if ($this->getRestMethod() == 'POST') {
@@ -241,7 +239,7 @@ class OrderAdminController extends Controller
             }
             $this->updatePaymentContactInfo();
             $this->createInvoice($id);
-            $this->getRequest()->getSession()->set('submit_action', 'submit');
+            $this->get('request')->getSession()->set('submit_action', 'submit');
         }
         //----------------------------------------------------------------**/
 
@@ -267,7 +265,7 @@ class OrderAdminController extends Controller
         $form->setData($object);
 
         if ($this->getRestMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request')); //TODO: validar este cambio
 
             $isFormValid = $form->isValid();
 
@@ -278,8 +276,8 @@ class OrderAdminController extends Controller
 
                 if ($this->isXmlHttpRequest()) {
                     return $this->renderJson([
-                            'result'    => 'ok',
-                            'objectId'  => $this->admin->getNormalizedIdentifier($object),
+                        'result'   => 'ok',
+                        'objectId' => $this->admin->getNormalizedIdentifier($object),
                     ]);
                 }
 
@@ -358,7 +356,7 @@ class OrderAdminController extends Controller
 
         if ($invoiceGenerated) {
             $invoice = $em->getRepository('InodataFloraBundle:Invoice')
-                ->findBy(['order'=>$id, 'isCanceled'=>false]);
+                ->findBy(['order' => $id, 'isCanceled' => false]);
 
             if (!$invoice) {
                 $order = $em->getRepository('InodataFloraBundle:Order')
@@ -410,7 +408,7 @@ class OrderAdminController extends Controller
             $object = $this->admin->getSubject();
             $this->createOrderProducts($object->getId(), $products);
 
-            $this->getRequest()->getSession()->set('submit_action', 'submit');
+            $this->get('request')->getSession()->set('submit_action', 'submit');
         }
 
         return $create;
@@ -427,7 +425,7 @@ class OrderAdminController extends Controller
 
         if ($orderArray['customer']) {
             $customer = $em->getRepository('InodataFloraBundle:Customer')
-            ->find($orderArray['customer']);
+                ->find($orderArray['customer']);
 
             $paymentContact->setCustomer($customer);
         }
@@ -490,10 +488,10 @@ class OrderAdminController extends Controller
         $paymentContacts = $query->getQuery()->getResult();
 
         $response = [
-                'customer_discount' => $customerDiscount,
-                'contacts'          => $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
-                    ['contacts'     => $paymentContacts]
-                ), ];
+            'customer_discount' => $customerDiscount,
+            'contacts'          => $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
+                ['contacts' => $paymentContacts]
+            ),];
 
         return new Response(json_encode($response));
     }
@@ -511,8 +509,8 @@ class OrderAdminController extends Controller
 
         $messages = $query->getQuery()->getResult();
 
-        $response = ['messages'=> $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
-                ['messages'    => $messages])];
+        $response = ['messages' => $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
+            ['messages' => $messages])];
 
         return new Response(json_encode($response));
     }
@@ -543,7 +541,7 @@ class OrderAdminController extends Controller
         $em->persist($object);
         $em->flush();
 
-        return new Response(json_encode(['success'=>true]));
+        return new Response(json_encode(['success' => true]));
     }
 
     private function addressEdit($em, $id, $columnName, $value)
@@ -552,7 +550,7 @@ class OrderAdminController extends Controller
             ->find($id);
 
         if (!$address) {
-            return new Response(json_encode(['success'=>false, 'msg'=>'Error']));
+            return new Response(json_encode(['success' => false, 'msg' => 'Error']));
         }
 
         switch ($columnName) {
@@ -588,7 +586,7 @@ class OrderAdminController extends Controller
             ->find($id);
 
         if (!$orderProduct) {
-            return new Response(json_encode(['success'=>false, 'msg'=>'Error']));
+            return new Response(json_encode(['success' => false, 'msg' => 'Error']));
         }
 
         switch ($columnName) {
@@ -613,7 +611,7 @@ class OrderAdminController extends Controller
             ->find($id);
 
         if (!$customer) {
-            return new Response(json_encode(['success'=>false, 'msg'=>'Error']));
+            return new Response(json_encode(['success' => false, 'msg' => 'Error']));
         }
 
         switch ($columnName) {
@@ -629,20 +627,22 @@ class OrderAdminController extends Controller
     }
 
     //Overwitten function
+    //FIXME: No se puede inyectar Request en este caso, revisar diferencia $this->get('request')
     public function redirectTo($object)
     {
         $response = parent::redirectTo($object);
 
         if ($this->get('request')->get('save_and_print_note')) {
-            $this->getRequest()->getSession()->set('post_save_action', 'print-note');
+            $this->get('request')->getSession()->set('post_save_action', 'print-note');
         }
         if ($this->get('request')->get('save_and_print_invoice')) {
-            $this->getRequest()->getSession()->set('post_save_action', 'print-invoice');
+            $this->get('request')->getSession()->set('post_save_action', 'print-invoice');
         }
         if ($this->get('request')->get('btn_update_and_list') ||
             $this->get('request')->get('btn_create_and_list') ||
-            $this->get('request')->get('btn_create_and_create')) {
-            $this->getRequest()->getSession()->set('post_save_action', '');
+            $this->get('request')->get('btn_create_and_create')
+        ) {
+            $this->get('request')->getSession()->set('post_save_action', '');
         }
 
         return $response;
@@ -660,8 +660,8 @@ class OrderAdminController extends Controller
     public function exportAction(Request $request)
     {
         $fields = ['collector', 'firstProduct', 'firstProduct.price',
-                 'shipping', 'customer.companyName', 'deliveryDate',
-                'paymentContact', 'messenger', ];
+            'shipping', 'customer.companyName', 'deliveryDate',
+            'paymentContact', 'messenger',];
 
         if (false === $this->admin->isGranted('EXPORT')) {
             throw new AccessDeniedException();
@@ -696,16 +696,16 @@ class OrderAdminController extends Controller
         $pc = $address->getPostalCode();
 
         $guiaRojis = $this->getDoctrine()->getRepository('InodataFloraBundle:GuiaRoji')
-                ->createQueryBuilder('q')
-                ->where('q.neighborhood LIKE :neighborhood')
-                ->andWhere('q.city LIKE :city OR q.postal_code = :pc')
-                ->setParameters(['neighborhood'=>'%'.$neighborhood.'%', 'city'=>'%'.$city.'%', 'pc'=>$pc])
-                ->getQuery()->getResult();
+            ->createQueryBuilder('q')
+            ->where('q.neighborhood LIKE :neighborhood')
+            ->andWhere('q.city LIKE :city OR q.postal_code = :pc')
+            ->setParameters(['neighborhood' => '%' . $neighborhood . '%', 'city' => '%' . $city . '%', 'pc' => $pc])
+            ->getQuery()->getResult();
 
         if ($guiaRojis) {
             $guiaRoji = $guiaRojis[0];
 
-            return 'Plano: '.$guiaRoji->getMap().', Coordenada: '.$guiaRoji->getCoordinate();
+            return 'Plano: ' . $guiaRoji->getMap() . ', Coordenada: ' . $guiaRoji->getCoordinate();
         }
 
         return '';

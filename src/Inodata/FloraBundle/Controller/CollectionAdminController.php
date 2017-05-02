@@ -47,18 +47,18 @@ class CollectionAdminController extends Controller
         isset($collectors[0]) == true ? $firstCollector = $collectors[0]->getId() : $firstCollector = 0;
 
         $render = $this->render($this->admin->getTemplate('list'), [
-                'action'             => 'list',
-                'form'               => $formView,
-                'collection_form'    => $collectionFormView,
-                'datagrid'           => $datagrid,
-                'csrf_token'         => $this->getCsrfToken('sonata.batch'),
-                'collectors'         => $collectors,
-                'first_tab'          => $firstTab,
-                'last_tab'           => $lastTab,
-                'selected_collector' => $this->getSelectedCollector($firstCollector),
-                'list_view'          => $this->getListeView(),
-                'orders'             => $this->getCollectorOrders($this->getSelectedCollector($firstCollector)),
-                'payments'           => $this->getDespositsAndCommissionByCollector($this->getSelectedCollector()),
+            'action'             => 'list',
+            'form'               => $formView,
+            'collection_form'    => $collectionFormView,
+            'datagrid'           => $datagrid,
+            'csrf_token'         => $this->getCsrfToken('sonata.batch'),
+            'collectors'         => $collectors,
+            'first_tab'          => $firstTab,
+            'last_tab'           => $lastTab,
+            'selected_collector' => $this->getSelectedCollector($firstCollector),
+            'list_view'          => $this->getListView(),
+            'orders'             => $this->getCollectorOrders($this->getSelectedCollector($firstCollector)),
+            'payments'           => $this->getDespositsAndCommissionByCollector($this->getSelectedCollector()),
         ]);
 
         return $render;
@@ -71,7 +71,7 @@ class CollectionAdminController extends Controller
         if (!$status) {
             $status = "o.status='partiallypayment' OR o.status = 'closed'";
         } else {
-            $status = "o.status='".$status."'";
+            $status = "o.status='" . $status . "'";
         }
 
         $orders = $this->getDoctrine()
@@ -80,7 +80,7 @@ class CollectionAdminController extends Controller
             ->where($status)
             ->andWhere('o.collector=:collector')
             ->andWhere('o.collectionDate>=:dateStart AND o.collectionDate<=:dateEnd')
-            ->setParameters(['collector'=>$collectorId, 'dateStart'=>$this->getDateStart(), 'dateEnd'=>$this->getDateEnd()])
+            ->setParameters(['collector' => $collectorId, 'dateStart' => $this->getDateStart(), 'dateEnd' => $this->getDateEnd()])
             ->getQuery()
             ->getResult();
 
@@ -99,7 +99,7 @@ class CollectionAdminController extends Controller
         $earning = $this->container->getParameter('collector_commission');
         $totalcommission = ($totalOrders * $earning);
 
-        return ['payments'=>$totalOrders, 'commission'=>$totalcommission];
+        return ['payments' => $totalOrders, 'commission' => $totalcommission];
     }
 
     public function loadOrdersByCollectorAction($id)
@@ -109,13 +109,13 @@ class CollectionAdminController extends Controller
 
         $orders = $this->getCollectorOrders($id);
         $response = $this->renderView('InodataFloraBundle:Collection:_list_item.html.twig',
-                ['orders' => $orders]);
+            ['orders' => $orders]);
 
         $paymentsAndCommision = $this->getDespositsAndCommissionByCollector($id);
 
-        return new Response(json_encode(['orders'=> $response,
-                'id'                             => $id, 'payments'=>$paymentsAndCommision['payments'],
-                'commission'                     => $paymentsAndCommision['commission'], ]));
+        return new Response(json_encode(['orders'     => $response,
+                                         'id'         => $id, 'payments' => $paymentsAndCommision['payments'],
+                                         'commission' => $paymentsAndCommision['commission'],]));
     }
 
     public function addOrderToCollectorAction()
@@ -143,20 +143,20 @@ class CollectionAdminController extends Controller
         }
 
         $row = $this->renderView('InodataFloraBundle:Collection:_list_item.html.twig',
-                ['orders' => [0=>$order]]);
+            ['orders' => [0 => $order]]);
 
         //Cargar View con estos datos
         $ordersDelivered = $this->getOrderOptionByStatus('delivered');
 
         $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-                ['orders' => $ordersDelivered]);
+            ['orders' => $ordersDelivered]);
 
         $paymentsAndCommision = $this->getDespositsAndCommissionByCollector($collectorId);
 
-        return new Response(json_encode(['order'=> $row,
-                'id'                            => $collectorId, 'orderOptions'=>$orderOptions,
-                'payments'                      => $paymentsAndCommision['payments'],
-                'commission'                    => $paymentsAndCommision['commission'], ]));
+        return new Response(json_encode(['order'      => $row,
+                                         'id'         => $collectorId, 'orderOptions' => $orderOptions,
+                                         'payments'   => $paymentsAndCommision['payments'],
+                                         'commission' => $paymentsAndCommision['commission'],]));
     }
 
     private function getOrderOptionByStatus($status)
@@ -186,17 +186,17 @@ class CollectionAdminController extends Controller
 
         if ($this->isXmlHttpRequest()) {
             $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-                    ['orders' => $this->getOrderOptionByStatus('delivered')]);
+                ['orders' => $this->getOrderOptionByStatus('delivered')]);
 
             $paymentsAndCommision = $this
                 ->getDespositsAndCommissionByCollector($this->getSelectedCollector());
 
             return new Response(json_encode([
-                    'success'     => $success,
-                    'orderOptions'=> $orderOptions,
-                    'payments'    => $paymentsAndCommision['payments'],
-                    'commission'  => $paymentsAndCommision['commission'],
-                ]));
+                'success'      => $success,
+                'orderOptions' => $orderOptions,
+                'payments'     => $paymentsAndCommision['payments'],
+                'commission'   => $paymentsAndCommision['commission'],
+            ]));
         }
 
         return new RedirectResponse($this->generateUrl('collection_list'));
@@ -211,7 +211,7 @@ class CollectionAdminController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $employee = $em->getRepository('InodataFloraBundle:Employee')
-        ->find($employeeId);
+            ->find($employeeId);
 
         switch ($employeeAttr) {
             case 'name':
@@ -245,13 +245,13 @@ class CollectionAdminController extends Controller
         $earning = $this->container->getParameter('collector_commission');
 
         $orderDetails = $this->renderView('InodataFloraBundle:Collection:_payments_details.html.twig',
-                ['lastPayments'         => $lastPayments,
-                        'actualPayments'=> $actualPayments,
-                        'totalOrder'    => $totalOrder,
-                        'earning'       => $earning,
-                ]);
+            ['lastPayments'   => $lastPayments,
+             'actualPayments' => $actualPayments,
+             'totalOrder'     => $totalOrder,
+             'earning'        => $earning,
+            ]);
 
-        return new Response(json_encode(['details'=>$orderDetails]));
+        return new Response(json_encode(['details' => $orderDetails]));
     }
 
     public function payAllAction()
@@ -260,7 +260,7 @@ class CollectionAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $orders = $em->getRepository('InodataFloraBundle:Order')
-            ->findBy(['collector'=>$collector, 'status'=>'partiallypayment']);
+            ->findBy(['collector' => $collector, 'status' => 'partiallypayment']);
 
         if ($orders) {
             foreach ($orders as $order) {
@@ -268,7 +268,7 @@ class CollectionAdminController extends Controller
             }
         }
 
-        return new Response(json_encode(['success'=>true]));
+        return new Response(json_encode(['success' => true]));
     }
 
     public function payOrderAction($orderId)
@@ -281,7 +281,7 @@ class CollectionAdminController extends Controller
             $this->payOrder($order);
         }
 
-        return new Response(json_encode(['success'=>true]));
+        return new Response(json_encode(['success' => true]));
     }
 
     public function payOrder($order)
@@ -307,7 +307,7 @@ class CollectionAdminController extends Controller
         $em->persist($order);
         $em->flush();
 
-        return new Response(json_encode(['success'=>true]));
+        return new Response(json_encode(['success' => true]));
     }
 
     private function setFilters($request)
@@ -356,7 +356,7 @@ class CollectionAdminController extends Controller
         $this->getRequest()->getSession()->set('list_view', $view);
     }
 
-    protected function getListeView()
+    protected function getListView()
     {
         $listView = $this->getRequest()->getSession()->get('list_view');
         if (!$listView) {
@@ -392,7 +392,7 @@ class CollectionAdminController extends Controller
             $date = date('Y-m-01');
         }
 
-        return $date.' 00:00:00';
+        return $date . ' 00:00:00';
     }
 
     private function setDateEnd($date)
@@ -407,7 +407,7 @@ class CollectionAdminController extends Controller
             $date = date('Y-m-d');
         }
 
-        return $date.' 23:59:59';
+        return $date . ' 23:59:59';
     }
 
     private function setSelectedStatus($status)

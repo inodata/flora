@@ -18,7 +18,7 @@ class OrderAdmin extends Admin
     {
         $formMapper
             ->add('delivery_date', 'date', [
-                'label'=> 'label.delivery_date',
+                'label'  => 'label.delivery_date',
                 //'help' => 'help.delivery_date',
                 'widget' => 'single_text',
                 'format' => 'd/MM/y',
@@ -28,8 +28,8 @@ class OrderAdmin extends Admin
                 ],
             ])
             ->add('to', null, [
-                'label'=> 'label.to',
-                'attr' => [
+                'label' => 'label.to',
+                'attr'  => [
                     'class'       => 'inodata_to',
                     'placeholder' => $this->trans('label.placeholder_to'),
                     'title'       => $this->trans('help.to'),
@@ -51,20 +51,22 @@ class OrderAdmin extends Admin
                 ],
             ])
             ->add('shippingAddress', 'inodata_address_form', [
-                'label'=> false,
-                'attr' => [
+                'label' => false,
+                'attr'  => [
                     'class' => 'inodata-shipping-address',
                 ],
             ])
-            ->add('customer', 'sonata_type_model', [
+            ->add('customer', 'ajax_entity', [
                 'label'       => 'label.customer',
+                'class'       => 'InodataFloraBundle:Customer',
+                'mapped'      => false,
                 'empty_value' => '',
                 'attr'        => [
-                    'class'       => 'inodata_customer',
                     'placeholder' => $this->trans('label.placeholder_customer'),
                     'allowClear'  => 'true',
+                    'class'       => 'inodata_customer',
+                    'entity'      => 'InodataFloraBundle:Customer', 'columns' => 'id,companyName',
                     'title'       => $this->trans('help.customer'),
-                    'style'       => 'width:270px;',
                 ],
             ])
             ->add('purchaseOrder', null, [
@@ -73,13 +75,15 @@ class OrderAdmin extends Admin
                     'title' => $this->trans('help.purchase_order'),
                 ],
             ])
-            ->add('paymentContact', 'genemu_jqueryselect2_entity', [
+            ->add('paymentContact', 'ajax_entity', [
                 'label'       => 'label.payment_contact',
-                'class'       => 'Inodata\FloraBundle\Entity\PaymentContact',
+                'class'       => 'InodataFloraBundle:PaymentContact',
                 'empty_value' => '',
                 'attr'        => [
                     'class'       => 'inodata_payment_contact',
+                    'entity'      => 'InodataFloraBundle:PaymentContact', 'columns' => 'id,name',
                     'placeholder' => $this->trans('label.contact_empty_list'),
+                    'allowClear'  => 'true',
                     'title'       => $this->trans('help.payment_contact'),
                 ],
             ])
@@ -90,38 +94,38 @@ class OrderAdmin extends Admin
                 ]
             )
             ->add('message', 'ckeditor', [
-                    'label'       => 'label.message',
-                    'config_name' => 'inodata_editor',
-                    'config'      => [
-                        'uiColor' => '#ffffff',
-                        'height'  => '50px',
-                    ],
-                    'attr' => [
-                        'class' => 'inodata_message',
-                        'title' => $this->trans('help.message'),
-                    ],
+                'label'       => 'label.message',
+                'config_name' => 'inodata_editor',
+                'config'      => [
+                    'uiColor' => '#ffffff',
+                    'height'  => '50px',
+                ],
+                'attr'        => [
+                    'class' => 'inodata_message',
+                    'title' => $this->trans('help.message'),
+                ],
             ])
             ->add('category', 'genemu_jqueryselect2_entity', [
-                    'label'       => 'label.message_category',
-                    'class'       => 'Inodata\FloraBundle\Entity\Category',
-                    'empty_value' => '',
-                    'mapped'      => false, 'required' => false,
-                    'attr'        => [
-                        'class'       => 'inodata_category_day',
-                        'placeholder' => $this->trans('label.msg_category_empty_list'),
-                        'title'       => $this->trans('help.category'),
-                    ],
+                'label'       => 'label.message_category',
+                'class'       => 'Inodata\FloraBundle\Entity\Category',
+                'empty_value' => '',
+                'mapped'      => false, 'required' => false,
+                'attr'        => [
+                    'class'       => 'inodata_category_day',
+                    'placeholder' => $this->trans('label.msg_category_empty_list'),
+                    'title'       => $this->trans('help.category'),
+                ],
             ])
             ->add('messages', 'genemu_jqueryselect2_entity', [
-                    'label'       => 'label.messages_list',
-                    'class'       => 'Inodata\FloraBundle\Entity\Message',
-                    'empty_value' => '',
-                    'mapped'      => false, 'required' => false,
-                    'attr'        => [
-                        'class'       => 'inodata_messages',
-                        'placeholder' => $this->trans('Seleccionar un mensaje predefinido'),
-                        'title'       => $this->trans('help.messages_list'),
-                    ],
+                'label'       => 'label.messages_list',
+                'class'       => 'Inodata\FloraBundle\Entity\Message',
+                'empty_value' => '',
+                'mapped'      => false, 'required' => false,
+                'attr'        => [
+                    'class'       => 'inodata_messages',
+                    'placeholder' => $this->trans('Seleccionar un mensaje predefinido'),
+                    'title'       => $this->trans('help.messages_list'),
+                ],
             ])
             /*
              * Si se agrega un elemento antes de este item, actualizar main.css
@@ -146,7 +150,7 @@ class OrderAdmin extends Admin
                 'attr'     => [
                     'class' => 'inodata-has-invoice',
                     'title' => $this->trans('help.require_invoice'),
-                    ],
+                ],
             ])
             ->add('order_notes', null, [
                 'label' => 'label.order_notes',
@@ -161,7 +165,7 @@ class OrderAdmin extends Admin
                 'attr'  => [
                     'class' => 'order-shipping',
                     'title' => $this->trans('help.shipping'),
-                    ],
+                ],
             ])
             ->add('discount', 'text', [
                 'label' => 'label.discount',
@@ -169,44 +173,44 @@ class OrderAdmin extends Admin
                     'class' => 'order-discount',
                     'title' => $this->trans('help.discount'),
                 ],
-            ])
+            ])->end()
             ->with('tab.invoice', ['description' => 'help.tab_invoice'])
-                ->add('invoiceNumber', 'text', [
-                    'required' => false,
-                    'label'    => 'label.invoice',
-                    'attr'     => [
-                        'class' => 'inodata-invoice-number',
-                        'style' => 'width:98%', ],
-                ])
-                ->add('paymentCondition', 'hidden', [
-                        'required' => false,
-                        'label'    => 'label.payment_condition',
-                        'attr'     => [
-                            'class' => 'inodata-payment-condition',
-                            'style' => 'width:98%',
-                        ],
-                    ])
-                ->add('invoiceComment', 'hidden', [
-                        'required' => false,
-                        'label'    => 'label.invoice_comment',
-                        'attr'     => [
-                            'class' => 'inodata-invoice-comment',
-                            'style' => 'width:100%',
-                        ],
-                ])
-                ->add('invoice_date', 'date', [
-                        'required' => false,
-                        'label'    => 'label.invoice_date',
-                        'widget'   => 'single_text',
-                        'format'   => 'd/MM/y',
-                        'attr'     => [
-                            'class' => 'inodata_invoice_date',
-                            'title' => $this->trans('help.invoice_date'),
-                        ],
-                ])
+            ->add('invoiceNumber', 'text', [
+                'required' => false,
+                'label'    => 'label.invoice',
+                'attr'     => [
+                    'class' => 'inodata-invoice-number',
+                    'style' => 'width:98%',],
+            ])
+            ->add('paymentCondition', 'hidden', [
+                'required' => false,
+                'label'    => 'label.payment_condition',
+                'attr'     => [
+                    'class' => 'inodata-payment-condition',
+                    'style' => 'width:98%',
+                ],
+            ])
+            ->add('invoiceComment', 'hidden', [
+                'required' => false,
+                'label'    => 'label.invoice_comment',
+                'attr'     => [
+                    'class' => 'inodata-invoice-comment',
+                    'style' => 'width:100%',
+                ],
+            ])
+            ->add('invoice_date', 'date', [
+                'required' => false,
+                'label'    => 'label.invoice_date',
+                'widget'   => 'single_text',
+                'format'   => 'd/MM/y',
+                'attr'     => [
+                    'class' => 'inodata_invoice_date',
+                    'title' => $this->trans('help.invoice_date'),
+                ],
+            ])
             ->end()
             ->add('id', 'hidden', [
-                    'attr' => ['class' => 'order-id'],
+                'attr' => ['class' => 'order-id'],
             ])
             ->add('status', 'hidden');
     }
@@ -230,25 +234,25 @@ class OrderAdmin extends Admin
         $listMapper
             ->addIdentifier('id', null, ['label' => 'label.order_number'])
             ->add('createdAt', 'date', [
-                'label'  => 'label.created_at',
-                'format' => 'd/M/Y', ]
+                    'label'  => 'label.created_at',
+                    'format' => 'd/M/Y',]
             )
-            ->add('customer', null, ['label'=>'label.customer'])
+            ->add('customer', null, ['label' => 'label.customer'])
             ->add('firstProduct', null, ['label' => 'label.details'])
-            ->add('firstProductPrice', null, ['label'=>'label.price'])
-            ->add('shipping', null, ['label'=>'label.shipping'])
+            ->add('firstProductPrice', null, ['label' => 'label.price'])
+            ->add('shipping', null, ['label' => 'label.shipping'])
             ->add('deliveryDate', null, [
-                    'label'  => 'label.delivery_date',
-                    'format' => 'd/M/Y', ])
+                'label'  => 'label.delivery_date',
+                'format' => 'd/M/Y',])
             ->add('paymentContact', null, ['label' => 'label.payment_contact'])
             ->add('messenger', null, ['label' => 'label.messenger'])
             ->add('collector', null, ['label' => 'label.collector'])
             ->add('_action', 'actions', [
                     'label'   => 'label.action',
                     'actions' => [
-                        'edit' => [], ],
-            ]
-        );
+                        'edit' => [],],
+                ]
+            );
     }
 
     /**
@@ -262,14 +266,14 @@ class OrderAdmin extends Admin
             ->add('id', null, ['label' => 'label.order_number'])
             ->add('to', null, ['label' => 'label.to'])
             ->add('from', null, ['label' => 'label.from'])
-            ->add('customer.companyName', null, ['label'=>'label.customer'])
+            ->add('customer.companyName', null, ['label' => 'label.customer'])
             ->add('purchaseOrder', null, ['label' => 'label.purchase_order'])
             ->add('creator', null, ['label' => 'label.capturated'])
             ->add('createdAt', 'doctrine_orm_string', [
                 'label' => 'label.created_at',
             ])
             ->add('deliveryDate', 'doctrine_orm_string', [
-                    'label' => 'label.delivery_date',
+                'label' => 'label.delivery_date',
             ])
             ->add('hasInvoice', null, ['label' => 'label.has_invoice']);
     }
@@ -278,13 +282,13 @@ class OrderAdmin extends Admin
     {
         switch ($name) {
             case 'edit':
-                    return 'InodataFloraBundle:Order:edit.html.twig';
+                return 'InodataFloraBundle:Order:edit.html.twig';
                 break;
             case 'list':
                 return 'InodataFloraBundle:Order:list.html.twig';
                 break;
             default:
-                    return parent::getTemplate($name);
+                return parent::getTemplate($name);
                 break;
         }
     }

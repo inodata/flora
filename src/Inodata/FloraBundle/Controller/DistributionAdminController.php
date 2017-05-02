@@ -6,7 +6,6 @@ use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Form\Type\DistributionType;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DistributionAdminController extends Controller
@@ -33,8 +32,8 @@ class DistributionAdminController extends Controller
         $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 
         $messengers = $this->getDoctrine()
-                        ->getRepository('InodataFloraBundle:Employee')
-                        ->findByJobPosition('Messenger');
+            ->getRepository('InodataFloraBundle:Employee')
+            ->findByJobPosition('Messenger');
         $firstTab = 0;
         $lastTab = 0;
 
@@ -46,16 +45,16 @@ class DistributionAdminController extends Controller
         isset($messengers[0]) == true ? $firsMessenger = $messengers[0]->getId() : $firsMessenger = 0;
 
         $render = $this->render($this->admin->getTemplate('list'), [
-                'action'             => 'list',
-                'form'               => $formView,
-                'distribution_form'  => $distributionFormView,
-                'datagrid'           => $datagrid,
-                'csrf_token'         => $this->getCsrfToken('sonata.batch'),
-                'messengers'         => $messengers,
-                'first_tab'          => $firstTab,
-                'last_tab'           => $lastTab,
-                'selected_messenger' => $this->getSelectedMessenger($firsMessenger),
-                'list_view'          => $this->getListeView(),
+            'action'             => 'list',
+            'form'               => $formView,
+            'distribution_form'  => $distributionFormView,
+            'datagrid'           => $datagrid,
+            'csrf_token'         => $this->getCsrfToken('sonata.batch'),
+            'messengers'         => $messengers,
+            'first_tab'          => $firstTab,
+            'last_tab'           => $lastTab,
+            'selected_messenger' => $this->getSelectedMessenger($firsMessenger),
+            'list_view'          => $this->getListeView(),
         ]);
 
         return $render;
@@ -91,9 +90,9 @@ class DistributionAdminController extends Controller
             ->getQuery()->getResult();
 
         $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-                ['orders' => $orders, 'preAsigned'=>$ordersPreAsigned]);
+            ['orders' => $orders, 'preAsigned' => $ordersPreAsigned]);
 
-        return new Response(json_encode(['orderOptions'=>$orderOptions]));
+        return new Response(json_encode(['orderOptions' => $orderOptions]));
     }
 
     public function configure()
@@ -108,17 +107,17 @@ class DistributionAdminController extends Controller
     public function printDistributionAction()
     {
         $messengers = $this->getDoctrine()
-                            ->getRepository('InodataFloraBundle:Employee')
-                            ->findByJobPosition('messenger');
+            ->getRepository('InodataFloraBundle:Employee')
+            ->findByJobPosition('messenger');
 
         $filterMessenger = [];
 
         foreach ($messengers as $messenger) {
             $orders = $this->getDoctrine()
-                            ->getRepository('InodataFloraBundle:Order')
-                            ->findBy(['status'         => 'intransit',
-                                            'messenger' => $messenger->getId(),
-                                    ]);
+                ->getRepository('InodataFloraBundle:Order')
+                ->findBy(['status'    => 'intransit',
+                          'messenger' => $messenger->getId(),
+                ]);
             if ($orders) {
                 $messenger->setOrders($orders);
                 array_push($filterMessenger, $messenger);
@@ -141,7 +140,7 @@ class DistributionAdminController extends Controller
 
         if ($status == 'deliver-all') {
             $orders = $this->getDoctrine()->getRepository('InodataFloraBundle:Order')
-                ->findBy(['messenger'=>$this->getSelectedMessenger(), 'status'=>'intransit']);
+                ->findBy(['messenger' => $this->getSelectedMessenger(), 'status' => 'intransit']);
 
             foreach ($orders as $order) {
                 $this->setOrderStatus('delivered', $order->getId());
@@ -154,14 +153,14 @@ class DistributionAdminController extends Controller
             $orderOptions = null;
             if ($status == 'open') {
                 $ordersOpened = $this->getDoctrine()
-                ->getRepository('InodataFloraBundle:Order')
-                ->findByStatus('open');
+                    ->getRepository('InodataFloraBundle:Order')
+                    ->findByStatus('open');
 
                 $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-                        ['orders' => $ordersOpened]);
+                    ['orders' => $ordersOpened]);
             }
 
-            return new Response(json_encode(['success'=>$status, 'orderOptions'=>$orderOptions]));
+            return new Response(json_encode(['success' => $status, 'orderOptions' => $orderOptions]));
         }
 
         return new RedirectResponse($this->generateUrl('distribution_list'));
@@ -203,7 +202,7 @@ class DistributionAdminController extends Controller
         $em->persist($order);
         $em->flush();
 
-        return new Response(json_encode(['success'=>true]));
+        return new Response(json_encode(['success' => true]));
     }
 
     public function batchActionDeliveredAll()
@@ -241,7 +240,7 @@ class DistributionAdminController extends Controller
         }
 
         $row = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig',
-                ['orders' => [0=>$order]]);
+            ['orders' => [0 => $order]]);
 
         //Cargar View con estos datos
         $ordersOpened = $this->getDoctrine()
@@ -249,14 +248,14 @@ class DistributionAdminController extends Controller
             ->findByStatus('open');
 
         $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-                ['orders' => $ordersOpened]);
+            ['orders' => $ordersOpened]);
 
         $nInTransit = $this->getNOrdersInStatus('intransit', $messengerId);
         $nDelivered = $this->getNOrdersInStatus('delivered', $messengerId);
 
-        return new Response(json_encode(['order'=> $row,
-                'id'                            => $messengerId, 'orderOptions'=>$orderOptions,
-                'n_delivered'                   => $nDelivered, 'n_in_transit'=>$nInTransit, ]));
+        return new Response(json_encode(['order'       => $row,
+                                         'id'          => $messengerId, 'orderOptions' => $orderOptions,
+                                         'n_delivered' => $nDelivered, 'n_in_transit' => $nInTransit,]));
     }
 
     /**MODIFICADO EN LA SEGUNDA VERSION**/
@@ -270,7 +269,7 @@ class DistributionAdminController extends Controller
         if (!$status) {
             $status = "o.status!='open'";
         } else {
-            $status = "o.status='".$status."'";
+            $status = "o.status='" . $status . "'";
         }
         $orders = $this->getDoctrine()
             ->getRepository('InodataFloraBundle:Order')
@@ -279,7 +278,7 @@ class DistributionAdminController extends Controller
             ->andWhere($status)
             ->andWhere('o.deliveryDate >= :date')
             ->orderBy('o.status', 'ASC')
-            ->setParameters(['id'=>$id, 'date'=>$this->getDateSelected()])
+            ->setParameters(['id' => $id, 'date' => $this->getDateSelected()])
             ->getQuery()->getResult();
 
         $messenger = $this->getDoctrine()
@@ -291,11 +290,11 @@ class DistributionAdminController extends Controller
         $nOrdersDelivered = $this->getNOrdersInStatus('delivered', $id);
 
         $response = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig',
-                ['orders' => $orders]);
+            ['orders' => $orders]);
 
-        return new Response(json_encode(['orders'=> $response,
-                'id'                             => $id, 'n_in_transit'=>$nOrdersInTransit, 'n_delivered' => $nOrdersDelivered,
-                'boxes'                          => $messenger->getBoxes(), 'lamps'=>$messenger->getLamps(), ]));
+        return new Response(json_encode(['orders' => $response,
+                                         'id'     => $id, 'n_in_transit' => $nOrdersInTransit, 'n_delivered' => $nOrdersDelivered,
+                                         'boxes'  => $messenger->getBoxes(), 'lamps' => $messenger->getLamps(),]));
     }
 
     /**
@@ -309,8 +308,8 @@ class DistributionAdminController extends Controller
             ->select('COUNT(o.id)')
             ->where('o.messenger=:id AND o.status=:status')
             ->andWhere('o.deliveryDate >=:date')
-            ->setParameters(['id'=> $messengerId, 'status'=>$status,
-                    'date'       => $this->getDateSelected(), ])
+            ->setParameters(['id'   => $messengerId, 'status' => $status,
+                             'date' => $this->getDateSelected(),])
             ->getQuery()->getSingleScalarResult();
 
         return $nOrders;
@@ -327,7 +326,7 @@ class DistributionAdminController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $employee = $em->getRepository('InodataFloraBundle:Employee')
-        ->find($employeeId);
+            ->find($employeeId);
 
         switch ($employeeAttr) {
             case 'name':
@@ -395,7 +394,7 @@ class DistributionAdminController extends Controller
 
         $object == 'boxes' ? $newValue = $messenger->getBoxes() : $newValue = $messenger->getLamps();
 
-        return new Response(json_encode(['object'=>$object, 'value'=>$newValue]));
+        return new Response(json_encode(['object' => $object, 'value' => $newValue]));
     }
 
     protected function setSelectedMessenger($idMessenger)

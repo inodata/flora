@@ -63,10 +63,10 @@
 							{% if collector.id == selected_collector %}
 								<div class="inner-filters">
 									<div class="label-inline" >
-										{{ form_label(collection_form['id'], 'label.collector'|trans({}, 'InodataFloraBundle') ) }}
+										{{ form_label(collection_form['id'], 'label.order'|trans({}, 'InodataFloraBundle') ) }}
 									</div>
 									<div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-										{{ form_widget(collection_form.id)}}
+										{{ form_widget(collection_form.id) }}
 									</div>
 									<div class="pay-all">
 										<a class="btn order-action pay-all" orderid="0" href="{{ path('inodata_flora_collection_pay_all') }}">

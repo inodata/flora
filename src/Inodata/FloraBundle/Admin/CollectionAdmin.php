@@ -15,26 +15,24 @@ class CollectionAdmin extends Admin
     protected $baseRoutePattern = 'inodata/flora/collection';
 
     /**
-     * @param Sonata\AdminBundle\Form\FormMapper $formMapper
-     *
-     * @return void
+     * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('collector', 'genemu_jqueryselect2_entity', [
+            ->add('collector', 'genemu_jqueryselect2_entity', [
                 'required'      => false,
                 'empty_value'   => '',
                 'class'         => 'Inodata\FloraBundle\Entity\Employee',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                                  ->where('u.jobPosition = \'Collector\'');
+                        ->where('u.jobPosition = \'Collector\'');
                 },
-                'attr' => [
+                'attr'          => [
                     'class'       => 'inodata_collector_list span5',
-                    'placeholder' => 'Selecciona un repartidor',
-                    'enabled'     => 'enabled', ],
-        ]);
+                    'placeholder' => 'Selecciona un cobrador',
+                    'enabled'     => 'enabled',],
+            ]);
     }
 
     /**
@@ -44,26 +42,25 @@ class CollectionAdmin extends Admin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-
         /* TODO: Agregar comentarios */
         $listMapper
-        ->addIdentifier('id', null, [
+            ->addIdentifier('id', null, [
                 'label' => 'label.order',
-        ])
-        ->add('customerAndContact', null, [
+            ])
+            ->add('customerAndContact', null, [
                 'label' => 'label.customer',
-        ])
-        ->add('collectionDate', null, [
+            ])
+            ->add('collectionDate', null, [
                 'label'  => 'label.collection_date',
                 'format' => 'd/M/Y',
-        ])
-        ->add('orderTotals', null, [
-                'label'    => 'label.order_total',
-        ])
-        ->add('_action', 'actions', [
+            ])
+            ->add('orderTotals', null, [
+                'label' => 'label.order_total',
+            ])
+            ->add('_action', 'actions', [
                 'label'   => 'label.distribution_actions',
                 'actions' => [],
-        ]);
+            ]);
     }
 
     /**
@@ -74,36 +71,35 @@ class CollectionAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-        ->add('collector', null, [
+            ->add('collector', null, [
                 'label' => 'label.collection_collector',
-        ], null, [
+            ], null, [
                 'query_builder' => function ($er) {
                     return $er->createQueryBuilder('u')
-                ->where('u.jobPosition = :type ')
-                ->setParameter('type', 'Collector');
+                        ->where('u.jobPosition = :type ')
+                        ->setParameter('type', 'Collector');
                 },
-        ])
-        ->add('id', null, [
+            ])
+            ->add('id', null, [
                 'label' => 'label.distribution_id',
-        ])
-        ->add('deliveryDate', 'doctrine_orm_date_range', [
-                'label' => 'label.collection_filter_date', ], null,
-                ['widget'=> 'single_text', 'attr'=>['class'=>'filter-deliver-date']])
-        ->add('status', null, ['label' => 'label.distribution_status'],
-                  'choice', [
-                        'translation_domain' => 'InodataFloraBundle',
-                        'expanded'           => false,
-                        'multiple'           => false,
-                        'choices'            => [
-                                'partiallypayment' => 'label.collection_status_pending',
-                                'closed'           => 'label.collection_status_paid', ], ]
-                );
+            ])
+            ->add('deliveryDate', 'doctrine_orm_date_range', [
+                'label' => 'label.collection_filter_date',], null,
+                ['widget' => 'single_text', 'attr' => ['class' => 'filter-deliver-date']])
+            ->add('status', null, ['label' => 'label.distribution_status'],
+                'choice', [
+                    'translation_domain' => 'InodataFloraBundle',
+                    'expanded'           => false,
+                    'multiple'           => false,
+                    'choices'            => [
+                        'partiallypayment' => 'label.collection_status_pending',
+                        'closed'           => 'label.collection_status_paid',],]
+            );
     }
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection
-        ->remove('create');
+        $collection->remove('create');
     }
 
     public function getTemplate($name)

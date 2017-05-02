@@ -81,6 +81,10 @@ doctrine:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
 
+        metadata_cache_driver: array
+        result_cache_driver: array
+        query_cache_driver: array
+
         mappings:
             loggable:
                 type: annotation
@@ -145,11 +149,11 @@ sonata_admin:
 
 sonata_cache:
     caches:
-        apc:
-            token: InodataSecretToken2013
-            prefix: inodata_flora
+        symfony:
+            token: InodataFlora2016 # token used to clear the related cache
+            php_cache_enabled: true # Optional (default: false), clear APC or PHP OPcache
             servers:
-                - { domain: flora.inodata.com.mx, ip: 127.0.0.1, port: 80 }
+                - { domain: flora.dev, ip: 127.0.0.1, port: 80 }
 
 sonata_block:
     default_contexts: [ cms ]
