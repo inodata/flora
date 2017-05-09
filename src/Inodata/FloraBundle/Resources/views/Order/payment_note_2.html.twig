@@ -26,22 +26,19 @@
                     {{ object.customer.paymentAddress.noExt }}
                     {{ object.customer.paymentAddress.neighborhood }}
 				</td>
-				<td class="note-label second-label">NO. TARJETA:</td><td>&nbsp;{{ object.paymentContact.employeeNumber}} <span class="note-label">&nbsp;&nbsp;EXT: </span>{{ object.paymentContact.extension}}</td>
+				<td class="note-label second-label">TEÉFONO:</td><td>&nbsp;{{ object.paymentContact.phone}} <span class="note-label">&nbsp;&nbsp;EXT: </span>{{ object.paymentContact.extension}}</td>
 			</tr>
 
 			<tr>
 				<td class="note-label">CAPTURÓ:</td>
-				<td>{{ object.creator }}
-                    {% if object.reporter != "" %}
-						({{ object.reporter }})
-                    {% endif %}</td>
+				<td>{{ object.creator }}</td>
 				<td class="note-label second-label">ORDENÓ:</td>
 				<td>&nbsp;{{ object.paymentContact }}</td>
 			</tr>
 
 			<tr>
-				<td class="note-label">NO. EMP.:</td>
-				<td> ---  <span class="note-label no-tel">TEL: </span>{{ object.paymentContact.phone }}</td>
+				<td class="note-label">EMPRESA:</td>
+				<td> {{ object.customer.companyName }} </td>
 				{#<td class="note-label second-label">EMP. U OBR.:</td>
 				<td>&nbsp;--- </td>#}
 				<td class="note-label second-label">FACTURA:</td>
