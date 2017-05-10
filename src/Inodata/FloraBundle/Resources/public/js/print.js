@@ -23,7 +23,7 @@ function setupGlobalOptions(){
           installjsPrintSetup();
   } else {
     // set page orientation.
-    jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
+    //jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
     //jsPrintSetup.setOption('orientation', jsPrintSetup.kLandscapeOrientation);
 
     // set margins (in millimeters, firefox defaults 12.7mm).
