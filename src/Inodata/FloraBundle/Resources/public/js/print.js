@@ -102,6 +102,7 @@ function printCard(){
 function printNote(){
   setupGlobalOptions();
   if(setPrinter(note_printer)){
+      jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
 	  setTimeout('jsPrintSetup.print()', print_delay);
   }
 }

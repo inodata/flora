@@ -1,6 +1,4 @@
-@servers([
-    'servergrove' => 'root@inodata.mx'
-])
+@servers(['servergrove' => ['root@inodata.mx']])
 
 @setup
   $root_path = '/var/www/vhosts/flora.inodata.mx/flora';
