@@ -93,7 +93,8 @@ function setPrinter(printer){
 function printCard(){
   setupGlobalOptions();
   if(setPrinter(card_printer)){
-      jsPrintSetup.setOption('orientation', jsPrintSetup.kLandscape.Orientation);
+      jsPrintSetup.setOption('orientation', jsPrintSetup.kLandscapeOrientation);
+      jsPrintSetup.setOption('shrinkToFit', false);
 	  setTimeout('jsPrintSetup.print()', print_delay);
   }
 }
