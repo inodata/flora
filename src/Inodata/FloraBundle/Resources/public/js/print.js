@@ -103,7 +103,7 @@ function printNote(){
   setupGlobalOptions();
   if(setPrinter(note_printer)){
       jsPrintSetup.setOption('orientation', jsPrintSetup.kLandscapeOrientation);
-      jsPrintSetup.setOption('shrinkToFit', false);
+      jsPrintSetup.setOption('shrinkToFit', true);
       setTimeout('jsPrintSetup.print()', print_delay);
   }
 }
