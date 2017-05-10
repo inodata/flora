@@ -1,6 +1,6 @@
 // Install JSPrintSetup
 function installjsPrintSetup() {
-    if (confirm("No tienes instalado el plugin de la impresora.\nQuieres instalarlo ahora?")) {
+    if (confirm("No tienes instalado el plugin de la impresora.\n¿Quieres instalarlo ahora?")) {
         var xpi = new Object();
         xpi['jsprintsetup'] = '/bundles/inodataflora/downloads/jsprintsetup-0.9.2.xpi';
         InstallTrigger.install(xpi);
@@ -19,7 +19,7 @@ function definePaperSizes(){
 
 function setupGlobalOptions(){
   //check if jsPrintSetup is installed
-  if (typeof(jsPrintSetup) == 'undefined') {
+  if (typeof(jsPrintSetup) === 'undefined') {
           installjsPrintSetup();
   } else {
     // set page orientation.
@@ -93,6 +93,7 @@ function setPrinter(printer){
 function printCard(){
   setupGlobalOptions();
   if(setPrinter(card_printer)){
+      jsPrintSetup.setOption('orientation', jsPrintSetup.kLandscape.Orientation);
 	  setTimeout('jsPrintSetup.print()', print_delay);
   }
 }
