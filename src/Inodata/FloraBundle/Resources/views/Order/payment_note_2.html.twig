@@ -18,7 +18,7 @@
 			</tr>
 			<tr>
 				<td class="note-label">COBRAR:</td><td>{{ object.customer.companyName }}&nbsp; {% if object.purchaseOrder %}(Orden {{ object.purchaseOrder}}){% endif %}</td>
-				<td class="note-label second-label">DEPTO:</td><td>&nbsp;{{ object.paymentContact.department }}</td>
+				<td class="note-label second-label">CAPTURÓ:</td><td>&nbsp;{{ object.creator }}</td>
 			</tr>
 			<tr>
 				<td class="note-label">DIR. COB.:</td>
@@ -26,27 +26,25 @@
                     {{ object.customer.paymentAddress.noExt }}
                     {{ object.customer.paymentAddress.neighborhood }}
 				</td>
-				<td class="note-label second-label">TEÉFONO:</td><td>&nbsp;{{ object.paymentContact.phone}} <span class="note-label">&nbsp;&nbsp;EXT: </span>{{ object.paymentContact.extension}}</td>
+				<td class="note-label second-label">NO. TARJETA:</td><td>&nbsp;{{ object.paymentContact.employeeNumber}}</td>
 			</tr>
 
 			<tr>
-				<td class="note-label">CAPTURÓ:</td>
-				<td>{{ object.creator }}</td>
-				<td class="note-label second-label">ORDENÓ:</td>
-				<td>&nbsp;{{ object.paymentContact }}</td>
+				<td class="note-label">EMPRESA:</td><td> {{ object.customer.companyName }} </td>
+				<td class="note-label second-label">TELÉFONO:</td><td>&nbsp;{{ object.paymentContact.phone}} &nbsp;
+                    {% if object.paymentContact.extension %}
+						<span class="note-label">&nbsp;EXT: </span>{{ object.paymentContact.extension}}
+                    {% endif %}
+				</td>
 			</tr>
 
 			<tr>
-				<td class="note-label">EMPRESA:</td>
-				<td> {{ object.customer.companyName }} </td>
-				{#<td class="note-label second-label">EMP. U OBR.:</td>
-				<td>&nbsp;--- </td>#}
-				<td class="note-label second-label">FACTURA:</td>
-				<td>&nbsp;{% if (object.hasInvoice) == 1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</td>
+				<td class="note-label">DEPTO:</td><td>{{ object.paymentContact.department }}</td>
+				<td class="note-label second-label">FACTURA:</td><td>&nbsp;{% if (object.hasInvoice) == 1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</td>
 			</tr>
 			<tr>
-				<td class="note-label">DE:</td>
-				<td colspan="3">{{ object.from }}</td>
+				<td class="note-label">DE:</td><td>{{ object.from }}</td>
+				<td class="note-label second-label">ORDENÓ:</td><td>&nbsp;{{ object.paymentContact }}</td>
 			</tr>
 		</table>
 	</div>
