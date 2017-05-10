@@ -94,7 +94,6 @@ function printCard(){
   setupGlobalOptions();
   if(setPrinter(card_printer)){
       jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
-      jsPrintSetup.setOption('shrinkToFit', false);
 	  setTimeout('jsPrintSetup.print()', print_delay);
   }
 }
@@ -103,7 +102,6 @@ function printNote(){
   setupGlobalOptions();
   if(setPrinter(note_printer)){
       jsPrintSetup.setOption('orientation', jsPrintSetup.kLandscapeOrientation);
-      jsPrintSetup.setOption('shrinkToFit', true);
       setTimeout('jsPrintSetup.print()', print_delay);
   }
 }
