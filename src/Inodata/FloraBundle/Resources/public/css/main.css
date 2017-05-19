@@ -150,11 +150,11 @@
         margin-top: 1px;
         width: 8.2cm;
         height: 100%;
-        border: 1px solid green;
+        border: 0 solid green;
     }
 
     .card_header {
-        border: 1px dotted blue;
+        border: 0 dotted blue;
         min-height: 6.7cm;
     }
 
@@ -170,18 +170,18 @@
     }*/
 
     .card_to {
-        border: 1px dotted purple;
+        border: 0 dotted purple;
         padding-left: 2cm;
     }
 
     .card_from {
-        border: 1px dotted white;
+        border: 0 dotted white;
         padding-top: .1cm;
         padding-left: 2cm;
     }
 
     .card_message {
-        border: 1px dotted coral;
+        border: 0 dotted coral;
         padding-top: .1cm;
         padding-left: 0;
         height: 3.2cm;
