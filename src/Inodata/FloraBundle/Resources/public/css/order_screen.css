@@ -163,7 +163,7 @@
 
 @media screen, print {
     /**Nota segundo template*/
-    .payment_note_2 { height: 12.5cm; }
+    .payment_note_2 { height: 12.5cm; width: 21cm; }
     .payment_note_2 .note-label{ font-size: 11px;}
     .payment_note_2 h5{  margin: 0; line-height: 1;  }
     .payment_note_2 .phone1{  text-align: right }
