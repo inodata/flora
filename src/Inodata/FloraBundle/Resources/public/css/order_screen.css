@@ -163,12 +163,12 @@
 
 @media screen, print {
     /**Nota segundo template*/
-    .pament_note_2 {height: 12.5cm; width: 100%; }
+    .payment_note_2 {height: 12.5cm; width: 100%; }
     .payment_note_2 .note-label{ font-size: 11px;}
     .payment_note_2 h5{  margin: 0; line-height: 1;  }
     .payment_note_2 .phone1{  text-align: right }
     .payment_note_2 .phone2{  text-align: left }
-    .payment_note_2 .note-header{  text-align: center; height: 2cm; }
+    .payment_note_2 .note-header{  text-align: center; }
     .payment_note_2 .note-label{ font-weight: bold; color:#aa1267;   }
     .payment_note_2 .no-tel{ padding-left: 100px;  }
     .payment_note_2 .date{ text-align: right; font-weight: bold;  }
