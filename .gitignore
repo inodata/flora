@@ -31,3 +31,6 @@ app/config/parameters.yml
 # Flotr2Bundle
 Inodata/*
 /nbproject/private/
+
+#OSX
+.DS_Store

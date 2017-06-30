@@ -1,9 +1,16 @@
 <div class="container-fluid payment_note_2 note_{{ note }}" style="/*border: solid 1px #000;*/ height: 12.6cm; overflow: hidden; padding: 0 6px;">
+	<div class="watermark">
+		{% if note == 1 %}
+			COPIA
+		{% elseif note == 2 %}
+			ARCHIVO
+		{% endif %}
+	</div>
 	<div class="row" >
 		<table style="width: 100%">
 			<tr>
 				<td class="note-header" width="100%">
-					<img width="280" src="{{ asset('bundles/inodataflora/img/note_header.png') }}">
+					<img width="250" src="{{ asset('bundles/inodataflora/img/note_header.png') }}">
 				</td>
 			</tr>
 		</table>
@@ -52,7 +59,7 @@
 	<div class="row-data data-2">
 		<table style="width: 100%">
 			<tr>
-				<th>Cant.</th><th>Arreglo</th><th>P. Unit</th><th>Total</th>
+				<th>Cant.</th><th>Arreglo</th><th>Precio Unitario</th><th>Total</th>
 			</tr>
             {% if orderProducts is defined %}
                 {% if orderProducts|length > 0 %}

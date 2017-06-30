@@ -163,11 +163,12 @@
 
 @media screen, print {
     /**Nota segundo template*/
+    .payment_note_2 { height: 12.5cm; width: 18.8cm; }
     .payment_note_2 .note-label{ font-size: 11px;}
     .payment_note_2 h5{  margin: 0; line-height: 1;  }
     .payment_note_2 .phone1{  text-align: right }
     .payment_note_2 .phone2{  text-align: left }
-    .payment_note_2 .note-header{  text-align: center }
+    .payment_note_2 .note-header{  text-align: center; }
     .payment_note_2 .note-label{ font-weight: bold; color:#aa1267;   }
     .payment_note_2 .no-tel{ padding-left: 100px;  }
     .payment_note_2 .date{ text-align: right; font-weight: bold;  }
@@ -176,11 +177,19 @@
     .payment_note_2 .row-data:first-child, .payment_note_2 .row:nth-child(2){ border: none; padding: 0;}
     .payment_note_2 .data-1, .payment_note_2 .data-2{ margin-bottom: 10px; }
     .payment_note_2 .data-2{ height: 140px; }
-    .payment_note_2 .data-2 th{padding: 2px 0px; }
+    .payment_note_2 .data-2 th{padding: 2px 0; }
     .payment_note_2 .data-2 .shipping-row{padding-top: 3px; }
     .payment_note_2 .shipping{ text-align: right; }
     .payment_note_2.note_3 .data-2 .import, .payment_note_2.note_3 .data-2 .price{ display: none}
-
+    .watermark {
+        transform: rotate(-45deg);
+        font-size: 100px;
+        position: relative;
+        z-index: 99;
+        top: 30%;
+        left: 15%;
+        opacity: .3;
+    }
 }
 
 @media print {

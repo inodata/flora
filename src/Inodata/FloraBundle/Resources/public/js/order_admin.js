@@ -72,7 +72,7 @@ $(document).ready(function() {
 	});
 	//---------------------------------------------------------------------------------//
 	
-	//----------------Fila de seleccion de cliente en la orden------------------//
+	//----------------Fila de selección de cliente en la orden------------------//
 	$('.inodata_customer').live('change', function(){
 		$(this).val()!=''?id=$(this).val():id=0;
 	    var url = Routing.generate('inodata_flora_order_filter_contact_by_customer', {customerId:id });
@@ -175,7 +175,7 @@ $(document).ready(function() {
 	
 	function filterMessagesList(val)
 	{
-		val!=''?id=val:id=0;
+		id = val!==''? val : 0;
 		var url = Routing.generate('inodata_flora_order_filter_message_by_category', {categoryId:id });
 	
 		$.get(url, function(data){
@@ -187,7 +187,7 @@ $(document).ready(function() {
 	
 	$('.inodata_messages').change(function(){
 		var message = $(this).children(':selected').attr('content');
-		if(message!=''){
+		if(message!==''){
 			$('iframe').contents().find('body').html(message);
 	    }
 	});
@@ -208,7 +208,7 @@ $(document).ready(function() {
 			
 		    var url = Routing.generate('inodata_flora_order_product_by_code', {code:code});
 		    $.get(url, function(data){
-		    	if(data.id!=-1){
+		    	if(data.id !== -1){
 		    		addProductToList(data);
 		    	}else{
 		    		alert('El producto con el codigo "'+code+'" no existe.');
@@ -223,7 +223,7 @@ $(document).ready(function() {
 		var description = $('.create-product-form .product-description input').val();
 		var price = $('.create-product-form .product-price input').val();
 		
-		if(description.replace(/ /g,'')!="" && price.replace(/ /g,'')!=""){
+		if(description.replace(/ /g,'')!=="" && price.replace(/ /g,'')!==""){
 			var data = {code:code, description:description, price:price }
 			var url = Routing.generate('inodata_flora_order_product_create_and_add');
 			
@@ -240,7 +240,7 @@ $(document).ready(function() {
 	{
 		hideEmptyNotification();
         
-        if($('#product-'+data.id).length==0){
+        if($('#product-'+data.id).length === 0){
         	//Add new new row if product doesn't exist
             $(".list-products tbody").append(data.listField);
             //Create a hidden to update on DB
@@ -376,10 +376,10 @@ $(document).ready(function() {
 		}
 	});
 
-	// Agrega boton para imprimir tarjeta
-	var btnPrinCard = $('.btn-print-card');
-	$('.inodata_message').closest('.control-group').append($(btnPrinCard).clone());
-	$(btnPrinCard).remove();
+	// Agrega botón para imprimir tarjeta
+	var btnPrintCard = $('.btn-print-card');
+	$('.inodata_message').closest('.control-group').append($(btnPrintCard).clone());
+	$(btnPrintCard).remove();
 	//-------------------------------------------------------------------------//
 	
 	//---------------- Hide select-option fields -----------------//
@@ -437,7 +437,7 @@ $(document).ready(function() {
 	}
 	//------------------------------------------------//
 	
-	//-------------- Is inovoice require -----------------/
+	//-------------- Invoice required? -----------------/
 	$('.inodata-has-invoice').click(function(){
 		updateAjaxTotalsCost();
 	});
@@ -460,7 +460,7 @@ $(document).ready(function() {
 			break;
 			case 'print-invoice':
 				$('.invoice_page').removeClass('hide_template');
-				$('.payment-note').addClass('hide_template');
+				//$('.payment-note').addClass('hide_template');
 				$('.payment_note_2').addClass('hide_template'); //Nueva nota
 				$('.card_page').addClass('hide_template');
 				printInvoice();
