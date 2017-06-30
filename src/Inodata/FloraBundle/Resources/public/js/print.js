@@ -61,7 +61,7 @@ function setupGlobalOptions(){
 
 // Do Print
 // When print is submitted it is executed asynchronous and
-// script flow continues after print independently of completetion of print process!
+// script flow continues after print independently of completion of print process!
 // jsPrintSetup.print();
 // add a delay to render correctly all elements fetched via AJAX
 // setTimeout('jsPrintSetup.print()', print_delay);
@@ -75,7 +75,7 @@ var print_delay = 3000;
  * @return boolean
  */
 function setPrinter(printer){
-    printersList = jsPrintSetup.getPrintersList();
+    var printersList = jsPrintSetup.getPrintersList();
     printersList = printersList.split(",");
 
     for (var i=0; i<printersList.length; i++){
@@ -112,7 +112,7 @@ function printInvoice(){
     }
 }
 
-//TODO: Revisar la impresion de esta lista y seleccionar impresora.
+//TODO: Revisar la impresión de esta lista y seleccionar impresora.
 function printDistributionList(){
     setupGlobalOptions();
     setPrinter(invoice_printer);

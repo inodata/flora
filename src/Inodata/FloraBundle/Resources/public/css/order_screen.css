@@ -181,7 +181,15 @@
     .payment_note_2 .data-2 .shipping-row{padding-top: 3px; }
     .payment_note_2 .shipping{ text-align: right; }
     .payment_note_2.note_3 .data-2 .import, .payment_note_2.note_3 .data-2 .price{ display: none}
-
+    .watermark {
+        transform: rotate(-45deg);
+        font-size: 100px;
+        position: relative;
+        z-index: 99;
+        top: 30%;
+        left: 15%;
+        opacity: .3;
+    }
 }
 
 @media print {
