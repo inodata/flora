@@ -4,7 +4,7 @@
   $root_path = '/var/www/vhosts/flora.inodata.mx/flora';
 @endsetup
 
-@story('deploy', ['on' => 'servergrove'])
+@story('deploy', ['on' => 'servergrove', 'confirm' => true])
   git
   composer
   update_db
