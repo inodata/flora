@@ -163,7 +163,7 @@
 
 @media screen, print {
     /**Nota segundo template*/
-    .payment_note_2 { height: 12.7cm; width: 18.8cm; overflow: hidden; padding: 0 6px;}
+    .payment_note_2 { height: 12.5cm; width: 18.8cm; overflow: hidden; padding: 0 6px;}
     .payment_note_2 .note-label{ font-size: 11px;}
     .payment_note_2 .data-3{ font-size: 10px;}
     .payment_note_2 .data-3 .note-label{ font-size: 10px;}
