@@ -106,6 +106,10 @@ fos_user:
     # generate this entities with: sonata:easy-extends:generate SonataUserBundle --dest=src
     user_class: Application\Sonata\UserBundle\Entity\User
 
+    from_email:
+        address: flora@inodata.com.mx
+        sender_name: Enrique García
+
     group:
         group_class: Application\Sonata\UserBundle\Entity\Group
 
