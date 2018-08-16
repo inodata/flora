@@ -10,7 +10,7 @@ security:
 
     providers:
         fos_userbundle:
-            id: fos_user.user_manager
+            id: fos_user.user_provider.username
 
     firewalls:
         # -> custom firewall for the admin area of the URL
