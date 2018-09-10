@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * OderProduct.
  *
+ * @Gedmo\Loggable
  * @ORM\Table(name="ino_order_product")
  * @ORM\Entity
  */
@@ -14,7 +15,6 @@ class OrderProduct
 {
     /**
      * @var int
-     *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -23,7 +23,6 @@ class OrderProduct
 
     /**
      * @var \Order
-     *
      * @ORM\ManyToOne(targetEntity="Order")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
@@ -33,7 +32,7 @@ class OrderProduct
 
     /**
      * @var \Product
-     *
+     * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="Product")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
@@ -42,21 +41,21 @@ class OrderProduct
     private $product;
 
     /**
-     *@var int
-     *@ORM\Column(name="quantity", type="integer", nullable=false)
+     * @var int
+     * @Gedmo\Versioned
+     * @ORM\Column(name="quantity", type="integer", nullable=false)
      */
     private $quantity;
 
     /**
+     * @Gedmo\Versioned
      * @var float
-     *
      * @ORM\Column(name="product_price", type="decimal", nullable=false)
      */
     private $productPrice;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="unit", type="string", length=50, nullable=true)
      */
     private $unit;
