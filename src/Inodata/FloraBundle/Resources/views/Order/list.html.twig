@@ -3,8 +3,9 @@
 	{{ parent() }}	
 	<script type="text/javascript">
 		$('document').ready(function(){
-			$("#filter_createdAt_value").datepicker({ dateFormat: "yy-mm-dd" });
-			$("#filter_deliveryDate_value").datepicker({ dateFormat: "yy-mm-dd" });
+		    //Fixme: deshabilitado porque entra en conflicto con datepicker de bootstrap
+			//$("#filter_createdAt_value").datepicker({ dateFormat: "yy-mm-dd" });
+			//$("#filter_deliveryDate_value").datepicker({ dateFormat: "yy-mm-dd" });
 		});
 	</script>
 {% endblock %}

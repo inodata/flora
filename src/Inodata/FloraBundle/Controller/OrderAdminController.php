@@ -3,9 +3,7 @@
 namespace Inodata\FloraBundle\Controller;
 
 use Inodata\FloraBundle\Entity\Address;
-use Inodata\FloraBundle\Entity\Customer;
 use Inodata\FloraBundle\Entity\Invoice;
-use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Entity\OrderProduct;
 use Inodata\FloraBundle\Entity\PaymentContact;
 use Inodata\FloraBundle\Entity\Product;
@@ -66,8 +64,7 @@ class OrderAdminController extends Controller
         $price = $this->get('request')->get('price');
 
         if (!$code) {
-            $products = $this->getDoctrine()
-                ->getRepository('InodataFloraBundle:Product')
+            $products = $this->getDoctrine()->getRepository('InodataFloraBundle:Product')
                 ->createQueryBuilder('p')
                 ->where("p.code LIKE '%X%'")
                 ->getQuery()
@@ -217,22 +214,24 @@ class OrderAdminController extends Controller
     }
 
     /**
-     * Sobreescribe la funcion del CRUDController, para agragar funcionalodad de actualizar
-     * informacion de otras tablas.
+     * Sobre escribe la función del CRUDController, para agregar
+     * funcionalidad de actualizar información de otras tablas.
      *
+     * @param null $id
      * @return Response
+     * @throws \Twig_Error_Runtime
      */
     public function editAction($id = null)
     {
         //-------------------------CUSTOMIZADO ---------------------------*/
         $products = $this->get('request')->get('product');
 
-        $action = $this->getRequest()->getSession()->get('post_save_action');
-        $this->getRequest()->getSession()->set('post_save_action', '');
+        $action = $this->get('request')->getSession()->get('post_save_action');
+        $this->get('request')->getSession()->set('post_save_action', '');
 
-        if ($this->getRequest()->getSession()->get('submit_action') == 'submit') {
-            $this->getRequest()->getSession()->set('post_save_action', $action);
-            $this->getRequest()->getSession()->set('submit_action', '');
+        if ($this->get('request')->getSession()->get('submit_action') == 'submit') {
+            $this->get('request')->getSession()->set('post_save_action', $action);
+            $this->get('request')->getSession()->set('submit_action', '');
         }
 
         if ($this->getRestMethod() == 'POST') {
@@ -241,7 +240,7 @@ class OrderAdminController extends Controller
             }
             $this->updatePaymentContactInfo();
             $this->createInvoice($id);
-            $this->getRequest()->getSession()->set('submit_action', 'submit');
+            $this->get('request')->getSession()->set('submit_action', 'submit');
         }
         //----------------------------------------------------------------**/
 
@@ -343,7 +342,7 @@ class OrderAdminController extends Controller
     }
 
     /**
-     * @param unknown_type $id
+     * @param int $id
      */
     private function createInvoice($id)
     {
@@ -410,7 +409,7 @@ class OrderAdminController extends Controller
             $object = $this->admin->getSubject();
             $this->createOrderProducts($object->getId(), $products);
 
-            $this->getRequest()->getSession()->set('submit_action', 'submit');
+            $this->get('request')->getSession()->set('submit_action', 'submit');
         }
 
         return $create;
@@ -628,22 +627,24 @@ class OrderAdminController extends Controller
         return $customer;
     }
 
-    //Overwitten function
+    //Overwritten function
     public function redirectTo($object)
     {
         $response = parent::redirectTo($object);
 
         if ($this->get('request')->get('save_and_print_note')) {
-            $this->getRequest()->getSession()->set('post_save_action', 'print-note');
+            $this->get('request')->getSession()->set('post_save_action', 'print-note');
         }
+
         if ($this->get('request')->get('save_and_print_invoice')) {
-            $this->getRequest()->getSession()->set('post_save_action', 'print-invoice');
+            $this->get('request')->getSession()->set('post_save_action', 'print-invoice');
         }
+
         if ($this->get('request')->get('btn_update_and_list') ||
             $this->get('request')->get('btn_create_and_list') ||
             $this->get('request')->get('btn_create_and_create')
         ) {
-            $this->getRequest()->getSession()->set('post_save_action', '');
+            $this->get('request')->getSession()->set('post_save_action', '');
         }
 
         return $response;
@@ -660,7 +661,7 @@ class OrderAdminController extends Controller
 
     public function exportAction(Request $request)
     {
-        $fields = ['collector', 'firstProduct', 'firstProduct.price',
+        $fields = ['id', 'collector', 'firstProduct', 'firstProduct.price',
             'shipping', 'customer.companyName', 'deliveryDate',
             'paymentContact', 'messenger',];
 

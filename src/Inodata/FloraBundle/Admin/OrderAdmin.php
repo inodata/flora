@@ -56,20 +56,6 @@ class OrderAdmin extends Admin
                     'class' => 'inodata-shipping-address',
                 ],
             ])
-            /*
-            ->add('customer', 'ajax_entity', [
-                'label'       => 'label.customer',
-                'class'       => 'InodataFloraBundle:Customer',
-                'mapped'      => false,
-                'empty_value' => '',
-                'attr'        => [
-                    'placeholder' => $this->trans('label.placeholder_customer'),
-                    'allowClear'  => 'true',
-                    'class'       => 'inodata_customer',
-                    'entity'      => 'InodataFloraBundle:Customer', 'columns' => 'id,companyName',
-                    'title'       => $this->trans('help.customer'),
-                ],
-            ])*/
             ->add('customer', 'sonata_type_model', [
                 'label'       => 'label.customer',
                 'empty_value' => '',
@@ -87,19 +73,6 @@ class OrderAdmin extends Admin
                     'title' => $this->trans('help.purchase_order'),
                 ],
             ])
-            /*
-            ->add('paymentContact', 'ajax_entity', [
-                'label'       => 'label.payment_contact',
-                'class'       => 'InodataFloraBundle:PaymentContact',
-                'empty_value' => '',
-                'attr'        => [
-                    'class'       => 'inodata_payment_contact',
-                    'entity'      => 'InodataFloraBundle:PaymentContact', 'columns' => 'id,name',
-                    'placeholder' => $this->trans('label.contact_empty_list'),
-                    'allowClear'  => 'true',
-                    'title'       => $this->trans('help.payment_contact'),
-                ],
-            ])*/
             ->add('paymentContact', 'genemu_jqueryselect2_entity', [
                 'label'       => 'label.payment_contact',
                 'class'       => 'Inodata\FloraBundle\Entity\PaymentContact',
@@ -257,8 +230,8 @@ class OrderAdmin extends Admin
         $listMapper
             ->addIdentifier('id', null, ['label' => 'label.order_number'])
             ->add('createdAt', 'date', [
-                    'label'  => 'label.created_at',
-                    'format' => 'd/M/Y',]
+                'label'  => 'label.created_at',
+                'format' => 'd/M/Y',]
             )
             ->add('customer', null, ['label' => 'label.customer'])
             ->add('firstProduct', null, ['label' => 'label.details'])
@@ -292,12 +265,10 @@ class OrderAdmin extends Admin
             ->add('customer.companyName', null, ['label' => 'label.customer'])
             ->add('purchaseOrder', null, ['label' => 'label.purchase_order'])
             ->add('creator', null, ['label' => 'label.capturated'])
-            ->add('createdAt', 'doctrine_orm_string', [
-                'label' => 'label.created_at',
-            ])
-            ->add('deliveryDate', 'doctrine_orm_string', [
-                'label' => 'label.delivery_date',
-            ])
+            ->add('createdAt', 'doctrine_orm_date_range',
+                ['label' => 'label.created_at'], null, ['widget' => 'single_text'])
+            ->add('deliveryDate', 'doctrine_orm_date_range',
+                ['label' => 'label.delivery_date',], null, ['widget' => 'single_text'])
             ->add('hasInvoice', null, ['label' => 'label.has_invoice']);
     }
 
