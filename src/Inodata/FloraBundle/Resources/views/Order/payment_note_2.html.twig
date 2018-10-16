@@ -17,47 +17,44 @@
 			</tr>
 		</table>
 	</div>
-
 	<div class="row date">MONTERREY, N. L. {{ object.deliveryDate|date("d/m/Y") }}</div>
 	<div class="row-data data-1">
 		<table style="width: 100%">
 			<tr>
 				<td width="9%" class="note-label">NOMBRE:</td><td width="51%">{{ object.to }}</td>
-				<td width="13%" class="note-label second-label">No. PEDIDO:</td><td width="27%">&nbsp;{{ object.id }}</td>
-			</tr>
-			<tr>
-				<td class="note-label">COBRAR:</td><td>{{ object.customer.companyName }}&nbsp; {% if object.purchaseOrder %}(Orden {{ object.purchaseOrder}}){% endif %}</td>
+				{#<td width="13%" class="note-label second-label">CLAVE:</td><td width="27%">&nbsp;{{ object.idInLetters }}</td>#}
 				<td class="note-label second-label">CAPTURÓ:</td><td>&nbsp;{{ object.creator }}</td>
 			</tr>
 			<tr>
+				<td class="note-label">COBRAR:</td><td>{{ object.customer.companyName }}&nbsp; {% if object.purchaseOrder %}(Orden {{ object.purchaseOrder}}){% endif %}</td>
+				<td class="note-label second-label">TARJETA EMPLEADO:</td><td>&nbsp;{{ object.paymentContact.employeeNumber}}</td>
+			</tr>
+			<tr>
 				<td class="note-label">DIR. COB.:</td>
-				<td >{{ object.customer.paymentAddress.street }}
+				<td >
+					{{ object.customer.paymentAddress.street }}
                     {{ object.customer.paymentAddress.noExt }}
                     {{ object.customer.paymentAddress.neighborhood }}
 				</td>
-				<td class="note-label second-label">NO. TARJETA:</td><td>&nbsp;{{ object.paymentContact.employeeNumber}}</td>
-			</tr>
-
-			<tr>
-				<td class="note-label">EMPRESA:</td><td> {{ object.customer.companyName }} </td>
 				<td class="note-label second-label">TELÉFONO:</td><td>&nbsp;{{ object.paymentContact.phone}} &nbsp;
                     {% if object.paymentContact.extension %}
 						<span class="note-label">&nbsp;EXT: </span>{{ object.paymentContact.extension}}
                     {% endif %}
 				</td>
 			</tr>
-
 			<tr>
-				<td class="note-label">DEPTO:</td><td>{{ object.paymentContact.department }}</td>
+				<td class="note-label">EMPRESA:</td><td> {{ object.customer.companyName }} </td>
 				<td class="note-label second-label">FACTURA:</td><td>&nbsp;{% if (object.hasInvoice) == 1 %}{{ 'SI' }}{% else %}{{ 'NO' }}{% endif %}</td>
 			</tr>
 			<tr>
-				<td class="note-label">DE:</td><td>{{ object.from }}</td>
+				<td class="note-label">DEPTO:</td><td>{{ object.paymentContact.department }}</td>
 				<td class="note-label second-label">ORDENÓ:</td><td>&nbsp;{{ object.paymentContact }}</td>
+			</tr>
+			<tr>
+				<td class="note-label">DE:</td><td>{{ object.from }}</td>
 			</tr>
 		</table>
 	</div>
-
 	<div class="row-data data-2">
 		<table style="width: 100%">
 			<tr>
@@ -78,7 +75,6 @@
 			</tr>
 		</table>
 	</div>
-
 	<div class="row-data data-3">
 		<table style="width: 100%">
 			<tr>
@@ -97,7 +93,7 @@
 				<td width="10%" class="note-label">COLONIA:</td>
 				<td width="50%">{{ object.shippingAddress.neighborhood }}</td>
 				<td width="10%" class="note-label">MUNICIPIO:</td>
-				<td width="30%">{{ object.shippingAddress.city}}, {{ object.shippingAddress.state}}</td>
+				<td width="30%">{{ object.shippingAddress.city}}, {{ object.shippingAddress.state}} <span style="float: right">{{ object.idInLetters }}</span> </td>
 			</tr>
 		</table>
 	</div>
