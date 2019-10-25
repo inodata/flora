@@ -663,7 +663,7 @@ class OrderAdminController extends Controller
     {
         $fields = ['id', 'collector', 'firstProduct', 'firstProduct.price',
             'shipping', 'customer.companyName', 'deliveryDate',
-            'paymentContact', 'messenger',];
+            'paymentContact', 'collectionStatus', 'messenger',];
 
         if (false === $this->admin->isGranted('EXPORT')) {
             throw new AccessDeniedException();
