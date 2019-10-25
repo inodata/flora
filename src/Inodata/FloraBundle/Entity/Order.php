@@ -968,9 +968,10 @@ class Order
 
     public function getCollectionStatus()
     {
-        return str_replace($this->getStatus(),
+        return str_replace(
             ['open', 'closed', 'partiallypayment'],
-            ['Abierto', 'Pagado', 'Pendiente']
+            ['Abierto', 'Pagado', 'Pendiente'],
+            $this->getStatus()
         );
     }
 }
