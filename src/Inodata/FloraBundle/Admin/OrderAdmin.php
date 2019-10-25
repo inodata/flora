@@ -243,6 +243,7 @@ class OrderAdmin extends Admin
             ->add('paymentContact', null, ['label' => 'label.payment_contact'])
             ->add('messenger', null, ['label' => 'label.messenger'])
             ->add('collector', null, ['label' => 'label.collector'])
+            ->add('collectionStatus', null, ['label.status'])
             ->add('_action', 'actions', [
                     'label'   => 'label.action',
                     'actions' => [

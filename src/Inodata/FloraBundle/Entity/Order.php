@@ -965,4 +965,12 @@ class Order
     {
         return $this->collectionDate;
     }
+
+    public function getCollectionStatus()
+    {
+        return str_replace($this->getStatus(),
+            ['open', 'closed', 'partiallypayment'],
+            ['Abierto', 'Pagado', 'Pendiente']
+        );
+    }
 }
