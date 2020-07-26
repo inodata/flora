@@ -155,7 +155,8 @@ class NumberToLetter
     private function letraUnidad($pos, $cnumero)
     {
         $unidad_texto = '';
-        if (!((substr($cnumero, $pos, 1) == '0') ||
+        if (!(
+            (substr($cnumero, $pos, 1) == '0') ||
             (substr($cnumero, $pos - 1, 1) == '1') ||
             ((substr($cnumero, $pos - 2, 3) == '001') && (($pos == 2) || ($pos == 8)))
         )

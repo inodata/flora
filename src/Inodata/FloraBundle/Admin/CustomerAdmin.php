@@ -23,9 +23,12 @@ class CustomerAdmin extends Admin
                 ->add('companyName', null, ['label' => 'label.company_name'])
                 ->add('rfc', null, ['label' => 'label.rfc'])
                 ->add('discount', null, ['label' => 'label.discount'])
-                ->add('paymentCondition', 'text', ['label' => 'label.payment_condition',
-                            'required'                     => false,
-                        ]
+                ->add(
+                    'paymentCondition',
+                    'text',
+                    ['label'                           => 'label.payment_condition',
+                        'required'                     => false,
+                    ]
                 )
             ->end()
             ->with('label.fiscal_address', ['expanded' => false])
@@ -39,14 +42,16 @@ class CustomerAdmin extends Admin
             ->end()
             ->with('label.payment_address', ['expanded' => true])
                 ->add('useFiscalAddress', 'checkbox', [
-                        'label'    => 'label.use_fiscal_address',
-                        'mapped'   => false,
-                        'required' => false,
-                        'attr'     => ['class'=>'use-fiscal-address'], ])
+                    'label'    => 'label.use_fiscal_address',
+                    'mapped'   => false,
+                    'required' => false,
+                    'attr'     => ['class'=>'use-fiscal-address'], ])
                 ->add('paymentAddress', 'inodata_address_form', ['label'=>false])
             ->end()
             ->with('label.more_addresses')
-                ->add('addresses', 'sonata_type_collection',
+                ->add(
+                    'addresses',
+                    'sonata_type_collection',
                     [
                         'label'        => 'label.extra_addresses',
                         'required'     => false,

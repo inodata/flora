@@ -89,8 +89,10 @@ class DistributionAdminController extends Controller
             ->andWhere('o.messenger IS NULL')
             ->getQuery()->getResult();
 
-        $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-            ['orders' => $orders, 'preAsigned' => $ordersPreAsigned]);
+        $orderOptions = $this->renderView(
+            'InodataFloraBundle:Distribution:_order_option.html.twig',
+            ['orders' => $orders, 'preAsigned' => $ordersPreAsigned]
+        );
 
         return new Response(json_encode(['orderOptions' => $orderOptions]));
     }
@@ -116,7 +118,7 @@ class DistributionAdminController extends Controller
             $orders = $this->getDoctrine()
                 ->getRepository('InodataFloraBundle:Order')
                 ->findBy(['status'    => 'intransit',
-                          'messenger' => $messenger->getId(),
+                    'messenger'       => $messenger->getId(),
                 ]);
             if ($orders) {
                 $messenger->setOrders($orders);
@@ -156,8 +158,10 @@ class DistributionAdminController extends Controller
                     ->getRepository('InodataFloraBundle:Order')
                     ->findByStatus('open');
 
-                $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-                    ['orders' => $ordersOpened]);
+                $orderOptions = $this->renderView(
+                    'InodataFloraBundle:Distribution:_order_option.html.twig',
+                    ['orders' => $ordersOpened]
+                );
             }
 
             return new Response(json_encode(['success' => $status, 'orderOptions' => $orderOptions]));
@@ -239,23 +243,27 @@ class DistributionAdminController extends Controller
             $em->flush();
         }
 
-        $row = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig',
-            ['orders' => [0 => $order]]);
+        $row = $this->renderView(
+            'InodataFloraBundle:Distribution:_list_item.html.twig',
+            ['orders' => [0 => $order]]
+        );
 
         //Cargar View con estos datos
         $ordersOpened = $this->getDoctrine()
             ->getRepository('InodataFloraBundle:Order')
             ->findByStatus('open');
 
-        $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-            ['orders' => $ordersOpened]);
+        $orderOptions = $this->renderView(
+            'InodataFloraBundle:Distribution:_order_option.html.twig',
+            ['orders' => $ordersOpened]
+        );
 
         $nInTransit = $this->getNOrdersInStatus('intransit', $messengerId);
         $nDelivered = $this->getNOrdersInStatus('delivered', $messengerId);
 
         return new Response(json_encode(['order'       => $row,
-                                         'id'          => $messengerId, 'orderOptions' => $orderOptions,
-                                         'n_delivered' => $nDelivered, 'n_in_transit' => $nInTransit, ]));
+            'id'                                       => $messengerId, 'orderOptions' => $orderOptions,
+            'n_delivered'                              => $nDelivered, 'n_in_transit' => $nInTransit, ]));
     }
 
     /**MODIFICADO EN LA SEGUNDA VERSION**/
@@ -289,12 +297,14 @@ class DistributionAdminController extends Controller
         $nOrdersInTransit = $this->getNOrdersInStatus('intransit', $id);
         $nOrdersDelivered = $this->getNOrdersInStatus('delivered', $id);
 
-        $response = $this->renderView('InodataFloraBundle:Distribution:_list_item.html.twig',
-            ['orders' => $orders]);
+        $response = $this->renderView(
+            'InodataFloraBundle:Distribution:_list_item.html.twig',
+            ['orders' => $orders]
+        );
 
         return new Response(json_encode(['orders' => $response,
-                                         'id'     => $id, 'n_in_transit' => $nOrdersInTransit, 'n_delivered' => $nOrdersDelivered,
-                                         'boxes'  => $messenger->getBoxes(), 'lamps' => $messenger->getLamps(), ]));
+            'id'                                  => $id, 'n_in_transit' => $nOrdersInTransit, 'n_delivered' => $nOrdersDelivered,
+            'boxes'                               => $messenger->getBoxes(), 'lamps' => $messenger->getLamps(), ]));
     }
 
     /**
@@ -309,7 +319,7 @@ class DistributionAdminController extends Controller
             ->where('o.messenger=:id AND o.status=:status')
             ->andWhere('o.deliveryDate >=:date')
             ->setParameters(['id'   => $messengerId, 'status' => $status,
-                             'date' => $this->getDateSelected(), ])
+                'date'              => $this->getDateSelected(), ])
             ->getQuery()->getSingleScalarResult();
 
         return $nOrders;

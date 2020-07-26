@@ -56,8 +56,8 @@ class EmployeeAdmin extends Admin
             ->add('_action', 'actions', [
                 'label'   => 'label.action',
                 'actions' => [
-                        'edit'   => [],
-                        'delete' => [],
+                    'edit'   => [],
+                    'delete' => [],
                 ],
             ]);
     }
@@ -73,12 +73,12 @@ class EmployeeAdmin extends Admin
             ->add('name', null, ['label'=>'label.name'])
             ->add('lastname', null, ['label'=>'label.lastname'])
             ->add('jobPosition', 'doctrine_orm_choice', ['label' => 'label.job_position',
-                    'field_options'                              => [
-                        'required'           => false,
-                        'choices'            => ['Messenger' => 'Messenger', 'Collector' => 'Collector'],
-                        'translation_domain' => 'InodataFloraBundle',
-                    ],
-                    'field_type' => 'choice',
-                ]);
+                'field_options'                                  => [
+                    'required'           => false,
+                    'choices'            => ['Messenger' => 'Messenger', 'Collector' => 'Collector'],
+                    'translation_domain' => 'InodataFloraBundle',
+                ],
+                'field_type' => 'choice',
+            ]);
     }
 }

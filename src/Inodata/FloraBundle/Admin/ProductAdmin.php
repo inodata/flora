@@ -37,9 +37,9 @@ class ProductAdmin extends Admin
         ->add('price', null, ['label' => 'label.price'])
         ->add('stock', null, ['label' => 'label.stock'])
         ->add('_action', 'actions', ['label' => 'label.action',
-                'actions'                    => [
-                        'edit' => [],
-                ],
+            'actions'                        => [
+                'edit' => [],
+            ],
         ]);
     }
 

@@ -83,11 +83,20 @@ class CollectionAdmin extends Admin
             ->add('id', null, [
                 'label' => 'label.distribution_id',
             ])
-            ->add('deliveryDate', 'doctrine_orm_date_range', [
-                'label' => 'label.collection_filter_date', ], null,
-                ['widget' => 'single_text', 'attr' => ['class' => 'filter-deliver-date']])
-            ->add('status', null, ['label' => 'label.distribution_status'],
-                'choice', [
+            ->add(
+                'deliveryDate',
+                'doctrine_orm_date_range',
+                [
+                    'label' => 'label.collection_filter_date', ],
+                null,
+                ['widget' => 'single_text', 'attr' => ['class' => 'filter-deliver-date']]
+            )
+            ->add(
+                'status',
+                null,
+                ['label' => 'label.distribution_status'],
+                'choice',
+                [
                     'translation_domain' => 'InodataFloraBundle',
                     'expanded'           => false,
                     'multiple'           => false,

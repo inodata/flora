@@ -28,10 +28,10 @@ class GuiaRojiAdminController extends Controller
         $cookie = tmpfile();
         $userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36';
         $header = [
-        'Accept: text/html',
-        'Accept-Language: es-MX',
-        'Accept-Charset: iso-8859-1',
-        'Keep-Alive: 300', ];
+            'Accept: text/html',
+            'Accept-Language: es-MX',
+            'Accept-Charset: iso-8859-1',
+            'Keep-Alive: 300', ];
 
         $ch = curl_init($url);
         $options = [

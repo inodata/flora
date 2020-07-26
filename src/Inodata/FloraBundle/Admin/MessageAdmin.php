@@ -29,7 +29,7 @@ class MessageAdmin extends Admin
             ->add('message', 'ckeditor', [
                 'config_name' => 'inodata_editor',
                 'label'       => 'label.message',
-                ])
+            ])
             //->add('message2', 'ckeditor', array('mapped' => false))
 ;
     }
