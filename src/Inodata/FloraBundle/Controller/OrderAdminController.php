@@ -78,7 +78,7 @@ class OrderAdminController extends Controller
                         $code = $newCode;
                     }
                 }
-                $code = 'X' . (++$code);
+                $code = 'X'.(++$code);
             } else {
                 $code = 'X1';
             }
@@ -138,7 +138,7 @@ class OrderAdminController extends Controller
 
         if ($discount < 1) {
             $discountNet = $subtotal * $discount;
-            $discountPercentLabel = ($discount * 100) . '%';
+            $discountPercentLabel = ($discount * 100).'%';
         }
 
         $subtotal = $subtotal + $shipping - $discountNet;
@@ -163,7 +163,7 @@ class OrderAdminController extends Controller
                 'iva'              => money_format('%!i', $IVA),
                 'subtotal'         => money_format('%!i', $subtotal),
                 'total'            => money_format('%!i', $total),
-                'totalInLetters'   => $totalInLetters,];
+                'totalInLetters'   => $totalInLetters, ];
     }
 
     public function updateTotalsCostAction()
@@ -218,8 +218,10 @@ class OrderAdminController extends Controller
      * funcionalidad de actualizar información de otras tablas.
      *
      * @param null $id
-     * @return Response
+     *
      * @throws \Twig_Error_Runtime
+     *
+     * @return Response
      */
     public function editAction($id = null)
     {
@@ -491,8 +493,8 @@ class OrderAdminController extends Controller
         $response = [
             'customer_discount' => $customerDiscount,
             'contacts'          => $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
-                ['contacts' => $paymentContacts]
-            ),];
+                ['contacts'     => $paymentContacts]
+            ), ];
 
         return new Response(json_encode($response));
     }
@@ -511,7 +513,7 @@ class OrderAdminController extends Controller
         $messages = $query->getQuery()->getResult();
 
         $response = ['messages' => $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
-            ['messages' => $messages])];
+            ['messages'         => $messages])];
 
         return new Response(json_encode($response));
     }
@@ -663,7 +665,7 @@ class OrderAdminController extends Controller
     {
         $fields = ['id', 'collector', 'firstProduct', 'firstProduct.price',
             'shipping', 'customer.companyName', 'deliveryDate',
-            'paymentContact', 'collectionStatus', 'messenger',];
+            'paymentContact', 'collectionStatus', 'messenger', ];
 
         if (false === $this->admin->isGranted('EXPORT')) {
             throw new AccessDeniedException();
@@ -701,13 +703,13 @@ class OrderAdminController extends Controller
             ->createQueryBuilder('q')
             ->where('q.neighborhood LIKE :neighborhood')
             ->andWhere('q.city LIKE :city OR q.postal_code = :pc')
-            ->setParameters(['neighborhood' => '%' . $neighborhood . '%', 'city' => '%' . $city . '%', 'pc' => $pc])
+            ->setParameters(['neighborhood' => '%'.$neighborhood.'%', 'city' => '%'.$city.'%', 'pc' => $pc])
             ->getQuery()->getResult();
 
         if ($guiaRojis) {
             $guiaRoji = $guiaRojis[0];
 
-            return 'Plano: ' . $guiaRoji->getMap() . ', Coordenada: ' . $guiaRoji->getCoordinate();
+            return 'Plano: '.$guiaRoji->getMap().', Coordenada: '.$guiaRoji->getCoordinate();
         }
 
         return '';

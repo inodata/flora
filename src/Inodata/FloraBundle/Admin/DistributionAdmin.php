@@ -30,7 +30,7 @@ class DistributionAdmin extends Admin
             ->add('messenger', 'sonata_type_model', [
                 'class' => 'Inodata\FloraBundle\Entity\Employee',
                 'attr'  => [
-                    'class' => '	 span5',],
+                    'class' => '	 span5', ],
             ])
             ->add('delivery_date', 'date', [
                 'label' => 'label.delivery_date',
@@ -99,12 +99,12 @@ class DistributionAdmin extends Admin
                 'label' => 'label.delivery_date',
             ])
             ->add('status', null, [
-                'label' => 'label.distribution_status',
+                'label'                        => 'label.distribution_status',
             ], 'choice', ['translation_domain' => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
                           'choices'            => ['open'      => 'label.distribution_delivery_status_open',
                                                    'intransit' => 'label.distribution_delivery_status_intransit',
                                                    'delivered' => 'label.distribution_delivery_status_delivered',
-                                                   'closed'    => 'label.distribution_delivery_status_closed',],]);
+                                                   'closed'    => 'label.distribution_delivery_status_closed', ], ]);
     }
 
     protected function configureRoutes(RouteCollection $collection)

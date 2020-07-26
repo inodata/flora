@@ -105,11 +105,11 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface, O
         $this->addReference('user5', $user);
     }
 
-     /**
-      * {@inheritdoc}
-      */
-     public function getOrder()
-     {
-         return 5;
-     }
+    /**
+     * {@inheritdoc}
+     */
+    public function getOrder()
+    {
+        return 5;
+    }
 }

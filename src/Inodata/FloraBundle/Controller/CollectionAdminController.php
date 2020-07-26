@@ -6,7 +6,6 @@ use Inodata\FloraBundle\Entity\Order;
 use Inodata\FloraBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CollectionAdminController extends Controller
@@ -71,7 +70,7 @@ class CollectionAdminController extends Controller
         if (!$status) {
             $status = "o.status='partiallypayment' OR o.status = 'closed'";
         } else {
-            $status = "o.status='" . $status . "'";
+            $status = "o.status='".$status."'";
         }
 
         $orders = $this->getDoctrine()
@@ -115,7 +114,7 @@ class CollectionAdminController extends Controller
 
         return new Response(json_encode(['orders'     => $response,
                                          'id'         => $id, 'payments' => $paymentsAndCommision['payments'],
-                                         'commission' => $paymentsAndCommision['commission'],]));
+                                         'commission' => $paymentsAndCommision['commission'], ]));
     }
 
     public function addOrderToCollectorAction()
@@ -156,7 +155,7 @@ class CollectionAdminController extends Controller
         return new Response(json_encode(['order'      => $row,
                                          'id'         => $collectorId, 'orderOptions' => $orderOptions,
                                          'payments'   => $paymentsAndCommision['payments'],
-                                         'commission' => $paymentsAndCommision['commission'],]));
+                                         'commission' => $paymentsAndCommision['commission'], ]));
     }
 
     private function getOrderOptionByStatus($status)
@@ -392,7 +391,7 @@ class CollectionAdminController extends Controller
             $date = date('Y-m-01');
         }
 
-        return $date . ' 00:00:00';
+        return $date.' 00:00:00';
     }
 
     private function setDateEnd($date)
@@ -407,7 +406,7 @@ class CollectionAdminController extends Controller
             $date = date('Y-m-d');
         }
 
-        return $date . ' 23:59:59';
+        return $date.' 23:59:59';
     }
 
     private function setSelectedStatus($status)

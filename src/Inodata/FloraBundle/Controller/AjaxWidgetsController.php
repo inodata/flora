@@ -27,7 +27,7 @@ class AjaxWidgetsController extends Controller
         $qb = $this->getDoctrine()->getRepository($entity)
             ->createQueryBuilder('p');
 
-        $qb->orWhere('p.' . $column . ' LIKE ' . $search);
+        $qb->orWhere('p.'.$column.' LIKE '.$search);
         if ($column == 'city') {
             $qb->groupBy('p.city');
         }
@@ -39,7 +39,7 @@ class AjaxWidgetsController extends Controller
         foreach ($result as $row) {
             $text = $row[$column];
 
-            $data = ['id' => $row['id'], 'text' => $text . ' - ' . $row['city']];
+            $data = ['id' => $row['id'], 'text' => $text.' - '.$row['city']];
             array_push($return, $data);
         }
 
@@ -74,9 +74,9 @@ class AjaxWidgetsController extends Controller
         //Create where clausule with columns parsed
         foreach ($columns as $column) {
             if (!ctype_digit($search)) {
-                $qb->orWhere('p.' . $column . ' LIKE ' . $search);
+                $qb->orWhere('p.'.$column.' LIKE '.$search);
             } else {
-                $qb->orWhere('p.' . $column . ' = ' . $search);
+                $qb->orWhere('p.'.$column.' = '.$search);
             }
         }
 
@@ -92,7 +92,7 @@ class AjaxWidgetsController extends Controller
 
             foreach ($columns as $column) {
                 if ($text != '') {
-                    $text .= (' - ' . $row[$column]);
+                    $text .= (' - '.$row[$column]);
                 } else {
                     $text = $row[$column];
                 }

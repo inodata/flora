@@ -255,7 +255,7 @@ class DistributionAdminController extends Controller
 
         return new Response(json_encode(['order'       => $row,
                                          'id'          => $messengerId, 'orderOptions' => $orderOptions,
-                                         'n_delivered' => $nDelivered, 'n_in_transit' => $nInTransit,]));
+                                         'n_delivered' => $nDelivered, 'n_in_transit' => $nInTransit, ]));
     }
 
     /**MODIFICADO EN LA SEGUNDA VERSION**/
@@ -269,7 +269,7 @@ class DistributionAdminController extends Controller
         if (!$status) {
             $status = "o.status!='open'";
         } else {
-            $status = "o.status='" . $status . "'";
+            $status = "o.status='".$status."'";
         }
         $orders = $this->getDoctrine()
             ->getRepository('InodataFloraBundle:Order')
@@ -294,7 +294,7 @@ class DistributionAdminController extends Controller
 
         return new Response(json_encode(['orders' => $response,
                                          'id'     => $id, 'n_in_transit' => $nOrdersInTransit, 'n_delivered' => $nOrdersDelivered,
-                                         'boxes'  => $messenger->getBoxes(), 'lamps' => $messenger->getLamps(),]));
+                                         'boxes'  => $messenger->getBoxes(), 'lamps' => $messenger->getLamps(), ]));
     }
 
     /**
@@ -309,7 +309,7 @@ class DistributionAdminController extends Controller
             ->where('o.messenger=:id AND o.status=:status')
             ->andWhere('o.deliveryDate >=:date')
             ->setParameters(['id'   => $messengerId, 'status' => $status,
-                             'date' => $this->getDateSelected(),])
+                             'date' => $this->getDateSelected(), ])
             ->getQuery()->getSingleScalarResult();
 
         return $nOrders;

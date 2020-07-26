@@ -176,7 +176,7 @@ class OrderAdmin extends Admin
                 'label'    => 'label.invoice',
                 'attr'     => [
                     'class' => 'inodata-invoice-number',
-                    'style' => 'width:98%',],
+                    'style' => 'width:98%', ],
             ])
             ->add('paymentCondition', 'hidden', [
                 'required' => false,
@@ -231,7 +231,7 @@ class OrderAdmin extends Admin
             ->addIdentifier('id', null, ['label' => 'label.order_number'])
             ->add('createdAt', 'date', [
                 'label'  => 'label.created_at',
-                'format' => 'd/M/Y',]
+                'format' => 'd/M/Y', ]
             )
             ->add('customer', null, ['label' => 'label.customer'])
             ->add('firstProduct', null, ['label' => 'label.details'])
@@ -239,7 +239,7 @@ class OrderAdmin extends Admin
             ->add('shipping', null, ['label' => 'label.shipping'])
             ->add('deliveryDate', null, [
                 'label'  => 'label.delivery_date',
-                'format' => 'd/M/Y',])
+                'format' => 'd/M/Y', ])
             ->add('paymentContact', null, ['label' => 'label.payment_contact'])
             ->add('messenger', null, ['label' => 'label.messenger'])
             ->add('collector', null, ['label' => 'label.collector'])
@@ -247,7 +247,7 @@ class OrderAdmin extends Admin
             ->add('_action', 'actions', [
                     'label'   => 'label.action',
                     'actions' => [
-                        'edit' => [],],
+                        'edit' => [], ],
                 ]
             );
     }
@@ -269,7 +269,7 @@ class OrderAdmin extends Admin
             ->add('createdAt', 'doctrine_orm_date_range',
                 ['label' => 'label.created_at'], null, ['widget' => 'single_text'])
             ->add('deliveryDate', 'doctrine_orm_date_range',
-                ['label' => 'label.delivery_date',], null, ['widget' => 'single_text'])
+                ['label' => 'label.delivery_date'], null, ['widget' => 'single_text'])
             ->add('hasInvoice', null, ['label' => 'label.has_invoice']);
     }
 

@@ -67,7 +67,7 @@ class Product
             if (substr($this->code, 0, 1) == 'X') {
                 return $this->description;
             } else {
-                return $this->code . ' - ' . $this->description;
+                return $this->code.' - '.$this->description;
             }
         } else {
             return ' ';
