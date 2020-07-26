@@ -25,10 +25,14 @@ class OrderAdminController extends Controller
             ->getRepository('InodataFloraBundle:Product')
             ->find($id);
 
-        $listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
-            ['product' => $product, 'total' => 1]);
-        $selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
-            ['product' => $product, 'total' => 1]);
+        $listField = $this->renderView(
+            'InodataFloraBundle:Order:_product_item.html.twig',
+            ['product' => $product, 'total' => 1]
+        );
+        $selectOption = $this->renderView(
+            'InodataFloraBundle:Order:_select_order_option.html.twig',
+            ['product' => $product, 'total' => 1]
+        );
 
         $response = ['listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $id];
 
@@ -44,10 +48,14 @@ class OrderAdminController extends Controller
         if ($products) {
             $product = $products[0];
 
-            $listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
-                ['product' => $product, 'total' => 1]);
-            $selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
-                ['product' => $product, 'total' => 1]);
+            $listField = $this->renderView(
+                'InodataFloraBundle:Order:_product_item.html.twig',
+                ['product' => $product, 'total' => 1]
+            );
+            $selectOption = $this->renderView(
+                'InodataFloraBundle:Order:_select_order_option.html.twig',
+                ['product' => $product, 'total' => 1]
+            );
 
             $response = ['listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $product->getId()];
 
@@ -94,10 +102,14 @@ class OrderAdminController extends Controller
         $em->persist($product);
         $em->flush($product);
 
-        $listField = $this->renderView('InodataFloraBundle:Order:_product_item.html.twig',
-            ['product' => $product, 'total' => 1]);
-        $selectOption = $this->renderView('InodataFloraBundle:Order:_select_order_option.html.twig',
-            ['product' => $product, 'total' => 1]);
+        $listField = $this->renderView(
+            'InodataFloraBundle:Order:_product_item.html.twig',
+            ['product' => $product, 'total' => 1]
+        );
+        $selectOption = $this->renderView(
+            'InodataFloraBundle:Order:_select_order_option.html.twig',
+            ['product' => $product, 'total' => 1]
+        );
 
         $response = ['listField' => $listField, 'optionsToSave' => $selectOption, 'id' => $product->getId()];
 
@@ -157,13 +169,13 @@ class OrderAdminController extends Controller
         setlocale(LC_MONETARY, 'es_MX');
 
         return ['shipping'         => $shipping,
-                'discount'         => $discount,
-                'discount_net'     => round($discountNet, 2),
-                'discount_percent' => $discountPercentLabel,
-                'iva'              => money_format('%!i', $IVA),
-                'subtotal'         => money_format('%!i', $subtotal),
-                'total'            => money_format('%!i', $total),
-                'totalInLetters'   => $totalInLetters, ];
+            'discount'             => $discount,
+            'discount_net'         => round($discountNet, 2),
+            'discount_percent'     => $discountPercentLabel,
+            'iva'                  => money_format('%!i', $IVA),
+            'subtotal'             => money_format('%!i', $subtotal),
+            'total'                => money_format('%!i', $total),
+            'totalInLetters'       => $totalInLetters, ];
     }
 
     public function updateTotalsCostAction()
@@ -492,7 +504,8 @@ class OrderAdminController extends Controller
 
         $response = [
             'customer_discount' => $customerDiscount,
-            'contacts'          => $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
+            'contacts'          => $this->renderView(
+                'InodataFloraBundle:Order:_dynamic_select_item.html.twig',
                 ['contacts'     => $paymentContacts]
             ), ];
 
@@ -512,8 +525,10 @@ class OrderAdminController extends Controller
 
         $messages = $query->getQuery()->getResult();
 
-        $response = ['messages' => $this->renderView('InodataFloraBundle:Order:_dynamic_select_item.html.twig',
-            ['messages'         => $messages])];
+        $response = ['messages' => $this->renderView(
+            'InodataFloraBundle:Order:_dynamic_select_item.html.twig',
+            ['messages'         => $messages]
+        )];
 
         return new Response(json_encode($response));
     }
@@ -679,7 +694,8 @@ class OrderAdminController extends Controller
             throw new \RuntimeException(sprintf('Export in format `%s` is not allowed for class: `%s`. Allowed formats are: `%s`', $format, $this->admin->getClass(), implode(', ', $allowedExportFormats)));
         }
 
-        $filename = sprintf('export_%s_%s.%s',
+        $filename = sprintf(
+            'export_%s_%s.%s',
             strtolower(substr($this->admin->getClass(), strripos($this->admin->getClass(), '\\') + 1)),
             date('Y_m_d_H_i_s', strtotime('now')),
             $format

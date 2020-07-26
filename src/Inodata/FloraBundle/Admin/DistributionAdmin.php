@@ -65,7 +65,10 @@ class DistributionAdmin extends Admin
                 'label' => 'label.distribution_status',
                 'attr'  => ['class' => 'status'],
             ])
-            ->add('_action', 'actions', [
+            ->add(
+                '_action',
+                'actions',
+                [
                     'label'   => 'label.distribution_actions',
                     'actions' => [
                         'delivered' => ['template' => 'InodataFloraBundle:Distribution:_delivered_action.html.twig'],
@@ -101,10 +104,10 @@ class DistributionAdmin extends Admin
             ->add('status', null, [
                 'label'                        => 'label.distribution_status',
             ], 'choice', ['translation_domain' => 'InodataFloraBundle', 'expanded' => false, 'multiple' => false,
-                          'choices'            => ['open'      => 'label.distribution_delivery_status_open',
-                                                   'intransit' => 'label.distribution_delivery_status_intransit',
-                                                   'delivered' => 'label.distribution_delivery_status_delivered',
-                                                   'closed'    => 'label.distribution_delivery_status_closed', ], ]);
+                'choices'                      => ['open'      => 'label.distribution_delivery_status_open',
+                    'intransit'                                => 'label.distribution_delivery_status_intransit',
+                    'delivered'                                => 'label.distribution_delivery_status_delivered',
+                    'closed'                                   => 'label.distribution_delivery_status_closed', ], ]);
     }
 
     protected function configureRoutes(RouteCollection $collection)

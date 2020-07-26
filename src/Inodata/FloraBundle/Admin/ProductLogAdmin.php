@@ -54,10 +54,10 @@ class ProductLogAdmin extends Admin
             ->add('date', 'date')
             ->add('_action', 'actions', [
                 'actions' => [
-                        'edit'   => [],
-                        'delete' => [],
+                    'edit'   => [],
+                    'delete' => [],
                 ],
-        ]);
+            ]);
     }
 
     /**

@@ -83,7 +83,10 @@ class OrderAdmin extends Admin
                     'title'       => $this->trans('help.payment_contact'),
                 ],
             ])
-            ->add('contact', 'inodata_payment_contact_form', [
+            ->add(
+                'contact',
+                'inodata_payment_contact_form',
+                [
                     'label'  => false,
                     'mapped' => false,
                     'attr'   => ['class' => 'payment_contact_form'],
@@ -229,9 +232,12 @@ class OrderAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id', null, ['label' => 'label.order_number'])
-            ->add('createdAt', 'date', [
-                'label'  => 'label.created_at',
-                'format' => 'd/M/Y', ]
+            ->add(
+                'createdAt',
+                'date',
+                [
+                    'label'  => 'label.created_at',
+                    'format' => 'd/M/Y', ]
             )
             ->add('customer', null, ['label' => 'label.customer'])
             ->add('firstProduct', null, ['label' => 'label.details'])
@@ -244,7 +250,10 @@ class OrderAdmin extends Admin
             ->add('messenger', null, ['label' => 'label.messenger'])
             ->add('collector', null, ['label' => 'label.collector'])
             ->add('collectionStatus', null, ['label.status'])
-            ->add('_action', 'actions', [
+            ->add(
+                '_action',
+                'actions',
+                [
                     'label'   => 'label.action',
                     'actions' => [
                         'edit' => [], ],
@@ -266,10 +275,20 @@ class OrderAdmin extends Admin
             ->add('customer.companyName', null, ['label' => 'label.customer'])
             ->add('purchaseOrder', null, ['label' => 'label.purchase_order'])
             ->add('creator', null, ['label' => 'label.capturated'])
-            ->add('createdAt', 'doctrine_orm_date_range',
-                ['label' => 'label.created_at'], null, ['widget' => 'single_text'])
-            ->add('deliveryDate', 'doctrine_orm_date_range',
-                ['label' => 'label.delivery_date'], null, ['widget' => 'single_text'])
+            ->add(
+                'createdAt',
+                'doctrine_orm_date_range',
+                ['label' => 'label.created_at'],
+                null,
+                ['widget' => 'single_text']
+            )
+            ->add(
+                'deliveryDate',
+                'doctrine_orm_date_range',
+                ['label' => 'label.delivery_date'],
+                null,
+                ['widget' => 'single_text']
+            )
             ->add('hasInvoice', null, ['label' => 'label.has_invoice']);
     }
 

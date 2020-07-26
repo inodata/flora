@@ -20,11 +20,11 @@ class InvoiceAdmin extends Admin
     {
         $showMapper
             ->add('number', null, [
-                    'label' => 'label.number', ])
+                'label' => 'label.number', ])
             ->add('order', null, ['label' => 'label.order'])
             ->add('creator', null, ['label' => 'label.creator'])
             ->add('createdAt', null, [
-                    'label' => 'label.created_at', ])
+                'label' => 'label.created_at', ])
             ->add('isCanceled', null, ['label' => 'label.is_canceled'])
             ->add('comment', 'text', ['label' => 'label.comment'])
             ->add('canceledBy', null, ['label' => 'label.canceled_by']);
@@ -39,9 +39,9 @@ class InvoiceAdmin extends Admin
     {
         $formMapper
             ->add('isCanceled', null, [
-                    'label'   => 'label.is_canceled',
-                    'required'=> true,
-                    'attr'    => ['checked' => 'checked'],
+                'label'   => 'label.is_canceled',
+                'required'=> true,
+                'attr'    => ['checked' => 'checked'],
             ])
             ->add('comment', 'textarea', ['label' => 'label.comment']);
     }
@@ -61,12 +61,12 @@ class InvoiceAdmin extends Admin
             ->add('comment', 'text', ['label' => 'label.comment'])
             ->add('canceledBy', null, ['label' => 'label.canceled_by'])
             ->add('createdAt', null, [
-                    'label'  => 'label.created_at',
-                    'format' => 'd/M/Y', ])
+                'label'  => 'label.created_at',
+                'format' => 'd/M/Y', ])
             ->add('_action', 'actions', [
-                    'actions' => [
-                            'edit' => [],
-                    ],
+                'actions' => [
+                    'edit' => [],
+                ],
             ]);
     }
 

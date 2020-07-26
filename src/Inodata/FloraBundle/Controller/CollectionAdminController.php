@@ -107,14 +107,16 @@ class CollectionAdminController extends Controller
         $id = $this->getSelectedCollector();
 
         $orders = $this->getCollectorOrders($id);
-        $response = $this->renderView('InodataFloraBundle:Collection:_list_item.html.twig',
-            ['orders' => $orders]);
+        $response = $this->renderView(
+            'InodataFloraBundle:Collection:_list_item.html.twig',
+            ['orders' => $orders]
+        );
 
         $paymentsAndCommision = $this->getDespositsAndCommissionByCollector($id);
 
         return new Response(json_encode(['orders'     => $response,
-                                         'id'         => $id, 'payments' => $paymentsAndCommision['payments'],
-                                         'commission' => $paymentsAndCommision['commission'], ]));
+            'id'                                      => $id, 'payments' => $paymentsAndCommision['payments'],
+            'commission'                              => $paymentsAndCommision['commission'], ]));
     }
 
     public function addOrderToCollectorAction()
@@ -141,21 +143,25 @@ class CollectionAdminController extends Controller
             $em->flush();
         }
 
-        $row = $this->renderView('InodataFloraBundle:Collection:_list_item.html.twig',
-            ['orders' => [0 => $order]]);
+        $row = $this->renderView(
+            'InodataFloraBundle:Collection:_list_item.html.twig',
+            ['orders' => [0 => $order]]
+        );
 
         //Cargar View con estos datos
         $ordersDelivered = $this->getOrderOptionByStatus('delivered');
 
-        $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-            ['orders' => $ordersDelivered]);
+        $orderOptions = $this->renderView(
+            'InodataFloraBundle:Distribution:_order_option.html.twig',
+            ['orders' => $ordersDelivered]
+        );
 
         $paymentsAndCommision = $this->getDespositsAndCommissionByCollector($collectorId);
 
         return new Response(json_encode(['order'      => $row,
-                                         'id'         => $collectorId, 'orderOptions' => $orderOptions,
-                                         'payments'   => $paymentsAndCommision['payments'],
-                                         'commission' => $paymentsAndCommision['commission'], ]));
+            'id'                                      => $collectorId, 'orderOptions' => $orderOptions,
+            'payments'                                => $paymentsAndCommision['payments'],
+            'commission'                              => $paymentsAndCommision['commission'], ]));
     }
 
     private function getOrderOptionByStatus($status)
@@ -184,8 +190,10 @@ class CollectionAdminController extends Controller
         }
 
         if ($this->isXmlHttpRequest()) {
-            $orderOptions = $this->renderView('InodataFloraBundle:Distribution:_order_option.html.twig',
-                ['orders' => $this->getOrderOptionByStatus('delivered')]);
+            $orderOptions = $this->renderView(
+                'InodataFloraBundle:Distribution:_order_option.html.twig',
+                ['orders' => $this->getOrderOptionByStatus('delivered')]
+            );
 
             $paymentsAndCommision = $this
                 ->getDespositsAndCommissionByCollector($this->getSelectedCollector());
@@ -243,12 +251,14 @@ class CollectionAdminController extends Controller
         $totalOrder = $order->getOrderTotals();
         $earning = $this->container->getParameter('collector_commission');
 
-        $orderDetails = $this->renderView('InodataFloraBundle:Collection:_payments_details.html.twig',
-            ['lastPayments'   => $lastPayments,
-             'actualPayments' => $actualPayments,
-             'totalOrder'     => $totalOrder,
-             'earning'        => $earning,
-            ]);
+        $orderDetails = $this->renderView(
+            'InodataFloraBundle:Collection:_payments_details.html.twig',
+            ['lastPayments'      => $lastPayments,
+                'actualPayments' => $actualPayments,
+                'totalOrder'     => $totalOrder,
+                'earning'        => $earning,
+            ]
+        );
 
         return new Response(json_encode(['details' => $orderDetails]));
     }
