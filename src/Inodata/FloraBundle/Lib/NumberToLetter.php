@@ -41,7 +41,6 @@ class NumberToLetter
     private $aTexto;
 
     /**
-     *
      *    Métodos:
      *    _construct:       Inicializa textos
      *    setNumero:        Asigna el numero a convertir a letra
@@ -53,7 +52,7 @@ class NumberToLetter
      *    getLetras:        Convierte numero en letra
      *    letraUnidad: Convierte unidad en letra, asigna miles y millones
      *    letraDecena: Contiene decena en letra
-     *    letraCentena: Convierte centena en letra
+     *    letraCentena: Convierte centena en letra.
      */
     public function __construct()
     {
@@ -116,7 +115,7 @@ class NumberToLetter
             $hay_significativo = false;
             for ($pos = 0; $pos < 12; $pos++) {
                 // Control existencia Dígito significativo
-                if (!($hay_significativo) && (substr($cnumero, $pos, 1) == '0')) ; else {
+                if (!($hay_significativo) && (substr($cnumero, $pos, 1) == '0')); else {
                     $hay_dignificativo = true;
                 }
 
@@ -138,9 +137,9 @@ class NumberToLetter
                 $texto = $this->aTexto[5][3];
             }
             if ($this->mayusculas) {//mayusculas
-                $texto = strtoupper($this->prefijo . $texto . ' ' . $this->moneda . ' ' . substr($cnumero, -2) . '/100 ' . $this->sufijo);
+                $texto = strtoupper($this->prefijo.$texto.' '.$this->moneda.' '.substr($cnumero, -2).'/100 '.$this->sufijo);
             } else {//minusculas
-                $texto = strtolower($this->prefijo . $texto . ' ' . $this->moneda . ' ' . substr($cnumero, -2) . '/100 ' . $this->sufijo);
+                $texto = strtolower($this->prefijo.$texto.' '.$this->moneda.' '.substr($cnumero, -2).'/100 '.$this->sufijo);
             }
         }
 
@@ -172,9 +171,9 @@ class NumberToLetter
         ) {//miles
             if (substr($cnumero, $pos, 1) == '1') {
                 if ($pos <= 6) {
-                    $unidad_texto = substr($unidad_texto, 0, -1) . ' ';
+                    $unidad_texto = substr($unidad_texto, 0, -1).' ';
                 } else {
-                    $unidad_texto = substr($unidad_texto, 0, -2) . ' ';
+                    $unidad_texto = substr($unidad_texto, 0, -2).' ';
                 }
                 $unidad_texto .= $this->aTexto[5][0];
             } else {
@@ -205,7 +204,7 @@ class NumberToLetter
         } elseif (substr($cnumero, $pos, 1) == '2') {
             $decena_texto .= $this->aTexto[2][9];
         } else {
-            $decena_texto .= $this->aTexto[2][substr($cnumero, $pos, 1) - 1] . $this->aTexto[5][4];
+            $decena_texto .= $this->aTexto[2][substr($cnumero, $pos, 1) - 1].$this->aTexto[5][4];
         }
 
         return $decena_texto;

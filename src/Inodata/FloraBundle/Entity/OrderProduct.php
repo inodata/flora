@@ -50,6 +50,7 @@ class OrderProduct
 
     /**
      * @Gedmo\Versioned
+     *
      * @var float
      * @ORM\Column(name="product_price", type="decimal", nullable=false)
      */

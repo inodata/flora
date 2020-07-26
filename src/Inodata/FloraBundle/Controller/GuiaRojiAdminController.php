@@ -4,7 +4,6 @@ namespace Inodata\FloraBundle\Controller;
 
 use Inodata\FloraBundle\Entity\GuiaRoji;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class GuiaRojiAdminController extends Controller
