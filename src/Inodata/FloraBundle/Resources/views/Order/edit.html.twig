@@ -30,8 +30,11 @@
 {% block form %}
     {{ parent() }}
     {% if admin.id(object) %}
+        {# copia #}
         {% embed 'InodataFloraBundle:Order:payment_note_2.html.twig' with {'note': 1} %} {% endembed %}
-        {% embed 'InodataFloraBundle:Order:payment_note_2.html.twig' with {'note': 2} %} {% endembed %}
+        {# archivo #}
+        {#  {% embed 'InodataFloraBundle:Order:payment_note_2.html.twig' with {'note': 2} %} {% endembed %} #}
+        {# original #}
         {% embed 'InodataFloraBundle:Order:payment_note_2.html.twig' with {'note': 3} %} {% endembed %}
     {% endif %}
 {% endblock %}
