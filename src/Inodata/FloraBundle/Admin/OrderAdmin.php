@@ -267,9 +267,17 @@ class OrderAdmin extends Admin
             ->add('purchaseOrder', null, ['label' => 'label.purchase_order'])
             ->add('creator', null, ['label' => 'label.capturated'])
             ->add('createdAt', 'doctrine_orm_date_range',
-                ['label' => 'label.created_at'], null, ['widget' => 'single_text'])
+                ['label' => 'label.created_at'], null, [
+			'widget' => 'single_text',
+	                'html5' => false,
+                   	'attr' => ['class' => 'js-datepicker'],
+		])
             ->add('deliveryDate', 'doctrine_orm_date_range',
-                ['label' => 'label.delivery_date',], null, ['widget' => 'single_text'])
+                ['label' => 'label.delivery_date',], null, [
+			'widget' => 'single_text',
+			'html5' => false,
+                        'attr' => ['class' => 'js-datepicker'],
+		])
             ->add('hasInvoice', null, ['label' => 'label.has_invoice']);
     }
 
