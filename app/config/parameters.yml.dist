@@ -16,7 +16,7 @@ parameters:
     database_path:     ~
     
     #Inodata Parameters
-    order_shipping:    65
+    order_shipping:    125
     collector_commission: 0.1
     
     issuing_name:       ~
