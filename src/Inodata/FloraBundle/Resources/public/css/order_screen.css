@@ -1,58 +1,117 @@
-/* 
+/*
     Created on : Apr 29, 2014, 3:14:22 PM
     Author     : heriberto
 */
-@media screen{
+@media screen {
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(1),
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(2),
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(3),
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(6),
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(7)
-    /*.order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10)*/
+        /*.order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10)*/
     {
         float: left;
     }
 
-    /* AJUSTE DE ESPACION EN LOS MASRGENES*/
+    /* AJUSTE DE ESPACIOS EN LOS MÁRGENES*/
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(1),
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(2),
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(3),
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(4){margin-top: 7px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(4) {
+        margin-top: 7px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(5) {margin-bottom: 0px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(5) {
+        margin-bottom: 0;
+    }
 
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(6),
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(7),
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(8){margin-bottom: 4px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(8) {
+        margin-bottom: 4px;
+    }
 
     .order-capture .inodata-shipping-address > .control-group:nth-child(1),
     .order-capture .inodata-shipping-address > .control-group:nth-child(2),
     .order-capture .inodata-shipping-address > .control-group:nth-child(3),
-    .order-capture .inodata-shipping-address > .control-group:nth-child(4){margin-bottom: 0px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(4) {
+        margin-bottom: 0;
+    }
+
     /*TERMINA AJUSTES EN LOS MARGENES*/
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(1) > .sonata-ba-field > input {
+        width: 155px;
+    }
 
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(2) > label {
+        width: auto;
+        padding-left: 10px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(1) > .sonata-ba-field > input{width: 155px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(2) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(2) > label{ width: auto; padding-left: 10px; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(2) > .sonata-ba-field{ float: left; margin-left: 5px;}
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(2) > .sonata-ba-field > input{width: 195px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(2) > .sonata-ba-field > input {
+        width: 195px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(3) > label{ width: auto; padding-left: 10px; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(3) > .sonata-ba-field{ float: left; margin-left: 5px;}
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(3) > .sonata-ba-field > input{width: 218px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(3) > label {
+        width: auto;
+        padding-left: 10px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(4) > label{ width: auto; padding-left: 10px; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(4) > .sonata-ba-field{ float: left; margin-left: 5px;}
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(4) > .sonata-ba-field > input{width: 195px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(3) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(7) > label{ width: auto; padding-left: 10px; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(7) > .sonata-ba-field{ float: left; margin-left: 5px;}
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(7) > .sonata-ba-field > input{width: 97px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(3) > .sonata-ba-field > input {
+        width: 218px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(8) > label{ width: auto; padding-left: 10px; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(8) > .sonata-ba-field{ float: left; margin-left: 5px;}
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(8) > .sonata-ba-field > input{width: 150px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(4) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(4) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(4) > .sonata-ba-field > input {
+        width: 195px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(7) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(7) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(7) > .sonata-ba-field > input {
+        width: 97px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(8) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(8) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(8) > .sonata-ba-field > input {
+        width: 150px;
+    }
 
     /*CSS PARA SHIPPING-ADDRESS*/
     .order-capture .inodata-shipping-address > .control-group:nth-child(1),
@@ -61,126 +120,404 @@
     .order-capture .inodata-shipping-address > .control-group:nth-child(4),
     .order-capture .inodata-shipping-address > .control-group:nth-child(6),
     .order-capture .inodata-shipping-address > .control-group:nth-child(7),
-    .order-capture .inodata-shipping-address > .control-group:nth-child(8){ float: left; }
+    .order-capture .inodata-shipping-address > .control-group:nth-child(8) {
+        float: left;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(1) > .controls > input{width: 155px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(1) > .controls > input {
+        width: 155px;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(2) > label{width: auto; padding-left: 10px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(2) > .controls{float: left; margin-left: 5px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(2) > .controls > input{width: 50px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(2) > label {
+        width: auto;
+        padding-left: 10px;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(3) > label{width: auto; padding-left: 10px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(3) > .controls{float: left; margin-left: 5px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(3) > .controls > input{width: 50px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(2) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(4) > label{width: auto; padding-left: 10px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(4) > .controls{float: left; margin-left: 5px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(4) > .controls > input{width: 160px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(2) > .controls > input {
+        width: 50px;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(5) > label{width: auto; padding-left: 10px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(5) > .controls{float: left; margin-left: 5px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(3) > label {
+        width: auto;
+        padding-left: 10px;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(6) > .controls > input{width: 155px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(3) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(7) > label{width: auto; padding-left: 10px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(7) > .controls{float: left; margin-left: 5px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(3) > .controls > input {
+        width: 50px;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(8) > label{width: auto; padding-left: 10px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(8) > .controls{float: left; margin-left: 5px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(8) > .controls > input{width: 119px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(4) > label {
+        width: auto;
+        padding-left: 10px;
+    }
 
-    .order-capture .inodata-shipping-address > .control-group:nth-child(9) > label{width: auto; padding-left: 10px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(9) > .controls{float: left; margin-left: 5px;}
-    .order-capture .inodata-shipping-address > .control-group:nth-child(9) > .controls > input{width: 132px;}
+    .order-capture .inodata-shipping-address > .control-group:nth-child(4) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(4) > .controls > input {
+        width: 160px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(5) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(5) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(6) > .controls > input {
+        width: 155px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(7) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(7) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(8) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(8) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(8) > .controls > input {
+        width: 119px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(9) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(9) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .inodata-shipping-address > .control-group:nth-child(9) > .controls > input {
+        width: 132px;
+    }
 
     /* CSS PARA PAYMENT CONTACT FORM*/
     .order-capture .payment_contact_form > .control-group:nth-child(1),
     .order-capture .payment_contact_form > .control-group:nth-child(2),
     .order-capture .payment_contact_form > .control-group:nth-child(3),
     .order-capture .payment_contact_form > .control-group:nth-child(4),
-    .order-capture .payment_contact_form > .control-group:nth-child(5)
-    {
+    .order-capture .payment_contact_form > .control-group:nth-child(5) {
         float: left;
     }
 
-    .order-capture .payment_contact_form > .control-group:nth-child(3) > label{ width: auto; padding-left: 10px;}
-    .order-capture .payment_contact_form > .control-group:nth-child(3) > .controls{float: left; margin-left: 5px;}
-    .order-capture .payment_contact_form > .control-group:nth-child(3) > .controls > input{width: 65px;}
+    .order-capture .payment_contact_form > .control-group:nth-child(3) > label {
+        width: auto;
+        padding-left: 10px;
+    }
 
-    .order-capture .payment_contact_form > .control-group:nth-child(4) > label{ width: auto; padding-left: 10px;}
-    .order-capture .payment_contact_form > .control-group:nth-child(4) > .controls{float: left; margin-left: 5px;}
-    .order-capture .payment_contact_form > .control-group:nth-child(4) > .controls > input{width: 95px;}
+    .order-capture .payment_contact_form > .control-group:nth-child(3) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
 
-    .order-capture .payment_contact_form > .control-group:nth-child(5) > label{ width: auto; padding-left: 10px;}
-    .order-capture .payment_contact_form > .control-group:nth-child(5) > .controls{float: left; margin-left: 5px;}
-    .order-capture .payment_contact_form > .control-group:nth-child(5) > .controls > input{width: 50px;}
+    .order-capture .payment_contact_form > .control-group:nth-child(3) > .controls > input {
+        width: 65px;
+    }
 
-    .order-capture .payment_contact_form > .control-group:nth-child(6) > label{ width: auto; padding-left: 10px;}
-    .order-capture .payment_contact_form > .control-group:nth-child(6) > .controls{float: left; margin-left: 5px;}
-    .order-capture .payment_contact_form > .control-group:nth-child(6) > .controls > input{width: 175px;}
+    .order-capture .payment_contact_form > .control-group:nth-child(4) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .payment_contact_form > .control-group:nth-child(4) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .payment_contact_form > .control-group:nth-child(4) > .controls > input {
+        width: 95px;
+    }
+
+    .order-capture .payment_contact_form > .control-group:nth-child(5) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .payment_contact_form > .control-group:nth-child(5) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .payment_contact_form > .control-group:nth-child(5) > .controls > input {
+        width: 50px;
+    }
+
+    .order-capture .payment_contact_form > .control-group:nth-child(6) > label {
+        width: auto;
+        padding-left: 10px;
+    }
+
+    .order-capture .payment_contact_form > .control-group:nth-child(6) > .controls {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .payment_contact_form > .control-group:nth-child(6) > .controls > input {
+        width: 175px;
+    }
 
     /*MUEVE LISTA DE MENSAJES Y CKEDITOR*/
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10),
     .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(11),
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(13)
-    {
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(13) {
         float: left;
     }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10){ position: relative; width: 300px; height: 100px;}
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field{ float: left; margin-left: 5px; position: absolute; left: 155px; width: 956px; height: 60px;}
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field .cke_contents{ height: 100px; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field .cke_bottom{ display: none; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) > a{position: absolute; left: 975px; width: 110px;}
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(11) > label{ width: auto; padding-left: 10px; position: relative;}
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(11) > .sonata-ba-field{ float: left; margin-left: 5px; }
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) {
+        position: relative;
+        width: 300px;
+        height: 100px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(12) > label{ width: auto; padding-left: 10px; position: relative; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(12) > .sonata-ba-field{ float: left; margin-left: 5px; }
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+        position: absolute;
+        left: 155px;
+        width: 956px;
+        height: 60px;
+    }
 
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(14) > label{ width: auto; padding-left: 10px; position: relative; }
-    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(14) > .sonata-ba-field{ float: left; margin-left: 5px; }
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field .cke_contents {
+        height: 100px;
+    }
 
-    .order-capture div.tab-pane {position: relative; overflow: visible;}
-    .order-capture div.create-product-form {position: absolute; width: auto; top: 364px; left: 485px; }
-    .order-capture div.create-product-form .product-code input { width: 50px;}
-    .order-capture div.create-product-form .product-description input { width: 342px; }
-    .order-capture div.create-product-form .product-price input { width: 50px;}
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) > .sonata-ba-field .cke_bottom {
+        display: none;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(10) > a {
+        position: absolute;
+        left: 975px;
+        width: 110px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(11) > label {
+        width: auto;
+        padding-left: 10px;
+        position: relative;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(11) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(12) > label {
+        width: auto;
+        padding-left: 10px;
+        position: relative;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(12) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(14) > label {
+        width: auto;
+        padding-left: 10px;
+        position: relative;
+    }
+
+    .order-capture .sonata-ba-collapsed-fields > .control-group:nth-child(14) > .sonata-ba-field {
+        float: left;
+        margin-left: 5px;
+    }
+
+    .order-capture div.tab-pane {
+        position: relative;
+        overflow: visible;
+    }
+
+    .order-capture div.create-product-form {
+        position: absolute;
+        width: auto;
+        top: 364px;
+        left: 485px;
+    }
+
+    .order-capture div.create-product-form .product-code input {
+        width: 50px;
+    }
+
+    .order-capture div.create-product-form .product-description input {
+        width: 342px;
+    }
+
+    .order-capture div.create-product-form .product-price input {
+        width: 50px;
+    }
 
     /*ESTILOS PARA LOS FRAMES*/
-    .order-capture div.frame { position: absolute; border: solid 2px #0073ea; width: 97%; margin-left: 20px; z-index: -1; left: 10px;}
-    .order-capture div.frame span { position: relative; top: -10px; color: #003bb3; font-weight: bold; color: #000; background: #FFF; padding: 0 3px; margin: 10px; }
+    .order-capture div.frame {
+        position: absolute;
+        border: solid 2px #0073ea;
+        width: 97%;
+        margin-left: 20px;
+        z-index: -1;
+        left: 10px;
+    }
 
-    .order-capture div.frame.order-data{ top: 5px; height: 41px; }
-    .order-capture div.frame.delivery-address{ top: 57px; height: 77px; }
-    .order-capture div.customer-data{ top: 147px; height: 77px; }
-    .order-capture div.message-data{ top: 241px; height: 107px; }
-    .order-capture div.products_to_order{ top: 363px; height: 310px; margin-left: 0px; left: 0px; width: 99.7%}
+    .order-capture div.frame span {
+        position: relative;
+        top: -10px;
+        font-weight: bold;
+        color: #000;
+        background: #FFF;
+        padding: 0 3px;
+        margin: 10px;
+    }
 
-    .payment_note_2{display: none;}
+    .order-capture div.frame.order-data {
+        top: 5px;
+        height: 41px;
+    }
+
+    .order-capture div.frame.delivery-address {
+        top: 57px;
+        height: 77px;
+    }
+
+    .order-capture div.customer-data {
+        top: 147px;
+        height: 77px;
+    }
+
+    .order-capture div.message-data {
+        top: 241px;
+        height: 107px;
+    }
+
+    .order-capture div.products_to_order {
+        top: 363px;
+        height: 310px;
+        margin-left: 0;
+        left: 0;
+        width: 99.7%
+    }
+
+    .payment_note_2 {
+        display: none;
+    }
 
 }
 
 @media screen, print {
     /**Nota segundo template*/
-    .payment_note_2 { height: 12.6cm; width: 18.8cm; overflow: hidden; padding: 0 6px; font-size: 10px;}
-    .payment_note_2 .note-label{ font-size: 10px;}
-    .payment_note_2 h5{  margin: 0; line-height: 1;  }
-    .payment_note_2 .phone1{  text-align: right }
-    .payment_note_2 .phone2{  text-align: left }
-    .payment_note_2 .note-header{  text-align: center; }
-    .payment_note_2 .note-label{ font-weight: bold; color:#aa1267;   }
-    .payment_note_2 .no-tel{ padding-left: 100px;  }
-    .payment_note_2 .date{ text-align: right; font-weight: bold;  }
-    .payment_note_2 .second-label{ text-align: right !important;}
-    .payment_note_2 .row-data{ border: solid 1px #aa1267; border-radius: 10px; padding: 2px 5px;}
-    .payment_note_2 .row-data:first-child, .payment_note_2 .row:nth-child(2){ border: none; padding: 0;}
-    .payment_note_2 .data-1, .payment_note_2 .data-2{ margin-bottom: 10px; }
-    .payment_note_2 .data-2{ height: 140px; }
-    .payment_note_2 .data-2 th{padding: 2px 0; }
-    .payment_note_2 .data-2 .shipping-row{padding-top: 3px; }
-    .payment_note_2 .shipping{ text-align: right; }
-    .payment_note_2.note_3 .data-2 .import, .payment_note_2.note_3 .data-2 .price{ display: none}
+    .payment_note_2 {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        padding: 0 6px;
+        font-size: 10px;
+    }
+
+    .payment_note_2 .note-label {
+        font-size: 10px;
+    }
+
+    .payment_note_2 h5 {
+        margin: 0;
+        line-height: 1;
+    }
+
+    .payment_note_2 .phone1 {
+        text-align: right
+    }
+
+    .payment_note_2 .phone2 {
+        text-align: left
+    }
+
+    .payment_note_2 .note-header {
+        text-align: center;
+    }
+
+    .payment_note_2 .note-label {
+        font-weight: bold;
+        color: #aa1267;
+    }
+
+    .payment_note_2 .no-tel {
+        padding-left: 100px;
+    }
+
+    .payment_note_2 .date {
+        text-align: right;
+        font-weight: bold;
+    }
+
+    .payment_note_2 .second-label {
+        text-align: right !important;
+    }
+
+    .payment_note_2 .row-data {
+        border: solid 1px #aa1267;
+        border-radius: 10px;
+        padding: 2px 5px;
+    }
+
+    .payment_note_2 .row-data:first-child, .payment_note_2 .row:nth-child(2) {
+        border: none;
+        padding: 0;
+    }
+
+    .payment_note_2 .data-1, .payment_note_2 .data-2 {
+        margin-bottom: 10px;
+    }
+
+    .payment_note_2 .data-2 {
+        height: 140px;
+    }
+
+    .payment_note_2 .data-2 th {
+        padding: 2px 0;
+    }
+
+    .payment_note_2 .data-2 .shipping-row {
+        padding-top: 3px;
+    }
+
+    .payment_note_2 .shipping {
+        text-align: right;
+    }
+
+    .payment_note_2.note_3 .data-2 .import, .payment_note_2.note_3 .data-2 .price {
+        display: none
+    }
+
     .watermark {
         transform: rotate(-45deg);
         font-size: 100px;
@@ -193,7 +530,16 @@
 }
 
 @media print {
-    div.alert { display: none; }
-    .container-fluid > .row-fluid:nth-child(3) { display:none;}
-    .payment_note_2 { page-break-after  : always; page-break-inside : auto; }
+    div.alert {
+        display: none;
+    }
+
+    .container-fluid > .row-fluid:nth-child(3) {
+        display: none;
+    }
+
+    .payment_note_2 {
+        page-break-after: always;
+        page-break-inside: auto;
+    }
 }
