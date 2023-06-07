@@ -13,7 +13,8 @@ function definePaperSizes() {
     //note
     jsPrintSetup.definePaperSize(50, 50, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 8.5, 5.5, jsPrintSetup.kPaperSizeInches);
     //card
-    jsPrintSetup.definePaperSize(51, 51, 'na_letter', 'na_letter_8.5x11in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
+    jsPrintSetup.definePaperSize(51, 51, 'na_letter', 'na_letter_4.7x5.5in', 'US Letter', 3.75, 6.10, jsPrintSetup.kPaperSizeInches);
+    //jsPrintSetup.definePaperSize(51, 51, 'na_letter', 'na_letter_4.7x5.5in', 'US Letter', 4.7, 5.5, jsPrintSetup.kPaperSizeInches);
 }
 
 function setupGlobalOptions() {
